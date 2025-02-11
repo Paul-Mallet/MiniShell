@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 17:10:46 by abarahho          #+#    #+#             */
-/*   Updated: 2025/01/28 10:55:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:52:32 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,6 @@
 # include "get_next_line.h"
 # include "ft_printf.h"
 # include "../libft/ft_printf.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <string.h>
-# include <stdlib.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <errno.h>
-# include <pthread.h>
-# include <sys/time.h>
 
 int		ft_atoi(const char *nptr);
 long	ft_atol(const char *nptr);
