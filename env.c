@@ -6,13 +6,9 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:39:34 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/11 19:30:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:42:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 typedef struct s_env
 {
@@ -20,31 +16,6 @@ typedef struct s_env
 	char			*value;
 	struct s_env	*next;
 }	t_env;
-
-
-char	*ft_strndup(const char *s, size_t n)
-{
-	size_t	i;
-	size_t	len;
-	char	*dup;
-
-	if (!s)
-		return (NULL);
-	len = 0;
-	while (s[len] && len < n)
-		len++;
-	dup = malloc((len + 1) * sizeof(char));
-	if (!dup)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		dup[i] = s[i];
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
-}
 
 t_env	*create_env_node(char *entry)
 {
@@ -54,14 +25,14 @@ t_env	*create_env_node(char *entry)
 	new = malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	sep = strchr(entry, '=');
+	sep = ft_strchr(entry, '=');
 	if (!sep)
 	{
 		free(new);
 		return (NULL);
 	}
 	new->key = ft_strndup(entry, sep - entry);
-	new->value = strdup(sep + 1);
+	new->value = ft_strdup(sep + 1);
 	if (!new->key || !new->value)
 	{
 		free(new->key);
