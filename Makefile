@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-
+R_FLAG = -lreadline
 SRC_DIR = src/
 SRC_BUILTINS = builtins/
 
@@ -28,7 +28,7 @@ LIBFT = $(LIBFT_DIR)libft.a
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS) $(OBJS_BUILTINS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(OBJS_BUILTINS) $(LIBFT)
+	$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_BUILTINS) $(LIBFT)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
