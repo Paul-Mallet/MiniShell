@@ -6,8 +6,9 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 11:44:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:56:30 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+#include "../../includes/builtins.h"
