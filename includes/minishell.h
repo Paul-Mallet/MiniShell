@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   mini_shell.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/12 10:48:36 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:45:37 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_SHELL_H
-# define MINI_SHELL_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include "../libft/libft.h"
 # include "../libft/ft_printf.h"
