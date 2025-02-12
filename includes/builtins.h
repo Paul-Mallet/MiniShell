@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 11:41:57 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 14:03:48 by pamallet         ###   ########.fr       */
+/*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
+/*   Updated: 2025/02/12 14:00:01 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
+#ifndef BUILTINS_H
+# define BUILTINS_H
+# include "./minishell.h"
 
-void unset_env(t_env **env, char *key)
-{
-	t_env   *tmp = *env;
-	t_env   *prev = NULL;
+/*
+	env
+*/
+t_env   *new_env_node(char *entry);
+t_env   *import_env(char **env);
+void    print_env(t_env *env);
+void    free_env(t_env *env);
 
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->key, key) == 0)
-		{
-			if (prev)
-				prev->next = tmp->next;
-			else
-				*env = tmp->next;
-			free(tmp->key);
-			free(tmp->value);
-			free(tmp);
-			return;
-		}
-		prev = tmp;
-		tmp = tmp->next;
-	}
-}
+/*
+	unset
+*/
+void unset_env(t_env **env, char *key);
+
+#endif

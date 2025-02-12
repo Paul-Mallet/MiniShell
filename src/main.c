@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 11:41:57 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 14:03:48 by pamallet         ###   ########.fr       */
+/*   Created: 2025/02/12 12:55:18 by pamallet          #+#    #+#             */
+/*   Updated: 2025/02/12 14:01:19 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
+#include "../includes/minishell.h"
+#include "../includes/builtins.h"
 
-void unset_env(t_env **env, char *key)
+int main(int ac, char **av, char **envp)
 {
-	t_env   *tmp = *env;
-	t_env   *prev = NULL;
+	t_env   *our_env;
 
-	while (tmp)
-	{
-		if (ft_strcmp(tmp->key, key) == 0)
-		{
-			if (prev)
-				prev->next = tmp->next;
-			else
-				*env = tmp->next;
-			free(tmp->key);
-			free(tmp->value);
-			free(tmp);
-			return;
-		}
-		prev = tmp;
-		tmp = tmp->next;
-	}
+	(void)ac;
+	(void)av;
+	our_env = import_env(envp);
+	print_env(our_env);
+	unset_env(&our_env, "COLORTERM");
+	print_env(our_env);
+	free_env(our_env);
+	return (0);
 }
