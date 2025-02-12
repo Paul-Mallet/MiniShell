@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:49 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 15:14:06 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:42:15 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void ft_env(t_env *env)
 {
 	while (env)
 	{
-		printf("%s=%s\n", env->key, env->value);
+		ft_printf("%s=%s\n", env->key, env->value);
 		env = env->next;
 	}
 }

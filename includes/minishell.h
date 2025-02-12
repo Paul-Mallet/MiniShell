@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/12 13:51:12 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/12 16:27:38 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
+	
 typedef enum    e_token_first
 {
 	WORD,

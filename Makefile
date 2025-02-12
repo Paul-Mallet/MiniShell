@@ -11,6 +11,7 @@ OBJ_DIR = obj/
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c)
 SRCS_BUILTINS = $(addprefix $(SRC_DIR)$(SRC_BUILTINS), \
+	builtins.c \
 	cd.c \
 	echo.c \
 	env.c \

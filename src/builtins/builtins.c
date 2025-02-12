@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 12:55:18 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/12 17:42:52 by pamallet         ###   ########.fr       */
+/*   Created: 2025/02/12 15:46:29 by pamallet          #+#    #+#             */
+/*   Updated: 2025/02/12 16:31:17 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/builtins.h"
+#include "../../includes/minishell.h"
+#include "../../includes/builtins.h"
 
-int main(int ac, char **av, char **envp)
+void	builtins(char *input, t_env *env)
 {
-	char *input;
-	t_env   *env;
-
-	(void)ac;
-	(void)av;
-	env = import_env(envp);
-	while ((input = readline("MiniShell$>")))
-	{
-		if (input) add_history(input);
-			ft_printf("Vous avez tapé: %s\n", input);
-		ft_builtins(input, env);
-		free(input);
-	}
-	return (0);
+	if (!ft_strcmp(input, "pwd"))
+		ft_pwd();
+	if (!ft_strcmp(input, "exit"))
+		ft_exit(env);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/12 16:43:35 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:40:25 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,19 @@
 # include "./minishell.h"
 
 /*
-	env
+	builtins handler
 */
-t_env   *new_env_node(char *entry);
-t_env   *import_env(char **env);
-void    ft_env(t_env *env);
-void    free_env(t_env *env);
+void	ft_builtins(char *input, t_env *env);
+
+/*
+	pwd
+*/
+void	ft_pwd(void);
 
 /*
 	unset
 */
-void ft_unset(t_env **env, char *key);
+void 	ft_unset(t_env **env, char *key);
 
 /*
 	exit
