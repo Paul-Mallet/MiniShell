@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 11:41:57 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 15:13:46 by abarahho         ###   ########.fr       */
+/*   Created: 2025/02/12 11:39:46 by abarahho          #+#    #+#             */
+/*   Updated: 2025/02/12 15:52:54 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-void ft_unset(t_env **env, char *key)
+void	ft_pwd(void)
 {
-	t_env   *tmp = *env;
-	t_env   *prev = NULL;
+	char	path[BUFFER_SIZE];
 
-	while (tmp)
+	if (!getcwd(path, BUFFER_SIZE))
 	{
-		if (ft_strcmp(tmp->key, key) == 0)
-		{
-			if (prev)
-				prev->next = tmp->next;
-			else
-				*env = tmp->next;
-			free(tmp->key);
-			free(tmp->value);
-			free(tmp);
-			return;
-		}
-		prev = tmp;
-		tmp = tmp->next;
+		perror("pwd");
+		exit(1);
 	}
+	ft_printf("%s\n", path);
 }
