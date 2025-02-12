@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 18:39:34 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 10:30:35 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:44:14 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "libft/libft.h"
-
-typedef struct s_env
-{
-	char            *key;
-	char            *value;
-	struct s_env    *next;
-}   t_env;
+#include "../includes/mini_shell.h"
 
 t_env   *create_env_node(char *entry)
 {

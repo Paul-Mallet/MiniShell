@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/11 18:38:27 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:48:36 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,26 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <sys/time.h>
+# include <limits.h>
 # include <stdbool.h>
-# include <signal.h>
-# include <sys/types.h>
+# include <sys/time.h>
 # include <sys/wait.h>
-# include <fcntl.h>
+# include <sys/types.h>
 # include <sys/errno.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include <limits.h>
-# include <sys/stat.h>
-
-//FILE, <, >, <<, >>, PIPE ematon
 
 /*
     Struct de tokens
 */
 typedef enum    e_token_first
 {
-    WORD
-    SEPARATOR
-    PIPE
+    WORD,
+    SEPARATOR,
+    PIPE,
     REDIR
 }       t_token_first;
 
@@ -48,12 +46,12 @@ typedef enum    e_token_first
 */
 typedef enum    e_token_scnd
 {
-    CMD
-    ARG
-    DELIM
-    HEREDOC
-    APPEND
-    REDIR_INPUT
+    CMD,
+    ARG,
+    DELIM,
+    HEREDOC,
+    APPEND,
+    REDIR_INPUT,
     REDIR_OUTPUT
 }       t_token_scnd;
 
