@@ -6,14 +6,14 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:57 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 14:28:00 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/12 15:13:46 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-void unset_env(t_env **env, char *key)
+void ft_unset(t_env **env, char *key)
 {
 	t_env   *tmp = *env;
 	t_env   *prev = NULL;

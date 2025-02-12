@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:55:18 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/12 16:30:52 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:42:52 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int ac, char **av, char **envp)
 	{
 		if (input) add_history(input);
 			ft_printf("Vous avez tapé: %s\n", input);
-		builtins(input, env);	
+		ft_builtins(input, env);
 		free(input);
 	}
 	return (0);
