@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/12 18:00:08 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:25:29 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 /*
 	builtins handler
 */
-void	ft_builtins(char *input, t_env *env);
+void	ft_builtins(char *input, t_env *env, t_alias *alias);
 
 /*
 	echo
 */
-// void 	ft_echo(void);
+void	print_alias_value(t_alias *alias_lst, char *name);
+char	*get_alias_name(char *str, int *i);
+void	ft_echo(char *str, t_alias *alias, bool option_n);
 
 /*
 	cd
@@ -54,9 +56,17 @@ t_env	*new_env_node(char *entry);
 t_env	*import_env(char **env);
 void 	ft_env(t_env *env);
 void 	free_env(t_env *env);
+
 /*
 	exit
 */
-void	ft_exit(t_env *env);
+void	ft_exit(t_env *env, t_alias *alias);
+
+/*
+	alias
+*/
+void	free_alias(t_alias *alias);
+void	add_alias(t_alias **list, t_alias *new);
+t_alias	*create_alias(char *name, char *value);
 
 #endif

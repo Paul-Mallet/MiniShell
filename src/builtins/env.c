@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:49 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 17:42:15 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 14:02:53 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
+# include "../../includes/builtins.h"
 
 t_env   *new_env_node(char *entry)
 {
@@ -78,6 +78,7 @@ void ft_env(t_env *env)
 void free_env(t_env *env)
 {
 	t_env *tmp;
+
 	while (env)
 	{
 		tmp = env;

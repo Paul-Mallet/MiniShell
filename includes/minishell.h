@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/12 16:27:38 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:47:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,13 @@ typedef struct	s_env
 	struct s_env	*next;
 }		t_env;
 
+typedef	struct	s_alias
+{
+	char			*name;
+	char			*value;
+	struct s_alias	*next;
+}		t_alias;
+
 typedef struct s_cmd
 {
 	struct s_cmd	*prev;
@@ -78,5 +85,7 @@ typedef struct	s_redir
 	t_token_scnd	type;
 	char			*file;
 }		t_redir;
+
+
 
 #endif
