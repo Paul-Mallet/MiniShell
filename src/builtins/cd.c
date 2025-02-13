@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:36 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/13 14:39:28 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:06:04 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 */
 void	ft_cd(char *path)
 {
-	char	s[BUFFER_SIZE];
-
 	if (chdir(path) == -1)
 		perror("cd"); //bash: cd: error_msg
 }
