@@ -5,6 +5,7 @@ CFLAGS = -Wall -Wextra -Werror
 R_FLAG = -lreadline
 SRC_DIR = src/
 SRC_BUILTINS = builtins/
+SRC_ENV = env/
 
 OBJ_DIR = obj/
 
@@ -19,17 +20,20 @@ SRCS_BUILTINS = $(addprefix $(SRC_DIR)$(SRC_BUILTINS), \
 	export.c \
 	pwd.c \
 	unset.c)
+SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \
+	get_env.c)
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 OBJS_BUILTINS = $(SRCS_BUILTINS:%.c=$(OBJ_DIR)%.o)
+OBJS_ENV = $(SRCS_ENV:%.c=$(OBJ_DIR)%.o)
 
 LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS) $(OBJS_BUILTINS)
-	$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_BUILTINS) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV)
+	$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(LIBFT)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)

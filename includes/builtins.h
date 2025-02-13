@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/12 18:00:08 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:18:55 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_builtins(char *input, t_env *env);
 /*
 	cd
 */
-// void 	ft_cd(void);
+void 	ft_cd(char *path);
 
 /*
 	pwd
@@ -53,7 +53,7 @@ void 	ft_unset(t_env **env, char *key);
 t_env	*new_env_node(char *entry);
 t_env	*import_env(char **env);
 void 	ft_env(t_env *env);
-void 	free_env(t_env *env);
+void 	free_env(t_env **env);
 /*
 	exit
 */

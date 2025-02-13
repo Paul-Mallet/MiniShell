@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 10:54:51 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:38:00 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_env   *new_env_node(char *entry)
 	new->next = NULL;
 	if (!new->key || !new->value)
 	{
-		free_env(&env);
+		//free_env(&env);
 		return (NULL);
 	}
 	return (new);
@@ -46,7 +46,7 @@ t_env   *import_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		new = new_env_node(env[i], env);
+		new = new_env_node(env[i]); //free?
 		if (new)
 		{
 			if (!head)
@@ -66,8 +66,8 @@ t_env   *import_env(char **env)
 
 void free_env(t_env **env)
 {
-	t_list	*tmp;
-	t_list	*next;
+	t_env	*tmp;
+	t_env	*next;
 
 	if (env == NULL)
 		return ;
