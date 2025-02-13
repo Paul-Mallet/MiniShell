@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:57 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 15:13:46 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:09:20 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 void ft_unset(t_env **env, char *key)
 {
-	t_env   *tmp = *env;
-	t_env   *prev = NULL;
+	t_env   *tmp;
+	t_env   *prev;
 
+	tmp = *env;
+	prev = NULL;
 	while (tmp)
 	{
 		if (ft_strcmp(tmp->key, key) == 0)

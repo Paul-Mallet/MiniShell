@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 13:18:09 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:48:25 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct	s_env
 	char			*key;
 	char			*value;
 	struct s_env	*next;
+	bool			is_env;
 }		t_env;
 
 typedef struct s_cmd
