@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 13:47:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:38:11 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,8 @@ typedef struct	s_env
 	char			*key;
 	char			*value;
 	struct s_env	*next;
+	bool			is_env;
 }		t_env;
-
-typedef	struct	s_alias
-{
-	char			*name;
-	char			*value;
-	struct s_alias	*next;
-}		t_alias;
 
 typedef struct s_cmd
 {

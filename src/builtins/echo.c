@@ -6,21 +6,21 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/13 15:22:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:41:06 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-void	print_alias_value(t_alias *alias_lst, char *name)
+void	print_alias_value(t_env *env, char *name)
 {
-	t_alias	*tmp;
+	t_env	*tmp;
 
-	tmp = alias_lst;
+	tmp = env;
 	while (tmp)
 	{
-		if (ft_strcmp(tmp->name, name) == 0)
+		if (ft_strcmp(tmp->key, name) == 0)
 		{
 			if (tmp->value)
 				write(1, tmp->value, ft_strlen(tmp->value));
@@ -46,7 +46,7 @@ char	*get_alias_name(char *str, int *i)
 	return (alias_name);
 }
 
-void	ft_echo(char *str, t_alias *alias, bool option_n)
+void	ft_echo(char *str, t_env env, bool option_n)
 {
 	int		i;
 	char	*alias_name;
@@ -59,7 +59,7 @@ void	ft_echo(char *str, t_alias *alias, bool option_n)
 			alias_name = get_alias_name(str, &i);
 			if (alias_name)
 			{
-				print_alias_value(alias, alias_name);
+				print_alias_value(&env, alias_name);
 				free(alias_name);
 			}
 		}
