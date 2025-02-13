@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 15:38:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/13 15:48:25 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-	
+
 typedef enum    e_token_first
 {
 	WORD,
@@ -42,6 +42,7 @@ typedef enum	e_token_scnd
 {
 	CMD,
 	ARG,
+	FILES,
 	DELIM,
 	HEREDOC,
 	APPEND,
@@ -66,7 +67,7 @@ typedef struct s_cmd
 	int				fd_output;
 	char			*cmd;
 	char			*arg;
-	bool			is_hd;
+	bool			is_hdoc;
 }		t_cmd;
 
 /*
@@ -79,7 +80,5 @@ typedef struct	s_redir
 	t_token_scnd	type;
 	char			*file;
 }		t_redir;
-
-
 
 #endif
