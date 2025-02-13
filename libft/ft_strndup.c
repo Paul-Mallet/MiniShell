@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:41:01 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/11 19:41:18 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:50:30 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strndup(const char *s, size_t n)
 	size_t	len;
 	char	*dup;
 
-	if (!s)
+	if (!s || !n)
 		return (NULL);
 	len = 0;
 	while (s[len] && len < n)

@@ -1,11 +1,11 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 12:55:18 by pamallet          #+#    #+#             */
+/*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
 /*   Updated: 2025/02/13 17:03:30 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -13,13 +13,29 @@
 #include "../includes/minishell.h"
 #include "../includes/builtins.h"
 
-int main(int ac, char **av, char **envp)
+static char	*get_prompt()
 {
-	t_env   *env;
+	char	*prompt;
+	char	name[BUFFER_SIZE];
 
-	(void)ac;
-	(void)av;
-	env = import_env(envp);
-	init_mini_shell(env);
-	return (0);
+	getcwd(name, BUFFER_SIZE); //errors
+	prompt = ft_strjoin(name, "$ "); //errors
+	return (prompt);
+}
+
+void	init_mini_shell(t_env *env)
+{
+	char 	*input;
+	char	*prompt;
+
+	prompt = get_prompt();
+	while ((input = readline(prompt)))
+	{
+		if (input) add_history(input);
+		// 	ft_printf("Vous avez tapé: %s\n", input);
+		//parsing functions
+		ft_builtins(input, env);
+		prompt = get_prompt();
+		free(input);
+	}
 }

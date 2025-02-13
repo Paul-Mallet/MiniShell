@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 15:48:25 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:19:31 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct	s_env
 {
 	char			*key;
 	char			*value;
-	struct s_env	*next;
 	bool			is_env;
+	struct s_env	*next;
 }		t_env;
 
 typedef struct s_cmd
@@ -80,5 +80,7 @@ typedef struct	s_redir
 	t_token_scnd	type;
 	char			*file;
 }		t_redir;
+
+void	init_mini_shell(t_env *env);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 15:47:45 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:18:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	ft_builtins(char *input, t_env *env);
 /*
 	echo
 */
-void	print_alias_value(t_env *env, char *name);
-char	*get_alias_name(char *str, int *i);
 void	ft_echo(char *str, t_env env, bool option_n);
 
 /*
@@ -55,7 +53,7 @@ void 	ft_unset(t_env **env, char *key);
 t_env	*new_env_node(char *entry);
 t_env	*import_env(char **env);
 void 	ft_env(t_env *env);
-void 	free_env(t_env *env);
+void	free_env(t_env **env);
 
 /*
 	exit

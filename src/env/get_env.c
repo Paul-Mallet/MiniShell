@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 15:17:59 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 19:18:33 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_env   *new_env_node(char *entry)
 	t_env   *new;
 	char    *sep;
 
+	if (!entry)
+		return (NULL);
 	sep = ft_strchr(entry, '=');
 	if (!sep)
 		return (NULL);
@@ -26,39 +28,69 @@ t_env   *new_env_node(char *entry)
 		return (NULL);
 	new->key = ft_strndup(entry, sep - entry);
 	new->value = ft_strdup(sep + 1);
+	new->is_env = 1;
 	new->next = NULL;
 	if (!new->key || !new->value)
 	{
-		//free_env(&env);
+		free(new->key);
+		free(new->value);
+		free(new);
 		return (NULL);
 	}
 	return (new);
+}
+
+t_env	*ft_envlast(t_env *env)
+{
+	t_env	*curr;
+
+	curr = env;
+	if (curr != NULL)
+	{
+		while (curr->next != NULL)
+			curr = curr->next;
+	}
+	return (curr);
+}
+
+void	ft_envadd_back(t_env **env, t_env *new)
+{
+	t_env	*last;
+
+	if (env == NULL || new == NULL)
+		return ;
+	if (*env == NULL)
+		*env = new;
+	else
+	{
+		last = ft_envlast(*env);
+		last->next = new;
+	}
 }
 
 t_env   *import_env(char **env)
 {
 	t_env   *head;
 	t_env   *new;
-	t_env   *tmp;
 	int     i; 
 	
-	head = NULL;
-	i = 0;
+	if (!env)
+		return (NULL);
+	head = new_env_node(env[0]);
+	if (!head)
+		return (NULL);
+	i = 1;
 	while (env[i])
 	{
-		new = new_env_node(env[i]); //free?
-		if (new)
+		new = new_env_node(env[i]);
+		if (!new)
 		{
-			if (!head)
-				head = new;
-			else
-			{
-				tmp = head;
-				while (tmp->next)
-					tmp = tmp->next;
-				tmp->next = new;
-			}
+			free(new->key);
+			free(new->value);
+			//ft_lstclear(&head, del_node); //TODO
+			break ;
 		}
+		ft_envadd_back(&head, new);
 		i++;
 	}
 	return (head);
