@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:55:18 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/12 17:42:52 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 10:55:25 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,3 @@ int main(int ac, char **av, char **envp)
 		free(input);
 	}
 	return (0);
-}
