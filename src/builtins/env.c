@@ -6,11 +6,12 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:49 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/13 10:44:04 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:19:29 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../"
+#include "../../includes/minishell.h"
+#include "../../includes/builtins.h"
 
 void ft_env(t_env *env)
 {
