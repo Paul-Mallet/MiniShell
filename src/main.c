@@ -6,12 +6,13 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:55:18 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 17:03:30 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:35:35 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/builtins.h"
+#include "../includes/parsing.h"
 
 int main(int ac, char **av, char **envp)
 {

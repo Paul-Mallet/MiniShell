@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/14 10:42:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:33:09 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include "./minishell.h"
 
 /*
-	builtins handler
+	builtins conditions
 */
 void	ft_builtins(char *input, t_env *env);
 
@@ -27,7 +27,7 @@ void	ft_echo(char *str, t_env env, bool option_n);
 /*
 	cd
 */
-void		ft_cd(char *path);
+void	ft_cd(char *path);
 
 /*
 	pwd
