@@ -18,6 +18,7 @@ SRCS = ft_printf.c \
        print_xlow.c \
        print_xup.c \
        print_u.c \
+       ft_isspace.c \
        ft_isdigit.c \
        ft_memset.c \
        ft_strjoin.c \
