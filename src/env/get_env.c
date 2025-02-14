@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 19:18:33 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:47:21 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,6 @@ t_env   *new_env_node(char *entry)
 	return (new);
 }
 
-t_env	*ft_envlast(t_env *env)
-{
-	t_env	*curr;
-
-	curr = env;
-	if (curr != NULL)
-	{
-		while (curr->next != NULL)
-			curr = curr->next;
-	}
-	return (curr);
-}
-
 void	ft_envadd_back(t_env **env, t_env *new)
 {
 	t_env	*last;
@@ -63,7 +50,12 @@ void	ft_envadd_back(t_env **env, t_env *new)
 		*env = new;
 	else
 	{
-		last = ft_envlast(*env);
+		last = *env;
+		if (last)
+		{
+			while (last->next)
+				last = last->next;
+		}
 		last->next = new;
 	}
 }
@@ -87,7 +79,7 @@ t_env   *import_env(char **env)
 		{
 			free(new->key);
 			free(new->value);
-			//ft_lstclear(&head, del_node); //TODO
+			free_env(&head); //TODO
 			break ;
 		}
 		ft_envadd_back(&head, new);
