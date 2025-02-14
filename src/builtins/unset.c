@@ -6,17 +6,17 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:57 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 17:09:20 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:47:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-void ft_unset(t_env **env, char *key)
+void	ft_unset(t_env **env, char *key)
 {
-	t_env   *tmp;
-	t_env   *prev;
+	t_env	*tmp;
+	t_env	*prev;
 
 	tmp = *env;
 	prev = NULL;
@@ -31,7 +31,7 @@ void ft_unset(t_env **env, char *key)
 			free(tmp->key);
 			free(tmp->value);
 			free(tmp);
-			return;
+			return ;
 		}
 		prev = tmp;
 		tmp = tmp->next;

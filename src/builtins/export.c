@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/12 17:14:32 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:46:29 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	add_env(char *import, t_env **env)
 
 	new_vrb = new_env_node(import);
 	if (!new_vrb)
-		return;
+		return ;
 	tmp = *env;
 	while (tmp->next)
 		tmp = tmp->next;
@@ -35,14 +35,14 @@ void	add_env(char *import, t_env **env)
 
 void	ft_export(char *import, t_env **env)
 {
-	char    *sep;
+	char	*sep;
 	char	*key;
 	char	*value;
 	t_env	*tmp;
 
 	sep = ft_strchr(import, '=');
 	if (!sep)
-		return;
+		return ;
 	key = ft_strndup(import, sep - import);
 	value = ft_strdup(sep + 1);
 	if (!key || !value)

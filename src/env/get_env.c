@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 19:18:33 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:35:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,21 @@ t_env   *new_env_node(char *entry)
 	return (new);
 }
 
-t_env	*ft_envlast(t_env *env)
+void	ft_envadd_back(t_env **env, t_env *new)
 {
 	t_env	*curr;
 
-	curr = env;
-	if (curr != NULL)
-	{
-		while (curr->next != NULL)
-			curr = curr->next;
-	}
-	return (curr);
-}
-
-void	ft_envadd_back(t_env **env, t_env *new)
-{
-	t_env	*last;
-
-	if (env == NULL || new == NULL)
+	if (!env || !new)
 		return ;
-	if (*env == NULL)
-		*env = new;
-	else
+	if (!*env)
 	{
-		last = ft_envlast(*env);
-		last->next = new;
+		*env = new;
+		return ;
 	}
+	curr = *env;
+	while (curr->next != NULL)
+		curr = curr->next;
+	curr->next = new;
 }
 
 t_env   *import_env(char **env)
@@ -78,7 +67,7 @@ t_env   *import_env(char **env)
 		return (NULL);
 	head = new_env_node(env[0]);
 	if (!head)
-		return (NULL);
+		return (NULL) ;
 	i = 1;
 	while (env[i])
 	{
@@ -87,7 +76,7 @@ t_env   *import_env(char **env)
 		{
 			free(new->key);
 			free(new->value);
-			//ft_lstclear(&head, del_node); //TODO
+			free_env(env);
 			break ;
 		}
 		ft_envadd_back(&head, new);
@@ -112,5 +101,5 @@ void free_env(t_env **env)
 		free(tmp);
 		tmp = next;
 	}
-	*env = NULL;
+	*env = (NULL);
 }

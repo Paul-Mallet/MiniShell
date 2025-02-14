@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 19:19:31 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:18:54 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-typedef enum    e_token_first
+typedef enum	e_token_first
 {
 	WORD,
 	SEPARATOR,
 	PIPE,
 	REDIR
-}       t_token_first;
+}		t_token_first;
 
 typedef enum	e_token_scnd
 {
@@ -49,6 +49,14 @@ typedef enum	e_token_scnd
 	REDIR_INPUT,
 	REDIR_OUTPUT
 }		t_token_scnd;
+
+typedef struct	s_token
+{
+	t_token_first	type;
+	t_token_scnd	subtype;
+	char			*value;
+	struct s_token	*next;
+}		t_token;
 
 typedef struct	s_env
 {
@@ -79,8 +87,16 @@ typedef struct	s_redir
 {
 	t_token_scnd	type;
 	char			*file;
+	int				id;
 }		t_redir;
 
-void	init_mini_shell(t_env *env);
+typedef struct	s_data
+{
+	struct t_cmd	*cmds;
+	struct t_env	*env;
+	struct t_redir	*redir;
+	struct t_token	*tokens;
+	int				exit_code;
+}		t_data;
 
 #endif

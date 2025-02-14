@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/13 17:03:30 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:45:21 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*get_prompt()
 	char	*prompt;
 	char	name[BUFFER_SIZE];
 
-	getcwd(name, BUFFER_SIZE); //errors
+	getcwd (name, BUFFER_SIZE); //errors
 	prompt = ft_strjoin(name, "$ "); //errors
 	return (prompt);
 }
