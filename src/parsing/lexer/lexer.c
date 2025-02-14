@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/14 10:38:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/14 11:35:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_token_add_back(t_token **lst, t_token *new)
 		return ;
 	}
 	current = *lst;
-	while (current->next)
+	while (current->next != NULL)
 		current = current->next;
 	current->next = new;
 }
@@ -69,4 +69,21 @@ void	ft_free_token(t_token *token)
 	if (token->value)
 		free(token->value);
 	free(token);
+}
+void free_token(t_token **token)
+{
+	t_env	*tmp;
+	t_env	*next;
+
+	if (token == NULL)
+		return ;
+	tmp = *token;
+	while (tmp != NULL)
+	{
+		next = tmp->next;
+		free(tmp->value);
+		free(tmp);
+		tmp = next;
+	}
+	*token = (NULL);
 }
