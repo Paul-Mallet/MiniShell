@@ -3,16 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/14 15:57:39 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/15 12:07:48 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-//#include "../../includes/parsing.h"
+#include "../../includes/parsing.h"
 
+/*
+	reduce_spaces between words
+*/
 static char	*ft_reduce_spaces(char *input)
 {
 	char	*str;
@@ -38,8 +41,9 @@ static char	*ft_reduce_spaces(char *input)
 }
 
 /*
-	strtrim + reduce_spaces
-	* 2 free();
+	parse input to be formatted with tokenizer
+	* trim 1rst & last spaces
+	* reduce to 1 between words
 */
 char	*ft_parsing(char *input)
 {
