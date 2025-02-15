@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/14 11:35:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:55:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_env   *import_env(char **env)
 		{
 			free(new->key);
 			free(new->value);
-			free_env(env);
+			free_env(&head);
 			break ;
 		}
 		ft_envadd_back(&head, new);

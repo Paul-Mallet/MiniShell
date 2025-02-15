@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   lst_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/14 11:39:15 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:57:08 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/parsing.h"
+#include "../../../includes/minishell.h"
+#include "../../../includes/parsing.h"
 
 t_token	*new_token(t_token_first type, char *value)
 {
@@ -20,13 +20,17 @@ t_token	*new_token(t_token_first type, char *value)
 	new = (t_token *)malloc(sizeof(t_token));
 	if (!new)
 		return (NULL);
-	new->type = type;
 	new->value = ft_strdup(value);
 	if (!new->value)
-		return (free(new), NULL);
+	{
+		free(new);
+		return (NULL);
+	}
+	new->type = type;
 	new->next = NULL;
 	return (new);
 }
+
 
 void	token_add_back(t_token **lst, t_token *new)
 {
@@ -45,20 +49,23 @@ void	token_add_back(t_token **lst, t_token *new)
 	current->next = new;
 }
 
-void free_token(t_token **token)
-{
-	t_env	*tmp;
-	t_env	*next;
 
-	if (token == NULL)
-		return ;
-	tmp = *token;
-	while (tmp != NULL)
-	{
-		next = tmp->next;
-		free(tmp->value);
-		free(tmp);
-		tmp = next;
-	}
-	*token = (NULL);
+void free_token(t_token **tokens)
+{
+    t_token *current;
+    t_token *next;
+
+    if (!tokens || !*tokens)
+        return;
+
+    current = *tokens;
+    while (current)
+    {
+        next = current->next;
+        free(current->value);
+        free(current);
+        current = next;
+    }
+    *tokens = NULL;
 }
+
