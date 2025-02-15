@@ -7,6 +7,7 @@ SRC_DIR = src/
 SRC_BUILTINS = builtins/
 SRC_ENV = env/
 SRC_PARSING = parsing/
+SRC_LEXING = parsing/lexer/
 
 OBJ_DIR = obj/
 
@@ -22,6 +23,8 @@ SRCS_BUILTINS = $(addprefix $(SRC_DIR)$(SRC_BUILTINS), \
 	export.c \
 	pwd.c \
 	unset.c)
+SRCS_LEXING = $(addprefix $(SRC_DIR)$(SRC_LEXING), \
+	lexer.c)
 SRCS_PARSING = $(addprefix $(SRC_DIR)$(SRC_PARSING), \
 	parsing.c)
 SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \
@@ -29,6 +32,7 @@ SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 OBJS_BUILTINS = $(SRCS_BUILTINS:%.c=$(OBJ_DIR)%.o)
+OBJS_LEXING = $(SRCS_LEXING:%.c=$(OBJ_DIR)%.o)
 OBJS_PARSING = $(SRCS_PARSING:%.c=$(OBJ_DIR)%.o)
 OBJS_ENV = $(SRCS_ENV:%.c=$(OBJ_DIR)%.o)
 
@@ -37,8 +41,8 @@ LIBFT = $(LIBFT_DIR)libft.a
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING)
-	$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_LEXING)
+	$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_LEXING) $(LIBFT)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
