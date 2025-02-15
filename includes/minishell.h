@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/14 11:18:54 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:26:32 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef enum	e_token_scnd
 	ARG,
 	FILES,
 	DELIM,
-	HEREDOC,
 	APPEND,
+	HEREDOC,
 	REDIR_INPUT,
 	REDIR_OUTPUT
 }		t_token_scnd;
@@ -98,5 +98,7 @@ typedef struct	s_data
 	struct t_token	*tokens;
 	int				exit_code;
 }		t_data;
+
+void	init_mini_shell(t_env *env);
 
 #endif

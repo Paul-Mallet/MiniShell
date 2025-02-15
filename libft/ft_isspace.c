@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 13:38:47 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/15 11:43:34 by paul_mallet      ###   ########.fr       */
+/*   Created: 2025/02/10 18:14:51 by pamallet          #+#    #+#             */
+/*   Updated: 2025/02/10 18:19:51 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
-#include "../../../includes/parsing.h"
+#include "libft.h"
 
-void	print_token(t_token *token)
+int	ft_isspace(const char c)
 {
-	while (token)
-	{
-		printf("Type: %d\n", token->type);
-		printf("Value: %s\n", token->value);
-		token = token->next;
-	}
+	return (c == ' ' || (c >= 9 && c <= 13));
 }
