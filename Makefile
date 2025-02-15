@@ -1,16 +1,17 @@
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 R_FLAG = -lreadline
+
 SRC_DIR = src/
 SRC_BUILTINS = builtins/
 SRC_ENV = env/
 SRC_PARSING = parsing/
 SRC_LEXING = parsing/lexer/
+SRC_PARSER = parsing/parser/
 
 OBJ_DIR = obj/
-
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \
 	init.c)
@@ -25,6 +26,10 @@ SRCS_BUILTINS = $(addprefix $(SRC_DIR)$(SRC_BUILTINS), \
 	unset.c)
 SRCS_LEXING = $(addprefix $(SRC_DIR)$(SRC_LEXING), \
 	lexer.c)
+SRCS_PARSER = $(addprefix $(SRC_DIR)$(SRC_PARSER), \
+	parser_utils.c \
+	parser.c \
+	lst_token.c)
 SRCS_PARSING = $(addprefix $(SRC_DIR)$(SRC_PARSING), \
 	parsing.c)
 SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \
@@ -33,6 +38,7 @@ SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 OBJS_BUILTINS = $(SRCS_BUILTINS:%.c=$(OBJ_DIR)%.o)
 OBJS_LEXING = $(SRCS_LEXING:%.c=$(OBJ_DIR)%.o)
+OBJS_PARSER = $(SRCS_PARSER:%.c=$(OBJ_DIR)%.o)
 OBJS_PARSING = $(SRCS_PARSING:%.c=$(OBJ_DIR)%.o)
 OBJS_ENV = $(SRCS_ENV:%.c=$(OBJ_DIR)%.o)
 
@@ -41,8 +47,8 @@ LIBFT = $(LIBFT_DIR)libft.a
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_LEXING)
-	$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_LEXING) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_PARSER) $(OBJS_LEXING)
+	$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_PARSER) $(OBJS_LEXING) $(LIBFT)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
