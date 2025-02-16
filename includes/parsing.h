@@ -6,7 +6,7 @@
 /*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/16 11:47:29 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/16 12:45:38 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_parsing(char *input);
 	1rst tokenizer separates words of input by types
 */
 t_token	*new_token(t_token_first type, char *value);
-t_token	*init_tokens(char *input);
+t_token	*first_tokenization(char *input);
 t_token	*handle_word(char **input);
 t_token	*handle_pipe(char **input);
 t_token	*handle_redirection(char **input);

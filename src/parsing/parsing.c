@@ -6,7 +6,7 @@
 /*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/15 12:07:48 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/16 12:48:05 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ static char	*ft_reduce_spaces(char *input)
 char	*ft_parsing(char *input)
 {
 	char	*trimmed;
+	t_token	*tokens;
 
 	trimmed = ft_strtrim(input, " \t\n\v\f\r");
 	trimmed = ft_reduce_spaces(trimmed);
+	//tokens = first_tokenization(trimmed);
+	//tokens = second_tokenization(trimmed);
 	return (trimmed);
 }
