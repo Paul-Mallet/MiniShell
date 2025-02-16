@@ -8,8 +8,11 @@ SRC_DIR = src/
 SRC_BUILTINS = builtins/
 SRC_ENV = env/
 SRC_PARSER = parsing/parser/
+SRC_EXPANDER = parsing/expander/
 
 OBJ_DIR = obj/
+SRCS_EXPANDER = $(addprefix $(SRC_DIR)$(SRC_EXPANDER), \
+	expander.c)
 SRCS_PARSER = $(addprefix $(SRC_DIR)$(SRC_PARSER), \
 	parser_utils.c \
 	parser.c \
@@ -33,14 +36,15 @@ OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
 OBJS_BUILTINS = $(SRCS_BUILTINS:%.c=$(OBJ_DIR)%.o)
 OBJS_ENV = $(SRCS_ENV:%.c=$(OBJ_DIR)%.o)
 OBJS_PARSER = $(SRCS_PARSER:%.c=$(OBJ_DIR)%.o)
+OBJS_EXPANDER = $(SRCS_EXPANDER:%.c=$(OBJ_DIR)%.o)
 
 LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSER)
-	$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSER) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSER) $(OBJS_EXPANDER)
+	$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSER) $(OBJS_EXPANDER) $(LIBFT)
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)

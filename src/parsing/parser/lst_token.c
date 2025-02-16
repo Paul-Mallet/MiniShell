@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/14 18:57:08 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:26:21 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_token	*new_token(t_token_first type, char *value)
 	return (new);
 }
 
-
 void	token_add_back(t_token **lst, t_token *new)
 {
 	t_token	*current;
@@ -48,7 +47,6 @@ void	token_add_back(t_token **lst, t_token *new)
 		current = current->next;
 	current->next = new;
 }
-
 
 void free_token(t_token **tokens)
 {
@@ -68,4 +66,3 @@ void free_token(t_token **tokens)
     }
     *tokens = NULL;
 }
-
