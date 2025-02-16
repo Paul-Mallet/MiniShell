@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/16 16:57:36 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/16 18:46:46 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void	free_env(t_env **env);
 /*
 	exit
 */
-void	ft_exit(t_env *env);
+void	ft_exit(t_data *data);
 
 #endif
