@@ -6,7 +6,7 @@
 /*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/16 12:46:32 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/16 13:23:24 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ size_t get_word_length(char *str)
 	size_t len;
 
 	len = 0;
-	while (str[len] && !is_redirection(str[len]) && !is_pipe(str[len]) && str[len] != ' ')
+	while (str[len] && !is_redirection(str[len])
+		&& !is_pipe(str[len]) && str[len] != ' ')
 		len++;
 	return (len);
 }
@@ -65,7 +66,7 @@ t_token *handle_redirection(char **input)
 		return (NULL);
 	token = new_token(REDIR, value);
 	free(value);
-	*input += len; //?
+	*input += len;
 	return (token);
 }
 

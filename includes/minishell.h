@@ -6,7 +6,7 @@
 /*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/16 11:52:31 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/16 13:21:27 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct	s_token
 	t_token_first	type;
 	t_token_scnd	subtype;
 	char			*value;
+	struct s_token	*prev; //to determine current subtype
 	struct s_token	*next;
 }		t_token;
 
