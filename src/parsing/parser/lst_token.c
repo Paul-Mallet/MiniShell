@@ -6,7 +6,7 @@
 /*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/15 11:38:30 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/16 11:42:44 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ void free_token(t_token **tokens)
     t_token *current;
     t_token *next;
 
-    if (!tokens || !*tokens)
+    if (!tokens || !*tokens) //?
         return;
-
     current = *tokens;
     while (current)
     {

@@ -6,7 +6,7 @@
 /*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/15 11:33:19 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/16 11:47:29 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,24 @@ void  	ft_lexer(char *input);
 char	*ft_parsing(char *input);
 
 /*
-	tokenizer separates each word of input by type
+	1rst tokenizer separates words of input by types
 */
+t_token	*new_token(t_token_first type, char *value);
 t_token	*init_tokens(char *input);
 t_token	*handle_word(char **input);
 t_token	*handle_pipe(char **input);
 t_token	*handle_redirection(char **input);
+void	token_add_back(t_token **lst, t_token *new);
 char	*extract_word(char *str, size_t len);
 size_t	get_word_length(char *str);
 int		is_pipe(char c);
 int		is_redirection(char c);
 void	print_token(t_token *token);
+void 	free_token(t_token **tokens);
 
-// t_token	*new_token(t_token_first type, char *value);
-// void	token_add_back(t_token **lst, t_token *new);
-// void	free_token(t_token **token);
+/*
+	2nd tokenizer separates types of input by subtypes
+*/
+
 
 #endif

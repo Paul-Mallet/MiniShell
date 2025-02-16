@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/14 19:21:44 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/16 11:44:50 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int is_redirection(char c)
 {
-	return (c == '<' || c == '>');
+	return (c == '<' || c == '>'); //?
 }
 
 int is_pipe(char c)
@@ -118,7 +118,6 @@ t_token *init_tokens(char *input)
 			new = handle_pipe(&input);
 		else
 			new = handle_word(&input);
-
 		if (!new)
 		{
 			free_token(&tokens);

@@ -6,7 +6,7 @@
 /*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:00:32 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/15 12:01:30 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/16 11:48:26 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /*
 	check if input is an empty string
 */
-ft_isempty(char *input)
+int	ft_isempty(char *input)
 {
 	if (ft_strlen(input))
 		return (0);
@@ -26,7 +26,7 @@ ft_isempty(char *input)
 /*
 	check if input is a full spaces string
 */
-ft_isspaces(char *input)
+int	ft_isspaces(char *input)
 {
 	int	i;
 
@@ -47,7 +47,7 @@ ft_isspaces(char *input)
 	* if odd amount, then error
 	* if even, valid
 */
-ft_valid_quotes(char *input)
+int	ft_valid_quotes(char *input)
 {
 	int sgle_cnt;
 	int dble_cnt;
@@ -73,7 +73,7 @@ ft_valid_quotes(char *input)
 	return (0);
 }
 
-void  ft_lexer(char *input)
+void	ft_lexer(char *input)
 {
 	if (ft_isempty(input) || ft_isspaces(input))
 		return ; //new readline(prompt);
