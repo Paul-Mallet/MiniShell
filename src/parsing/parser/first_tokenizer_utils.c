@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:38:47 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 14:16:01 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:01:29 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,29 @@ size_t get_word_length(char *str)
 	return (len);
 }
 
-size_t get_quotes_length(char *str)
+size_t get_double_quotes_length(char *str)
 {
 	size_t len;
 
 	len = 1;
-	while (str[len] != '"')
+	while (str[len] && str[len] != '"')
 		len++;
 	len++;
+	if (str[len] == '"')
+		len++;
+	return (len);
+}
+
+size_t get_single_quotes_length(char *str)
+{
+	size_t len;
+
+	len = 1;
+	while (str[len] && str[len] != '\'')
+		len++;
+	len++;
+	if (str[len] == '\'')
+		len++;
 	return (len);
 }
 

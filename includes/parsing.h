@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 14:23:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:03:34 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,16 @@ void 	free_token(t_token **tokens);
 
 
 t_token	*handle_word(char **input);
-t_token *handle_quotes(char **input);
+t_token *handle_double_quotes(char **input);
 t_token	*handle_pipe(char **input);
 t_token	*handle_redirection(char **input);
+t_token *handle_single_quotes(char **input);
 
 char	*extract_word(char *str, size_t len);
 
 size_t	get_word_length(char *str);
-size_t	get_quotes_length(char *str);
+size_t	get_double_quotes_length(char *str);
+size_t	get_single_quotes_length(char *str);
 
 int		is_pipe(char c);
 int		is_redirection(char c);

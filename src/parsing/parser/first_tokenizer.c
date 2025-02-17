@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 15:27:06 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:05:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_token *handle_word(char **input)
 
 
 	len = get_word_length(*input);
+	if (len == 0)
+		return (NULL);
 	value = extract_word(*input, len);
 	if (!value)
 		return (NULL);
@@ -63,14 +65,37 @@ t_token *handle_word(char **input)
 	return (token);
 }
 
-t_token *handle_quotes(char **input)
+t_token *handle_double_quotes(char **input)
 {
 	t_token *token;
 	char *value;
 	size_t len;
 
+	if (!input || !*input || **input != '"')
+		return (NULL);
+	len = get_double_quotes_length(*input);
+	if (len == 0)
+		return (NULL);
+	value = extract_word(*input, len);
+	if (!value)
+		return (NULL);
+	token = new_token(WORD, value);
+	free(value);
+	*input += len;
+	return (token);
+}
 
-	len = get_quotes_length(*input);
+t_token *handle_single_quotes(char **input)
+{
+	t_token *token;
+	char *value;
+	size_t len;
+
+	if (!input || !*input || **input != '\'')
+		return (NULL);
+	len = get_single_quotes_length(*input);
+	if (len == 0)
+		return (NULL);
 	value = extract_word(*input, len);
 	if (!value)
 		return (NULL);
@@ -89,7 +114,9 @@ t_token *first_tokenization(char *input) //rename
 	while (*input)
 	{
 		if (*input == '"')
-			new = handle_quotes(&input);
+			new = handle_double_quotes(&input);
+		else if (*input =='\'')
+			new = handle_single_quotes(&input);
 		else if (*input == ' ')
 			new = new_token(SEPARATOR, " ");
 		else if (is_redirection(*input))
@@ -104,7 +131,7 @@ t_token *first_tokenization(char *input) //rename
 			return (NULL);
 		}
 		token_add_back(&tokens, new);
-		//input++;
+		input++;
 	}
 	return (tokens);
 }
