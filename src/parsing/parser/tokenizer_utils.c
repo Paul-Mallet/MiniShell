@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 10:57:10 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 13:11:20 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,14 @@ void free_token(t_token **tokens)
         current = next;
     }
     *tokens = NULL;
+}
+
+void	print_token(t_token *token)
+{
+	while (token)
+	{
+		printf("Type: %d\n", token->type);
+		printf("Value: %s\n", token->value);
+		token = token->next;
+	}
 }

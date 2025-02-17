@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   second_tokenizer_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 11:40:10 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 18:01:21 by abarahho         ###   ########.fr       */
+/*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
+/*   Updated: 2025/02/17 13:57:21 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
-#include "../../includes/parsing.h"
+#include "../../../includes/minishell.h"
+#include "../../../includes/parsing.h"
 
-void	ft_exit(t_data *data, char *input, char *prompt)
+int ft_is_all_alnum(char *str)
 {
-	free(prompt);
-	if (data)
+	while (*str)
 	{
-		free(input);
-		free_env(&data->env);
-		free_token(&data->tokens);
+		if (!ft_isalnum(*str))
+			return (0);
+		str++;
 	}
-	exit(data->exit_code);
+	return (1);
 }

@@ -3,25 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:00:32 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/16 11:48:26 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/17 14:14:34 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
-
-/*
-	check if input is an empty string
-*/
-int	ft_isempty(char *input)
-{
-	if (ft_strlen(input))
-		return (0);
-	return (1);
-}
 
 /*
 	check if input is a full spaces string
@@ -31,9 +21,9 @@ int	ft_isspaces(char *input)
 	int	i;
 
 	i = 0;
-	while (ft_isspace(input[i]))
+	while (input[i])
 	{
-		if (!ft_isspace(input[i]))
+		if (input[i] != ' ')
 			return (0);
 		i++;
 	}
@@ -75,7 +65,7 @@ int	ft_valid_quotes(char *input)
 
 void	ft_lexer(char *input)
 {
-	if (ft_isempty(input) || ft_isspaces(input))
+	if (!input || ft_isspaces(input))
 		return ; //new readline(prompt);
 	//if (!ft_valid_quotes(input))
 		//error msg + exit

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   first_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 10:56:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:27:06 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,25 @@ t_token *handle_word(char **input)
 	char *value;
 	size_t len;
 
+
 	len = get_word_length(*input);
+	value = extract_word(*input, len);
+	if (!value)
+		return (NULL);
+	token = new_token(WORD, value);
+	free(value);
+	*input += len;
+	return (token);
+}
+
+t_token *handle_quotes(char **input)
+{
+	t_token *token;
+	char *value;
+	size_t len;
+
+
+	len = get_quotes_length(*input);
 	value = extract_word(*input, len);
 	if (!value)
 		return (NULL);
@@ -70,11 +88,10 @@ t_token *first_tokenization(char *input) //rename
 	tokens = NULL;
 	while (*input)
 	{
-		if (*input == ' ')
-		{
+		if (*input == '"')
+			new = handle_quotes(&input);
+		else if (*input == ' ')
 			new = new_token(SEPARATOR, " ");
-			input++;
-		}
 		else if (is_redirection(*input))
 			new = handle_redirection(&input);
 		else if (is_pipe(*input))
@@ -87,6 +104,7 @@ t_token *first_tokenization(char *input) //rename
 			return (NULL);
 		}
 		token_add_back(&tokens, new);
+		//input++;
 	}
 	return (tokens);
 }

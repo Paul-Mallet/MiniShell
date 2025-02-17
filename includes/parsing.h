@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 10:53:50 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:23:56 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,8 @@ char	*get_env_value(int end, int start, char *input, t_env *env);
 char	*replace_var(char *input, int start, int end, char *value);
 
 /*
-	firt tokenisation
-*/
-
-/*
 	lexer checks if input is valid
 */
-
 void  	ft_lexer(char *input);
 
 /*
@@ -37,26 +32,34 @@ void  	ft_lexer(char *input);
 	* trim 1rst & last spaces
 	* reduce spaces between each word to 1
 */
-char	*ft_parsing(char *input);
+t_token	*ft_parsing(char *input);
 
 /*
 	1rst tokenizer separates words of input by types
 */
 t_token	*new_token(t_token_first type, char *value);
-t_token	*first_tokenization(char *input);
-t_token	*handle_word(char **input);
-t_token	*handle_pipe(char **input);
-t_token	*handle_redirection(char **input);
 void	token_add_back(t_token **lst, t_token *new);
-char	*extract_word(char *str, size_t len);
-size_t	get_word_length(char *str);
-int		is_pipe(char c);
-int		is_redirection(char c);
+t_token	*first_tokenization(char *input);
 void	print_token(t_token *token);
 void 	free_token(t_token **tokens);
+
+
+t_token	*handle_word(char **input);
+t_token *handle_quotes(char **input);
+t_token	*handle_pipe(char **input);
+t_token	*handle_redirection(char **input);
+
+char	*extract_word(char *str, size_t len);
+
+size_t	get_word_length(char *str);
+size_t	get_quotes_length(char *str);
+
+int		is_pipe(char c);
+int		is_redirection(char c);
 
 /*
 	2nd tokenizer separates types of input by subtypes
 */
+int ft_is_all_alnum(char *str);
 
 #endif

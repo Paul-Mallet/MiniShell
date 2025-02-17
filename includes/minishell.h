@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/16 19:58:44 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/17 16:37:01 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,14 @@ typedef struct	s_redir
 
 typedef struct	s_data
 {
-	struct t_cmd	*cmds;
-	struct t_env	*env;
-	struct t_redir	*redir;
-	struct t_token	*tokens;
+	t_cmd	*cmds;
+	t_env	*env;
+	t_redir	*redir;
+	t_token	*tokens;
 	int				exit_code;
 }		t_data;
 
-void	init_mini_shell(t_env *env);
+void	init_data(t_data *data);
+void	init_mini_shell(t_data *data, char **envp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/17 10:52:10 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:01:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /*
 	builtins conditions
 */
-void	ft_builtins(char *input, t_env *env);
+void	ft_builtins(char *input, t_data *data, char *prompt);
 
 /*
 	echo
@@ -60,6 +60,6 @@ void	free_env(t_env **env);
 /*
 	exit
 */
-void	ft_exit(t_data *data);
+void	ft_exit(t_data *data, char *input, char *prompt);
 
 #endif

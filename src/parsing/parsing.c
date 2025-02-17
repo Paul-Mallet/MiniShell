@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/16 13:14:17 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/17 16:40:22 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /*
 	reduce_spaces between words
+	! not between "", and '' !
 */
 static char	*ft_reduce_spaces(char *input)
 {
@@ -45,14 +46,17 @@ static char	*ft_reduce_spaces(char *input)
 	* trim 1rst & last spaces
 	* reduce to 1 between words
 */
-char	*ft_parsing(char *input)
+t_token	*ft_parsing(char *input)
 {
 	char	*trimmed;
+	char	*reduced;
 	t_token	*tokens;
 
 	trimmed = ft_strtrim(input, " \t\n\v\f\r");
-	trimmed = ft_reduce_spaces(trimmed);
-	//tokens = first_tokenization(trimmed);
+	reduced = ft_reduce_spaces(trimmed);
+	tokens = first_tokenization(trimmed);
+	free(trimmed);
+	free(reduced);
 	//tokens = second_tokenization(tokens);
-	return (trimmed);
+	return (tokens);
 }

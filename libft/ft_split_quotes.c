@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 18:14:50 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/07 16:07:49 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 14:10:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,3 @@ char	**ft_split_quotes(const char *s, char sep)
 	result[j] = NULL;
 	return (result);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	(void)argc;
-// 	char	**result;
-// 	int		i;
-// 	result = ft_split(argv[1], argv[2][0]);
-// 	i = 0;
-// 	while (result[i])
-// 	{
-// 		printf("%s\n", result[i]);
-// 		free(result[i]);
-// 		i++;
-// 	}
-// 	free(result);
-// 	return (0);
-// }

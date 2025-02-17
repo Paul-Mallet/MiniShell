@@ -14,12 +14,6 @@ SRC_EXPANDER = parsing/expander/
 
 OBJ_DIR = obj/
 
-SRCS_EXPANDER = $(addprefix $(SRC_DIR)$(SRC_EXPANDER), \
-	expander.c)
-SRCS_PARSER = $(addprefix $(SRC_DIR)$(SRC_PARSER), \
-	parser_utils.c \
-	parser.c \
-	lst_token.c)
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \
 	init.c)
@@ -35,9 +29,13 @@ SRCS_BUILTINS = $(addprefix $(SRC_DIR)$(SRC_BUILTINS), \
 SRCS_LEXER = $(addprefix $(SRC_DIR)$(SRC_LEXER), \
 	lexer.c)
 SRCS_PARSER = $(addprefix $(SRC_DIR)$(SRC_PARSER), \
-	parser_utils.c \
-	parser.c \
-	lst_token.c)
+	first_tokenizer.c \
+	first_tokenizer_utils.c \
+	second_tokenizer.c \
+	second_tokenizer_utils.c \
+	tokenizer_utils.c)
+SRCS_EXPANDER = $(addprefix $(SRC_DIR)$(SRC_EXPANDER), \
+	expander.c)
 SRCS_PARSING = $(addprefix $(SRC_DIR)$(SRC_PARSING), \
 	parsing.c)
 SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \

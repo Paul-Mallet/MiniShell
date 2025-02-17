@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/16 12:39:26 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/17 18:03:00 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,51 @@
 #include "../includes/builtins.h"
 #include "../includes/parsing.h"
 
+void	init_data(t_data *data)
+{
+	data->cmds = NULL;
+	data->env = NULL;
+	data->redir = NULL;
+	data->tokens = NULL;
+	data->exit_code = 0;
+}
+
 static char	*get_prompt(void)
 {
 	char	*prompt;
 	char	name[BUFFER_SIZE];
 
-	getcwd(name, BUFFER_SIZE); //errors
-	prompt = ft_strjoin(name, "$ "); //errors
+	if (!getcwd(name, BUFFER_SIZE))
+	{
+		perror("getcwd error");
+		return (NULL);
+	}
+	prompt = ft_strjoin(name, "$ ");
 	return (prompt);
 }
 
-void	init_mini_shell(t_env *env)
+void	init_mini_shell(t_data *data, char **envp)
 {
 	char 	*input;
 	char	*prompt;
 
+	data->env = import_env(envp);
 	prompt = get_prompt();
+	if (!prompt)
+		return;
 	while ((input = readline(prompt)))
 	{
 		if (input)
 			add_history(input);
 		ft_lexer(input);
-		input = ft_parsing(input);
-		ft_builtins(input, env);
+		data->tokens = ft_parsing(input);
+		ft_builtins(input, data, prompt);
+		free(prompt);
 		prompt = get_prompt();
+		if (!prompt)
+			break ;
+		print_token(data->tokens);
+		free_token(&data->tokens);
 		free(input);
 	}
 }
