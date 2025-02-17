@@ -1,55 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/14 19:21:44 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 10:56:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
-
-int is_redirection(char c)
-{
-	return (c == '<' || c == '>');
-}
-
-int is_pipe(char c)
-{
-	return (c == '|');
-}
-
-size_t get_word_length(char *str)
-{
-	size_t len;
-
-	len = 0;
-	while (str[len] && !is_redirection(str[len]) && !is_pipe(str[len]) && str[len] != ' ')
-		len++;
-	return (len);
-}
-
-char *extract_word(char *str, size_t len)
-{
-	char *word;
-	size_t i;
-
-	word = (char *)malloc(sizeof(char) * (len + 1));
-	if (!word)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		word[i] = str[i];
-		i++;
-	}
-	word[i] = '\0';
-	return (word);
-}
 
 t_token *handle_redirection(char **input)
 {
@@ -58,7 +21,7 @@ t_token *handle_redirection(char **input)
 	size_t len;
 
 	len = 1;
-	if ((*input)[0] == (*input)[1])
+	if ((*input)[0] == (*input)[1]) //<<, >>
 		len = 2;
 	value = extract_word(*input, len);
 	if (!value)
@@ -99,7 +62,7 @@ t_token *handle_word(char **input)
 	return (token);
 }
 
-t_token *init_tokens(char *input)
+t_token *first_tokenization(char *input) //rename
 {
 	t_token *tokens;
 	t_token *new;
@@ -118,7 +81,6 @@ t_token *init_tokens(char *input)
 			new = handle_pipe(&input);
 		else
 			new = handle_word(&input);
-
 		if (!new)
 		{
 			free_token(&tokens);

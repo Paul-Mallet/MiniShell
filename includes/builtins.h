@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/14 14:33:09 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/17 10:52:10 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
@@ -38,6 +39,7 @@ void	ft_pwd(void);
 	export
 */
 void	ft_export(char *import, t_env **env);
+void	print_export(t_env *env);
 void	add_env(char *import, t_env **env);
 void	update_env(t_env *env, char *value);
 void	free_key_and_value(char *key, char *value);
@@ -58,6 +60,6 @@ void	free_env(t_env **env);
 /*
 	exit
 */
-void	ft_exit(t_env *env);
+void	ft_exit(t_data *data);
 
 #endif

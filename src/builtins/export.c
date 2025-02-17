@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/14 10:46:29 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:56:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,13 @@ void	free_key_and_value(char *key, char *value)
 {
 	free(key);
 	free(value);
+}
+
+void print_export(t_env *env)
+{
+	while (env)
+	{
+		ft_printf("declare -x %s=%s\n", env->key, env->value);
+		env = env->next;
+	}
 }
