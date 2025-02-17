@@ -6,16 +6,17 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/16 18:46:46 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 10:52:10 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 # include "./minishell.h"
 
 /*
-	builtins handler
+	builtins conditions
 */
 void	ft_builtins(char *input, t_env *env);
 
@@ -27,7 +28,7 @@ void	ft_echo(char *str, t_env env, bool option_n);
 /*
 	cd
 */
-void		ft_cd(char *path);
+void	ft_cd(char *path);
 
 /*
 	pwd

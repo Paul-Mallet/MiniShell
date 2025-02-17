@@ -6,9 +6,10 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/15 15:26:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 10:57:10 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
@@ -53,9 +54,8 @@ void free_token(t_token **tokens)
     t_token *current;
     t_token *next;
 
-    if (!tokens || !*tokens)
+    if (!tokens || !*tokens) //?
         return;
-
     current = *tokens;
     while (current)
     {

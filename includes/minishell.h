@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/14 11:18:54 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/16 19:58:44 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 
 # include "../libft/libft.h"
 # include "../libft/ft_printf.h"
+# include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <signal.h>
 # include <limits.h>
 # include <stdbool.h>
+# include <sys/stat.h>
 # include <sys/time.h>
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <sys/errno.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -44,8 +44,8 @@ typedef enum	e_token_scnd
 	ARG,
 	FILES,
 	DELIM,
-	HEREDOC,
 	APPEND,
+	HEREDOC,
 	REDIR_INPUT,
 	REDIR_OUTPUT
 }		t_token_scnd;
@@ -55,6 +55,7 @@ typedef struct	s_token
 	t_token_first	type;
 	t_token_scnd	subtype;
 	char			*value;
+	struct s_token	*prev; //to determine current subtype
 	struct s_token	*next;
 }		t_token;
 
@@ -98,5 +99,7 @@ typedef struct	s_data
 	struct t_token	*tokens;
 	int				exit_code;
 }		t_data;
+
+void	init_mini_shell(t_env *env);
 
 #endif

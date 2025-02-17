@@ -6,9 +6,10 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/15 15:26:10 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/17 10:56:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
@@ -20,7 +21,7 @@ t_token *handle_redirection(char **input)
 	size_t len;
 
 	len = 1;
-	if ((*input)[0] == (*input)[1])
+	if ((*input)[0] == (*input)[1]) //<<, >>
 		len = 2;
 	value = extract_word(*input, len);
 	if (!value)
@@ -61,7 +62,7 @@ t_token *handle_word(char **input)
 	return (token);
 }
 
-t_token *init_tokens(char *input)
+t_token *first_tokenization(char *input) //rename
 {
 	t_token *tokens;
 	t_token *new;
