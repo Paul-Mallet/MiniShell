@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 19:05:43 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:23:37 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_token *handle_redirection(char **input)
 	size_t len;
 
 	len = 1;
-	if ((*input)[0] == (*input)[1]) //<<, >>
+	if ((*input)[0] == (*input)[1])
 		len = 2;
 	value = extract_word(*input, len);
 	if (!value)
@@ -51,7 +51,6 @@ t_token *handle_word(char **input)
 	t_token *token;
 	char *value;
 	size_t len;
-
 
 	len = get_word_length(*input);
 	if (len == 0)
@@ -113,12 +112,17 @@ t_token *first_tokenization(char *input) //rename
 	tokens = NULL;
 	while (*input)
 	{
-		if (*input == '"')
+		if (*input == '\"')
 			new = handle_double_quotes(&input);
 		else if (*input =='\'')
 			new = handle_single_quotes(&input);
 		else if (*input == ' ')
+		{
+			while (*input == ' ' && *(input + 1) == ' ')
+				input++;
 			new = new_token(SEPARATOR, " ");
+			input++;
+		}
 		else if (is_redirection(*input))
 			new = handle_redirection(&input);
 		else if (is_pipe(*input))
@@ -131,7 +135,6 @@ t_token *first_tokenization(char *input) //rename
 			return (NULL);
 		}
 		token_add_back(&tokens, new);
-		input++;
 	}
 	return (tokens);
 }

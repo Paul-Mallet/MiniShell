@@ -6,13 +6,14 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 19:03:34 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:19:58 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 # include "./minishell.h"
+# include "executing.h"
 
 /*
 	expander
@@ -32,7 +33,7 @@ void  	ft_lexer(char *input);
 	* trim 1rst & last spaces
 	* reduce spaces between each word to 1
 */
-t_token	*ft_parsing(char *input);
+t_token	*ft_parsing(char *input, t_env *env);
 
 /*
 	1rst tokenizer separates words of input by types
@@ -40,6 +41,7 @@ t_token	*ft_parsing(char *input);
 t_token	*new_token(t_token_first type, char *value);
 void	token_add_back(t_token **lst, t_token *new);
 t_token	*first_tokenization(char *input);
+void	second_tokenization(t_token *tokens, t_env *env);
 void	print_token(t_token *token);
 void 	free_token(t_token **tokens);
 
@@ -62,6 +64,7 @@ int		is_redirection(char c);
 /*
 	2nd tokenizer separates types of input by subtypes
 */
-int ft_is_all_alnum(char *str);
+int 	ft_is_all_alnum(char *str);
+bool	is_cmd(char **paths, char *cmd);
 
 #endif

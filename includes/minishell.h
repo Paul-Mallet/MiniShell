@@ -6,15 +6,15 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/17 16:37:01 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:40:19 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"
-# include "../libft/ft_printf.h"
+# include "../libft/includes/libft.h"
+# include "../libft/includes/ft_printf.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -29,6 +29,17 @@
 # include <sys/errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+typedef enum e_error_code
+{
+	ERR_FILE_NOT_FOUND,
+	ERR_ARGS,
+	ERR_PERMISSION_DENIED,
+	ERR_CMD_NOT_FOUND,
+	ERR_PIPE_FAILURE,
+	ERR_FORK_FAILURE,
+	ERR_UNKNOWN
+}				t_error_code;
 
 typedef enum	e_token_first
 {

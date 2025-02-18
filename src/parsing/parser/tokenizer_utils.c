@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lst_token.c                                        :+:      :+:    :+:   */
+/*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 13:11:20 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:32:26 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_token	*new_token(t_token_first type, char *value)
 		return (NULL);
 	}
 	new->type = type;
+	new->prev = NULL;
 	new->next = NULL;
 	return (new);
 }
@@ -47,6 +48,7 @@ void	token_add_back(t_token **lst, t_token *new)
 	while (current->next != NULL)
 		current = current->next;
 	current->next = new;
+	new->prev = current;
 }
 
 void free_token(t_token **tokens)
@@ -54,7 +56,7 @@ void free_token(t_token **tokens)
     t_token *current;
     t_token *next;
 
-    if (!tokens || !*tokens) //?
+    if (!tokens || !*tokens)
         return;
     current = *tokens;
     while (current)
@@ -67,12 +69,34 @@ void free_token(t_token **tokens)
     *tokens = NULL;
 }
 
+static const char *get_token_type_string(int type)
+{
+	static const char *token_types[] = {
+		"WORD", "SEPARATOR", "PIPE", "REDIR"
+	};
+	if (type >= 0 && type <= 3)
+		return token_types[type];
+	return "UNKNOWN_TYPE";
+}
+
+static const char *get_token_subtype_string(int subtype)
+{
+	static const char *token_subtypes[] = {
+		"CMD", "ARG", "FILES", "DELIM", 
+		"APPEND", "HEREDOC", "REDIR_INPUT", "REDIR_OUTPUT"
+	};
+	if (subtype >= 0 && subtype <= 7)
+		return token_subtypes[subtype];
+	return "UNKNOWN_SUBTYPE";
+}
+
 void	print_token(t_token *token)
 {
 	while (token)
 	{
-		printf("Type: %d\n", token->type);
-		printf("Value: %s\n", token->value);
+		printf("Type: %s\n", get_token_type_string(token->type));
+		printf("Subtype: %s\n", get_token_subtype_string(token->subtype));
+		printf("Value: %s\n\n", token->value);
 		token = token->next;
 	}
 }

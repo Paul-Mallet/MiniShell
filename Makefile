@@ -11,8 +11,12 @@ SRC_PARSING = parsing/
 SRC_LEXER = parsing/lexer/
 SRC_PARSER = parsing/parser/
 SRC_EXPANDER = parsing/expander/
+SRC_EXECUTING = executing/
 
 OBJ_DIR = obj/
+
+SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
+	env_path.c)
 
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \
@@ -42,6 +46,7 @@ SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \
 	get_env.c)
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)
+OBJS_EXECUTING = $(SRCS_EXECUTING:%.c=$(OBJ_DIR)%.o)
 OBJS_BUILTINS = $(SRCS_BUILTINS:%.c=$(OBJ_DIR)%.o)
 OBJS_LEXER = $(SRCS_LEXER:%.c=$(OBJ_DIR)%.o)
 OBJS_PARSER = $(SRCS_PARSER:%.c=$(OBJ_DIR)%.o)
@@ -49,29 +54,29 @@ OBJS_EXPANDER = $(SRCS_EXPANDER:%.c=$(OBJ_DIR)%.o)
 OBJS_PARSING = $(SRCS_PARSING:%.c=$(OBJ_DIR)%.o)
 OBJS_ENV = $(SRCS_ENV:%.c=$(OBJ_DIR)%.o)
 
-
 LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
 
 all: $(NAME)
+	@echo "minishell compiled"
 
-$(NAME): $(LIBFT) $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_PARSER) $(OBJS_LEXER) $(OBJS_EXPANDER)
-	$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_PARSER) $(OBJS_LEXER) $(OBJS_EXPANDER) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJS) $(OBJS_EXECUTING) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_PARSER) $(OBJS_LEXER) $(OBJS_EXPANDER)
+	@$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_EXECUTING) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_PARSER) $(OBJS_LEXER) $(OBJS_EXPANDER) $(LIBFT)
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	@make -C $(LIBFT_DIR)
 
 $(OBJ_DIR)%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR)
-	make clean -C $(LIBFT_DIR)
+	@rm -rf $(OBJ_DIR)
+	@make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	rm -rf $(NAME)
-	make fclean -C $(LIBFT_DIR)
+	@rm -rf $(NAME)
+	@make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 

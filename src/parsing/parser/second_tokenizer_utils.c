@@ -6,20 +6,44 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 13:57:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:44:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
 
-int ft_is_all_alnum(char *str)
+// int ft_is_all_alnum(char *str)
+// {
+// 	while (*str)
+// 	{
+// 		if (!ft_isalnum(*str))
+// 			return (0);
+// 		str++;
+// 	}
+// 	return (1);
+// }
+
+bool	is_cmd(char **paths, char *cmd)
 {
-	while (*str)
+	int		i;
+	char	*road;
+
+	if (!paths || !cmd)
+		return (false);
+	if (ft_strchr(cmd, '/') && access(cmd, F_OK) == 0)
+		return (true);
+	i = 0;
+	while (paths[i])
 	{
-		if (!ft_isalnum(*str))
-			return (0);
-		str++;
+		road = construct_path(paths[i], cmd);
+		if (road && access(road, F_OK) == 0)
+		{
+			free(road);
+			return (true);
+		}
+		free(road);
+		i++;
 	}
-	return (1);
+	return (false);
 }
