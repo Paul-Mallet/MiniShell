@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/18 13:40:19 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:14:54 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef enum e_error_code
 	ERR_CMD_NOT_FOUND,
 	ERR_PIPE_FAILURE,
 	ERR_FORK_FAILURE,
+	ERR_UNCLOSED_QUOTES,
 	ERR_UNKNOWN
 }				t_error_code;
 
@@ -58,7 +59,7 @@ typedef enum	e_token_scnd
 	APPEND,
 	HEREDOC,
 	REDIR_INPUT,
-	REDIR_OUTPUT
+	REDIR_OUTPUT,
 }		t_token_scnd;
 
 typedef struct	s_token
@@ -66,7 +67,7 @@ typedef struct	s_token
 	t_token_first	type;
 	t_token_scnd	subtype;
 	char			*value;
-	struct s_token	*prev; //to determine current subtype
+	struct s_token	*prev;
 	struct s_token	*next;
 }		t_token;
 
@@ -104,14 +105,16 @@ typedef struct	s_redir
 
 typedef struct	s_data
 {
-	t_cmd	*cmds;
-	t_env	*env;
-	t_redir	*redir;
-	t_token	*tokens;
+	t_cmd			*cmds;
+	t_env			*env;
+	t_redir			*redir;
+	t_token			*tokens;
+	t_error_code	code;
 	int				exit_code;
 }		t_data;
 
 void	init_data(t_data *data);
 void	init_mini_shell(t_data *data, char **envp);
+int		error_handling(t_error_code code);
 
 #endif

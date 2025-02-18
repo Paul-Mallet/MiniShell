@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:00:32 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/17 14:14:34 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 18:58:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,36 +41,39 @@ int	ft_valid_quotes(char *input)
 {
 	int sgle_cnt;
 	int dble_cnt;
+	int	is_in_sgle;
 	int	is_in_dble;
 
 	sgle_cnt = 0;
 	dble_cnt = 0;
+	is_in_sgle = 0;
 	is_in_dble = 0;
 	while (*input)
 	{
-		if (*input == '\"')
+		if (*input == '\"' && !is_in_sgle)
 		{
 			is_in_dble++;
 			is_in_dble %= 2;
 			dble_cnt++;
 		}
 		if (*input == '\'' && !is_in_dble)
+		{
+			is_in_sgle++;
+			is_in_sgle %= 2;
 			sgle_cnt++;
+		}
 		input++;
 	}
-	if ((sgle_cnt %2 == 0) && (dble_cnt %2 == 0))
+	if ((sgle_cnt % 2 == 0) && (dble_cnt % 2 == 0))
 		return (1);
 	return (0);
 }
 
-void	ft_lexer(char *input)
+void	ft_lexer(char *input, t_error_code code)
 {
+	(void)code;
 	if (!input || ft_isspaces(input))
-		return ; //new readline(prompt);
-	//if (!ft_valid_quotes(input))
-		//error msg + exit
-	//if (!ft_valid_pipes(input))
-		//error msg + exit
-	//if (!ft_valid_redir(input))
-		//error_msg + exit
+		return ;
+	// if (!ft_valid_quotes(input))
+	// 	error_handling(code);
 }

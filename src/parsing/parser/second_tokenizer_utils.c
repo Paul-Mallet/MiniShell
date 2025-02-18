@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 16:44:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:21:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,15 @@ bool	is_cmd(char **paths, char *cmd)
 		i++;
 	}
 	return (false);
+}
+
+bool	is_file(char *file)
+{
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+		return (false);
+	close(fd);
+	return (true);
 }

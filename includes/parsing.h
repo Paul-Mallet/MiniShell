@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 16:19:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:21:27 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*replace_var(char *input, int start, int end, char *value);
 /*
 	lexer checks if input is valid
 */
-void  	ft_lexer(char *input);
+void  	ft_lexer(char *input, t_error_code code);
 
 /*
 	parsing correctly formats input before tokenize it
@@ -44,6 +44,9 @@ t_token	*first_tokenization(char *input);
 void	second_tokenization(t_token *tokens, t_env *env);
 void	print_token(t_token *token);
 void 	free_token(t_token **tokens);
+void	handle_pipe_sep(t_token *token, bool is_cmd_found);
+void 	handle_token_word(t_token *token, char **paths, bool is_cmd_found);
+void 	handle_token_redir(t_token *token);
 
 
 t_token	*handle_word(char **input);
@@ -58,13 +61,15 @@ size_t	get_word_length(char *str);
 size_t	get_double_quotes_length(char *str);
 size_t	get_single_quotes_length(char *str);
 
+bool	is_cmd(char **paths, char *cmd);
+bool	is_file(char *file);
 int		is_pipe(char c);
 int		is_redirection(char c);
 
 /*
 	2nd tokenizer separates types of input by subtypes
 */
-int 	ft_is_all_alnum(char *str);
-bool	is_cmd(char **paths, char *cmd);
+// int 	ft_is_all_alnum(char *str);
+
 
 #endif

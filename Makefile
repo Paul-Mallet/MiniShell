@@ -17,10 +17,10 @@ OBJ_DIR = obj/
 
 SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
 	env_path.c)
-
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \
-	init.c)
+	init.c \
+	error_management.c)
 SRCS_BUILTINS = $(addprefix $(SRC_DIR)$(SRC_BUILTINS), \
 	builtins.c \
 	cd.c \

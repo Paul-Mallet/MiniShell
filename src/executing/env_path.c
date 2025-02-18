@@ -6,13 +6,29 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 16:48:03 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 18:43:02 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 #include "../../includes/parsing.h"
+
+void	free_paths(char **paths)
+{
+	int	i;
+
+	i = 0;
+	if (!paths)
+		return ;
+	while (paths[i])
+	{
+		free(paths[i]);
+		paths[i] = NULL;
+		i++;
+	}
+	free (paths);
+}
 
 char	*construct_path(char *dir, char *cmd)
 {

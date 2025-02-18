@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 16:32:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/18 18:13:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ t_token	*new_token(t_token_first type, char *value)
 		free(new);
 		return (NULL);
 	}
+	new->subtype = 0;
 	new->type = type;
 	new->prev = NULL;
 	new->next = NULL;
