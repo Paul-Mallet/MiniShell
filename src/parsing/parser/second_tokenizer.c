@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/19 17:26:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:54:54 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ void handle_token_redir(t_token *token)
 
 void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 {
-	// if (current->prev->subtype == HEREDOC
-	// 	|| current->prev->prev->subtype == HEREDOC)
-	// 	current->subtype = DELIM;
-	if (is_cmd(paths, current->value) && *is_cmd_found == false)
+	if (current->prev)
+	{
+		if (current->prev->subtype == HEREDOC
+			|| current->prev->prev->subtype == HEREDOC)
+			current->subtype = DELIM;
+	}
+	else if (is_cmd(paths, current->value) && *is_cmd_found == false)
 	{
 		current->subtype = CMD;
 		*is_cmd_found = true;
@@ -46,16 +49,17 @@ void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 		current->subtype = ARG;
 }
 
-
 void second_tokenization(t_token *tokens, t_env *env)
 {
 	char	**paths;
 	t_token	*current;
 	bool	is_cmd_found;
+	char	*tmp_exp;
 
 	paths = get_path_vrbl(env);
 	current = tokens;
 	is_cmd_found = false;
+	tmp_exp = NULL;
 	// if (!paths) error_handling();
 	while (current)
 	{
@@ -69,8 +73,15 @@ void second_tokenization(t_token *tokens, t_env *env)
 		else if (current->type == REDIR && current->value)
 			handle_token_redir(current);
 		else if (current->type == WORD && current->value)
+		{
 			handle_token_word(current, paths, &is_cmd_found);
-			// handle_token_word(current, paths);
+			if (current->subtype != DELIM)
+			{
+				tmp_exp = expander(current->value, env);
+				free(current->value);
+				current->value = tmp_exp;
+			}
+		}	// handle_token_word(current, paths);
 		current = current->next;
 	}
 	free_paths(paths);
