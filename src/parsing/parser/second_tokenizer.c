@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/19 17:54:54 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:43:00 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,9 @@ void handle_token_redir(t_token *token)
 
 void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 {
-	if (current->prev)
-	{
-		if (current->prev->subtype == HEREDOC
-			|| current->prev->prev->subtype == HEREDOC)
-			current->subtype = DELIM;
-	}
+	if ((current->prev && current->prev->subtype == HEREDOC)
+		|| (current->prev && current->prev->prev->subtype == HEREDOC))
+		current->subtype = DELIM;
 	else if (is_cmd(paths, current->value) && *is_cmd_found == false)
 	{
 		current->subtype = CMD;
@@ -70,9 +67,9 @@ void second_tokenization(t_token *tokens, t_env *env)
 		}
 		else if (current->type == SEPARATOR)
 			current->subtype = IS_SEPARATOR;
-		else if (current->type == REDIR && current->value)
+		else if (current->type == REDIR)
 			handle_token_redir(current);
-		else if (current->type == WORD && current->value)
+		else if (current->type == WORD)
 		{
 			handle_token_word(current, paths, &is_cmd_found);
 			if (current->subtype != DELIM)
@@ -81,7 +78,7 @@ void second_tokenization(t_token *tokens, t_env *env)
 				free(current->value);
 				current->value = tmp_exp;
 			}
-		}	// handle_token_word(current, paths);
+		}
 		current = current->next;
 	}
 	free_paths(paths);
