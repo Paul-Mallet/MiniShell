@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:30:43 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/16 17:58:05 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/19 17:05:57 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*expander(char *input, t_env *env)
 	i = 0;
 	if (input[i] == '\'')
 		return (input);
-	res = ft_strdup(input);
+	res = ft_strdup(input); //?
 	if (!res)
 		return (NULL);
 	i = 0;
@@ -29,7 +29,7 @@ char	*expander(char *input, t_env *env)
 	{
 		if (res[i] == '$')
 		{
-			res = expand_single_var(res, i, env);
+			res = expand_single_var(res, i, env); //?
 			if (!res)
 				return (NULL);
 			i = 0;

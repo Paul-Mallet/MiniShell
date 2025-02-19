@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:00:32 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/18 18:58:52 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:36:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ int	ft_isspaces(char *input)
 	return (1);
 }
 
+void	init_quotes(t_valid_quotes *quotes)
+{
+	quotes->sgle_cnt = 0;
+	quotes->dble_cnt = 0;
+	quotes->is_in_sgle = 0;
+	quotes->is_in_dble = 0;
+}
+
 /*
 	check if quotes in input are valid
 	* single & double
@@ -39,41 +47,67 @@ int	ft_isspaces(char *input)
 */
 int	ft_valid_quotes(char *input)
 {
-	int sgle_cnt;
-	int dble_cnt;
-	int	is_in_sgle;
-	int	is_in_dble;
+	t_valid_quotes	quotes;
 
-	sgle_cnt = 0;
-	dble_cnt = 0;
-	is_in_sgle = 0;
-	is_in_dble = 0;
+	init_quotes(&quotes);
 	while (*input)
 	{
-		if (*input == '\"' && !is_in_sgle)
+		if (*input == '\"' && !quotes.is_in_sgle)
 		{
-			is_in_dble++;
-			is_in_dble %= 2;
-			dble_cnt++;
+			quotes.is_in_dble++;
+			quotes.is_in_dble %= 2;
+			quotes.dble_cnt++;
 		}
-		if (*input == '\'' && !is_in_dble)
+		if (*input == '\'' && !quotes.is_in_dble)
 		{
-			is_in_sgle++;
-			is_in_sgle %= 2;
-			sgle_cnt++;
+			quotes.is_in_sgle++;
+			quotes.is_in_sgle %= 2;
+			quotes.sgle_cnt++;
 		}
 		input++;
 	}
-	if ((sgle_cnt % 2 == 0) && (dble_cnt % 2 == 0))
+	if ((quotes.sgle_cnt % 2 == 0) && (quotes.dble_cnt % 2 == 0))
 		return (1);
 	return (0);
 }
 
-void	ft_lexer(char *input, t_error_code code)
+/*
+	check double pipes
+*/
+int	ft_valid_pipes(char *input)
 {
-	(void)code;
+	while (*input)
+	{
+		if (*input == '|' && *(input + 1) == '|')
+			return (0);
+		if (*input == '|')
+			while (ft_isspace(*input))
+				input++;
+		if (*input == '|')
+			return (0);
+		if (*input)
+			return (1);
+		input++;
+	}
+	return (1);
+}
+
+/*
+	check redirections
+*/
+// int	ft_valid_redirs(char *input)
+// {
+// 	
+// }
+
+void	ft_lexer(char *input)
+{
 	if (!input || ft_isspaces(input))
 		return ;
-	// if (!ft_valid_quotes(input))
-	// 	error_handling(code);
+	if (!ft_valid_quotes(input))
+		error_handling(ERR_UNCLOSED_QUOTES, "\" or \'");
+	if (!ft_valid_pipes(input))
+		error_handling(ERR_DOUBLE_PIPES, "||"); //check if spaces between
+	// if (!ft_valid_redirs(input))
+	// 	error_handling(ERR_REDIRS, NULL);
 }

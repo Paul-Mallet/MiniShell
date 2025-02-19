@@ -6,23 +6,12 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 19:21:04 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:36:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
-
-// int ft_is_all_alnum(char *str)
-// {
-// 	while (*str)
-// 	{
-// 		if (!ft_isalnum(*str))
-// 			return (0);
-// 		str++;
-// 	}
-// 	return (1);
-// }
 
 bool	is_cmd(char **paths, char *cmd)
 {
@@ -48,13 +37,29 @@ bool	is_cmd(char **paths, char *cmd)
 	return (false);
 }
 
-bool	is_file(char *file)
-{
-	int	fd;
+// int	is_absolute_path(char *path)
+// {
+// 	return (path && (path[0] == '/' || (path[0] == '.' && path[1] == '/')));
+// }
 
-	fd = open(file, O_RDONLY);
-	if (fd == -1)
-		return (false);
-	close(fd);
-	return (true);
+int	is_file(char *value)
+{
+	struct stat	file_infos;
+
+	if (stat(value, &file_infos))
+		return (-1);
+	if (S_ISREG(file_infos.st_mode))
+		return (1);
+	return (0);
+}
+
+int	is_dir(char *value)
+{
+	struct stat	file_infos;
+
+	if (stat(value, &file_infos))
+		return (-1);
+	if (S_ISDIR(file_infos.st_mode))	
+		return (1);
+	return (0);
 }

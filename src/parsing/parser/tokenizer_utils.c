@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 18:13:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:44:05 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
 
-t_token	*new_token(t_token_first type, char *value)
+t_token	*new_token(t_token_first type, t_token_scnd subtype, char *value)
 {
 	t_token	*new;
 
@@ -27,7 +27,7 @@ t_token	*new_token(t_token_first type, char *value)
 		free(new);
 		return (NULL);
 	}
-	new->subtype = 0;
+	new->subtype = subtype;
 	new->type = type;
 	new->prev = NULL;
 	new->next = NULL;
@@ -83,12 +83,13 @@ static const char *get_token_type_string(int type)
 static const char *get_token_subtype_string(int subtype)
 {
 	static const char *token_subtypes[] = {
-		"CMD", "ARG", "FILES", "DELIM", 
-		"APPEND", "HEREDOC", "REDIR_INPUT", "REDIR_OUTPUT"
+		"CMD", "ARG", "FILES", "DIR", "DELIM", 
+		"APPEND", "HEREDOC", "REDIR_INPUT", "REDIR_OUTPUT",
+		"IS_PIPE", "IS_SEPARATOR", "UNKNOW_SUBTYPE"
 	};
-	if (subtype >= 0 && subtype <= 7)
-		return token_subtypes[subtype];
-	return "UNKNOWN_SUBTYPE";
+	// if (subtype >= 0 && subtype <= 11)
+	return token_subtypes[subtype];
+	// return "UNKNOWN_SUBTYPE";
 }
 
 void	print_token(t_token *token)

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 17:23:37 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:08:20 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_token *handle_redirection(char **input)
 	value = extract_word(*input, len);
 	if (!value)
 		return (NULL);
-	token = new_token(REDIR, value);
+	token = new_token(REDIR, UNKNOW_SUBTYPE, value);
 	free(value);
 	*input += len;
 	return (token);
@@ -40,7 +40,7 @@ t_token *handle_pipe(char **input)
 	value = extract_word(*input, 1);
 	if (!value)
 		return (NULL);
-	token = new_token(PIPE, value);
+	token = new_token(PIPE, UNKNOW_SUBTYPE, value);
 	free(value);
 	(*input)++;
 	return (token);
@@ -58,7 +58,7 @@ t_token *handle_word(char **input)
 	value = extract_word(*input, len);
 	if (!value)
 		return (NULL);
-	token = new_token(WORD, value);
+	token = new_token(WORD, UNKNOW_SUBTYPE, value);
 	free(value);
 	*input += len;
 	return (token);
@@ -78,7 +78,7 @@ t_token *handle_double_quotes(char **input)
 	value = extract_word(*input, len);
 	if (!value)
 		return (NULL);
-	token = new_token(WORD, value);
+	token = new_token(WORD, UNKNOW_SUBTYPE, value);
 	free(value);
 	*input += len;
 	return (token);
@@ -98,7 +98,7 @@ t_token *handle_single_quotes(char **input)
 	value = extract_word(*input, len);
 	if (!value)
 		return (NULL);
-	token = new_token(WORD, value);
+	token = new_token(WORD, UNKNOW_SUBTYPE, value);
 	free(value);
 	*input += len;
 	return (token);
@@ -120,7 +120,7 @@ t_token *first_tokenization(char *input) //rename
 		{
 			while (*input == ' ' && *(input + 1) == ' ')
 				input++;
-			new = new_token(SEPARATOR, " ");
+			new = new_token(SEPARATOR, UNKNOW_SUBTYPE, " ");
 			input++;
 		}
 		else if (is_redirection(*input))

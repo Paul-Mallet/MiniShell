@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 19:21:27 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:12:19 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 # define PARSING_H
 # include "./minishell.h"
 # include "executing.h"
+
+typedef struct	s_valid_quotes
+{
+	int	sgle_cnt;
+	int dble_cnt;
+	int	is_in_sgle;
+	int	is_in_dble;
+}		t_valid_quotes;
 
 /*
 	expander
@@ -26,7 +34,7 @@ char	*replace_var(char *input, int start, int end, char *value);
 /*
 	lexer checks if input is valid
 */
-void  	ft_lexer(char *input, t_error_code code);
+void  	ft_lexer(char *input);
 
 /*
 	parsing correctly formats input before tokenize it
@@ -38,14 +46,13 @@ t_token	*ft_parsing(char *input, t_env *env);
 /*
 	1rst tokenizer separates words of input by types
 */
-t_token	*new_token(t_token_first type, char *value);
+t_token	*new_token(t_token_first type, t_token_scnd subtype, char *value);
 void	token_add_back(t_token **lst, t_token *new);
 t_token	*first_tokenization(char *input);
 void	second_tokenization(t_token *tokens, t_env *env);
 void	print_token(t_token *token);
 void 	free_token(t_token **tokens);
-void	handle_pipe_sep(t_token *token, bool is_cmd_found);
-void 	handle_token_word(t_token *token, char **paths, bool is_cmd_found);
+void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found);
 void 	handle_token_redir(t_token *token);
 
 
@@ -62,14 +69,10 @@ size_t	get_double_quotes_length(char *str);
 size_t	get_single_quotes_length(char *str);
 
 bool	is_cmd(char **paths, char *cmd);
-bool	is_file(char *file);
 int		is_pipe(char c);
 int		is_redirection(char c);
-
-/*
-	2nd tokenizer separates types of input by subtypes
-*/
-// int 	ft_is_all_alnum(char *str);
-
+int		is_absolute_path(char *path);
+int		is_dir(char *value);
+int		is_file(char *value);
 
 #endif
