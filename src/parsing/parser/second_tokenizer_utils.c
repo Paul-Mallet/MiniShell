@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/19 14:36:07 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:39:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,24 @@ int	is_dir(char *value)
 	if (S_ISDIR(file_infos.st_mode))	
 		return (1);
 	return (0);
+}
+
+int	is_builtins(char *cmd)
+{
+	if (strcmp(cmd, "echo") == 0)
+		return (1);
+	else if (strcmp(cmd, "cd") == 0)
+		return (1);
+	else if (strcmp(cmd, "pwd") == 0)
+		return (1);
+	else if (strcmp(cmd, "export") == 0)
+		return (1);
+	else if (strcmp(cmd, "unset") == 0)
+		return (1);
+	else if (strcmp(cmd, "env") == 0)
+		return (1);
+	else if (strcmp(cmd, "exit") == 0)
+		return (1);
+	else
+		return (0);
 }

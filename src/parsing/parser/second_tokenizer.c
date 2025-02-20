@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/20 12:41:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:41:56 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 	if ((current->prev && current->prev->subtype == HEREDOC)
 		|| (current->prev && current->prev->prev->subtype == HEREDOC))
 		current->subtype = DELIM;
-	else if (is_cmd(paths, current->value) && *is_cmd_found == false)
+	else if ((is_cmd(paths, current->value) && *is_cmd_found == false)
+		|| (is_builtins(current->value) && *is_cmd_found == false))
 	{
 		current->subtype = CMD;
 		*is_cmd_found = true;

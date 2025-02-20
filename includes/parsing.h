@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/20 15:12:44 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 16:42:17 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ int		is_pipe(char c);
 int		is_redirection(char c);
 int		is_dir(char *value);
 int		is_file(char *value);
+int		is_builtins(char *cmd);
 
 #endif
