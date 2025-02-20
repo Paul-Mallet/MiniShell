@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:00:32 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/19 16:36:43 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 11:15:45 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,18 @@ int	ft_valid_pipes(char *input)
 {
 	while (*input)
 	{
-		if (*input == '|' && *(input + 1) == '|')
-			return (0);
+		//"\", "||", "|qwer", "||qwer" -> error(cmd bef)
+		//"qwer |", "qwer|" -> ok, open heredoc?
+		// ! == empty == NULL
 		if (*input == '|')
-			while (ft_isspace(*input))
+		{
+			if (!*(input - 1)) //if only spaces || ! bef before *input
+				return (0);
+			if (!*(input - 1) && !*(input + 1))
+				return (0);
+			while (ft_isspace(*(input + 1)) || *(input + 1) == '!')
 				input++;
-		if (*input == '|')
-			return (0);
-		if (*input)
-			return (1);
+		}
 		input++;
 	}
 	return (1);

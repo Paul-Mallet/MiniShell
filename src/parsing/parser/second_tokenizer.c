@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/19 18:43:00 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 12:41:26 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 
 #define UNKNOWN_SUBTYPE -1
 
-
 void handle_token_redir(t_token *token)
 {
 	if (!ft_strcmp(token->value, ">>"))
 		token->subtype = APPEND;
 	else if (!ft_strcmp(token->value, "<<"))
 		token->subtype = HEREDOC;
-	else if (token->value[0] == '<') //test<test
+	else if (token->value[0] == '<')
 		token->subtype = REDIR_INPUT;
 	else if (token->value[0] == '>')
 		token->subtype = REDIR_OUTPUT;
@@ -51,13 +50,12 @@ void second_tokenization(t_token *tokens, t_env *env)
 	char	**paths;
 	t_token	*current;
 	bool	is_cmd_found;
-	char	*tmp_exp;
 
 	paths = get_path_vrbl(env);
 	current = tokens;
 	is_cmd_found = false;
-	tmp_exp = NULL;
-	// if (!paths) error_handling();
+	// if (!paths)
+		//error_handling();
 	while (current)
 	{
 		if (current->type == PIPE)
@@ -70,15 +68,7 @@ void second_tokenization(t_token *tokens, t_env *env)
 		else if (current->type == REDIR)
 			handle_token_redir(current);
 		else if (current->type == WORD)
-		{
 			handle_token_word(current, paths, &is_cmd_found);
-			if (current->subtype != DELIM)
-			{
-				tmp_exp = expander(current->value, env);
-				free(current->value);
-				current->value = tmp_exp;
-			}
-		}
 		current = current->next;
 	}
 	free_paths(paths);

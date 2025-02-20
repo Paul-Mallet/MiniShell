@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:30:43 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/19 17:05:57 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:30:25 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*expander(char *input, t_env *env)
 	i = 0;
 	if (input[i] == '\'')
 		return (input);
-	res = ft_strdup(input); //?
+	res = ft_strdup(input);
 	if (!res)
 		return (NULL);
 	i = 0;
@@ -32,10 +32,9 @@ char	*expander(char *input, t_env *env)
 			res = expand_single_var(res, i, env); //?
 			if (!res)
 				return (NULL);
-			i = 0;
+			i ++;
 		}
-		else
-			i++;
+		i++;
 	}
 	return (res);
 }
@@ -44,10 +43,13 @@ char	*expand_single_var(char *input, int i, t_env *env)
 {
 	char	*temp;
 	int		start;
+	int		end;
+	char	quote;
 
 	i++;
 	temp = NULL;
-	// if (input[i] == '?')
+	start = i;
+	// if ((res[i] == '$') && !ft_isalpha(input[i + 1]))
 	// {
 		// temp = error_code();  // a implementer
 		// if (!temp)
@@ -55,43 +57,71 @@ char	*expand_single_var(char *input, int i, t_env *env)
 		// input = replace_var(input, i - 1, i + 1, temp);
 		// free(temp);
 	// }
-	if (ft_isalpha(input[i]) || input[i] == '_')
+	if (input[i] == '\'' || input[i] == '"')
 	{
-		start = i;
-		while (ft_isalnum(input[i]) || input[i] == '_')
+		quote = input[i];
+		i++;
+		while (input[i] && input[i] != quote)
 			i++;
-		temp = get_env_value(i, start, input, env);
+		if (input[i] == quote)
+			i++;
+		temp = ft_substr(input, start, i - start);
 		if (temp)
 		{
 			input = replace_var(input, start - 1, i, temp);
 			free(temp);
 		}
+	}
+	else if (ft_isalpha(input[i]) || input[i] == '_')
+	{
+		while (ft_isalnum(input[i]) || input[i] == '_')
+			i++;
+		end = i;
+		temp = get_env_value(end, start, input, env);
+		if (temp)
+		{
+			input = replace_var(input, start - 1, end, temp);
+			free(temp);
+		}
 		else
-			input = replace_var(input, start - 1, i, "");
+			input = replace_var(input, start - 1, end, "");
 	}
 	return (input);
+}
+
+char	*get_btw_quotes(char *input, int i)
+{
+	char	quote;
+	int		start;
+	int		len;
+	
+	quote = input[i];
+	start = i + 1;
+	i = start;
+	while (input[i] && input[i] != quote)
+		i++;
+	if (!input[i])
+		return (ft_strdup(""));
+	len = i - start;
+	return (ft_substr(input, start, len));
 }
 
 char	*get_env_value(int end, int start, char *input, t_env *env)
 {
 	char	*key;
-	int		i;
-	int		len;
+	char	*value;
 
-	len = end - start;
-	key = malloc(sizeof(char) * (len + 1));
+	key = ft_substr(input, start, end - start);
 	if (!key)
 		return (NULL);
-	i = 0;
-	while (start < end)
-		key[i++] = input[start++];
-	key[i] = '\0';
+	
 	while (env)
 	{
-		if (!strncmp(env->key, key, len) && env->key[len] == '\0')
+		if (!ft_strcmp(env->key, key))
 		{
+			value = ft_strdup(env->value);
 			free(key);
-			return (ft_strdup(env->value));
+			return (value);
 		}
 		env = env->next;
 	}

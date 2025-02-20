@@ -4,6 +4,8 @@
 		"random": "cpp",
 		"queue": "cpp",
 		"parsing.h": "c",
-		"builtins.h": "c"
+		"builtins.h": "c",
+		"iterator": "c",
+		"numbers": "c"
 	}
 }

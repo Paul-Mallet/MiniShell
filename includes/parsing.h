@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/19 15:12:19 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 10:04:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char	*expander(char *input, t_env *env);
 char	*expand_single_var(char *input, int i, t_env *env);
 char	*get_env_value(int end, int start, char *input, t_env *env);
 char	*replace_var(char *input, int start, int end, char *value);
+char	*get_btw_quotes(char *input, int i);
 
 /*
 	lexer checks if input is valid
