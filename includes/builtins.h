@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/20 16:30:15 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:33:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 /*
 	builtins conditions
 */
-void	ft_builtins(t_token tokens);
+void	ft_builtins(t_data *data);
 
 /*
 	echo
 */
-void	ft_echo(char *str, t_env env, bool option_n);
+void	ft_echo(t_token *tokens);
 
 /*
 	cd
