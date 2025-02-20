@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/19 14:44:00 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 14:34:02 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,9 @@ typedef struct	s_env
 	struct s_env	*next;
 }		t_env;
 
+/*
+	
+*/
 typedef struct s_cmd
 {
 	struct s_cmd	*prev;

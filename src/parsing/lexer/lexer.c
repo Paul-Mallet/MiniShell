@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:00:32 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/20 11:15:45 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 13:18:00 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,46 +71,10 @@ int	ft_valid_quotes(char *input)
 	return (0);
 }
 
-/*
-	check double pipes
-*/
-int	ft_valid_pipes(char *input)
-{
-	while (*input)
-	{
-		//"\", "||", "|qwer", "||qwer" -> error(cmd bef)
-		//"qwer |", "qwer|" -> ok, open heredoc?
-		// ! == empty == NULL
-		if (*input == '|')
-		{
-			if (!*(input - 1)) //if only spaces || ! bef before *input
-				return (0);
-			if (!*(input - 1) && !*(input + 1))
-				return (0);
-			while (ft_isspace(*(input + 1)) || *(input + 1) == '!')
-				input++;
-		}
-		input++;
-	}
-	return (1);
-}
-
-/*
-	check redirections
-*/
-// int	ft_valid_redirs(char *input)
-// {
-// 	
-// }
-
 void	ft_lexer(char *input)
 {
 	if (!input || ft_isspaces(input))
 		return ;
 	if (!ft_valid_quotes(input))
 		error_handling(ERR_UNCLOSED_QUOTES, "\" or \'");
-	if (!ft_valid_pipes(input))
-		error_handling(ERR_DOUBLE_PIPES, "||"); //check if spaces between
-	// if (!ft_valid_redirs(input))
-	// 	error_handling(ERR_REDIRS, NULL);
 }

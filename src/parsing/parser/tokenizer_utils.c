@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/19 14:44:05 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:12:57 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	token_add_back(t_token **lst, t_token *new)
 	new->prev = current;
 }
 
-void free_token(t_token **tokens)
+void free_tokens(t_token **tokens)
 {
     t_token *current;
     t_token *next;

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/20 10:04:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:12:44 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void  	ft_lexer(char *input);
 	* reduce spaces between each word to 1
 */
 t_token	*ft_parsing(char *input, t_env *env);
+void	get_expanded(t_token *tokens, t_env *env);
+int	check_cmd_tokens(t_token *tokens);
 
 /*
 	1rst tokenizer separates words of input by types
@@ -52,7 +54,7 @@ void	token_add_back(t_token **lst, t_token *new);
 t_token	*first_tokenization(char *input);
 void	second_tokenization(t_token *tokens, t_env *env);
 void	print_token(t_token *token);
-void 	free_token(t_token **tokens);
+void 	free_tokens(t_token **tokens);
 void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found);
 void 	handle_token_redir(t_token *token);
 
@@ -72,7 +74,6 @@ size_t	get_single_quotes_length(char *str);
 bool	is_cmd(char **paths, char *cmd);
 int		is_pipe(char c);
 int		is_redirection(char c);
-int		is_absolute_path(char *path);
 int		is_dir(char *value);
 int		is_file(char *value);
 

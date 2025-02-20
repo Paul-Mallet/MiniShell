@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:10 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/17 18:01:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:12:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_exit(t_data *data, char *input, char *prompt)
 	{
 		free(input);
 		free_env(&data->env);
-		free_token(&data->tokens);
+		free_tokens(&data->tokens);
 	}
 	exit(data->exit_code);
 }

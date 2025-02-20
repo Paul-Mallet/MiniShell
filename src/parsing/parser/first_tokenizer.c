@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/19 12:08:20 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:12:54 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_token *first_tokenization(char *input) //rename
 			new = handle_word(&input);
 		if (!new)
 		{
-			free_token(&tokens);
+			free_tokens(&tokens);
 			return (NULL);
 		}
 		token_add_back(&tokens, new);
