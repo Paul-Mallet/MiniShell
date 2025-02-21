@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/21 08:30:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/21 11:11:28 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void handle_token_redir(t_token *token)
 
 void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 {
-	if ((current->prev && current->prev->subtype == HEREDOC)
-		|| (current->prev && current->prev->prev->subtype == HEREDOC))
+	if ((current->prev && current->prev->subtype == HEREDOC))
+		current->subtype = DELIM;
+	else if ((current->prev && current->prev->subtype == IS_SEPARATOR)
+		&& (current->prev->prev && current->prev->prev->subtype == HEREDOC))
 		current->subtype = DELIM;
 	else if ((is_cmd(paths, current->value) && *is_cmd_found == false)
 		|| (is_builtins(current->value) && *is_cmd_found == false))

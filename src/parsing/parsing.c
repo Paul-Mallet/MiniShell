@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/21 10:34:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/21 11:22:11 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,13 +127,6 @@ static void	remove_empty_token(t_token **tokens)
 	{
 		next = current->next;
 		if (!ft_strcmp(current->value, "\"\"") || !ft_strcmp(current->value, "''"))
-		{
-			if (current == *tokens)
-				*tokens = next;
-			remove_token(current);
-		}
-		else if (current->type == SEPARATOR && current->next
-				&& current->next->type == SEPARATOR)
 		{
 			if (current == *tokens)
 				*tokens = next;
