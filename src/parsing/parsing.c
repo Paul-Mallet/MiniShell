@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/20 16:28:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/21 10:34:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,87 @@ int	check_cmd_tokens(t_token *tokens)
 	return (1);
 }
 
+static bool	is_dollar(char *value)
+{
+	int	i;
 
+	i = 0;
+	while (value[i])
+	{
+		if (value[i] == '$')
+			return (true);
+		i++;
+	}
+	return (false);
+}
 
+void	join_tokens(t_token *tokens)
+{
+	t_token	*current;
+	char	*tmp_value;
+
+	tmp_value = NULL;
+	current = tokens;
+	while (current)
+	{
+		if (current->type == WORD && current->next
+			&& current->next->type == WORD)
+		{
+			if (!is_dollar(current->value))
+			{
+				current = current->next;
+				continue ;
+			}
+			tmp_value = current->value;
+			free (current->value);
+			current->value = ft_strjoin(tmp_value, current->next->value);
+			remove_token(current->next);
+		}
+		current = current->next;
+	}
+}
+
+void	remove_token(t_token *token)
+{
+	if (token->prev && token->next)
+	{
+		token->prev->next = token->next;
+		token->next->prev = token->prev;
+	}
+	else if (token->prev && !token->next)
+		token->prev->next = NULL;
+	else if (!token->prev && token->next)
+		token->next->prev = NULL;
+	free(token->value);
+	free(token);
+}
+
+static void	remove_empty_token(t_token **tokens)
+{
+	t_token	*current;
+	t_token	*next;
+
+	next = NULL;
+	current = *tokens;
+	while (current)
+	{
+		next = current->next;
+		if (!ft_strcmp(current->value, "\"\"") || !ft_strcmp(current->value, "''"))
+		{
+			if (current == *tokens)
+				*tokens = next;
+			remove_token(current);
+		}
+		else if (current->type == SEPARATOR && current->next
+				&& current->next->type == SEPARATOR)
+		{
+			if (current == *tokens)
+				*tokens = next;
+			remove_token(current);
+		}
+		current = next;
+	}
+}
 t_token	*ft_parsing(char *input, t_env *env)
 {
 	char	*trimmed;
@@ -72,12 +151,14 @@ t_token	*ft_parsing(char *input, t_env *env)
 	trimmed = ft_strtrim(input, " \t\n");
 	tokens = first_tokenization(trimmed);
 	free(trimmed);
+	remove_empty_token(&tokens);
+	join_tokens(tokens);
 	second_tokenization(tokens, env);
 	get_expanded(tokens, env);
-	if (!check_cmd_tokens(tokens))
-	{
-		free_tokens(&tokens);
-		return (NULL);
-	}
+	// if (!check_cmd_tokens(tokens))
+	// {
+	// 	free_tokens(&tokens);
+	// 	return (NULL);
+	// }
 	return (tokens);
 }

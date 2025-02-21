@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/20 15:12:57 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/21 08:32:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ static const char *get_token_subtype_string(int subtype)
 
 void	print_token(t_token *token)
 {
+	printf("\n");
 	while (token)
 	{
 		printf("Type: %s\n", get_token_type_string(token->type));

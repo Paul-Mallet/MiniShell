@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/20 16:42:17 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/21 10:01:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void  	ft_lexer(char *input);
 */
 t_token	*ft_parsing(char *input, t_env *env);
 void	get_expanded(t_token *tokens, t_env *env);
-int	check_cmd_tokens(t_token *tokens);
+int		check_cmd_tokens(t_token *tokens);
+void	join_tokens(t_token *tokens);
+void	remove_token(t_token *token);
 
 /*
 	1rst tokenizer separates words of input by types

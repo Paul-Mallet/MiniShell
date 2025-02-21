@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/20 16:41:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/21 08:30:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void second_tokenization(t_token *tokens, t_env *env)
 	current = tokens;
 	is_cmd_found = false;
 	// if (!paths)
-		//error_handling();
+	// 	error_handling();
 	while (current)
 	{
 		if (current->type == PIPE)
