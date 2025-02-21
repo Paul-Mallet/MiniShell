@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/21 10:01:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:32:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	get_expanded(t_token *tokens, t_env *env);
 int		check_cmd_tokens(t_token *tokens);
 void	join_tokens(t_token *tokens);
 void	remove_token(t_token *token);
+void	remove_quotes(t_token *tokens);
+void	remove_empty_token(t_token **tokens);
 
 /*
 	1rst tokenizer separates words of input by types
@@ -59,7 +61,6 @@ void	print_token(t_token *token);
 void 	free_tokens(t_token **tokens);
 void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found);
 void 	handle_token_redir(t_token *token);
-
 
 t_token	*handle_word(char **input);
 t_token *handle_double_quotes(char **input);
@@ -79,5 +80,6 @@ int		is_redirection(char c);
 int		is_dir(char *value);
 int		is_file(char *value);
 int		is_builtins(char *cmd);
+bool	is_dollar(char *value);
 
 #endif

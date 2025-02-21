@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/21 11:22:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:23:49 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,44 +35,89 @@ void	get_expanded(t_token *tokens, t_env *env)
 	}
 }
 
-int	check_cmd_tokens(t_token *tokens)
+int	ft_strlen_without_quotes(char *value)
 {
-	t_token	*current;
-	bool	cmd_expected;
+	int	len;
 
-	current = tokens;
-	cmd_expected = true;
-	while (current)
+	len = 0;
+	while (*value)
 	{
-		if (cmd_expected)
+		if (*value == '\"')
 		{
-			if (current->subtype == CMD)
-				cmd_expected = false;
-			else if (current->subtype != IS_SEPARATOR)
+			value++;
+			while (*value != '\"' && *value)
 			{
-				printf("command not found %s\n", current->value);
-				return (0);
+				value++;
+				len++;
 			}
+			if (*value == '\"')
+				value++;
 		}
-		if (current->subtype == IS_PIPE)
-			cmd_expected = true;
-		current = current->next;
+		else if (*value == '\'')
+		{
+			value++;
+			while (*value != '\'' && *value)
+			{
+				value++;
+				len++;
+			}
+			if (*value == '\'')
+				value++;
+		}
+		else
+		{
+			value++;
+			len++;
+		}
 	}
-	return (1);
+	return (len);
 }
 
-static bool	is_dollar(char *value)
+void	ft_remove_join_quotes(t_token *tokens)
 {
-	int	i;
+	char			*str;
+	int				i;
+	int				j;
 
+	str = (char *)malloc((ft_strlen_without_quotes(tokens->value) + 1) * sizeof(char));
+	if (!str)
+		return ;
 	i = 0;
-	while (value[i])
+	j = 0;
+	while (tokens->value[i])
 	{
-		if (value[i] == '$')
-			return (true);
-		i++;
+		if (tokens->value[i] == '\"')
+		{
+			i++;
+			while (tokens->value[i] != '\"' && tokens->value[i])
+				str[j++] = tokens->value[i++];
+			if (tokens->value[i] == '\"')
+				i++;
+		}
+		else if (tokens->value[i] == '\'')
+		{
+			i++;
+			while (tokens->value[i] != '\'' && tokens->value[i])
+				str[j++] = tokens->value[i++];
+			if (tokens->value[i] == '\'')
+				i++;
+		}
+		else
+			str[j++] = tokens->value[i++];
 	}
-	return (false);
+	str[ft_strlen_without_quotes(tokens->value)] = '\0';
+	free(tokens->value);
+	tokens->value = str;
+}
+
+void	ft_remove_tokens_join_quotes(t_token *tokens)
+{
+	while (tokens)
+	{
+		if (tokens->type == WORD)
+			ft_remove_join_quotes(tokens);
+		tokens = tokens->next;
+	}
 }
 
 void	join_tokens(t_token *tokens)
@@ -87,36 +132,23 @@ void	join_tokens(t_token *tokens)
 		if (current->type == WORD && current->next
 			&& current->next->type == WORD)
 		{
-			if (!is_dollar(current->value))
+			if (is_dollar(current->value))
 			{
 				current = current->next;
 				continue ;
 			}
-			tmp_value = current->value;
-			free (current->value);
-			current->value = ft_strjoin(tmp_value, current->next->value);
-			remove_token(current->next);
+			tmp_value = ft_strdup(current->value);
+			current = current->next;
+			free(current->prev->value);
+			current->value = ft_strjoin(tmp_value, current->value);
+			free(tmp_value);
+			remove_token(current->prev);
 		}
 		current = current->next;
 	}
 }
 
-void	remove_token(t_token *token)
-{
-	if (token->prev && token->next)
-	{
-		token->prev->next = token->next;
-		token->next->prev = token->prev;
-	}
-	else if (token->prev && !token->next)
-		token->prev->next = NULL;
-	else if (!token->prev && token->next)
-		token->next->prev = NULL;
-	free(token->value);
-	free(token);
-}
-
-static void	remove_empty_token(t_token **tokens)
+void	remove_empty_token(t_token **tokens)
 {
 	t_token	*current;
 	t_token	*next;
@@ -135,17 +167,19 @@ static void	remove_empty_token(t_token **tokens)
 		current = next;
 	}
 }
-t_token	*ft_parsing(char *input, t_env *env)
+
+t_token	*ft_parsing(char *value, t_env *env)
 {
 	char	*trimmed;
 	t_token	*tokens;
 
 	(void)env;
-	trimmed = ft_strtrim(input, " \t\n");
+	trimmed = ft_strtrim(value, " \t\n");
 	tokens = first_tokenization(trimmed);
 	free(trimmed);
 	remove_empty_token(&tokens);
 	join_tokens(tokens);
+	ft_remove_tokens_join_quotes(tokens);
 	second_tokenization(tokens, env);
 	get_expanded(tokens, env);
 	// if (!check_cmd_tokens(tokens))

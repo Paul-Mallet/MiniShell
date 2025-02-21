@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:46:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/20 17:32:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/21 14:29:26 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ void	ft_builtins(t_data *data)
 			// 	ft_export(input, &data->env);
 			// if (!ft_strcmp(input, "unset"))
 			// 	ft_unset(&env, key);
-			// if (!ft_strcmp(input, "env"))
-			// 	ft_env(data->env);
+			if (!ft_strcmp(current->value, "env"))
+				ft_env(data->env);
 			// if (!ft_strcmp(input, "exit"))
 			// 	ft_exit(data, input, prompt);
 		}
