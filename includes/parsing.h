@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/22 11:45:52 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:53:25 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,25 @@ typedef struct	s_valid_quotes
 	int	is_in_dble;
 }		t_valid_quotes;
 
+typedef struct s_expand
+{
+	char	*res;
+	char	*tmp;
+	int		i;
+	int		j;
+	int		k;
+}		t_expand;
+
 /*
 	expander
 */
 int		expand_length(char *value, t_env *env);
 char	*expander(char *value, t_env *env);
-char	*expand(char *value, t_env *env, int len);
+char	*expanding(char *value, t_env *env, int len, t_expand);
 int		get_value_len(char *value, int i, t_env *env);
 char	*get_key_value(char *value, int i, t_env *env);
 char	*extract_key(char *value, int i);
+int		check_key(char c);
 
 
 /*
@@ -49,7 +59,6 @@ void	get_expanded(t_token *tokens, t_env *env);
 int		check_cmd_tokens(t_token *tokens);
 void	join_tokens(t_token *tokens);
 void	remove_token(t_token *token);
-void	remove_quotes(t_token *tokens);
 void	remove_empty_token(t_token **tokens);
 
 /*

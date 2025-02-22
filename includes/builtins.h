@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/20 17:33:04 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:03:56 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	ft_builtins(t_data *data);
 /*
 	echo
 */
-void	ft_echo(t_token *tokens);
+int	ft_echo(t_token *tokens);
+int	ft_echo_next(t_token *tokens, bool arg_n);
 
 /*
 	cd

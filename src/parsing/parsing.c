@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/21 16:23:49 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/22 15:29:58 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,9 +179,9 @@ t_token	*ft_parsing(char *value, t_env *env)
 	free(trimmed);
 	remove_empty_token(&tokens);
 	join_tokens(tokens);
-	ft_remove_tokens_join_quotes(tokens);
 	second_tokenization(tokens, env);
 	get_expanded(tokens, env);
+	ft_remove_tokens_join_quotes(tokens);
 	// if (!check_cmd_tokens(tokens))
 	// {
 	// 	free_tokens(&tokens);

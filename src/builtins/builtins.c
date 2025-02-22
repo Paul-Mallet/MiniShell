@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:46:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/21 14:29:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:04:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 	3. send input without builtins(strchr + 1, skip ' ')
 */
 
-void	ft_builtins(t_data *data)
+void	ft_builtins(t_data *data) // builtins doivent retourner un int pour verifier exit error;
 {
 	t_token	*current;
 
@@ -33,12 +33,12 @@ void	ft_builtins(t_data *data)
 				ft_echo(current);
 			// if (!ft_strncmp(input, "cd", 2))
 			// 	ft_cd(ft_strchr(input, ' ') + 1);
-			// if (!ft_strcmp(input, "pwd"))
-			// 	ft_pwd();
+			if (!ft_strcmp(current->value, "pwd"))
+				ft_pwd();
 			// if (!ft_strcmp(input, "export"))
 			// 	ft_export(input, &data->env);
-			// if (!ft_strcmp(input, "unset"))
-			// 	ft_unset(&env, key);
+			// if (!ft_strcmp(current->value, "unset"))
+			// 	ft_unset(data->env);
 			if (!ft_strcmp(current->value, "env"))
 				ft_env(data->env);
 			// if (!ft_strcmp(input, "exit"))

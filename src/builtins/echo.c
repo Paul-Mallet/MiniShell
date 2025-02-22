@@ -6,19 +6,17 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/20 19:28:40 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/22 18:03:30 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
 
-void	ft_echo(t_token *tokens)
+int	ft_echo(t_token *tokens)
 {
 	bool	arg_n;
-	bool	first_word;
 
 	arg_n = false;
-	first_word = true;
 	tokens = tokens->next;
 	while (tokens)
 	{
@@ -32,6 +30,16 @@ void	ft_echo(t_token *tokens)
 		else
 			break;
 	}
+	if (!ft_echo_next(tokens, arg_n));
+		return (0); 
+	return (1);  // error a implementer
+}
+
+int	ft_echo_next(t_token *tokens, bool arg_n)
+{
+	bool	first_word;
+
+	first_word = true;
 	while (tokens)
 	{
 		if (tokens->next && tokens->subtype == IS_SEPARATOR)
@@ -41,6 +49,11 @@ void	ft_echo(t_token *tokens)
 		}
 		else
 		{
+			if (tokens->type != WORD)
+			{
+				printf("error");
+				return (1); // error a implementer
+			}
 			ft_printf("%s", tokens->value);
 			first_word = false;
 		}
@@ -48,4 +61,5 @@ void	ft_echo(t_token *tokens)
 	}
 	if (!arg_n)
 		ft_printf("\n");
+	return (0);
 }

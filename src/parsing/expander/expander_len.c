@@ -6,18 +6,12 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:30:43 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/22 11:37:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:52:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
-
-// char	*expander(char *value, t_env *env)
-// {
-// 	printf("len: %d\n", expand_length(value, env));
-// 	return (value);
-// }
 
 int	expand_length(char *value, t_env *env)
 {
@@ -29,8 +23,7 @@ int	expand_length(char *value, t_env *env)
 	total_len = 0;
 	while (value[i])
 	{
-		if (value[i] == '$' && value[i + 1] && 
-			(ft_isalnum(value[i + 1]) || value[i + 1] == '_'))
+		if (value[i] == '$' && value[i + 1] && check_key(value[i + 1]))
 		{
 			var_len = get_value_len(value, i, env);
 			total_len += var_len;
@@ -65,7 +58,6 @@ int	get_value_len(char *value, int i, t_env *env)
 			env = env->next;
 		}
 		free (key);
-		return (0);
 	}
 	return (0);
 }
@@ -76,7 +68,7 @@ char	*extract_key(char *value, int i)
 	char	*key;
 
 	j = i;
-	while (value[j] && (ft_isalnum(value[j]) || value[j] == '_'))
+	while (value[j] && check_key(value[j]))
 		j++;
 	key = ft_substr(value, i, j - i);
 	return (key);

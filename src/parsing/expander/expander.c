@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/22 11:52:53 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/22 16:53:21 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,47 @@
 
 char	*expander(char *value, t_env *env)
 {
-	int	len = expand_length(value, env);
-	printf("%s", expand(value, env, len));
-	return (expand(value, env, len));
+	int			expand_len;
+	t_expand	expand;
+
+	expand.i = 0;
+	expand.j = 0;
+	if (value[0] == '\'')
+		return (value);
+	expand_len = expand_length(value, env);
+	return (expanding(value, env, expand_len, expand));
 }
 
-char	*expand(char *value, t_env *env, int len)
+int	check_key(char c)
 {
-	char 	*tmp;
-	char	*res;
-	int		i;
-	int		j;
-	int		k;
+	return (ft_isalnum(c) || c == '_');
+}
 
-	res = (char *)malloc(len + 1);
-	if (!res)
+char	*expanding(char *value, t_env *env, int len, t_expand expand)
+{
+	expand.res = (char *)malloc(len + 1);
+	if (!expand.res)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (value[i])
+	while (value[expand.i])
 	{
-		if (value[i] == '$' && value[i + 1] && 
-			(ft_isalnum(value[i + 1]) || value[i + 1] == '_'))
+		if (value[expand.i] == '$'
+		&& value[expand.i + 1] && check_key(value[expand.i + 1]))
 		{
-			k = 0;
-			tmp = get_key_value(value, i, env);
-			i++;
-			while (value[i] && (ft_isalnum(value[i]) || value[i] == '_'))
-				i++;
-			if (!tmp)
+			expand.k = 0;
+			expand.tmp = get_key_value(value, expand.i, env);
+			expand.i++;
+			while (value[expand.i] && check_key(value[expand.i]))
+				expand.i++;
+			if (!expand.tmp)
 				continue ;
-			while (tmp[k])
-				res[j++] = tmp[k++];
+			while (expand.tmp[expand.k])
+				expand.res[expand.j++] = expand.tmp[expand.k++];
 		}
 		else
-			res[j++] = value[i++];
+			expand.res[expand.j++] = value[expand.i++];
 	}
-	res[j] = '\0';
-	return (res);
+	expand.res[expand.j] = '\0';
+	return (expand.res);
 }
 
 char	*get_key_value(char *value, int i, t_env *env) 
@@ -73,8 +76,6 @@ char	*get_key_value(char *value, int i, t_env *env)
 			env = env->next;
 		}
 		free (key);
-		return (NULL);
 	}
 	return (NULL);
 }
-
