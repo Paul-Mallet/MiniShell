@@ -1,61 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   expander_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/22 11:52:53 by abarahho         ###   ########.fr       */
+/*   Created: 2025/02/14 09:30:43 by abarahho          #+#    #+#             */
+/*   Updated: 2025/02/22 11:37:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
 
-char	*expander(char *value, t_env *env)
-{
-	int	len = expand_length(value, env);
-	printf("%s", expand(value, env, len));
-	return (expand(value, env, len));
-}
+// char	*expander(char *value, t_env *env)
+// {
+// 	printf("len: %d\n", expand_length(value, env));
+// 	return (value);
+// }
 
-char	*expand(char *value, t_env *env, int len)
+int	expand_length(char *value, t_env *env)
 {
-	char 	*tmp;
-	char	*res;
 	int		i;
-	int		j;
-	int		k;
+	int		total_len;
+	int		var_len;
 
-	res = (char *)malloc(len + 1);
-	if (!res)
-		return (NULL);
 	i = 0;
-	j = 0;
+	total_len = 0;
 	while (value[i])
 	{
 		if (value[i] == '$' && value[i + 1] && 
 			(ft_isalnum(value[i + 1]) || value[i + 1] == '_'))
 		{
-			k = 0;
-			tmp = get_key_value(value, i, env);
+			var_len = get_value_len(value, i, env);
+			total_len += var_len;
 			i++;
 			while (value[i] && (ft_isalnum(value[i]) || value[i] == '_'))
 				i++;
-			if (!tmp)
-				continue ;
-			while (tmp[k])
-				res[j++] = tmp[k++];
 		}
 		else
-			res[j++] = value[i++];
+		{
+			total_len++;
+			i++;
+		}
 	}
-	res[j] = '\0';
-	return (res);
+	return (total_len);
 }
 
-char	*get_key_value(char *value, int i, t_env *env) 
+int	get_value_len(char *value, int i, t_env *env) 
 {
 	char	*key;
 
@@ -68,13 +60,24 @@ char	*get_key_value(char *value, int i, t_env *env)
 			if (!ft_strcmp(env->key, key))
 			{
 				free(key);
-				return (env->value);
+				return (ft_strlen(env->value));
 			}
 			env = env->next;
 		}
 		free (key);
-		return (NULL);
+		return (0);
 	}
-	return (NULL);
+	return (0);
 }
 
+char	*extract_key(char *value, int i)
+{
+	int		j;
+	char	*key;
+
+	j = i;
+	while (value[j] && (ft_isalnum(value[j]) || value[j] == '_'))
+		j++;
+	key = ft_substr(value, i, j - i);
+	return (key);
+}

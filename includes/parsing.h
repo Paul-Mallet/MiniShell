@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/21 14:32:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/22 11:45:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,13 @@ typedef struct	s_valid_quotes
 /*
 	expander
 */
-char	*expander(char *input, t_env *env);
-char	*expand_single_var(char *input, int i, t_env *env);
-char	*get_env_value(int end, int start, char *input, t_env *env);
-char	*replace_var(char *input, int start, int end, char *value);
-char	*get_btw_quotes(char *input, int i);
+int		expand_length(char *value, t_env *env);
+char	*expander(char *value, t_env *env);
+char	*expand(char *value, t_env *env, int len);
+int		get_value_len(char *value, int i, t_env *env);
+char	*get_key_value(char *value, int i, t_env *env);
+char	*extract_key(char *value, int i);
+
 
 /*
 	lexer checks if input is valid

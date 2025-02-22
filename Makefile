@@ -39,6 +39,7 @@ SRCS_PARSER = $(addprefix $(SRC_DIR)$(SRC_PARSER), \
 	second_tokenizer_utils.c \
 	tokenizer_utils.c)
 SRCS_EXPANDER = $(addprefix $(SRC_DIR)$(SRC_EXPANDER), \
+	expander_len.c \
 	expander.c)
 SRCS_PARSING = $(addprefix $(SRC_DIR)$(SRC_PARSING), \
 	parsing.c \
