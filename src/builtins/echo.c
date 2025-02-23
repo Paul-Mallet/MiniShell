@@ -6,11 +6,28 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/23 12:28:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:11:27 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/builtins.h"
+
+bool	check_large_n(char *n)
+{
+	int	i;
+
+	i = 0;
+	if (n[i] != '-')
+		return (false);
+	i++;
+	while(n[i])
+	{
+		if (n[i] != 'n')
+			return (false);
+		i++;
+	}
+	return (true);
+}
 
 int	ft_echo(t_token *tokens)
 {
@@ -23,6 +40,11 @@ int	ft_echo(t_token *tokens)
 		if (tokens && tokens->subtype == IS_SEPARATOR)
 			tokens = tokens->next;
 		if (tokens && !ft_strcmp(tokens->value, "-n"))
+		{
+			arg_n = true;
+			tokens = tokens->next;
+		}
+		else if (check_large_n(tokens->value))
 		{
 			arg_n = true;
 			tokens = tokens->next;
@@ -63,3 +85,4 @@ int	ft_echo_next(t_token *tokens, bool arg_n)
 		ft_printf("\n");
 	return (0);
 }
+
