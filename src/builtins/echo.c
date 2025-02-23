@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/23 18:11:27 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:13:56 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	ft_echo(t_token *tokens)
 		return (0); 
 	return (1);  // error a implementer
 }
+
 
 int	ft_echo_next(t_token *tokens, bool arg_n)
 {

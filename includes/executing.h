@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/23 16:55:39 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/23 18:26:19 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	*find_path(char **paths, char *cmd);
 char	**get_path_vrbl(t_env *env);
 void	free_strs(char **paths);
 
-int		cmd_size(t_token	*tokens);
-char	**build_cmd(t_token	*tokens);
+char	**malloc_cmd(t_token *tokens);
+char	**build_cmd(t_token	*tokens, char **cmd);
 void	 print_cmd(char **cmd);
 void	init_commands_t_cmd(t_token *tokens);
 
