@@ -6,14 +6,14 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/22 16:53:25 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:45:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 # include "./minishell.h"
-# include "executing.h"
+# include "./executing.h"
 
 typedef struct	s_valid_quotes
 {

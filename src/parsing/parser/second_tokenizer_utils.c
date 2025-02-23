@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/20 16:39:51 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/23 11:11:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ bool	is_cmd(char **paths, char *cmd)
 	}
 	return (false);
 }
-
-// int	is_absolute_path(char *path)
-// {
-// 	return (path && (path[0] == '/' || (path[0] == '.' && path[1] == '/')));
-// }
 
 int	is_file(char *value)
 {

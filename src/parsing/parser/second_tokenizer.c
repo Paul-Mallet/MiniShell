@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/21 11:11:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:12:27 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,5 @@ void second_tokenization(t_token *tokens, t_env *env)
 			handle_token_word(current, paths, &is_cmd_found);
 		current = current->next;
 	}
-	free_paths(paths);
+	free_strs(paths);
 }

@@ -16,6 +16,7 @@ SRC_EXECUTING = executing/
 OBJ_DIR = obj/
 
 SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
+	init_cmd.c \
 	env_path.c)
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \

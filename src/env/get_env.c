@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/15 11:34:40 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/02/23 12:28:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_env   *new_env_node(char *entry)
 	return (new);
 }
 
-void	ft_envadd_back(t_env **env, t_env *new)
+void	env_add_back(t_env **env, t_env *new)
 {
 	t_env	*curr;
 
@@ -79,7 +79,7 @@ t_env   *import_env(char **env)
 			free_env(&head);
 			break ;
 		}
-		ft_envadd_back(&head, new);
+		env_add_back(&head, new);
 		i++;
 	}
 	return (head);

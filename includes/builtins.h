@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/22 18:03:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/23 12:26:11 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_env	*new_env_node(char *entry);
 t_env	*import_env(char **env);
 void	ft_env(t_env *env);
 void	free_env(t_env **env);
+void	env_add_back(t_env **env, t_env *new);
 
 /*
 	exit

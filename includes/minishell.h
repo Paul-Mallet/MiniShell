@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/20 14:34:02 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/23 14:13:33 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,17 @@ typedef struct	s_env
 	struct s_env	*next;
 }		t_env;
 
+
 /*
-	
+	Cmd between pipes, which handle redirs
 */
 typedef struct s_cmd
 {
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
-	int				fd[2];
-	int				fd_input;
-	int				fd_output;
-	char			*cmd;
-	char			*arg;
-	bool			is_hdoc;
+	int				fd[2];   // Pipe entre commandes
+	char			**cmd;  // Commande + arguments
+	struct s_redir	**redirs;  // Gestion de "<", "<<", ">" et ">>"
 }		t_cmd;
 
 /*
@@ -104,18 +102,21 @@ typedef struct s_cmd
 	type, <<, >>, <, > (token)
 	file, files concerned by redir
 */
-typedef struct	s_redir
+typedef struct 	s_redir
 {
-	t_token_scnd	type;
-	char			*file;
-	int				id;
+	struct s_redir	*prev;
+	struct s_redir	*next;
+	char    *file;      // Nom du fichier (NULL si pas de redirection)
+	int     fd;         // Descripteur du fichier (-1 si pas ouvert)
+	bool    append;
+	bool    is_heredoc;
+	char    *delimiter; // Delimiteur pour heredoc (NULL si pas de heredoc)
 }		t_redir;
 
 typedef struct	s_data
 {
 	t_cmd			*cmds;
 	t_env			*env;
-	t_redir			*redir;
 	t_token			*tokens;
 	t_error_code	code;
 	int				exit_code;
