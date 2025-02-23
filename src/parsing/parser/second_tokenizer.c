@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/23 14:12:27 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/23 17:56:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 		current->subtype = CMD;
 		*is_cmd_found = true;
 	}
-	else if (is_file(current->value) == 1)
+	else if ((current->prev && current->prev->type == REDIR))
+		current->subtype = FILES;
+	else if ((current->prev && current->prev->subtype == IS_SEPARATOR)
+		&& (current->prev->prev && current->prev->prev->type == REDIR))
 		current->subtype = FILES;
 	else if (is_dir(current->value) == 1)
 		current->subtype = DIR;
@@ -68,8 +71,6 @@ void second_tokenization(t_token *tokens, t_env *env)
 		}
 		else if (current->type == SEPARATOR)
 			current->subtype = IS_SEPARATOR;
-		else if (current->type == REDIR)
-			handle_token_redir(current);
 		else if (current->type == WORD)
 			handle_token_word(current, paths, &is_cmd_found);
 		current = current->next;

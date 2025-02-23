@@ -10,56 +10,56 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/executing.h"
+#include "../../../includes/minishell.h"
+#include "../../../includes/executing.h"
 
-t_cmd	*new_cmd(t_cmd tokens)
-{
-	t_cmd	*new;
+// t_cmd	*new_cmd(t_cmd tokens)
+// {
+// 	t_cmd	*new;
 
-	new = (t_cmd *)malloc(sizeof(t_cmd));
-	if (!new)
-		return (NULL);
-	new->cmd = NULL;
-	new->redirs = NULL;
-	new->prev = NULL;
-	new->next = NULL;
-	return (new);
-}
+// 	new = (t_cmd *)malloc(sizeof(t_cmd));
+// 	if (!new)
+// 		return (NULL);
+// 	new->cmd = NULL;
+// 	new->redirs = NULL;
+// 	new->prev = NULL;
+// 	new->next = NULL;
+// 	return (new);
+// }
 
-void	cmd_add_back(t_cmd **cmds, t_cmd *new)
-{
-	t_cmd	*current;
+// void	cmd_add_back(t_cmd **cmds, t_cmd *new)
+// {
+// 	t_cmd	*current;
 
-	if (!cmds || !new)
-		return ;
-	if (!*cmds)
-	{
-		*cmds = new;
-		return ;
-	}
-	current = *cmds;
-	while (current->next != NULL)
-		current = current->next;
-	current->next = new;
-	new->prev = current;
-}
+// 	if (!cmds || !new)
+// 		return ;
+// 	if (!*cmds)
+// 	{
+// 		*cmds = new;
+// 		return ;
+// 	}
+// 	current = *cmds;
+// 	while (current->next != NULL)
+// 		current = current->next;
+// 	current->next = new;
+// 	new->prev = current;
+// }
 
-void free_cmd(t_cmd **cmds)
-{
-    t_cmd *current;
-    t_cmd *next;
+// void free_cmd(t_cmd **cmds)
+// {
+//     t_cmd *current;
+//     t_cmd *next;
 
-    if (!cmds || !*cmds)
-        return;
-    current = *cmds;
-    while (current)
-    {
-        next = current->next;
-        free_strs(current->cmd);
-		free_redir(current->redirs);
-        free(current);
-        current = next;
-    }
-    *cmds = NULL;
-}
+//     if (!cmds || !*cmds)
+//         return;
+//     current = *cmds;
+//     while (current)
+//     {
+//         next = current->next;
+//         free_strs(current->cmd);
+// 		free_redir(current->redirs);
+//         free(current);
+//         current = next;
+//     }
+//     *cmds = NULL;
+// }

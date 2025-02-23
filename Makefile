@@ -12,12 +12,19 @@ SRC_LEXER = parsing/lexer/
 SRC_PARSER = parsing/parser/
 SRC_EXPANDER = parsing/expander/
 SRC_EXECUTING = executing/
+SRC_REDIR = executing/redir/
+SRC_COMMAND = executing/command/
 
 OBJ_DIR = obj/
 
-SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
+SRCS_REDIR = $(addprefix $(SRC_DIR)$(SRC_REDIR), \
+	lst_redir.c)
+SRCS_COMMAND = $(addprefix $(SRC_DIR)$(SRC_COMMAND), \
+	lst_cmd.c \
 	init_cmd.c \
 	env_path.c)
+SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
+	exec.c)
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \
 	init.c \
@@ -56,6 +63,8 @@ OBJS_PARSER = $(SRCS_PARSER:%.c=$(OBJ_DIR)%.o)
 OBJS_EXPANDER = $(SRCS_EXPANDER:%.c=$(OBJ_DIR)%.o)
 OBJS_PARSING = $(SRCS_PARSING:%.c=$(OBJ_DIR)%.o)
 OBJS_ENV = $(SRCS_ENV:%.c=$(OBJ_DIR)%.o)
+OBJS_REDIR = $(SRCS_REDIR:%.c=$(OBJ_DIR)%.o)
+OBJS_COMMAND = $(SRCS_COMMAND:%.c=$(OBJ_DIR)%.o)
 
 LIBFT_DIR = libft/
 LIBFT = $(LIBFT_DIR)libft.a
@@ -63,8 +72,8 @@ LIBFT = $(LIBFT_DIR)libft.a
 all: $(NAME)
 	@echo "minishell compiled"
 
-$(NAME): $(LIBFT) $(OBJS) $(OBJS_EXECUTING) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_PARSER) $(OBJS_LEXER) $(OBJS_EXPANDER)
-	@$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_EXECUTING) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_PARSER) $(OBJS_LEXER) $(OBJS_EXPANDER) $(LIBFT)
+$(NAME): $(LIBFT) $(OBJS) $(OBJS_EXECUTING) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_PARSER) $(OBJS_LEXER) $(OBJS_EXPANDER) $(OBJS_REDIR) $(OBJS_COMMAND)
+	@$(CC) $(CFLAGS) $(R_FLAG) -o $@ $(OBJS) $(OBJS_EXECUTING) $(OBJS_BUILTINS) $(OBJS_ENV) $(OBJS_PARSING) $(OBJS_PARSER) $(OBJS_LEXER) $(OBJS_EXPANDER) $(OBJS_REDIR) $(OBJS_COMMAND) $(LIBFT)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
