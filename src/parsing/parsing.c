@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/24 13:09:30 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:34:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,10 +112,8 @@ void	remove_join_quotes(t_token *tokens)
 
 void	remove_tokens_join_quotes(t_token *tokens)
 {
-	// printf("bef: \n\n\n%s\n\n\n\n", tokens->value);
 	while (tokens)
 	{
-		printf("\n\n\n%s, %d\n\n\n\n", tokens->value, tokens->type);
 		if (tokens && tokens->type == WORD)
 			remove_join_quotes(tokens);
 		tokens = tokens->next;
@@ -158,7 +156,7 @@ void	remove_empty_token(t_token **tokens)
 	t_token	*next;
 
 	next = NULL;
-	current = *tokens;
+	current = *tokens; //1er
 	while (current)
 	{
 		next = current->next;
