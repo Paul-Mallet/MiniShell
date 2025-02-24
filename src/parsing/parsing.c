@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/24 08:59:24 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:09:30 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,39 +112,43 @@ void	remove_join_quotes(t_token *tokens)
 
 void	remove_tokens_join_quotes(t_token *tokens)
 {
+	// printf("bef: \n\n\n%s\n\n\n\n", tokens->value);
 	while (tokens)
 	{
-		if (tokens->type == WORD)
+		printf("\n\n\n%s, %d\n\n\n\n", tokens->value, tokens->type);
+		if (tokens && tokens->type == WORD)
 			remove_join_quotes(tokens);
 		tokens = tokens->next;
 	}
 }
 
-void	join_tokens(t_token *tokens)
+void	join_tokens(t_token **tokens)
 {
 	t_token	*current;
+	t_token	*next;
 	char	*tmp_value;
 
 	tmp_value = NULL;
-	current = tokens;
-	while (current)
+	current = *tokens;
+	while (current && current->next)
 	{
-		if (current->type == WORD && current->next
-			&& current->next->type == WORD)
+		next = current->next;
+		if (current->type == WORD && next->type == WORD)
 		{
 			if (is_dollar(current->value))
 			{
-				current = current->next;
+				current = next;
 				continue ;
 			}
 			tmp_value = ft_strdup(current->value);
-			current = current->next;
-			free(current->prev->value);
-			current->value = ft_strjoin(tmp_value, current->value);
+			free(current->value);
+			next->value = ft_strjoin(tmp_value, next->value);
 			free(tmp_value);
-			remove_token(current->prev);
+			if (current == *tokens)
+				*tokens = next;
+			remove_token(current);
 		}
-		current = current->next;
+		current = next;
 	}
 }
 
@@ -178,14 +182,14 @@ t_token	*ft_parsing(char *value, t_env *env)
 	tokens = first_tokenization(trimmed);
 	free(trimmed);
 	remove_empty_token(&tokens);
-	join_tokens(tokens);
+	join_tokens(&tokens);
 	remove_tokens_join_quotes(tokens); //e''cho doesn't work
 	second_tokenization(tokens, env);
 	get_expanded(tokens, env);
-	// if (!check_cmd_tokens(tokens))
-	// {
-	// 	free_tokens(&tokens);
-	// 	return (NULL);
-	// }
+	if (!check_cmd_tokens(tokens))
+	{
+		free_tokens(&tokens);
+		return (NULL);
+	}
 	return (tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/23 18:28:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/24 12:46:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 #include "../../../includes/builtins.h"
 #include "../../../includes/parsing.h"
 
-void print_cmd(char **cmd)
-{
-	int i; 
+// void print_cmd(char **cmd)
+// {
+// 	int i; 
 	
-	i = 0;
-	if (!cmd)
-		return ;
-	while(cmd[i])
-	{
-		printf("%s\n", cmd[i++]);
-	}
-}
+// 	i = 0;
+// 	if (!cmd)
+// 		return ;
+// 	while(cmd[i])
+// 	{
+// 		printf("%s\n", cmd[i++]);
+// 	}
+// }
 
 char	**malloc_cmd(t_token *tokens)
 {
@@ -107,7 +107,7 @@ void	init_commands_t_cmd(t_token *tokens)
 		tokens = to_pipe_token(tokens); //? t_token *
 		if (!tokens)
 			break ;
-		print_cmd(prompt_cmd);
+		// print_cmd(prompt_cmd);
 		printf("\n\n");
 		free (prompt_cmd);
 		tokens = tokens->next;

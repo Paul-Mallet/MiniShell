@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/24 08:59:31 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:12:33 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	init_mini_shell(t_data *data, char **envp)
 			add_history(input);
 		ft_lexer(input);
 		data->tokens = ft_parsing(input, data->env);
-		// init_commands_t_cmd(data->tokens);
+		init_commands_t_cmd(data->tokens);
 		ft_builtins(data);
 		free(prompt);
 		prompt = get_prompt();
