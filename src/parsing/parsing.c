@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/23 17:31:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/24 08:59:24 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	get_expanded(t_token *tokens, t_env *env)
 	}
 }
 
-int	ft_strlen_without_quotes(char *value)
+int	strlen_without_quotes(char *value)
 {
 	int	len;
 
@@ -73,13 +73,13 @@ int	ft_strlen_without_quotes(char *value)
 	return (len);
 }
 
-void	ft_remove_join_quotes(t_token *tokens)
+void	remove_join_quotes(t_token *tokens)
 {
 	char			*str;
 	int				i;
 	int				j;
 
-	str = (char *)malloc((ft_strlen_without_quotes(tokens->value) + 1) * sizeof(char));
+	str = (char *)malloc((strlen_without_quotes(tokens->value) + 1) * sizeof(char));
 	if (!str)
 		return ;
 	i = 0;
@@ -105,17 +105,17 @@ void	ft_remove_join_quotes(t_token *tokens)
 		else
 			str[j++] = tokens->value[i++];
 	}
-	str[ft_strlen_without_quotes(tokens->value)] = '\0';
+	str[strlen_without_quotes(tokens->value)] = '\0';
 	free(tokens->value);
 	tokens->value = str;
 }
 
-void	ft_remove_tokens_join_quotes(t_token *tokens)
+void	remove_tokens_join_quotes(t_token *tokens)
 {
 	while (tokens)
 	{
 		if (tokens->type == WORD)
-			ft_remove_join_quotes(tokens);
+			remove_join_quotes(tokens);
 		tokens = tokens->next;
 	}
 }
@@ -179,9 +179,9 @@ t_token	*ft_parsing(char *value, t_env *env)
 	free(trimmed);
 	remove_empty_token(&tokens);
 	join_tokens(tokens);
+	remove_tokens_join_quotes(tokens); //e''cho doesn't work
 	second_tokenization(tokens, env);
 	get_expanded(tokens, env);
-	ft_remove_tokens_join_quotes(tokens); //e''cho doesn't work
 	// if (!check_cmd_tokens(tokens))
 	// {
 	// 	free_tokens(&tokens);
