@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/22 16:53:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:24:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*expander(char *value, t_env *env)
 
 int	check_key(char c)
 {
-	return (ft_isalnum(c) || c == '_');
+	return (ft_isalpha(c) || c == '_');
 }
 
 char	*expanding(char *value, t_env *env, int len, t_expand expand)
@@ -44,7 +44,7 @@ char	*expanding(char *value, t_env *env, int len, t_expand expand)
 			expand.k = 0;
 			expand.tmp = get_key_value(value, expand.i, env);
 			expand.i++;
-			while (value[expand.i] && check_key(value[expand.i]))
+			while (value[expand.i] && ft_isalnum(value[expand.i]))
 				expand.i++;
 			if (!expand.tmp)
 				continue ;

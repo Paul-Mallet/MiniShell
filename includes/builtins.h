@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/23 12:26:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:56:00 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,34 @@ void	ft_cd(char *path);
 void	ft_pwd(void);
 
 /*
-	export
-*/
-void	ft_export(char *import, t_env **env);
-void	print_export(t_env *env);
-void	add_env(char *import, t_env **env);
-void	update_env(t_env *env, char *value);
-void	free_key_and_value(char *key, char *value);
-
-/*
 	unset
 */
-void	ft_unset(t_env **env, char *key);
+void	ft_unset(t_env **env, t_token *tokens);
+void	unset_env_var(t_env **env, char *key);
 
 /*
 	env
 */
+void	ft_env(t_env *env);
 t_env	*new_env_node(char *entry);
 t_env	*import_env(char **env);
-void	ft_env(t_env *env);
-void	free_env(t_env **env);
 void	env_add_back(t_env **env, t_env *new);
+void	free_env(t_env **env);
+void	print_env(t_env *env);
+void	set_env_values(t_env *new, char *entry, char *sep);
+
+/*
+	export
+*/
+t_export	*new_exp_node(char *entry);
+t_export	*import_exp(char **env);
+void		free_exp(t_export **export);
+void		exp_add_back(t_export **exp, t_export *new);
+bool		check_key_fmt(char *value);
+
+void		ft_export(char *import, t_export **export);
+void		update_exp(t_export *export, char *value);
+void		free_key_and_value(char *key, char *value);
 
 /*
 	exit

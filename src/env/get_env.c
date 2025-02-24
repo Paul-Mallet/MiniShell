@@ -6,29 +6,40 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/23 12:28:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:55:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-t_env   *new_env_node(char *entry)
+void set_env_values(t_env *new, char *entry, char *sep)
 {
-	t_env   *new;
-	char    *sep;
+	if (sep)
+	{
+		new->key = ft_strndup(entry, sep - entry);
+		new->value = ft_strdup(sep + 1);
+	}
+	else
+	{
+		new->key = ft_strdup(entry);
+		new->value = ft_strdup("\"\"");
+	}
+}
+
+t_env *new_env_node(char *entry)
+{
+	t_env *new;
+	char *sep = NULL;
 
 	if (!entry)
 		return (NULL);
-	sep = ft_strchr(entry, '=');
-	if (!sep)
-		return (NULL);
-	new = (t_env*)malloc(sizeof(t_env));
+	if (check_if_value(entry))
+		sep = ft_strchr(entry, '=');
+	new = (t_env *)malloc(sizeof(t_env));
 	if (!new)
 		return (NULL);
-	new->key = ft_strndup(entry, sep - entry);
-	new->value = ft_strdup(sep + 1);
-	new->is_env = 1;
+	set_env_values(new, entry, sep);
 	new->next = NULL;
 	if (!new->key || !new->value)
 	{
@@ -39,6 +50,7 @@ t_env   *new_env_node(char *entry)
 	}
 	return (new);
 }
+
 
 void	env_add_back(t_env **env, t_env *new)
 {

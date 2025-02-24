@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/23 16:29:37 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/24 14:25:41 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,15 @@ typedef struct	s_env
 {
 	char			*key;
 	char			*value;
-	bool			is_env;
 	struct s_env	*next;
 }		t_env;
+
+typedef struct	s_export
+{
+	char			*key;
+	char			*value;
+	struct s_export	*next;
+}		t_export;
 
 /*
 	Cmd between pipes, which handle redirs
@@ -116,6 +122,7 @@ typedef struct	s_data
 {
 	t_cmd			*cmds;
 	t_env			*env;
+	t_export		*export;
 	t_token			*tokens;
 	t_error_code	code;
 	int				exit_code;
