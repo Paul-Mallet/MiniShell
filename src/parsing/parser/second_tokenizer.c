@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/23 17:56:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:12:10 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void second_tokenization(t_token *tokens, t_env *env)
 			current->subtype = IS_PIPE;
 			is_cmd_found = false;
 		}
+		else if (current->type == REDIR)
+			handle_token_redir(current);
 		else if (current->type == SEPARATOR)
 			current->subtype = IS_SEPARATOR;
 		else if (current->type == WORD)

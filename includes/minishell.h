@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/24 14:25:41 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:23:08 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	int				fd[2];   // Pipe entre commandes
 	char			**cmd;  //OK build_cmd
-	struct s_redir	**redirs;  // Gestion de "<", "<<", ">" et ">>"
+	struct s_redir	*redir;  // Gestion de "<", "<<", ">" et ">>"
 }		t_cmd;
 
 /*
@@ -109,12 +109,11 @@ typedef struct s_cmd
 */
 typedef struct 	s_redir
 {
-	struct s_redir	*prev;
-	struct s_redir	*next;
 	char    *file;      // Nom du fichier (NULL si pas de redirection)
 	int     fd;         // Descripteur du fichier (-1 si pas ouvert)
+	char	*value;
 	bool    append;
-	bool    is_heredoc;
+	bool    heredoc;
 	char    *delimiter; // Delimiteur pour heredoc (NULL si pas de heredoc)
 }		t_redir;
 
@@ -125,7 +124,7 @@ typedef struct	s_data
 	t_export		*export;
 	t_token			*tokens;
 	t_error_code	code;
-	int				exit_code;
+	long long		exit_code;
 }		t_data;
 
 void	init_data(t_data *data);

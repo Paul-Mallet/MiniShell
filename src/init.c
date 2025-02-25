@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/24 14:57:36 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:16:20 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	init_mini_shell(t_data *data, char **envp)
 		if (!prompt)
 			break ;
 		print_token(data->tokens);
+		// execve
 		free_tokens(&data->tokens);
 		free(input);
 	}

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/23 11:11:51 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:31:45 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,21 @@ bool	is_cmd(char **paths, char *cmd)
 {
 	int		i;
 	char	*road;
+	struct stat	file_infos;
 
+	if (cmd && ft_strchr(cmd, '/'))
+	{
+		if (access(cmd, X_OK) == 0 && stat(cmd, &file_infos) == 0 && S_ISREG(file_infos.st_mode))
+			return (true);
+		return (false);
+	}
 	if (!paths || !cmd)
 		return (false);
-	if (ft_strchr(cmd, '/') && access(cmd, F_OK) == 0)
-		return (true);
 	i = 0;
 	while (paths[i])
 	{
 		road = construct_path(paths[i], cmd);
-		if (road && access(road, F_OK) == 0)
+		if (road && access(road, X_OK) == 0 && stat(road, &file_infos) == 0 && S_ISREG(file_infos.st_mode))
 		{
 			free(road);
 			return (true);

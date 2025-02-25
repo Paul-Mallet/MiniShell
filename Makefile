@@ -36,7 +36,6 @@ SRCS_BUILTINS = $(addprefix $(SRC_DIR)$(SRC_BUILTINS), \
 	env.c \
 	exit.c \
 	export.c \
-	lst_export.c \
 	pwd.c \
 	unset.c)
 SRCS_LEXER = $(addprefix $(SRC_DIR)$(SRC_LEXER), \
