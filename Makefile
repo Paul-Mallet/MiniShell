@@ -22,6 +22,7 @@ SRCS_REDIR = $(addprefix $(SRC_DIR)$(SRC_REDIR), \
 SRCS_COMMAND = $(addprefix $(SRC_DIR)$(SRC_COMMAND), \
 	lst_cmd.c \
 	init_cmd.c \
+	print_cmd.c \
 	env_path.c)
 SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
 	exec.c)

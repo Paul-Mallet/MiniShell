@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/25 18:16:20 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:05:22 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	init_data(t_data *data)
 {
 	data->cmds = NULL;
 	data->env = NULL;
-	// data->redir = NULL;
 	data->export = NULL;
 	data->tokens = NULL;
 	data->exit_code = 0;

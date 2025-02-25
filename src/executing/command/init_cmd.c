@@ -3,39 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/25 18:21:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/25 19:34:28 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
 #include "../../../includes/executing.h"
-
-void print_cmds(char **cmds)
-{
-	while(*cmds != NULL)
-		printf("%s\n", *cmds++);
-}
-
-void print_redir(t_redir *redir)
-{
-	printf("\nContent of redir: \nFile: %s\nValue: %s\nAppend: %d\nHeredoc: %d\nDelim: %s\n",
-			redir->file, redir->value, redir->append, redir->heredoc, redir->delimiter);
-}
-
-void print_cmd_struct(t_cmd *cmd)
-{
-	print_redir(cmd->redir);
-	// while(cmd)
-	// {
-	// 	// print_cmds(cmd->cmd);
-	// 	printf("\n\n");
-	// 	cmd = cmd->next;
-	// }
-}
 
 char	**malloc_cmd(t_token *tokens)
 {
@@ -86,46 +63,14 @@ char	**build_cmd(t_token	*tokens, char **cmd) //["value1", "value2"]
 
 t_token	*to_pipe_token(t_token *tokens)
 {
-	while (tokens->next)
+	while (tokens->next) //not check last token == PIPE
 	{
-		if (tokens->subtype == IS_PIPE)
+		if (tokens->type == PIPE)
 			break ;
 		tokens = tokens->next;
 	}
+	tokens = tokens->next;
 	return (tokens);
-}
-
-/*
-	1. build_cmd -> construit la char **cmd valide(stop a delim / pipe)
-	2. get_pipe_token -> avance le token
-*/
-t_cmd	*init_commands_t_cmd(t_token *tokens)
-{
-	char	**cmd;
-	char	**prompt_cmd;
-	t_cmd	*head;
-	t_cmd	*new;
-
-	cmd = NULL;
-	prompt_cmd = NULL;
-	head = NULL;
-	while(tokens)
-	{
-		cmd = malloc_cmd(tokens);
-		if (!cmd)
-			return (NULL);
-		prompt_cmd = build_cmd(tokens, cmd);
-		init_redir(tokens, new);
-		tokens = to_pipe_token(tokens);
-		if (!tokens)
-			break ;
-		new = new_cmd(prompt_cmd);
-		cmd_add_back(&head, new);
-		free(prompt_cmd);
-		tokens = tokens->next;
-	}
-	print_cmd_struct(head);
-	return (head);
 }
 
 void	fill_redir(t_token *tokens, t_redir *new)
@@ -159,9 +104,10 @@ void	init_redir(t_token *tokens, t_cmd *new)
 	t_token	*current;
 	t_redir	*redir;
 
-	while (tokens->next && tokens->type != PIPE)
-		tokens = tokens->next;
-	current = tokens; //last token
+	tokens = to_pipe_token(tokens); //will not fill_redir if grep test<END>
+	if (!tokens)
+		return ;
+	current = tokens; //tokens->type = PIPE
 	redir = NULL;
 	while (current->prev) //handle 1rst token == redir
 	{
@@ -180,18 +126,41 @@ void	init_redir(t_token *tokens, t_cmd *new)
 	// printf("failed");
 }
 
-// void	init_redir(t_token *tokens, t_cmd *new)
-// {
-// 	t_redir	*last_redir;
+/*
+	init_cmds_struct
+	1. build_cmd -> construit la char **cmd valide(stop a delim / pipe)
+	2. get_pipe_token -> avance le token
+*/
+t_cmd	*init_commands_t_cmd(t_token *tokens)
+{
+	char	**cmd;
+	char	**prompt_cmd;
+	t_cmd	*head;
+	t_cmd	*new;
 
-// 	last_redir = NULL;
-// 	while (tokens)
-// 	{
-// 		if (tokens->type == REDIR)
-// 			fill_redir(tokens, last_redir);
-// 		if (tokens->type == PIPE)
-// 			break;
-// 		tokens = tokens->prev;
-// 	}
-// 	new->redir = last_redir;
-// }
+	cmd = NULL;
+	prompt_cmd = NULL;
+	head = NULL;
+	while(tokens)
+	{
+		cmd = malloc_cmd(tokens);
+		if (!cmd)
+			return (NULL);
+		prompt_cmd = build_cmd(tokens, cmd);
+		init_redir(tokens, new);
+		tokens = to_pipe_token(tokens);
+		if (!tokens)
+		{
+			new = new_cmd(prompt_cmd);
+			cmd_add_back(&head, new);
+			free(prompt_cmd);
+			break ; //cannot break if ... | grep file
+		}
+		new = new_cmd(prompt_cmd);
+		cmd_add_back(&head, new);
+		free(prompt_cmd);
+		tokens = tokens->next;
+	}
+	print_cmd_struct(head);
+	return (head);
+}

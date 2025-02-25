@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   first_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/25 18:41:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:56:23 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_token *handle_word(char **input)
 	value = extract_word(*input, len);
 	if (!value)
 		return (NULL);
-	if (value[0] == '$')
+	//if (value[0] == '$')
 		
 	token = new_token(WORD, UNKNOW_SUBTYPE, value);
 	free(value);
