@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/24 18:55:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/25 10:40:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void set_env_values(t_env *new, char *entry, char *sep)
 	}
 	else
 	{
-		new->key = ft_strdup(entry);
-		new->value = ft_strdup("\"\"");
+		new->key = ft_strndup(entry, ft_strlen(entry) - 1);
+		new->value = "";
 	}
 }
 
@@ -41,7 +41,7 @@ t_env *new_env_node(char *entry)
 		return (NULL);
 	set_env_values(new, entry, sep);
 	new->next = NULL;
-	if (!new->key || !new->value)
+	if (!new->key)
 	{
 		free(new->key);
 		free(new->value);

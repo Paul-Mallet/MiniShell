@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:30:43 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/24 18:23:02 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/24 19:26:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	get_value_len(char *value, int i, t_env *env)
 	char	*key;
 
 	i++;
-	if (ft_alnum(value[i]) || value[i] == '_')
+	if (ft_isalnum(value[i]) || value[i] == '_')
 	{
 		key = extract_key(value, i);
 		while (env)

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/24 18:56:00 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/25 09:02:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ t_export	*import_exp(char **env);
 void		free_exp(t_export **export);
 void		exp_add_back(t_export **exp, t_export *new);
 bool		check_key_fmt(char *value);
+bool		check_if_value(char *value);
 
-void		ft_export(char *import, t_export **export);
+void		ft_export(t_env *env, t_token *tokens);
 void		update_exp(t_export *export, char *value);
 void		free_key_and_value(char *key, char *value);
 
