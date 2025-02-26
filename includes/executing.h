@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 17:43:37 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:01:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void	print_redirtamere(t_redir *redir);
 
 bool	check_tokens(t_token *tokens);
 
-int	count_cmds(t_token *tokens);
+int	count_cmds(t_cmd *cmds);
 
 #endif
