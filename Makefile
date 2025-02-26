@@ -25,7 +25,8 @@ SRCS_COMMAND = $(addprefix $(SRC_DIR)$(SRC_COMMAND), \
 	print_cmd.c \
 	env_path.c)
 SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
-	exec.c)
+	exec.c \
+	check_tokens.c)
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \
 	init.c \

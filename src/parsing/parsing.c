@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/26 14:09:40 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:29:22 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,23 +150,19 @@ void	join_tokens(t_token **tokens)
 	}
 }
 
-void	remove_empty_token(t_token **tokens)
+void	remove_empty_token(t_token *tokens)
 {
 	t_token	*current;
-	t_token	*next;
 
-	next = NULL;
-	current = *tokens; //1er
+	current = tokens;
 	while (current)
 	{
-		next = current->next;
 		if (!ft_strcmp(current->value, "\"\"") || !ft_strcmp(current->value, "''"))
 		{
-			if (current == *tokens)
-				*tokens = next;
-			remove_token(current);
+			free (current->value);
+			current->value = strdup("");
 		}
-		current = next;
+		current = current->next;
 	}
 }
 
@@ -179,7 +175,7 @@ t_token	*ft_parsing(char *value, t_env *env)
 	trimmed = ft_strtrim(value, " \t\n");
 	tokens = first_tokenization(trimmed, env);
 	free(trimmed);
-	remove_empty_token(&tokens);
+	remove_empty_token(tokens);
 	join_tokens(&tokens);
 	remove_tokens_join_quotes(tokens); //e''cho doesn't work
 	second_tokenization(tokens, env);

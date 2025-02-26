@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 14:05:17 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:01:00 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,43 @@ t_token	*to_pipe_or_last_token(t_token *tokens)
 	return (tokens);
 }
 
+void	free_prompt(char **prompt_cmd)
+{
+	int	i;
+
+	i = -1;
+	while (prompt_cmd[++i])
+		free(prompt_cmd[i]);
+	free(prompt_cmd);
+}
+
+void	print_cmd(char **cmds)
+{
+	int	i;
+
+	i = -1;
+	while (cmds[++i])
+		printf("cmd[%d]: %s\n", i, cmds[i]);
+}
+
+void	print_redirtamere(t_redir *redir)
+{
+	t_redir *current_redir = redir;
+
+	while (current_redir)
+	{
+		printf("  Redirection: Type \"%s\"", current_redir->value);
+		if (current_redir->file)
+			printf(", File \"%s\"", current_redir->file);
+		if (current_redir->append)
+			printf(" (Append)");
+		if (current_redir->heredoc)
+			printf(" (Heredoc, Delimiter \"%s\")", current_redir->delimiter);
+		printf("\n");
+		current_redir = current_redir->next;
+	}
+}
+
 /*
 	init_cmds_struct
 	1. build_cmd -> construit la char **cmd valide(stop a delim / pipe)
@@ -94,20 +131,15 @@ t_cmd	*init_cmd_struct(t_token *tokens)
 		if (!cmd)
 			return (NULL);
 		prompt_cmd = build_cmd(tokens, cmd);
-		init_new_redir(tokens, new);
-		tokens = to_pipe_or_last_token(tokens);
-		// if (!tokens)
-		// {
-		// 	new = new_cmd(prompt_cmd);
-		// 	cmd_struct_add_back(&head, new);
-		// 	free(prompt_cmd);
-		// 	break ; //cannot break if ... | grep file
-		// }
 		new = new_cmd(prompt_cmd);
 		cmd_struct_add_back(&head, new);
-		free(prompt_cmd);
+		init_redirs(tokens, new);
+		tokens = to_pipe_or_last_token(tokens);
+		print_cmd(new->cmd);
+		// print_redirtamere(new->redir);
 		tokens = tokens->next;
+		free_prompt(prompt_cmd);
 	}
-	print_cmd_struct(head);
+	// print_cmd_struct(head);
 	return (head);
 }

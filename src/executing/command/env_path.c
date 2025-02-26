@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/23 16:50:41 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:37:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*find_path(char **paths, char *cmd)
 	while (paths[i])
 	{
 		road = construct_path(paths[i], cmd);
-		if (road && access(road, F_OK) == 0)
+		if (road && access(road, X_OK) == 0)
 			return (road);
 		free(road);
 		i++;

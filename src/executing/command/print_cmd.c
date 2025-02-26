@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:16:25 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/25 19:29:41 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:00:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void print_redir(t_redir *redir)
 
 void print_cmd_struct(t_cmd *cmd)
 {
-	if (cmd->redir)
+	while (cmd->redir)
 		print_redir(cmd->redir);
 	// while(cmd)
 	// {

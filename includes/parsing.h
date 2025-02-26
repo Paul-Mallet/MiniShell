@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 13:48:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:27:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	get_expanded(t_token *tokens, t_env *env);
 int		check_cmd_tokens(t_token *tokens);
 void	join_tokens(t_token **tokens);
 void	remove_token(t_token *token);
-void	remove_empty_token(t_token **tokens);
+void	remove_empty_token(t_token *tokens);
 
 /*
 	1rst tokenizer separates words of input by types

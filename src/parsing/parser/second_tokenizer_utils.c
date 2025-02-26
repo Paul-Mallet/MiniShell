@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/25 17:31:45 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:00:10 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,8 @@ bool	is_cmd(char **paths, char *cmd)
 	char	*road;
 	struct stat	file_infos;
 
-	if (cmd && ft_strchr(cmd, '/'))
-	{
-		if (access(cmd, X_OK) == 0 && stat(cmd, &file_infos) == 0 && S_ISREG(file_infos.st_mode))
-			return (true);
+		 
 		return (false);
-	}
 	if (!paths || !cmd)
 		return (false);
 	i = 0;

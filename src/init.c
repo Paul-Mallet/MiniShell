@@ -6,13 +6,14 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/26 14:21:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:48:20 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/builtins.h"
 #include "../includes/parsing.h"
+#include "../includes/executing.h"
 
 void	init_data(t_data *data)
 {
@@ -49,8 +50,9 @@ void print_commads(t_cmd *cmds)
         printf("  Args: ");
         if (current->cmd)
         {
-            for (i = 0; current->cmd[i]; i++)
-                printf("\"%s\" ", current->cmd[i]);
+			i = 0;
+            while (current->cmd[i])
+                printf("\"%s\" ", current->cmd[i++]);
         }
         else
             printf("(empty)");
@@ -89,14 +91,15 @@ void	init_mini_shell(t_data *data, char **envp)
 			add_history(input);
 		ft_lexer(input);
 		data->tokens = ft_parsing(input, data->env);
-		init_cmd_struct(data->tokens);
+		// data->cmds = init_cmd_struct(data->tokens);
 		ft_builtins(data);
 		free(prompt);
 		prompt = get_prompt();
 		if (!prompt)
 			break ;
+		// check_tokens(data->tokens);
+		// ft_exec(data);
 		print_token(data->tokens);
-		// execve
 		free_tokens(&data->tokens);
 		free(input);
 	}

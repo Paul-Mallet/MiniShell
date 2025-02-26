@@ -6,27 +6,38 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 11:15:15 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 14:06:53 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:03:00 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/executing.h"
 
-void	fill_new_redir(t_token *tokens, t_redir *new)
+t_redir	*new_redir(void)
 {
-	printf("SUBTYPE: %u\n", tokens->subtype);
-	new->file = NULL;
-	new->value = NULL;
-	new->value = tokens->value;
-	new->fd = -1;
-    new->append = false;
-    new->heredoc = false;
-	new->delimiter = NULL;
+	t_redir	*redir;
+
+	redir = (t_redir *)malloc(sizeof(t_redir));
+	if (!redir)
+		return (NULL);
+	redir->file = NULL;
+	redir->fd = -1;
+	redir->value = NULL;
+	redir->append = false;
+	redir->heredoc = false;
+	redir->delimiter = NULL;
+	redir->prev = NULL;
+	redir->next = NULL;
+	return (redir);
+}
+
+void	fill_redir(t_token *tokens, t_redir *new)
+{
 	if (tokens->next && tokens->next->subtype == FILES)
 		new->file = tokens->next->value;
 	else if (tokens->next->next && tokens->next->next->subtype == FILES)
 		new->file = tokens->next->next->value;
+	new->value = tokens->value;
 	if (tokens->subtype == APPEND)
 		new->append = true;
 	else if (tokens->subtype == HEREDOC)
@@ -37,61 +48,68 @@ void	fill_new_redir(t_token *tokens, t_redir *new)
 		else if (tokens->next->next && tokens->next->next->subtype == DELIM)
 			new->delimiter = tokens->next->next->value;
 	}
+	print_redirtamere(new);
 }
 
-void	init_new_redir(t_token *tokens, t_cmd *new)
+void	redir_add_back(t_redir **lst, t_redir *new)
 {
-	t_token	*current;
-	t_redir	*redir;
+	t_redir	*current;
 
-	tokens = to_pipe_or_last_token(tokens);
-	current = tokens; //tokens->type = PIPE || last
-	redir = NULL;
-	while (current->prev) //handle 1rst token == redir
+	if (!lst || !new)
+		return ;
+	if (!*lst)
 	{
-		printf("SUBTYPE: %u\nPREV_VALUE: %s\n", current->subtype, current->prev->value);
-		if (current->type == REDIR)
-		{
-			redir = malloc(sizeof(t_redir));
-			if (!redir)
-				printf("failed");
-			fill_new_redir(current, redir);
-			break ;
-		}
-		current = current->prev;
+		*lst = new;
+		return ;
 	}
-	if (redir)
-		new->redir = redir;
+	current = *lst;
+	while (current->next != NULL)
+		current = current->next;
+	current->next = new;
+	new->prev = current;
 }
 
-// t_redir	*new_redir(t_token *tokens)
-// {
-// 	t_redir	*new;
+void	init_redirs(t_token *tokens, t_cmd *new_cmd) //take: t_redir *head
+{
+	t_redir *head;
+	t_redir *new;
+	t_token	*current;
 
-// 	new = (t_redir *)malloc(sizeof(t_redir));
-// 	if (!new)
-// 		return (NULL);
-// 		    new->append = false;
-// 	new->file = NULL;
-// 	new->value = NULL;
-// 	new->value = tokens->value;
-// 	new->fd = -1;
-// 	if (tokens->next && tokens->next->subtype == FILES)
-// 		new->file = tokens->next->value;
-// 	else if (tokens->next->next && tokens->next->next->subtype == FILES)
-// 		new->file = tokens->next->next->value;
-//     new->append = false;
-//     new->heredoc = false;
-// 	new->delimiter = NULL;
-// 	if (tokens->subtype == APPEND)
-// 		new->append = true;
-// 	else if (tokens->subtype == HEREDOC)
-// 	{
-// 		new->heredoc = true;
-// 		if (tokens->next && tokens->next->subtype == DELIM)
-// 			new->delimiter = tokens->next->value;
-// 		else if (tokens->next->next && tokens->next->next->subtype == DELIM)
-// 			new->delimiter = tokens->next->next->value;
-// 	}
-// 	return (new);
-// }
+	head = NULL;
+	current = tokens;
+	while(current && current->subtype != IS_PIPE) //stop PIPE
+	{
+        if (current->type == REDIR)
+		{
+		    new = new_redir();
+			if (!new)
+				return ;
+			fill_redir(current, new);
+			redir_add_back(&head, new);
+		}
+		current = current->next;
+	}
+	// print_redirtamere(head);
+	new_cmd->redir = head;
+}
+
+void free_redir(t_redir **redirs)
+{
+	t_redir *current;
+	t_redir *next;
+
+	if (!redirs || !*redirs)
+		return;
+	current = *redirs;
+	while (current)
+	{
+		next = current->next;
+		if (current->file)
+			free(current->file);
+		if (current->delimiter)
+			free(current->delimiter);
+		free(current);
+		current = next;
+	}
+	*redirs = NULL;
+}
