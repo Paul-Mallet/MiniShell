@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/25 19:34:28 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/26 12:45:45 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,69 +61,15 @@ char	**build_cmd(t_token	*tokens, char **cmd) //["value1", "value2"]
 	return (cmd);
 }
 
-t_token	*to_pipe_token(t_token *tokens)
+t_token	*to_pipe_or_last_token(t_token *tokens)
 {
-	while (tokens->next) //not check last token == PIPE
+	while (tokens->next)
 	{
 		if (tokens->type == PIPE)
 			break ;
 		tokens = tokens->next;
 	}
-	tokens = tokens->next;
 	return (tokens);
-}
-
-void	fill_redir(t_token *tokens, t_redir *new)
-{
-	printf("SUBTYPE: %u\n", tokens->subtype);
-	new->file = NULL;
-	new->value = NULL;
-	new->value = tokens->value;
-	new->fd = -1;
-    new->append = false;
-    new->heredoc = false;
-	new->delimiter = NULL;
-	if (tokens->next && tokens->next->subtype == FILES)
-		new->file = tokens->next->value;
-	else if (tokens->next->next && tokens->next->next->subtype == FILES)
-		new->file = tokens->next->next->value;
-	if (tokens->subtype == APPEND)
-		new->append = true;
-	else if (tokens->subtype == HEREDOC)
-	{
-		new->heredoc = true;
-		if (tokens->next && tokens->next->subtype == DELIM)
-			new->delimiter = tokens->next->value;
-		else if (tokens->next->next && tokens->next->next->subtype == DELIM)
-			new->delimiter = tokens->next->next->value;
-	}
-}
-
-void	init_redir(t_token *tokens, t_cmd *new)
-{
-	t_token	*current;
-	t_redir	*redir;
-
-	tokens = to_pipe_token(tokens); //will not fill_redir if grep test<END>
-	if (!tokens)
-		return ;
-	current = tokens; //tokens->type = PIPE
-	redir = NULL;
-	while (current->prev) //handle 1rst token == redir
-	{
-		printf("SUBTYPE: %u\nPREV_VALUE: %s\n", current->subtype, current->prev->value);
-		if (current->type == REDIR)
-		{
-			redir = malloc(sizeof(t_redir));
-			if (!redir)
-				printf("failed");
-			fill_redir(current, redir);
-			break ;
-		}
-		current = current->prev;
-	}
-	new->redir = redir;
-	// printf("failed");
 }
 
 /*
@@ -131,7 +77,7 @@ void	init_redir(t_token *tokens, t_cmd *new)
 	1. build_cmd -> construit la char **cmd valide(stop a delim / pipe)
 	2. get_pipe_token -> avance le token
 */
-t_cmd	*init_commands_t_cmd(t_token *tokens)
+t_cmd	*init_cmd_struct(t_token *tokens)
 {
 	char	**cmd;
 	char	**prompt_cmd;
@@ -147,17 +93,17 @@ t_cmd	*init_commands_t_cmd(t_token *tokens)
 		if (!cmd)
 			return (NULL);
 		prompt_cmd = build_cmd(tokens, cmd);
-		init_redir(tokens, new);
-		tokens = to_pipe_token(tokens);
-		if (!tokens)
-		{
-			new = new_cmd(prompt_cmd);
-			cmd_add_back(&head, new);
-			free(prompt_cmd);
-			break ; //cannot break if ... | grep file
-		}
+		init_new_redir(tokens, new);
+		tokens = to_pipe_or_last_token(tokens);
+		// if (!tokens)
+		// {
+		// 	new = new_cmd(prompt_cmd);
+		// 	cmd_struct_add_back(&head, new);
+		// 	free(prompt_cmd);
+		// 	break ; //cannot break if ... | grep file
+		// }
 		new = new_cmd(prompt_cmd);
-		cmd_add_back(&head, new);
+		cmd_struct_add_back(&head, new);
 		free(prompt_cmd);
 		tokens = tokens->next;
 	}

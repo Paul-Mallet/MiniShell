@@ -27,7 +27,7 @@ t_cmd	*new_cmd(char **cmds)
 	return (new);
 }
 
-void	cmd_add_back(t_cmd **cmds, t_cmd *new)
+void	cmd_struct_add_back(t_cmd **cmds, t_cmd *new)
 {
 	t_cmd	*current;
 
@@ -45,7 +45,7 @@ void	cmd_add_back(t_cmd **cmds, t_cmd *new)
 	new->prev = current;
 }
 
-void free_cmd(t_cmd **cmds)
+void free_cmd_struct(t_cmd **cmds)
 {
     t_cmd *current;
     t_cmd *next;
