@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/26 18:49:22 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:21:44 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	init_mini_shell(t_data *data, char **envp)
 		if (!prompt)
 			break ;
 		// check_tokens(data->tokens);
-		// print_token(data->tokens);
+		print_token(data->tokens);
 		free_tokens(&data->tokens);
 		free(input);
 	}

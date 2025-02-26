@@ -57,10 +57,10 @@ void free_cmd_struct(t_cmd **cmds)
     {
         next = current->next;
         free_strs(current->cmd);
-		// free_redir(&current->redir);
+		if (current->redir)
+			free_redir(&current->redir);
         free(current);
         current = next;
     }
     *cmds = NULL;
 }
-

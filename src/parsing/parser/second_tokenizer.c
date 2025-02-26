@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   second_tokenizer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/25 18:12:10 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:21:23 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,12 @@ void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 	else if ((current->prev && current->prev->subtype == IS_SEPARATOR)
 		&& (current->prev->prev && current->prev->prev->subtype == HEREDOC))
 		current->subtype = DELIM;
-	else if ((is_cmd(paths, current->value) && *is_cmd_found == false)
-		|| (is_builtins(current->value) && *is_cmd_found == false))
+	else if (is_builtins(current->value) && !*is_cmd_found)
+	{
+		current->subtype = IS_BUILTIN;
+		*is_cmd_found = true;
+	}
+	else if (is_cmd(paths, current->value) && !*is_cmd_found)
 	{
 		current->subtype = CMD;
 		*is_cmd_found = true;

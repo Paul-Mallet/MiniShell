@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/26 19:00:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:19:30 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef enum	e_token_scnd
 	REDIR_INPUT,
 	REDIR_OUTPUT,
 	IS_PIPE,
+	IS_BUILTIN,			//to be skipped by build_cmd() 10
 	IS_SEPARATOR,
 	UNKNOW_SUBTYPE,
 }		t_token_scnd;
@@ -98,7 +99,6 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
 	int				fd[2];   // Pipe entre commandes
-	int				is_builtin;	//Buili
 	char			**cmd;  //OK build_cmd
 	struct s_redir	*redir;  // Gestion de "<", "<<", ">" et ">>"
 }		t_cmd;

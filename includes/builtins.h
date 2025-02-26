@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/25 09:02:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:23:20 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	unset_env_var(t_env **env, char *key);
 /*
 	env
 */
-void	ft_env(t_env *env);
-t_env	*new_env_node(char *entry);
-t_env	*import_env(char **env);
-void	env_add_back(t_env **env, t_env *new);
-void	free_env(t_env **env);
-void	print_env(t_env *env);
-void	set_env_values(t_env *new, char *entry, char *sep);
+void		ft_env(t_env *env);
+t_env		*new_env_node(char *entry);
+t_env		*import_env(char **env);
+void		env_add_back(t_env **env, t_env *new);
+void		free_env(t_env **env);
+void		print_env(t_env *env);
+void		set_env_values(t_env *new, char *entry, char *sep);
 
 /*
 	export
@@ -70,6 +70,6 @@ void		free_key_and_value(char *key, char *value);
 /*
 	exit
 */
-void	ft_exit(t_data *data, char *input, char *prompt);
+void		ft_exit(t_data *data, char *input, char *prompt);
 
 #endif
