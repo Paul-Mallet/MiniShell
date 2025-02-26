@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_redir.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 11:15:15 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 12:43:44 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:06:53 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	init_new_redir(t_token *tokens, t_cmd *new)
 		}
 		current = current->prev;
 	}
-	if (redir) //send NULL? to init
+	if (redir)
 		new->redir = redir;
 }
 

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/24 12:46:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:48:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,13 @@ void	remove_empty_token(t_token **tokens);
 */
 t_token	*new_token(t_token_first type, t_token_scnd subtype, char *value);
 void	token_add_back(t_token **lst, t_token *new);
-t_token	*first_tokenization(char *input);
+t_token	*first_tokenization(char *input, t_env *env);
 void	second_tokenization(t_token *tokens, t_env *env);
 void	print_token(t_token *token);
 void 	free_tokens(t_token **tokens);
 void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found);
 void 	handle_token_redir(t_token *token);
+char	*check_expanding(char *input, t_env *env);
 
 t_token	*handle_word(char **input);
 t_token *handle_double_quotes(char **input);

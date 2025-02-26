@@ -6,9 +6,12 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:30:43 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/24 19:26:04 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:19:03 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../../includes/minishell.h"
+#include "../../../includes/parsing.h"
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
@@ -45,7 +48,7 @@ int	get_value_len(char *value, int i, t_env *env)
 	char	*key;
 
 	i++;
-	if (ft_isalnum(value[i]) || value[i] == '_')
+	if (ft_isalpha(value[i]) || value[i] == '_')
 	{
 		key = extract_key(value, i);
 		while (env)

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/25 15:23:08 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 13:48:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ typedef struct s_cmd
 */
 typedef struct 	s_redir
 {
+	struct s_redir	*prev;
+	struct s_redir	*next;
 	char    *file;      // Nom du fichier (NULL si pas de redirection)
 	int     fd;         // Descripteur du fichier (-1 si pas ouvert)
 	char	*value;

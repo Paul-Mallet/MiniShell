@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 12:45:45 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:05:17 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_cmd	*init_cmd_struct(t_token *tokens)
 	cmd = NULL;
 	prompt_cmd = NULL;
 	head = NULL;
+	new = NULL;
 	while(tokens)
 	{
 		cmd = malloc_cmd(tokens);

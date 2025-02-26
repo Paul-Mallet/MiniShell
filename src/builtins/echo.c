@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/24 13:50:45 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:07:53 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,30 @@ void	print_separator(t_token *tokens)
 	else
 		ft_printf("%s", tokens->value);
 }
+
+// int	ft_echo_next(t_token *tokens, bool arg_n)
+// {
+// 	while (tokens)
+// 	{
+// 		if (tokens->next && tokens->subtype == IS_SEPARATOR)
+// 		{
+// 			ft_printf("%s", tokens->value);
+// 		}
+// 		else
+// 		{
+// 			if (tokens->type != WORD)
+// 			{
+// 				printf("error");
+// 				return (1); // error a implementer
+// 			}
+// 			print_separator(tokens);
+// 		}
+// 		tokens = tokens->next;
+// 	}
+// 	if (!arg_n)
+// 		ft_printf("\n");
+// 	return (0);
+// }
 
 int	ft_echo_next(t_token *tokens, bool arg_n)
 {

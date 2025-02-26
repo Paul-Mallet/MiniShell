@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/25 18:38:24 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:09:40 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ t_token	*ft_parsing(char *value, t_env *env)
 
 	(void)env;
 	trimmed = ft_strtrim(value, " \t\n");
-	tokens = first_tokenization(trimmed);
+	tokens = first_tokenization(trimmed, env);
 	free(trimmed);
 	remove_empty_token(&tokens);
 	join_tokens(&tokens);

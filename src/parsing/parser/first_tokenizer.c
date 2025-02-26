@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   first_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/25 18:56:23 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:16:29 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_token *handle_single_quotes(char **input)
 	return (token);
 }
 
-t_token *first_tokenization(char *input) //rename
+t_token *first_tokenization(char *input, t_env *env) //rename
 {
 	t_token *tokens;
 	t_token *new;
@@ -114,6 +114,8 @@ t_token *first_tokenization(char *input) //rename
 	tokens = NULL;
 	while (*input)
 	{
+		if (*input == '$')
+			input = check_expanding(input, env);
 		if (*input == '\"')
 			new = handle_double_quotes(&input);
 		else if (*input =='\'')
@@ -139,4 +141,22 @@ t_token *first_tokenization(char *input) //rename
 		token_add_back(&tokens, new);
 	}
 	return (tokens);
+}
+
+char	*check_expanding(char *input, t_env *env)
+{
+	char	*key_value;
+	
+	key_value = get_key_value(input, 0, env);
+	if (key_value)
+		return (input);
+	input++;
+	if (ft_isalpha(*input) || *input == '_')
+		input++;
+	while (*input && check_key(*input))
+		input++;
+	if (*input == ' ')
+		input++;
+	printf("\n%s\n", input);
+	return (input);
 }

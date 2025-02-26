@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/26 12:21:47 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:21:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,43 @@ static char	*get_prompt(void)
 	}
 	prompt = ft_strjoin(name, "$ ");
 	return (prompt);
+}
+void print_commads(t_cmd *cmds)
+{
+    t_cmd *current = cmds;
+    t_redir *current_redir;
+    int i;
+
+    printf("=== Command List ===\n");
+    while (current)
+    {
+        printf("\nCommand:\n");
+        printf("  Args: ");
+        if (current->cmd)
+        {
+            for (i = 0; current->cmd[i]; i++)
+                printf("\"%s\" ", current->cmd[i]);
+        }
+        else
+            printf("(empty)");
+
+        printf("\n");
+        current_redir = current->redir;
+        while (current_redir)
+        {
+            printf("  Redirection: Type \"%s\"", current_redir->value);
+            if (current_redir->file)
+                printf(", File \"%s\"", current_redir->file);
+            if (current_redir->append)
+                printf(" (Append)");
+            if (current_redir->heredoc)
+                printf(" (Heredoc, Delimiter \"%s\")", current_redir->delimiter);
+            printf("\n");
+            current_redir = current_redir->next;
+        }
+        printf("----------------------\n");
+        current = current->next;
+    }
 }
 
 void	init_mini_shell(t_data *data, char **envp)
