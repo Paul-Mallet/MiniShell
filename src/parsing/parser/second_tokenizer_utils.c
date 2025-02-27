@@ -6,37 +6,59 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 18:00:10 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:05:45 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
 
-bool	is_cmd(char **paths, char *cmd)
-{
-	int		i;
-	char	*road;
-	struct stat	file_infos;
+#include <stdbool.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <stdlib.h>
+#include <stdio.h>
 
-		 
-		return (false);
-	if (!paths || !cmd)
-		return (false);
-	i = 0;
-	while (paths[i])
-	{
-		road = construct_path(paths[i], cmd);
-		if (road && access(road, X_OK) == 0 && stat(road, &file_infos) == 0 && S_ISREG(file_infos.st_mode))
-		{
-			free(road);
-			return (true);
-		}
-		free(road);
-		i++;
-	}
-	return (false);
+int is_executable(char *path)
+{
+    struct stat file_infos;
+
+    if (stat(path, &file_infos) != 0)    // Vérifie si le fichier existe
+        return (127); // Commande non trouvée
+    if (!S_ISREG(file_infos.st_mode))     // Vérifie si c'est un fichier régulier
+        return (126); // Trouvé mais non exécutable
+    if (access(path, X_OK) != 0)    // Vérifie si l'utilisateur a les permissions d'exécution
+        return (126); // Permission denied
+    return (0); // Commande valide et exécutable
 }
+
+int is_cmd(char **paths, char *cmd)
+{
+    int	i;
+	int	status;
+    char *road;
+
+	if (!cmd)
+		return (127);
+    if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/') || (cmd[0] == '.' && cmd[1] == '.' && cmd[2] == '/'))
+        return (is_executable(cmd)); // Si la commande est un chemin absolu ou relatif, verifier directement
+    if (!paths)		// Si $PATH est NULL, Bash ne cherche pas plus loin
+        return (127); 		// Commande non trouvee
+    i = 0;
+    while (paths[i]) // Recherche dans chaque dossier du PATH
+    {
+        road = construct_path(paths[i], cmd);
+        if (!road)
+            return (2); // Erreur mémoire
+        status = is_executable(road);
+        free(road);
+        if (status == 0 || status == 126) // Trouve mais non executable ou trouve et executable
+            return (status);
+        i++;
+    }
+    return (127); // Commande non trouvée
+}
+
 
 int	is_file(char *value)
 {

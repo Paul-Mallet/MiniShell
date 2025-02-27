@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/26 18:29:22 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:49:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,24 +166,42 @@ void	remove_empty_token(t_token *tokens)
 	}
 }
 
-t_token	*ft_parsing(char *value, t_env *env)
+void	ft_parsing(char *value, t_data *data)
 {
 	char	*trimmed;
-	t_token	*tokens;
 
-	(void)env;
 	trimmed = ft_strtrim(value, " \t\n");
-	tokens = first_tokenization(trimmed, env);
+	data->tokens = first_tokenization(trimmed, data->env);
+	// print_token(data->tokens);
 	free(trimmed);
-	remove_empty_token(tokens);
-	join_tokens(&tokens);
-	remove_tokens_join_quotes(tokens); //e''cho doesn't work
-	second_tokenization(tokens, env);
-	get_expanded(tokens, env);
-	// if (!check_cmd_tokens(tokens))
+	remove_empty_token(data->tokens);
+	join_tokens(&data->tokens);
+	remove_tokens_join_quotes(data->tokens); //e''cho doesn't work
+	second_tokenization(data);
+	get_expanded(data->tokens, data->env);
+	// check_cmd(data);
+	// if (!check_cmd_tokens(data->tokens))
 	// {
-	// 	free_tokens(&tokens);
+	// 	free_tokens(data->tokens);
 	// 	return (NULL);
 	// }
-	return (tokens);
 }
+
+// void	check_cmd(t_data *data)
+// {
+// 	t_token	*current;
+// 	char	**paths;
+
+// 	current = data->tokens;
+// 	paths = get_path_vrbl(data->env);
+// 	while (current)
+// 	{
+// 		if (current->subtype == ARG || current->subtype == CMD)
+// 		{
+// 			data->exit_code = is_cmd(paths, current->value);
+// 			return ;
+// 		}
+// 		current = current->next;
+// 	}
+// 	data->exit_code = 127;
+// }

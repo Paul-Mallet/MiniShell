@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 14:16:29 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:48:22 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ t_token *handle_word(char **input)
 	value = extract_word(*input, len);
 	if (!value)
 		return (NULL);
-	//if (value[0] == '$')
-		
 	token = new_token(WORD, UNKNOW_SUBTYPE, value);
 	free(value);
 	*input += len;
@@ -157,6 +155,5 @@ char	*check_expanding(char *input, t_env *env)
 		input++;
 	if (*input == ' ')
 		input++;
-	printf("\n%s\n", input);
 	return (input);
 }

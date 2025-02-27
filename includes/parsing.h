@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 18:27:52 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:38:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void  	ft_lexer(char *input);
 	* trim 1rst & last spaces
 	* reduce spaces between each word to 1
 */
-t_token	*ft_parsing(char *input, t_env *env);
+void	ft_parsing(char *value, t_data *data);
 void	get_expanded(t_token *tokens, t_env *env);
 int		check_cmd_tokens(t_token *tokens);
 void	join_tokens(t_token **tokens);
@@ -67,7 +67,7 @@ void	remove_empty_token(t_token *tokens);
 t_token	*new_token(t_token_first type, t_token_scnd subtype, char *value);
 void	token_add_back(t_token **lst, t_token *new);
 t_token	*first_tokenization(char *input, t_env *env);
-void	second_tokenization(t_token *tokens, t_env *env);
+void	second_tokenization(t_data *data);
 void	print_token(t_token *token);
 void 	free_tokens(t_token **tokens);
 void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found);
@@ -86,12 +86,15 @@ size_t	get_word_length(char *str);
 size_t	get_double_quotes_length(char *str);
 size_t	get_single_quotes_length(char *str);
 
-bool	is_cmd(char **paths, char *cmd);
+int		is_cmd(char **paths, char *cmd);
+int		is_executable(char *path);
 int		is_pipe(char c);
 int		is_redirection(char c);
 int		is_dir(char *value);
 int		is_file(char *value);
 int		is_builtins(char *cmd);
 bool	is_dollar(char *value);
+
+void	check_cmd(t_data *data);
 
 #endif

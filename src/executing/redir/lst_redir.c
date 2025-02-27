@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 11:15:15 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 17:03:00 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/27 13:35:56 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_redir	*new_redir(void)
 	redir->file = NULL;
 	redir->fd = -1;
 	redir->value = NULL;
+	redir->in_redir = false;
+	redir->out_redir = false;
 	redir->append = false;
 	redir->heredoc = false;
 	redir->delimiter = NULL;
@@ -40,6 +42,10 @@ void	fill_redir(t_token *tokens, t_redir *new)
 	new->value = tokens->value;
 	if (tokens->subtype == APPEND)
 		new->append = true;
+	else if (tokens->subtype == REDIR_INPUT)
+		new->in_redir = true;
+	else if (tokens->subtype == REDIR_OUTPUT)
+		new->out_redir = true;
 	else if (tokens->subtype == HEREDOC)
 	{
 		new->heredoc = true;
@@ -48,7 +54,7 @@ void	fill_redir(t_token *tokens, t_redir *new)
 		else if (tokens->next->next && tokens->next->next->subtype == DELIM)
 			new->delimiter = tokens->next->next->value;
 	}
-	print_redirtamere(new);
+	print_redir(new);
 }
 
 void	redir_add_back(t_redir **lst, t_redir *new)

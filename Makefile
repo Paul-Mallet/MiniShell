@@ -18,7 +18,8 @@ SRC_COMMAND = executing/command/
 OBJ_DIR = obj/
 
 SRCS_REDIR = $(addprefix $(SRC_DIR)$(SRC_REDIR), \
-	lst_redir.c)
+	lst_redir.c \
+	redir_managing.c)
 SRCS_COMMAND = $(addprefix $(SRC_DIR)$(SRC_COMMAND), \
 	lst_cmd.c \
 	init_cmd.c \

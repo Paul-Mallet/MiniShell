@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   second_tokenizer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/26 19:21:23 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:30:34 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void handle_token_redir(t_token *token)
 		token->subtype = APPEND;
 	else if (!ft_strcmp(token->value, "<<"))
 		token->subtype = HEREDOC;
-	else if (token->value[0] == '<')
-		token->subtype = REDIR_INPUT;
 	else if (token->value[0] == '>')
+		token->subtype = REDIR_INPUT;
+	else if (token->value[0] == '<')
 		token->subtype = REDIR_OUTPUT;
 }
 
@@ -34,38 +34,34 @@ void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 	else if ((current->prev && current->prev->subtype == IS_SEPARATOR)
 		&& (current->prev->prev && current->prev->prev->subtype == HEREDOC))
 		current->subtype = DELIM;
-	else if (is_builtins(current->value) && !*is_cmd_found)
-	{
-		current->subtype = IS_BUILTIN;
-		*is_cmd_found = true;
-	}
-	else if (is_cmd(paths, current->value) && !*is_cmd_found)
-	{
-		current->subtype = CMD;
-		*is_cmd_found = true;
-	}
 	else if ((current->prev && current->prev->type == REDIR))
 		current->subtype = FILES;
 	else if ((current->prev && current->prev->subtype == IS_SEPARATOR)
 		&& (current->prev->prev && current->prev->prev->type == REDIR))
 		current->subtype = FILES;
-	else if (is_dir(current->value) == 1)
-		current->subtype = DIR;
+	else if (is_builtins(current->value) && !*is_cmd_found)
+	{
+		current->subtype = IS_BUILTIN;
+		*is_cmd_found = true;
+	}
+	else if (!is_cmd(paths, current->value) && !*is_cmd_found)
+	{
+		current->subtype = CMD;
+		*is_cmd_found = true;
+	}
 	else
 		current->subtype = ARG;
 }
 
-void second_tokenization(t_token *tokens, t_env *env)
+void second_tokenization(t_data *data)
 {
 	char	**paths;
 	t_token	*current;
 	bool	is_cmd_found;
 
-	paths = get_path_vrbl(env);
-	current = tokens;
+	paths = get_path_vrbl(data->env);
+	current = data->tokens;
 	is_cmd_found = false;
-	// if (!paths)
-	// 	error_handling();
 	while (current)
 	{
 		if (current->type == PIPE)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/26 19:19:30 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/27 11:36:39 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,6 @@ typedef struct	s_env
 	struct s_env	*next;
 }		t_env;
 
-typedef struct	s_export
-{
-	char			*key;
-	char			*value;
-	struct s_export	*next;
-}		t_export;
 
 /*
 	Cmd between pipes, which handle redirs
@@ -115,6 +109,8 @@ typedef struct 	s_redir
 	char    *file;      // Nom du fichier (NULL si pas de redirection)
 	int     fd;         // Descripteur du fichier (-1 si pas ouvert)
 	char	*value;
+	bool	in_redir;
+	bool	out_redir;
 	bool    append;
 	bool    heredoc;
 	char    *delimiter; // Delimiteur pour heredoc (NULL si pas de heredoc)
@@ -124,7 +120,6 @@ typedef struct	s_data
 {
 	t_cmd			*cmds;
 	t_env			*env;
-	t_export		*export;
 	t_token			*tokens;
 	t_error_code	code;
 	long long		exit_code;
