@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:16:25 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/26 17:00:43 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:58:41 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void print_cmds(char **cmds)
 
 void print_redir(t_redir *redir)
 {
-	printf("\nContent of redir: \nFile: %s\nValue: %s\nAppend: %d\nHeredoc: %d\nDelim: %s\n",
+	printf("\n\nContent of redir: \nFile: %s\nValue: %s\nAppend: %d\nHeredoc: %d\nDelim: %s\n\n",
 			redir->file, redir->value, redir->append, redir->heredoc, redir->delimiter);
 }
 

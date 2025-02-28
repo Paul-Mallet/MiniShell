@@ -28,6 +28,7 @@
 		"limits": "c",
 		"memory": "c",
 		"vector": "c",
-		"locale": "c"
+		"locale": "c",
+		"executing.h": "c"
 	}
 }

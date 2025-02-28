@@ -10,19 +10,18 @@
 // /*                                                                            */
 // /* ************************************************************************** */
 
-// #include "../../includes/minishell.h"
-// #include "../../includes/executing.h"
+#include "../../includes/minishell.h"
+#include "../../includes/executing.h"
 
-// int	count_cmds(t_cmd *cmds)
-// {
-// 	int	i;
+int	count_cmds(t_cmd *cmds)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (cmds)
-// 	{
-// 		if (cmds->builtin == false)
-// 			i++;
-// 		cmds = cmds->next;
-// 	}
-// 	return (i);
-// }
+	i = 0;
+	while (cmds)
+	{
+		i++;
+		cmds = cmds->next;
+	}
+	return (i);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/28 15:19:21 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/02/28 16:57:28 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,7 @@ void	remove_double_quotes(t_token *tokens)
 	while (tokens)
 	{
 		if (tokens && tokens->type == WORD)
-		{
-			printf("rtok: %s\n", tokens->value);
 			remove_join_double_quotes(tokens);
-		}
 		tokens = tokens->next;
 	}
 }

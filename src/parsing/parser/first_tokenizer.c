@@ -6,10 +6,9 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/27 18:48:22 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 17:47:58 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
@@ -90,12 +89,15 @@ t_token *handle_single_quotes(char **input)
 	char *value;
 	size_t len;
 
+	printf("input: %s\n", *input);
 	if (!input || !*input || **input != '\'')
 		return (NULL);
 	len = get_single_quotes_length(*input);
+	printf("%zu\n", len);
 	if (len == 0)
 		return (NULL);
 	value = extract_word(*input, len);
+	printf("%s\n", value);
 	if (!value)
 		return (NULL);
 	token = new_token(WORD, UNKNOW_SUBTYPE, value);

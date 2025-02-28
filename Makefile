@@ -19,8 +19,8 @@ OBJ_DIR = obj/
 
 SRCS_REDIR = $(addprefix $(SRC_DIR)$(SRC_REDIR), \
 	lst_redir.c \
-	redir_managing.c
-	redir_checker.c)
+	redir_managing.c \
+	redir_checkers.c)
 SRCS_COMMAND = $(addprefix $(SRC_DIR)$(SRC_COMMAND), \
 	lst_cmd.c \
 	init_cmd.c \
@@ -28,6 +28,7 @@ SRCS_COMMAND = $(addprefix $(SRC_DIR)$(SRC_COMMAND), \
 	env_path.c)
 SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
 	exec.c \
+	exec_utils.c \
 	check_tokens.c)
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \

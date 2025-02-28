@@ -15,10 +15,10 @@
 
 void	exec(t_data *data)
 {
-	// int	nb_cmd;
+	int	nb_cmd;
 
-	redir_managing(data);
-	// nb_cmd = count_cmd(data->cmds);
+	check_heredoc(data);
+	nb_cmd = count_cmds(data->cmds);
 	// if (nb_cmd > 1)
 	// 	exec_multiple_cmds(data, nb_cmd);
 	// exec_simple_cmd(data);
@@ -26,54 +26,54 @@ void	exec(t_data *data)
 	
 }
 
-void	exec_multiple_cmds(t_data *data, int nb_cmd)
+void	check_heredoc(t_data *data)
 {
-	while (nb_cmd)
-}
+	t_cmd	*current;
+	t_redir	*current_redir;
 
-void	exec_multiple_cmd(t_data *data)
-{
-	
-}
-
-int	exec_command(t_data *data)
-{
-	pid_t	pid;
-	//char	*buf = data->cmds->cmd[i];
-
-	pid = fork();
-	if (pid == -1)
+	current = data->cmds;
+	current_redir = data->cmds->redir;
+	while (current)
 	{
-		perror("fork");
-		exit(EXIT_FAILURE);
+		while (current_redir)
+		{
+			if (current_redir->heredoc)
+			{
+				if (!redir_heredoc(current_redir))
+				data->exit_code = 0;
+			}
+			current_redir = current_redir->next;
+		}
+		current = current->next;
 	}
-	//
 }
 
-int	file_to_pipe(char *file, t_ppx *ppx)
-{
-	int	file_fd;
+// t_redir	*current;
 
-	file_fd = open(file, O_RDONLY);
-	if (file_fd == -1)
-		return (perror(file), 0);
-	dup2(file_fd, STDIN_FILENO);
-	dup2(ppx->pipe_fd[1], STDOUT_FILENO);
-	close(file_fd);
-	close_pipe(ppx);
-	return (1);
-}
+// 	current = cmd->redir;
 
-int	pipe_to_file(char *file, t_ppx *ppx)
-{
-	int	file_fd;
 
-	file_fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (file_fd == -1)
-		return (perror(file), 0);
-	dup2(ppx->pipe_fd[0], STDIN_FILENO);
-	dup2(file_fd, STDOUT_FILENO);
-	close(file_fd);
-	close_pipe(ppx);
-	return (1);
-}
+// void	exec_multiple_cmds(t_data *data, int nb_cmd)
+// {
+// 	while (nb_cmd)
+// }
+
+// void	exec_multiple_cmd(t_data *data)
+// {
+	
+// }
+
+// int	exec_command(t_data *data)
+// {
+// 	pid_t	pid;
+// 	//char	*buf = data->cmds->cmd[i];
+
+
+// 	pid = fork();
+// 	if (pid == -1)
+// 	{
+// 		perror("fork");
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	//
+// }
