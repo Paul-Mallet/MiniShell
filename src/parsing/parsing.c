@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/27 18:49:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:19:21 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	get_expanded(t_token *tokens, t_env *env)
 	}
 }
 
-int	strlen_without_quotes(char *value)
+int	len_without_dble_qtes(char *value)
 {
 	int	len;
 
@@ -53,17 +53,6 @@ int	strlen_without_quotes(char *value)
 			if (*value == '\"')
 				value++;
 		}
-		else if (*value == '\'')
-		{
-			value++;
-			while (*value != '\'' && *value)
-			{
-				value++;
-				len++;
-			}
-			if (*value == '\'')
-				value++;
-		}
 		else
 		{
 			value++;
@@ -73,13 +62,13 @@ int	strlen_without_quotes(char *value)
 	return (len);
 }
 
-void	remove_join_quotes(t_token *tokens)
+void	remove_join_double_quotes(t_token *tokens)
 {
 	char			*str;
 	int				i;
 	int				j;
 
-	str = (char *)malloc((strlen_without_quotes(tokens->value) + 1) * sizeof(char));
+	str = malloc((len_without_dble_qtes(tokens->value) + 1) * sizeof(char));
 	if (!str)
 		return ;
 	i = 0;
@@ -94,75 +83,24 @@ void	remove_join_quotes(t_token *tokens)
 			if (tokens->value[i] == '\"')
 				i++;
 		}
-		else if (tokens->value[i] == '\'')
-		{
-			i++;
-			while (tokens->value[i] != '\'' && tokens->value[i])
-				str[j++] = tokens->value[i++];
-			if (tokens->value[i] == '\'')
-				i++;
-		}
 		else
 			str[j++] = tokens->value[i++];
 	}
-	str[strlen_without_quotes(tokens->value)] = '\0';
+	str[len_without_dble_qtes(tokens->value)] = '\0';
 	free(tokens->value);
 	tokens->value = str;
 }
 
-void	remove_tokens_join_quotes(t_token *tokens)
+void	remove_double_quotes(t_token *tokens)
 {
 	while (tokens)
 	{
 		if (tokens && tokens->type == WORD)
-			remove_join_quotes(tokens);
+		{
+			printf("rtok: %s\n", tokens->value);
+			remove_join_double_quotes(tokens);
+		}
 		tokens = tokens->next;
-	}
-}
-
-void	join_tokens(t_token **tokens)
-{
-	t_token	*current;
-	t_token	*next;
-	char	*tmp_value;
-
-	tmp_value = NULL;
-	current = *tokens;
-	while (current && current->next)
-	{
-		next = current->next;
-		if (current->type == WORD && next->type == WORD)
-		{
-			if (is_dollar(current->value))
-			{
-				current = next;
-				continue ;
-			}
-			tmp_value = ft_strdup(current->value);
-			free(current->value);
-			next->value = ft_strjoin(tmp_value, next->value);
-			free(tmp_value);
-			if (current == *tokens)
-				*tokens = next;
-			remove_token(current);
-		}
-		current = next;
-	}
-}
-
-void	remove_empty_token(t_token *tokens)
-{
-	t_token	*current;
-
-	current = tokens;
-	while (current)
-	{
-		if (!ft_strcmp(current->value, "\"\"") || !ft_strcmp(current->value, "''"))
-		{
-			free (current->value);
-			current->value = strdup("");
-		}
-		current = current->next;
 	}
 }
 
@@ -172,13 +110,13 @@ void	ft_parsing(char *value, t_data *data)
 
 	trimmed = ft_strtrim(value, " \t\n");
 	data->tokens = first_tokenization(trimmed, data->env);
-	// print_token(data->tokens);
 	free(trimmed);
 	remove_empty_token(data->tokens);
 	join_tokens(&data->tokens);
-	remove_tokens_join_quotes(data->tokens); //e''cho doesn't work
+	remove_double_quotes(data->tokens);
 	second_tokenization(data);
 	get_expanded(data->tokens, data->env);
+	remove_single_quotes(data->tokens);
 	// check_cmd(data);
 	// if (!check_cmd_tokens(data->tokens))
 	// {
@@ -186,22 +124,3 @@ void	ft_parsing(char *value, t_data *data)
 	// 	return (NULL);
 	// }
 }
-
-// void	check_cmd(t_data *data)
-// {
-// 	t_token	*current;
-// 	char	**paths;
-
-// 	current = data->tokens;
-// 	paths = get_path_vrbl(data->env);
-// 	while (current)
-// 	{
-// 		if (current->subtype == ARG || current->subtype == CMD)
-// 		{
-// 			data->exit_code = is_cmd(paths, current->value);
-// 			return ;
-// 		}
-// 		current = current->next;
-// 	}
-// 	data->exit_code = 127;
-// }

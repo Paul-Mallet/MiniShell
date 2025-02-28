@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/27 18:49:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:04:40 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ void	init_mini_shell(t_data *data, char **envp)
 		ft_lexer(input);
 		ft_parsing(input, data);
 		data->cmds = init_cmd_struct(data->tokens);
+		ft_builtins(data);
 		free(prompt);
 		prompt = get_prompt();
 		if (!prompt)
 			break ;
 		// check_tokens(data->tokens);
-		ft_builtins(data);
 		print_token(data->tokens);
 		// exec(data);
 		free_tokens(&data->tokens);

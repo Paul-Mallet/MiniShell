@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 12:44:18 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/21 14:32:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:20:47 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,52 @@ void	remove_token(t_token *token)
 	free(token);
 }
 
+void	remove_empty_token(t_token *tokens)
+{
+	t_token	*current;
+
+	current = tokens;
+	while (current)
+	{
+		if (!ft_strcmp(current->value, "\"\"") || !ft_strcmp(current->value, "''"))
+		{
+			free (current->value);
+			current->value = strdup("");
+		}
+		current = current->next;
+	}
+}
+
+void	join_tokens(t_token **tokens)
+{
+	t_token	*current;
+	t_token	*next;
+	char	*tmp_value;
+
+	tmp_value = NULL;
+	current = *tokens;
+	while (current && current->next)
+	{
+		next = current->next;
+		if (current->type == WORD && next->type == WORD)
+		{
+			if (is_dollar(current->value))
+			{
+				current = next;
+				continue ;
+			}
+			tmp_value = ft_strdup(current->value);
+			free(current->value);
+			next->value = ft_strjoin(tmp_value, next->value);
+			free(tmp_value);
+			if (current == *tokens)
+				*tokens = next;
+			remove_token(current);
+		}
+		current = next;
+	}
+}
+
 int	check_cmd_tokens(t_token *tokens)
 {
 	t_token	*current;
@@ -66,4 +112,3 @@ int	check_cmd_tokens(t_token *tokens)
 	}
 	return (1);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:46:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/25 09:01:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:06:22 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_builtins(t_data *data) // builtins doivent retourner un int pour verifie
 	current = data->tokens;
 	while (current)
 	{
-		if (current->subtype == CMD)
+		if (current->subtype == IS_BUILTIN)
 		{
 			if (!ft_strcmp(current->value, "echo"))
 				ft_echo(current);

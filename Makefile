@@ -54,7 +54,8 @@ SRCS_EXPANDER = $(addprefix $(SRC_DIR)$(SRC_EXPANDER), \
 	expander.c)
 SRCS_PARSING = $(addprefix $(SRC_DIR)$(SRC_PARSING), \
 	parsing.c \
-	parsing_utils.c)
+	parsing_utils.c \
+	parsing_utils2.c)
 SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \
 	get_env.c)
 

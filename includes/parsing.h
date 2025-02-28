@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/27 16:38:15 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:20:30 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ t_token *handle_single_quotes(char **input);
 char	*extract_word(char *str, size_t len);
 
 size_t	get_word_length(char *str);
+void	remove_single_quotes(t_token *tokens);
+void	remove_double_quotes(t_token *tokens);
 size_t	get_double_quotes_length(char *str);
 size_t	get_single_quotes_length(char *str);
 

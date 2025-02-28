@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/27 18:47:29 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:11:22 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ char	*expander(char *value, t_env *env)
 
 	expand.i = 0;
 	expand.j = 0;
+	printf("%s\n", value);
 	if (value[0] == '\'')
 		return (value);
 	expand_len = expand_length(value, env);
