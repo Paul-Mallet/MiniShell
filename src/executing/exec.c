@@ -13,18 +13,22 @@
 #include "../../includes/minishell.h"
 #include "../../includes/executing.h"
 
-void	exec(t_data *data)
-{
-	int	nb_cmd;
+// void	exec(t_data *data)
+// {
+// 	int	nb_cmd;
+// 	int	i;
 
-	check_heredoc(data);
-	nb_cmd = count_cmds(data->cmds);
-	// if (nb_cmd > 1)
-	// 	exec_multiple_cmds(data, nb_cmd);
-	// exec_simple_cmd(data);
-	ft_builtins(data);
-	
-}
+// 	i = 0;
+// 	check_heredoc(data);
+// 	ft_builtins(data);
+// 	nb_cmd = count_cmds(data->cmds);
+// 	while (i < nb_cmd - 1)
+// 	{
+// 		exec_command(data);
+// 		i++;
+// 	}
+
+// }
 
 void	check_heredoc(t_data *data)
 {
@@ -48,32 +52,15 @@ void	check_heredoc(t_data *data)
 	}
 }
 
-// t_redir	*current;
+int	exec_command(t_data *data)
+{
+	pid_t	pid;
 
-// 	current = cmd->redir;
-
-
-// void	exec_multiple_cmds(t_data *data, int nb_cmd)
-// {
-// 	while (nb_cmd)
-// }
-
-// void	exec_multiple_cmd(t_data *data)
-// {
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
 	
-// }
-
-// int	exec_command(t_data *data)
-// {
-// 	pid_t	pid;
-// 	//char	*buf = data->cmds->cmd[i];
-
-
-// 	pid = fork();
-// 	if (pid == -1)
-// 	{
-// 		perror("fork");
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	//
-// }
+}
