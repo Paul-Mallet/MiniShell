@@ -19,7 +19,8 @@ OBJ_DIR = obj/
 
 SRCS_REDIR = $(addprefix $(SRC_DIR)$(SRC_REDIR), \
 	lst_redir.c \
-	redir_managing.c)
+	redir_managing.c
+	redir_checker.c)
 SRCS_COMMAND = $(addprefix $(SRC_DIR)$(SRC_COMMAND), \
 	lst_cmd.c \
 	init_cmd.c \

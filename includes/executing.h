@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/27 14:31:13 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:11:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,20 @@ bool	check_tokens(t_token *tokens);
 int		count_cmds(t_cmd *cmds);
 void	exec(t_data *data);
 
+/*
+	redir managing
+*/
 void	redir_managing(t_data *data);
-void	open_redir(t_cmd *cmd);
-void	open_redir_next(t_redir *redir);
-void	handle_heredoc(char *delimiter);
+int		check_redir(t_cmd *cmd);
+bool	redir_input(t_redir *redir, bool last_cmd);
+bool	redir_output(t_redir *redir, bool last_cmd);
+bool	redir_heredoc(t_redir *redir, bool last_cmd);
+bool	redir_append(t_redir *redir, bool last_cmd);
+
+
+
+
+
+
 
 #endif

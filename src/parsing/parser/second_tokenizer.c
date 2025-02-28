@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/27 16:30:34 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:35:41 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void handle_token_redir(t_token *token)
 		token->subtype = APPEND;
 	else if (!ft_strcmp(token->value, "<<"))
 		token->subtype = HEREDOC;
-	else if (token->value[0] == '>')
-		token->subtype = REDIR_INPUT;
 	else if (token->value[0] == '<')
+		token->subtype = REDIR_INPUT;
+	else if (token->value[0] == '>')
 		token->subtype = REDIR_OUTPUT;
 }
 

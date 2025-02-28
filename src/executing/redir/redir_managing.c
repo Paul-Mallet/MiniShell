@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/27 12:06:40 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 15:02:18 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,82 +20,44 @@ void	redir_managing(t_data *data)
 	current = data->cmds;
 	while (current)
 	{
-		open_redir(current);
+		if (!check_redir(current))
+			data->exit_code = 1; // error
 		current = current->next;
 	}
 }
 
-void	open_redir(t_cmd *cmd)
+int	check_redir(t_cmd *cmd)
 {
 	t_redir	*current;
+	bool	last_cmd;
 
+	last_cmd = false;
 	current = cmd->redir;
 	while (current)
 	{
-		if (current->file && current->in_redir)
+		if (!current->next)
+			last_cmd = true;
+		if (current->in_redir)
 		{
-			current->fd = open(current->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (current->fd == -1)
-			{
-				perror("open");
-				return ;
-				// exit code
-			}
-			close(current->fd);
+			if (redir_input(current, last_cmd));
+			return (0);
+		}
+		else if (current->out_redir)
+		{
+			if (redir_output(current, last_cmd));
+			return (0);
+		}
+		else if (current->heredoc)
+		{
+			if (redir_heredoc(current, last_cmd));
+			return (0);
+		}
+		else if (current->append)
+		{
+			if (redir_append(current, last_cmd));
+			return (0);
 		}
 		current = current->next;
 	}
+	return (1);
 }
-
-// void	open_redir_next(t_redir *redir)
-// {
-// 	int		target_fd;
-
-// 	target_fd = STDOUT_FILENO;
-// 	if (redir->append)
-// 		redir->fd = open(redir->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
-// 	else if (redir->heredoc)
-// 	{
-// 		target_fd = STDIN_FILENO;
-// 		handle_heredoc(redir->delimiter);
-// 	}
-// 	else
-// 		redir->fd = open(redir->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 	if (redir->fd == -1)
-// 	{
-// 		perror("open");
-// 		return ;
-// 		// exit code
-// 	}
-// 	if (dup2(redir->fd, target_fd) == -1)
-// 	{
-// 		perror("dup2");
-// 		return ;
-// 		// exit code
-// 	}
-// 	close(redir->fd);
-// }
-
-// void	handle_heredoc(char *delimiter)
-// {
-// 	int		fd;
-// 	char	*line;
-
-// 	fd = open("/tmp/heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-// 	if (fd == -1)
-// 	{
-// 		perror("open heredoc");
-// 		return ;
-// 		// exit code
-// 	}
-// 	while (1)
-// 	{
-// 		line = get_next_line(STDIN_FILENO); // Lire entree standard
-// 		if (ft_strcmp(line, delimiter) == 0)
-// 			break ;
-// 		write(fd, line, ft_strlen(line));
-// 		write(fd, "\n", 1);
-// 		free(line);
-// 	}
-// 	close(fd);
-// }
