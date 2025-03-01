@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   first_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/28 17:47:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:21:18 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,12 @@ t_token *handle_single_quotes(char **input)
 	char *value;
 	size_t len;
 
-	printf("input: %s\n", *input);
 	if (!input || !*input || **input != '\'')
 		return (NULL);
 	len = get_single_quotes_length(*input);
-	printf("%zu\n", len);
 	if (len == 0)
 		return (NULL);
 	value = extract_word(*input, len);
-	printf("%s\n", value);
 	if (!value)
 		return (NULL);
 	token = new_token(WORD, UNKNOW_SUBTYPE, value);
@@ -106,7 +103,11 @@ t_token *handle_single_quotes(char **input)
 	return (token);
 }
 
-t_token *first_tokenization(char *input, t_env *env) //rename
+/*
+	change to:
+	void(), data->tokens, 1 t_token *new, token_add_back(&data->tokens...)
+*/
+t_token *first_tokenization(char *input, t_env *env)
 {
 	t_token *tokens;
 	t_token *new;
@@ -118,7 +119,7 @@ t_token *first_tokenization(char *input, t_env *env) //rename
 			input = check_expanding(input, env);
 		if (*input == '\"')
 			new = handle_double_quotes(&input);
-		else if (*input =='\'')
+		else if (*input == '\'')
 			new = handle_single_quotes(&input);
 		else if (*input == ' ')
 		{

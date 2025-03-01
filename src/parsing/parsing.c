@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/28 16:57:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 19:32:52 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 void	get_expanded(t_token *tokens, t_env *env)
 {
-	char	**paths;
+	// char	**paths;
 	t_token	*current;
 	char	*expansion;
 
-	paths = get_path_vrbl(env);
+	// paths = get_path_vrbl(env);
 	current = tokens;
 	expansion = NULL;
 	while (current)

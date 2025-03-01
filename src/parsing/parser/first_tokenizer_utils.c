@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   first_tokenizer_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:38:47 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/28 17:04:29 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:21:54 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ size_t get_word_length(char *str)
 	size_t len;
 
 	len = 0;
-	while (str[len] && !is_redirection(str[len]) && !is_pipe(str[len]) && str[len] != ' ')
+	// while (str[len] && !is_redirection(str[len]) && !is_pipe(str[len]) && str[len] != ' ') //?
+	while (str[len] && str[len] != ' '
+		&& str[len] != '\'' && str[len] != '\"'
+		&& !is_redirection(str[len]) && !is_pipe(str[len]))
 		len++;
 	return (len);
 }
@@ -51,7 +54,7 @@ size_t get_single_quotes_length(char *str)
 	size_t len;
 
 	len = 1;
-	printf("%s\n", str);
+	// printf("%s\n", str);
 	while (str[len] && str[len] != '\'')
 		len++;
 	if (str[len] == '\'')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   second_tokenizer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/02/28 13:35:41 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/02/28 19:50:25 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void handle_token_redir(t_token *token)
 
 void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 {
+	(void)paths;
 	if ((current->prev && current->prev->subtype == HEREDOC))
 		current->subtype = DELIM;
 	else if ((current->prev && current->prev->subtype == IS_SEPARATOR)
@@ -44,11 +45,11 @@ void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 		current->subtype = IS_BUILTIN;
 		*is_cmd_found = true;
 	}
-	else if (!is_cmd(paths, current->value) && !*is_cmd_found)
-	{
-		current->subtype = CMD;
-		*is_cmd_found = true;
-	}
+	// else if (!is_cmd(paths, current->value) && !*is_cmd_found)
+	// {
+	// 	current->subtype = CMD;
+	// 	*is_cmd_found = true;
+	// }
 	else
 		current->subtype = ARG;
 }

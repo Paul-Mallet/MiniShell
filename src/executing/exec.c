@@ -30,37 +30,37 @@
 
 // }
 
-void	check_heredoc(t_data *data)
-{
-	t_cmd	*current;
-	t_redir	*current_redir;
+// void	check_heredoc(t_data *data)
+// {
+// 	t_cmd	*current;
+// 	t_redir	*current_redir;
 
-	current = data->cmds;
-	current_redir = data->cmds->redir;
-	while (current)
-	{
-		while (current_redir)
-		{
-			if (current_redir->heredoc)
-			{
-				if (!redir_heredoc(current_redir))
-				data->exit_code = 0;
-			}
-			current_redir = current_redir->next;
-		}
-		current = current->next;
-	}
-}
+// 	current = data->cmds;
+// 	current_redir = data->cmds->redir;
+// 	while (current)
+// 	{
+// 		while (current_redir)
+// 		{
+// 			if (current_redir->heredoc)
+// 			{
+// 				if (!redir_heredoc(current_redir))
+// 				data->exit_code = 0;
+// 			}
+// 			current_redir = current_redir->next;
+// 		}
+// 		current = current->next;
+// 	}
+// }
 
-int	exec_command(t_data *data)
-{
-	pid_t	pid;
+// int	exec_command(t_data *data)
+// {
+// 	pid_t	pid;
 
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
+// 	pid = fork();
+// 	if (pid == -1)
+// 	{
+// 		perror("fork");
+// 		exit(EXIT_FAILURE);
+// 	}
 	
-}
+// }
