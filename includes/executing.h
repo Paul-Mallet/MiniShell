@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/28 17:49:19 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:42:56 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,16 @@ bool	redir_output(t_redir *redir, bool last_cmd);
 bool	redir_append(t_redir *redir, bool last_cmd);
 bool	redir_heredoc(t_redir *redir);
 
+/*
+	exec
+*/
 
+void	exec(t_data *data);
+int		exec_command(t_data *data, char **envp, int *prev_pipe, bool is_last_cmd);
+char	**make_env(t_env *env);
+void	setup_pipes(t_cmd *cmd, int *prev_pipe, bool is_last_cmd);
+int		count_cmds(t_cmd *cmds);
+void	check_heredoc(t_data *data);
 
 
 

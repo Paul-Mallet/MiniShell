@@ -25,3 +25,25 @@ int	count_cmds(t_cmd *cmds)
 	}
 	return (i);
 }
+
+void	check_heredoc(t_data *data)
+{
+	t_cmd	*current;
+	t_redir	*current_redir;
+
+	current = data->cmds;
+	current_redir = data->cmds->redir;
+	while (current)
+	{
+		while (current_redir)
+		{
+			if (current_redir->heredoc)
+			{
+				if (!redir_heredoc(current_redir))
+				data->exit_code = 0;
+			}
+			current_redir = current_redir->next;
+		}
+		current = current->next;
+	}
+}

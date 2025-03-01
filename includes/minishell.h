@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/28 18:30:02 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/01 18:44:18 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ typedef struct	s_data
 	t_env			*env;
 	t_token			*tokens;
 	t_error_code	code;
-	long long		exit_code;
+	int				exit_code;
 }		t_data;
 
 void	init_data(t_data *data);
