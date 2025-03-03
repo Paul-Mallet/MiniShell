@@ -24,6 +24,7 @@ void	exec(t_data *data)
 	envp = make_env(data->env);
 	i = 0;
 	check_heredoc(data);
+	printf("\nexec\n");
 	ft_builtins(data);
 	nb_cmd = count_cmds(data->cmds);
 	prev_pipe = -1;
@@ -120,14 +121,12 @@ void	setup_pipes(t_cmd *cmd, int *prev_pipe, bool is_last_cmd)
 		perror("pipe");
 		exit(EXIT_FAILURE);
 	}
-
 	// Redirige l'entrée depuis le pipe précédent (si existant)
 	if (*prev_pipe != -1)
 	{
 		dup2(*prev_pipe, STDIN_FILENO);
 		close(*prev_pipe);
-	}
-
+	} 
 	// Redirige la sortie vers le pipe suivant (si existant)
 	if (!is_last_cmd)
 	{

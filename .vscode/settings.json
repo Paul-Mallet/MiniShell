@@ -29,6 +29,7 @@
 		"memory": "c",
 		"vector": "c",
 		"locale": "c",
-		"executing.h": "c"
+		"executing.h": "c",
+		"libft.h": "c"
 	}
 }
