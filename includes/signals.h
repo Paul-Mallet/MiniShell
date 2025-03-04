@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 12:55:18 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/04 17:02:09 by abarahho         ###   ########.fr       */
+/*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
+/*   Updated: 2025/03/04 17:10:50 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef SIGNALS_H
+# define SIGNALS_H
+# include "./minishell.h"
 
-#include "../includes/minishell.h"
-#include "../includes/builtins.h"
-#include "../includes/parsing.h"
-#include "../includes/signals.h"
+extern volatile sig_atomic_t	g_pid; //global
 
-int main(int ac, char **av, char **envp)
-{
-	t_data	data;
+void	signals_handler(void);
 
-	(void)ac;
-	(void)av;
-	
-	signals_handler(); //parent process
-	init_data(&data);
-	init_mini_shell(&data, envp);
-
-	return (0);
-}
+#endif

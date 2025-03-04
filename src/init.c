@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/03 14:26:27 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:45:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../includes/builtins.h"
 #include "../includes/parsing.h"
 #include "../includes/executing.h"
+#include "../includes/signals.h"
 
 void	init_data(t_data *data)
 {

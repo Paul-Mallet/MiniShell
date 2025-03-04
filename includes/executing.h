@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/01 18:42:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:03:34 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ bool	check_tokens(t_token *tokens);
 int		count_cmds(t_cmd *cmds);
 void	exec(t_data *data);
 void	check_heredoc(t_data *data);
-char	*heredoc_name(void);
+void	*heredoc_name(t_redir *redir);
 
 /*
 	redir managing
@@ -74,9 +74,8 @@ bool	redir_heredoc(t_redir *redir);
 */
 
 void	exec(t_data *data);
-int		exec_command(t_data *data, char **envp, int *prev_pipe, bool is_last_cmd);
+int		exec_command(t_data *data, char **envp);
 char	**make_env(t_env *env);
-void	setup_pipes(t_cmd *cmd, int *prev_pipe, bool is_last_cmd);
 int		count_cmds(t_cmd *cmds);
 void	check_heredoc(t_data *data);
 

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/28 17:07:06 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:07:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void	redir_managing(t_data *data)
 	while (current)
 	{
 		if (!check_redir(current))
+		{
 			data->exit_code = 1; // error
+			return ;
+		}
 		current = current->next;
 	}
 }

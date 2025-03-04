@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 14:39:13 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 10:40:42 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:38:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char	*save_rest(char *buffer)
 {
 	int		i;
 	int		j;
+	char	*new_buffer;
 
 	if (buffer == NULL)
 		return (NULL);
@@ -75,18 +76,16 @@ char	*save_rest(char *buffer)
 		i++;
 	if (!buffer[i])
 		return (free(buffer), NULL);
+	new_buffer = malloc(sizeof(char) * (ft_strlen(buffer) - i + 1));
+	if (new_buffer == NULL)
+		return (free(buffer), NULL);
 	i++;
 	j = 0;
 	while (buffer[i])
-	{
-		buffer[j] = buffer[i];
-		i++;
-		j++;
-	}
-	buffer[j] = '\0';
-	if (j == 0)
-		return (free(buffer), NULL);
-	return (buffer);
+		new_buffer[j++] = buffer[i++];
+	new_buffer[j] = '\0';
+	free(buffer);
+	return (new_buffer);
 }
 
 char	*get_next_line(int fd)

@@ -40,10 +40,39 @@ void	check_heredoc(t_data *data)
 			if (current_redir->heredoc)
 			{
 				if (!redir_heredoc(current_redir))
-				data->exit_code = 0;
+					data->exit_code = 0;
 			}
 			current_redir = current_redir->next;
 		}
 		current = current->next;
 	}
+}
+
+char	**make_env(t_env *env)
+{
+	t_env	*current;
+	char	**envp;
+	int		i;
+
+	current = env;
+	i = 0;
+	while(current)
+	{
+		i++;
+		current = current->next;
+	}
+	envp = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!envp)
+		return (NULL);
+	current = env;
+	i = 0;
+	while (current)
+	{
+		envp[i] = join_lines(current->key, "=");
+		envp[i] = join_lines(envp[i], current->value);
+		i++;
+		current = current->next;
+	}
+	envp[i] = NULL;
+	return (envp);
 }

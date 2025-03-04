@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/28 19:32:52 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/03/04 17:22:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	remove_join_double_quotes(t_token *tokens)
 	int				i;
 	int				j;
 
+	if (!tokens || !tokens->value)
+        return ;
 	str = malloc((len_without_dble_qtes(tokens->value) + 1) * sizeof(char));
 	if (!str)
 		return ;

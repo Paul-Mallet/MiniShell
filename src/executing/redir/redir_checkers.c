@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:54:11 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/28 17:57:02 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:29:03 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,29 +58,13 @@ bool	redir_append(t_redir *redir, bool last_cmd)
 bool	redir_heredoc(t_redir *redir)
 {
 	char		*line;
-	char		*delim;
-	char		*hd_file;
 
-	delim = join_lines(redir->delimiter, "\n");
-	hd_file = heredoc_name();
-	redir->fd = open(hd_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	free(hd_file);
-	if (redir->fd == -1)
-	{
-		perror("open");
-		free(delim);
+	if (!heredoc_name(redir))
 		return (false);
-	}
 	while (1)
 	{
-		line = get_next_line(STDIN_FILENO);
-		if (!line)
-		{
-			free(delim);
-			close(redir->fd);
-			return (false);
-		}
-		if (ft_strcmp(line, delim) == 0)
+		line = readline("heredoc>");
+		if (ft_strcmp(line, redir->delimiter) == 0)
 		{
 			free(line);
 			break ;
@@ -89,21 +73,38 @@ bool	redir_heredoc(t_redir *redir)
 		write(redir->fd, "\n", 1);
 		free(line);
 	}
-	free(delim);
 	dup2(redir->fd, STDIN_FILENO);
 	close(redir->fd);
+	if (redir->fd)
+	{
+		unlink(redir->file);
+		free(redir->file);
+	}
 	return (true);
 }
 
-char	*heredoc_name(void)
+void	*heredoc_name(t_redir *redir)
 {
+	char		*hd_file;
 	static int	i;
 	char		*num;
-	char		*hd_file;
 
 	i++;
 	num = ft_itoa(i);
-	hd_file = join_lines("/tmp/heredoc_", num);
+	hd_file = join_lines("heredoc_", num);
+	if (!hd_file)
+	{
+        free(num);
+        return NULL;
+    }
+	redir->fd = open(hd_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (redir->fd == -1)
+	{
+		free(hd_file);
+		free(num);
+		heredoc_name(redir);
+	}
+	redir->file = hd_file;
 	free(num);
 	return (hd_file);
 }
