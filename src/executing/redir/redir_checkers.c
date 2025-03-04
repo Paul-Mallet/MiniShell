@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:54:11 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/04 17:29:03 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:36:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,8 @@ bool	redir_heredoc(t_redir *redir)
 	}
 	dup2(redir->fd, STDIN_FILENO);
 	close(redir->fd);
-	if (redir->fd)
-	{
-		unlink(redir->file);
-		free(redir->file);
-	}
+	unlink(redir->file);
+	free(redir->file);
 	return (true);
 }
 

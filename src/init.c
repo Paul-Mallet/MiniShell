@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/04 16:45:04 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:40:31 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_mini_shell(t_data *data, char **envp)
 {
 	char 	*input;
 	char	*prompt;
+	int i = 0;
 
 	data->env = import_env(envp);
 	prompt = get_prompt();
@@ -49,6 +50,8 @@ void	init_mini_shell(t_data *data, char **envp)
 		return;
 	while ((input = readline(prompt)))
 	{
+		printf("%d\n", i);
+		i++;
 		if (input)
 			add_history(input);
 		ft_lexer(input);
@@ -62,6 +65,7 @@ void	init_mini_shell(t_data *data, char **envp)
 		// check_tokens(data->tokens);
 		print_token(data->tokens);
 		exec(data);
+		printf("after exec\n");
 		free_tokens(&data->tokens);
 		free(input);
 	}

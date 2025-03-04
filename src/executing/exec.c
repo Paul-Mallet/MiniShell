@@ -29,8 +29,8 @@ void	exec(t_data *data)
 	// 	i++;
 	// }
 	
-	check_heredoc(data);
-	// ft_builtins(data);
+
+	check_heredoc(data);	// ft_builtins(data);
 	// nb_cmd = count_cmds(data->cmds);
 	// exec_command(data, envp);
 	// free_strs(envp);
