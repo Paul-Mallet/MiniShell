@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 14:32:10 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/04 17:15:34 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:13:14 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,50 +52,31 @@ volatile sig_atomic_t	g_pid = 0;
 		void     (*sa_restorer)(void);
 	};
 */
-static void	sigint_handler(int signal)
+static void	sigint_handler(int sig)
 {
-	//pid_t	pid
-
-	if (g_pid != 0 && signal == SIGINT) //child process
+	(void)sig;
+	if (g_pid == 0)
 	{
-		printf("\nIntercepted SIGINT on child!\n\n");
-		// if (kill(pid, signal) == -1)
-		// {
-			// perror("signals");
-			// exit(EXIT_FAILURE);
-		// }
+		printf("^C\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 	}
-}
-
-static void	sigquit_handler(int signal)
-{
-	//pid_t	pid
-
-	if (signal == SIGQUIT)
-		printf("\nIntercepted SIGQUIT!\n\n");
-	/*
-	if (kill(pid, signal) == -1)
+	else //child process g_pid != 0
 	{
-		perror("signals");
-		exit(EXIT_FAILURE);
+		kill(g_pid, SIGINT);
+		printf("^C\n");
 	}
-	*/
-}
-
-static void	set_signal_action(void)
-{
-	struct sigaction	act;
-
-	ft_bzero(&act, sizeof(act));
-	act.sa_flags = SA_RESTART; //avoid readline() bug
-	act.sa_handler = &sigint_handler;
-	sigaction(SIGINT, &act, NULL);
-
-	act.sa_handler = &sigquit_handler;
-	sigaction(SIGQUIT, &act, NULL);
 }
 
 void	signals_handler(void)
 {
-	set_signal_action();
+	struct sigaction	sa;
+
+	ft_bzero(&sa, sizeof(sa));
+	sa.sa_flags = SA_RESTART; //avoid readline() bug
+	sa.sa_handler = &sigint_handler;
+	sigaction(SIGINT, &sa, NULL);
 }
+
+//Ctrl + D = EOF in heredoc, 

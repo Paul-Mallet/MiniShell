@@ -51,21 +51,23 @@ int	exec_command(t_data *data, char **envp)
 	}
 
 	pid = fork();
-	if (pid == -1)
+	if (pid == -1) //error
 	{
 		perror("fork");
 		free(path);
 		return (EXIT_FAILURE);
 	}
-	else if (pid == 0)
+	else if (pid == 0) //child
 	{
+		signal(SIGINT, SIG_DFL); //ctrl + C (^C + new line)
+		signal(SIGQUIT, SIG_DFL); //ctrl + \ (core dump)
 		redir_managing(data);
 		execve(path, data->cmds->cmd, envp);
 		perror("execve");
 		free(path);
 		exit(EXIT_FAILURE);
 	}
-	else
+	else //parent
 	{
 		waitpid(pid, &data->exit_code, 0);
 	}

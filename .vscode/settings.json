@@ -35,6 +35,10 @@
 		"string_view": "c",
 		"ranges": "c",
 		"span": "c",
-		"signals.h": "c"
+		"signals.h": "c",
+		"ft_printf.h": "c",
+		"stdlib.h": "c",
+		"signal.h": "c",
+		"unistd.h": "c"
 	}
 }

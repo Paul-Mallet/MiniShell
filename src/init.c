@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/04 17:40:31 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/04 19:36:45 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,24 @@ static char	*get_prompt(void)
 	return (prompt);
 }
 
+/*
+	check Ctrl + D EOF
+	* 
+*/
+void	check_ctrl_d(t_data *data, char *input)
+{
+	if (!input)
+	{
+		printf("exit\n");
+		free_env(&data->env);
+		exit(EXIT_FAILURE);
+	}
+}
+
 void	init_mini_shell(t_data *data, char **envp)
 {
 	char 	*input;
 	char	*prompt;
-	int i = 0;
 
 	data->env = import_env(envp);
 	prompt = get_prompt();
@@ -50,10 +63,8 @@ void	init_mini_shell(t_data *data, char **envp)
 		return;
 	while ((input = readline(prompt)))
 	{
-		printf("%d\n", i);
-		i++;
-		if (input)
-			add_history(input);
+		check_ctrl_d(data, input);
+		add_history(input);
 		ft_lexer(input);
 		ft_parsing(input, data);
 		data->cmds = init_cmd_struct(data->tokens);
@@ -65,7 +76,6 @@ void	init_mini_shell(t_data *data, char **envp)
 		// check_tokens(data->tokens);
 		print_token(data->tokens);
 		exec(data);
-		printf("after exec\n");
 		free_tokens(&data->tokens);
 		free(input);
 	}
