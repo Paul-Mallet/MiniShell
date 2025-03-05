@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/01 18:44:18 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:32:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct	s_env
 	char			*value;
 	struct s_env	*next;
 }		t_env;
-
 
 /* 
 	Cmd between pipes, which handle redirs

@@ -6,23 +6,23 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/05 13:54:39 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:26:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/executing.h"
 
-void	redir_managing(t_data *data)
+void	redir_managing(t_cmd *cmds)
 {
 	t_cmd	*current;
 
-	current = data->cmds;
+	current = cmds;
 	while (current)
 	{
 		if (!check_redir(current))
 		{
-			data->exit_code = 1; // error
+			// error
 			return ;
 		}
 		current = current->next;
