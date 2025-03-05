@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 #include "../../includes/executing.h"
+#include "../../includes/signals.h"
 
 void	exec(t_data *data)
 {
@@ -51,13 +52,13 @@ int	exec_command(t_data *data, char **envp)
 	}
 
 	pid = fork();
-	if (pid == -1) //error
+	if (pid == -1)
 	{
 		perror("fork");
 		free(path);
 		return (EXIT_FAILURE);
 	}
-	else if (pid == 0) //child
+	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL); //ctrl + C (^C + new line)
 		signal(SIGQUIT, SIG_DFL); //ctrl + \ (core dump)
@@ -67,10 +68,8 @@ int	exec_command(t_data *data, char **envp)
 		free(path);
 		exit(EXIT_FAILURE);
 	}
-	else //parent
-	{
+	else
 		waitpid(pid, &data->exit_code, 0);
-	}
 	free(path);
 	return (1);
 }

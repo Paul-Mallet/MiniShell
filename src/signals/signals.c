@@ -6,14 +6,14 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 14:32:10 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/04 19:13:14 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:45:16 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/signals.h"
 
-volatile sig_atomic_t	g_pid = 0;
+// volatile sig_atomic_t	g_pid = 0; //use for $?
 
 /*
 	/bin/kill
@@ -55,18 +55,15 @@ volatile sig_atomic_t	g_pid = 0;
 static void	sigint_handler(int sig)
 {
 	(void)sig;
-	if (g_pid == 0)
-	{
-		printf("^C\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else //child process g_pid != 0
-	{
-		kill(g_pid, SIGINT);
-		printf("^C\n");
-	}
+	printf("^C\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+static void	sigquit_handler(int sig)
+{
+	(void)sig;
 }
 
 void	signals_handler(void)
@@ -77,6 +74,7 @@ void	signals_handler(void)
 	sa.sa_flags = SA_RESTART; //avoid readline() bug
 	sa.sa_handler = &sigint_handler;
 	sigaction(SIGINT, &sa, NULL);
+	signal(SIGQUIT, sigquit_handler);
 }
 
 //Ctrl + D = EOF in heredoc, 
