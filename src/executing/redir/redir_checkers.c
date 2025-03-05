@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:54:11 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/04 17:36:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/05 17:20:21 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,15 @@ bool	redir_append(t_redir *redir, bool last_cmd)
 
 bool	redir_heredoc(t_redir *redir)
 {
-	char		*line;
+	char	*line;
+	int		og_stdin;
 
+	og_stdin = dup(STDIN_FILENO);
+	if (og_stdin == -1)
+	{
+		perror("dup");
+		return(false);
+	}
 	if (!heredoc_name(redir))
 		return (false);
 	while (1)
@@ -75,6 +82,8 @@ bool	redir_heredoc(t_redir *redir)
 	}
 	dup2(redir->fd, STDIN_FILENO);
 	close(redir->fd);
+	dup2(og_stdin, STDIN_FILENO);
+	close (og_stdin);
 	unlink(redir->file);
 	free(redir->file);
 	return (true);
