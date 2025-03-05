@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 17:37:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:09:58 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*find_path(char **paths, char *cmd)
 	int		i;
 	char	*road;
 
-	if (!paths || !cmd)
+	if (!cmd)
 		return (NULL);
 	if (ft_strchr(cmd, '/') && access(cmd, F_OK) == 0)
 		return (ft_strdup(cmd));

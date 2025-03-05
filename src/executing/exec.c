@@ -14,43 +14,23 @@
 #include "../../includes/executing.h"
 #include "../../includes/signals.h"
 
-void	exec(t_data *data)
-{
-	int		nb_cmd;
-	char	**envp;
-
-	(void)nb_cmd;
-	// (void)envp;
-	// (void)data;
-	envp = make_env(data->env);
-	// int i = 0;
-	// while (envp[i])
-	// {
-	// 	printf("%s\n", envp[i]);
-	// 	i++;
-	// }
-	
-
-	check_heredoc(data);	// ft_builtins(data);
-	// nb_cmd = count_cmds(data->cmds);
-	// exec_command(data, envp);
-	// free_strs(envp);
-}
-
-
-
-int	exec_command(t_data *data, char **envp)
+int	exec_simple_cmd(t_data *data, char **char_env)
 {
 	pid_t	pid;
+	char	**paths;
 	char	*path;
 
-	path = find_path(envp, data->cmds->cmd[0]);
+	paths = get_path_vrbl(data->env);
+	if (!paths)
+	{
+		return (0);
+	}
+	path = find_path(paths, data->cmds->cmd[0]);
 	if (!path)
 	{
-		perror("find_path");
-		return (EXIT_FAILURE);
+		return (0);
 	}
-
+	printf("%s\n", path);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -60,19 +40,73 @@ int	exec_command(t_data *data, char **envp)
 	}
 	else if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL); //ctrl + C (^C + new line)
-		signal(SIGQUIT, SIG_DFL); //ctrl + \ (core dump)
+		// signal(SIGINT, SIG_DFL); //ctrl + C (^C + new line)
+		// signal(SIGQUIT, SIG_DFL); //ctrl + \ (core dump)
 		redir_managing(data);
-		execve(path, data->cmds->cmd, envp);
+		execve(path, data->cmds->cmd, char_env);
 		perror("execve");
 		free(path);
 		exit(EXIT_FAILURE);
 	}
 	else
+	{
 		waitpid(pid, &data->exit_code, 0);
+		if (WIFEXITED(data->exit_code))
+    		data->exit_code = WEXITSTATUS(data->exit_code);
+	}
 	free(path);
 	return (1);
 }
+
+void	exec(t_data *data)
+{
+	int		nb_cmd;
+	char	**char_env;
+
+	if (!data->cmds)
+		return ;
+	check_heredoc(data);
+	char_env = make_env(data->env);
+	if (!char_env)
+		return ;
+	exec_simple_cmd(data, char_env);
+	(void)nb_cmd;
+}
+
+
+// int	exec_command(t_data *data, char **envp)
+// {
+// 	pid_t	pid;
+// 	char	*path;
+
+// 	path = find_path(envp, data->cmds->cmd[0]);
+// 	if (!path)
+// 	{
+// 		perror("find_path");
+// 		return (EXIT_FAILURE);
+// 	}
+// 	pid = fork();
+// 	if (pid == -1)
+// 	{
+// 		perror("fork");
+// 		free(path);
+// 		return (EXIT_FAILURE);
+// 	}
+// 	else if (pid == 0)
+// 	{
+// 		// signal(SIGINT, SIG_DFL); //ctrl + C (^C + new line)
+// 		// signal(SIGQUIT, SIG_DFL); //ctrl + \ (core dump)
+// 		redir_managing(data);
+// 		execve(path, data->cmds->cmd, envp);
+// 		perror("execve");
+// 		free(path);
+// 		exit(EXIT_FAILURE);
+// 	}
+// 	else
+// 		waitpid(pid, &data->exit_code, 0);
+// 	free(path);
+// 	return (1);
+// }
 
 
 

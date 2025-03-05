@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/27 14:32:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:46:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ t_cmd	*init_cmd_struct(t_token *tokens)
 		tokens = to_pipe_or_last_token(tokens);
 		print_cmd(new->cmd);
 		tokens = tokens->next;
-		free_prompt(prompt_cmd);
+		// free_prompt(prompt_cmd);
 	}
 	// print_cmd_struct(head);
 	return (head);

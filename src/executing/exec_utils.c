@@ -51,7 +51,7 @@ void	check_heredoc(t_data *data)
 char	**make_env(t_env *env)
 {
 	t_env	*current;
-	char	**envp;
+	char	**char_env;
 	int		i;
 
 	current = env;
@@ -61,18 +61,18 @@ char	**make_env(t_env *env)
 		i++;
 		current = current->next;
 	}
-	envp = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!envp)
+	char_env = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!char_env)
 		return (NULL);
 	current = env;
 	i = 0;
 	while (current)
 	{
-		envp[i] = join_lines(current->key, "=");
-		envp[i] = join_lines(envp[i], current->value);
+		char_env[i] = join_lines(current->key, "=");
+		char_env[i] = join_lines(char_env[i], current->value);
 		i++;
 		current = current->next;
 	}
-	envp[i] = NULL;
-	return (envp);
+	char_env[i] = NULL;
+	return (char_env);
 }

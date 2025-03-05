@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+// /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 #include "../../includes/signals.h"
+#include "signal.h"
 
 // volatile sig_atomic_t	g_pid = 0; //use for $?
 
@@ -61,11 +62,6 @@ static void	sigint_handler(int sig)
 	rl_redisplay();
 }
 
-static void	sigquit_handler(int sig)
-{
-	(void)sig;
-}
-
 void	signals_handler(void)
 {
 	struct sigaction	sa;
@@ -74,7 +70,7 @@ void	signals_handler(void)
 	sa.sa_flags = SA_RESTART; //avoid readline() bug
 	sa.sa_handler = &sigint_handler;
 	sigaction(SIGINT, &sa, NULL);
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 //Ctrl + D = EOF in heredoc, 
