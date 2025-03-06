@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_checkers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:54:11 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/06 15:15:40 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:12:22 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ bool	redir_heredoc(t_redir *redir)
 	}
 	if (!heredoc_name(redir))
 		return (false);
-	//signals_heredoc();
 	while (1)
 	{
 		line = readline("heredoc>");

@@ -78,7 +78,6 @@ int	exec_command(t_cmd *cmds, char **char_env, t_env *env)
 	{
 		signal(SIGINT, SIG_DFL); //ctrl + C (^C + new line) //IGN = ignore
 		signal(SIGQUIT, SIG_DFL); //ctrl + \ (core dump)
-		//launche signint
 		redir_managing(cmds);
 		dup2(cmds->prev->fd[0], STDIN_FILENO);
 		dup2(cmds->fd[1], STDOUT_FILENO);

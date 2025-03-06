@@ -12,9 +12,6 @@
 
 #include "../../includes/minishell.h"
 #include "../../includes/signals.h"
-#include "signal.h"
-
-volatile sig_atomic_t	g_pid = 0;
 
 /*
 	/bin/kill
@@ -52,32 +49,32 @@ volatile sig_atomic_t	g_pid = 0;
 		int        sa_flags;
 		void     (*sa_restorer)(void);
 	};
+	
+	Ctrl + D = EOF in heredoc
+
+	g_pid = 130 = 128 + 2(SIGINT);
+	g_pid = 131 = 128 + 3(SIGQUIT);
+	-> used for exit_status
+
+	sa.sa_flags = SA_RESTART; -> reload syst calls interupt by signal (read(), write())
 */
-static void	sigint_handler(int sig)
+
+void	sigint_handler(int sig)
 {
 	(void)sig;
-	if (g_pid == 0)
-	{
-		printf("^C\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else
-		write(1, "OK\n", 3);
+	printf("\n");
+	rl_replace_line("", 0);	//outputting a new line
+	rl_on_new_line();		//tell moved onto new(empty) line, after outputting a newline
+	rl_redisplay();			//display with the current contents of rl_line_buffer
 }
 
 void	signals_handler(void)
 {
 	struct sigaction	sa;
 
-	// ft_bzero(&sa, sizeof(sa));
-	sa.sa_handler = sigint_handler;
+	sa.sa_handler = &sigint_handler;
 	sigemptyset(&sa.sa_mask);
-	// sa.sa_flags = SA_RESTART; //avoid readline() bug
-	sa.sa_flags = 0; //avoid readline() bug
+	sa.sa_flags = 0;					//no flag to activate = sa_handler by dft
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }
-
-//Ctrl + D = EOF in heredoc, 

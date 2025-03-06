@@ -40,5 +40,6 @@
 		"stdlib.h": "c",
 		"signal.h": "c",
 		"unistd.h": "c"
-	}
+	},
+	"C_Cpp.errorSquiggles": "disabled"
 }
