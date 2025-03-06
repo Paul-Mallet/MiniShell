@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/06 14:41:52 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:44:09 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,12 @@ static char	*get_prompt(void)
 	check Ctrl + D EOF
 	* 
 */
-void	check_ctrl_d(t_data *data, char *input)
+void	ctrl_d_exit(t_data *data, char *prompt)
 {
-	if (!input)
-	{
-		printf("exit\n");
-		// free(prompt);
-		free_env(&data->env); //?
-		exit(EXIT_FAILURE);
-	}
+	printf("exit\n");
+	free(prompt);
+	free_env(&data->env);
+	exit(EXIT_FAILURE);
 }
 
 void	init_mini_shell(t_data *data, char **envp)
@@ -69,13 +66,7 @@ void	init_mini_shell(t_data *data, char **envp)
 		}
 		input = readline(prompt);
 		if (!input)
-		{
-			printf("\n\n\ninput: %s\n\n\n\n", input);
-			printf("\nerror input\n");
-			free(prompt);
-			break ;
-		}
-		check_ctrl_d(data, input);
+			ctrl_d_exit(data, prompt);
 		add_history(input);
 		ft_lexer(input);
 		ft_parsing(input, data);
@@ -83,10 +74,8 @@ void	init_mini_shell(t_data *data, char **envp)
 		ft_builtins(data);
 		// check_tokens(data->tokens);
 		print_token(data->tokens);
-		// if (data->cmds->cmd)
 		exec(data);
 		free_tokens(&data->tokens);
-		// free(input);
 		free(prompt);
 	}
 }

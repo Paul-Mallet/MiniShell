@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/25 10:40:52 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:41:58 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,14 +102,17 @@ void free_env(t_env **env)
 	t_env	*tmp;
 	t_env	*next;
 
-	if (env == NULL)
+	if (!env || !(*env))
 		return ;
 	tmp = *env;
 	while (tmp != NULL)
 	{
 		next = tmp->next;
-		free(tmp->key);
-		free(tmp->value);
+		printf("key: %s, value: %s\n", tmp->key, tmp->value);
+		if (tmp->key)
+			free(tmp->key);
+		if (tmp->value)
+			free(tmp->value);
 		free(tmp);
 		tmp = next;
 	}
