@@ -14,7 +14,7 @@
 #include "../../includes/signals.h"
 #include "signal.h"
 
-// volatile sig_atomic_t	g_pid = 0; //use for $?
+volatile sig_atomic_t	g_pid = 0;
 
 /*
 	/bin/kill
@@ -56,19 +56,26 @@
 static void	sigint_handler(int sig)
 {
 	(void)sig;
-	printf("^C\n");
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
+	if (g_pid == 0)
+	{
+		printf("^C\n");
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else
+		write(1, "OK\n", 3);
 }
 
 void	signals_handler(void)
 {
 	struct sigaction	sa;
 
-	ft_bzero(&sa, sizeof(sa));
-	sa.sa_flags = SA_RESTART; //avoid readline() bug
-	sa.sa_handler = &sigint_handler;
+	// ft_bzero(&sa, sizeof(sa));
+	sa.sa_handler = sigint_handler;
+	sigemptyset(&sa.sa_mask);
+	// sa.sa_flags = SA_RESTART; //avoid readline() bug
+	sa.sa_flags = 0; //avoid readline() bug
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }

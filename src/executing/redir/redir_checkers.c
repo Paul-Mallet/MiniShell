@@ -6,12 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:54:11 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/05 17:25:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:15:40 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/executing.h"
+#include "../../../includes/signals.h"
 
 bool	redir_input(t_redir *redir, bool last_cmd)
 {
@@ -68,6 +69,7 @@ bool	redir_heredoc(t_redir *redir)
 	}
 	if (!heredoc_name(redir))
 		return (false);
+	//signals_heredoc();
 	while (1)
 	{
 		line = readline("heredoc>");

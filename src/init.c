@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/05 17:28:59 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:41:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	check_ctrl_d(t_data *data, char *input)
 	if (!input)
 	{
 		printf("exit\n");
+		// free(prompt);
 		free_env(&data->env); //?
 		exit(EXIT_FAILURE);
 	}
@@ -67,13 +68,12 @@ void	init_mini_shell(t_data *data, char **envp)
 			break ;
 		}
 		input = readline(prompt);
-		printf("\n\n\n%s\n\n\n\n", input);
 		if (!input)
 		{
 			printf("\n\n\ninput: %s\n\n\n\n", input);
 			printf("\nerror input\n");
 			free(prompt);
-			break ; //continue?
+			break ;
 		}
 		check_ctrl_d(data, input);
 		add_history(input);
@@ -82,7 +82,7 @@ void	init_mini_shell(t_data *data, char **envp)
 		data->cmds = init_cmd_struct(data->tokens);
 		ft_builtins(data);
 		// check_tokens(data->tokens);
-		// print_token(data->tokens);
+		print_token(data->tokens);
 		// if (data->cmds->cmd)
 		exec(data);
 		free_tokens(&data->tokens);

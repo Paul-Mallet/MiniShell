@@ -73,10 +73,12 @@ int	exec_command(t_cmd *cmds, char **char_env, t_env *env)
 		free(path);
 		return (EXIT_FAILURE);
 	}
+	//g_pid = 1;
 	else if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL); //ctrl + C (^C + new line)
+		signal(SIGINT, SIG_DFL); //ctrl + C (^C + new line) //IGN = ignore
 		signal(SIGQUIT, SIG_DFL); //ctrl + \ (core dump)
+		//launche signint
 		redir_managing(cmds);
 		dup2(cmds->prev->fd[0], STDIN_FILENO);
 		dup2(cmds->fd[1], STDOUT_FILENO);
@@ -87,7 +89,7 @@ int	exec_command(t_cmd *cmds, char **char_env, t_env *env)
 		free(path);
 		exit(EXIT_FAILURE);
 	}
-	free(path);
+	free_paths(paths, path);
 	return (1);
 }
 
@@ -130,7 +132,7 @@ int	exec_first_cmd(t_cmd *cmds, char **char_env, t_env *env)
 	}
 	else
 		close(cmds->fd[1]);
-	free(path);
+	free_paths(paths, path);
 	return (1);
 }
 
@@ -178,8 +180,7 @@ int exec_last_cmd(t_cmd *cmds, char **char_env, t_env *env)
         if (cmds->fd[1] >= 0)
             close(cmds->fd[1]);
     }
-
-    free(path);
+    free_paths(paths, path);
     return (1);
 }
 
@@ -218,8 +219,16 @@ int	exec_simple_cmd(t_data *data, char **char_env)
 		if (WIFEXITED(data->exit_code))
     		data->exit_code = WEXITSTATUS(data->exit_code);
 	}
-	free(path);
+	free_paths(paths, path);
 	return (1);
+}
+
+void free_paths(char **paths, char *path)
+{
+	if (paths)
+		free_strs(paths);
+	if (path)
+		free(path);
 }
 
 void	wait_all(t_data *data, int nb_cmd)
@@ -237,9 +246,9 @@ void	wait_all(t_data *data, int nb_cmd)
 			if (WIFEXITED(status))
 				data->exit_code = WEXITSTATUS(status);
 		}
-		if (current->fd[0] >= 0)
+		if (current->fd[0] != -1)
 			close(current->fd[0]);
-		if (current->fd[1] >= 0)
+		if (current->fd[1] != -1)
 			close(current->fd[1]);
 		current = current->next;
 	}

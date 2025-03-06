@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 12:44:18 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/28 15:20:47 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/06 13:38:08 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	check_cmd_tokens(t_token *tokens)
 				cmd_expected = false;
 			else if (current->subtype != IS_SEPARATOR)
 			{
-				printf("command not found %s\n", current->value);
 				return (0);
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/03 14:25:57 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/06 13:38:14 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int is_cmd(char **paths, char *cmd)
         free(road);
         i++;
     }
-	printf("command not found\n");
+	// printf("command not found\n");
     return (0); // Commande non trouvée
 }
 
@@ -88,6 +88,7 @@ int	is_file(char *value)
 		return (1);
 	return (0);
 }
+
 
 int	is_dir(char *value)
 {

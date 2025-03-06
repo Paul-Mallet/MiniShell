@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/05 17:32:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:57:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_cmd
 {
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
-	int				fd[2];   // Pipe entre commandes
+	int				fd[2];   // Pipe entre commandes 
 	char			**cmd;  //OK build_cmd
 	struct s_redir	*redir;  // Gestion de "<", "<<", ">" et ">>"
 }		t_cmd;
