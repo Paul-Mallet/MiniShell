@@ -24,6 +24,8 @@ t_cmd	*new_cmd(char **cmds)
 	new->redir = NULL;
 	new->prev = NULL;
 	new->next = NULL;
+	new->fd[0] = -1;
+	new->fd[1] = -1;
 	return (new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/05 19:01:50 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/06 11:12:46 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		exec_first_cmd(t_cmd *cmds, char **char_env, t_env *env);
 char	**make_env(t_env *env);
 int		count_cmds(t_cmd *cmds);
 void	check_heredoc(t_data *data);
-
+void	wait_all(t_data *data, int nb_cmd);
 
 
 
