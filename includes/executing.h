@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/06 14:42:14 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 11:56:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,22 @@ int		check_redir(t_cmd *cmd);
 bool	redir_input(t_redir *redir, bool last_cmd);
 bool	redir_output(t_redir *redir, bool last_cmd);
 bool	redir_append(t_redir *redir, bool last_cmd);
-bool	redir_heredoc(t_redir *redir);
+bool	redir_heredoc(t_redir *redir, bool last_cmd);
+bool	write_heredoc(t_data *data, t_redir *redir);
+void	check_heredoc(t_data *data);
 
 /*
 	exec
 */
-
 void	exec(t_data *data);
 int		exec_simple_cmd(t_data *data, char **char_env);
+void	exec_multiple_cmds(t_data *data, char **char_env);
 int		exec_command(t_cmd *cmds, char **char_env, t_env *env);
 int		exec_last_cmd(t_cmd *cmds, char **char_env, t_env *env);
 int		exec_first_cmd(t_cmd *cmds, char **char_env, t_env *env);
 char	**make_env(t_env *env);
 int		count_cmds(t_cmd *cmds);
-void	check_heredoc(t_data *data);
-void	wait_all(t_data *data, int nb_cmd);
-void	close_all_pipes(t_cmd *cmd);
+void	wait_all(t_data *data);
 void	free_paths(char **paths, char *path);
 
 

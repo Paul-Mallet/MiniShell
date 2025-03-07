@@ -26,28 +26,6 @@ int	count_cmds(t_cmd *cmds)
 	return (i);
 }
 
-void	check_heredoc(t_data *data)
-{
-	t_cmd	*current;
-	t_redir	*current_redir;
-
-	current = data->cmds;
-	current_redir = data->cmds->redir;
-	while (current)
-	{
-		while (current_redir)
-		{
-			if (current_redir->heredoc)
-			{
-				if (!redir_heredoc(current_redir))
-					data->exit_code = 0;
-			}
-			current_redir = current_redir->next;
-		}
-		current = current->next;
-	}
-}
-
 char	**make_env(t_env *env)
 {
 	t_env	*current;
@@ -75,4 +53,12 @@ char	**make_env(t_env *env)
 	}
 	char_env[i] = NULL;
 	return (char_env);
+}
+
+void free_paths(char **paths, char *path)
+{
+	if (paths)
+		free_strs(paths);
+	if (path)
+		free(path);
 }

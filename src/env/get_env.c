@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/06 18:41:58 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/07 12:09:22 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void set_env_values(t_env *new, char *entry, char *sep)
 	else
 	{
 		new->key = ft_strndup(entry, ft_strlen(entry) - 1);
-		new->value = "";
+		new->value = ft_strdup("\0");
 	}
 }
 

@@ -30,6 +30,8 @@ SRCS_COMMAND = $(addprefix $(SRC_DIR)$(SRC_COMMAND), \
 SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
 	exec.c \
 	exec_utils.c \
+	exec_cmd.c \
+	here_doc.c \
 	check_tokens.c)
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \

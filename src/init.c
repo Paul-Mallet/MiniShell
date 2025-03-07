@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/06 18:44:09 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/07 11:55:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static char	*get_prompt(void)
 void	ctrl_d_exit(t_data *data, char *prompt)
 {
 	printf("exit\n");
-	free(prompt);
+	if (prompt)
+		free(prompt);
 	free_env(&data->env);
 	exit(EXIT_FAILURE);
 }

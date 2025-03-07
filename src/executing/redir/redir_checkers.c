@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_checkers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:54:11 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/06 18:12:22 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/07 11:27:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,60 +56,17 @@ bool	redir_append(t_redir *redir, bool last_cmd)
 	return (true);
 }
 
-bool	redir_heredoc(t_redir *redir)
+bool	redir_heredoc(t_redir *redir, bool last_cmd)
 {
-	char	*line;
-	int		og_stdin;
-
-	og_stdin = dup(STDIN_FILENO);
-	if (og_stdin == -1)
-	{
-		perror("dup");
-		return(false);
-	}
-	if (!heredoc_name(redir))
-		return (false);
-	while (1)
-	{
-		line = readline("heredoc>");
-		if (ft_strcmp(line, redir->delimiter) == 0)
-		{
-			free(line);
-			break ;
-		}
-		write(redir->fd, line, ft_strlen(line));
-		write(redir->fd, "\n", 1);
-		free(line);
-	}
-	dup2(og_stdin, STDIN_FILENO);
-	close (og_stdin);
-	unlink(redir->file);
-	free(redir->file);
-	return (true);
-}
-
-void	*heredoc_name(t_redir *redir)
-{
-	char		*hd_file;
-	static int	i;
-	char		*num;
-
-	i++;
-	num = ft_itoa(i);
-	hd_file = join_lines("heredoc_", num);
-	if (!hd_file)
-	{
-        free(num);
-        return NULL;
-    }
-	redir->fd = open(hd_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	redir->fd = open(redir->file, O_RDONLY);
 	if (redir->fd == -1)
 	{
-		free(hd_file);
-		free(num);
-		heredoc_name(redir);
+		perror("open");
+		return (false);
 	}
-	redir->file = hd_file;
-	free(num);
-	return (hd_file);
+	if (last_cmd)
+		dup2(redir->fd, STDIN_FILENO);
+	unlink(redir->file);
+	close(redir->fd);
+	return (true);
 }
