@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/05 18:26:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 13:46:50 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ int	check_redir(t_cmd *cmd)
 		else if (current->append)
 		{
 			if (redir_append(current, last_cmd))
+			return (0);
+		}
+		else if (current->heredoc)
+		{
+			if (redir_heredoc(current, last_cmd))
 			return (0);
 		}
 		current = current->next;

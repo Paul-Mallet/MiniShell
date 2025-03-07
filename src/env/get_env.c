@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/07 12:09:22 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 13:52:27 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void free_env(t_env **env)
 	while (tmp != NULL)
 	{
 		next = tmp->next;
-		printf("key: %s, value: %s\n", tmp->key, tmp->value);
 		if (tmp->key)
 			free(tmp->key);
 		if (tmp->value)

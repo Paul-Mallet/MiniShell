@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 11:15:15 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/27 13:35:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:25:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	redir_add_back(t_redir **lst, t_redir *new)
 	new->prev = current;
 }
 
-void	init_redirs(t_token *tokens, t_cmd *new_cmd) //take: t_redir *head
+void	init_redirs(t_token *tokens, t_cmd *new_cmd)
 {
 	t_redir *head;
 	t_redir *new;

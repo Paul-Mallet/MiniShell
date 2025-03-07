@@ -31,8 +31,8 @@ SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
 	exec.c \
 	exec_utils.c \
 	exec_cmd.c \
-	here_doc.c \
-	check_tokens.c)
+	exec_cmd_utils.c \
+	here_doc.c)
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \
 	init.c \

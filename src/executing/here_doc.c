@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/07 11:57:31 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 19:05:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	check_heredoc(t_data *data)
 bool	write_heredoc(t_data *data, t_redir *redir)
 {
 	char	*line;
-	// int		og_stdin;
 	pid_t	pid;
 	int		status;
 
+	(void)data;
 	pid = fork();
 	if (pid == -1)
 	{
@@ -53,20 +53,18 @@ bool	write_heredoc(t_data *data, t_redir *redir)
 	{
 		signal(SIGINT, SIG_DFL); //ctrl + C (^C + new line) //IGN = ignore
 		signal(SIGQUIT, SIG_DFL); //ctrl + \ (core dump)
-		// og_stdin = dup(STDIN_FILENO);
-		// if (og_stdin == -1)
-		// {
-		// 	perror("dup");
-		// 	return(false);
-		// }
 		if (!heredoc_name(redir))
 			return (false);
 		while (1)
 		{
 			line = readline("heredoc>");
-			if (ft_strcmp(line, redir->delimiter) == 0)
+			if (!line)
 			{
-				ctrl_d_exit(data, NULL);
+				printf("\nwarning: end-of-file detected (Ctrl+D)\n");
+            	break;
+			}
+			if (ft_strcmp(line, redir->delimiter) == 0) //if !line ?
+			{
 				free(line);
 				break ;
 			}
@@ -75,8 +73,9 @@ bool	write_heredoc(t_data *data, t_redir *redir)
 			free(line);
 		}
 		close(redir->fd);
-		// close (og_stdin);
 		free(redir->file);
+		printf("end of write_heredoc\n");
+		return (true);
 	}
 	if (waitpid(pid, &status, 0) == -1)
 	{

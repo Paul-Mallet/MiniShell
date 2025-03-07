@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/07 11:56:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 18:31:41 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	free_redir(t_redir **redirs);
 // void	redir_add_back(t_redir **lst, t_redir *new);
 // void	free_redir(t_redir **redirs);
 
-bool	check_tokens(t_token *tokens);
-
 int		count_cmds(t_cmd *cmds);
 void	exec(t_data *data);
 void	check_heredoc(t_data *data);
@@ -75,15 +73,23 @@ void	check_heredoc(t_data *data);
 	exec
 */
 void	exec(t_data *data);
-int		exec_simple_cmd(t_data *data, char **char_env);
-void	exec_multiple_cmds(t_data *data, char **char_env);
-int		exec_command(t_cmd *cmds, char **char_env, t_env *env);
-int		exec_last_cmd(t_cmd *cmds, char **char_env, t_env *env);
-int		exec_first_cmd(t_cmd *cmds, char **char_env, t_env *env);
 char	**make_env(t_env *env);
 int		count_cmds(t_cmd *cmds);
 void	wait_all(t_data *data);
 void	free_paths(char **paths, char *path);
+bool	is_builtins(char *cmd);
 
+int		exec_simple_cmd(t_data *data, char **char_env);
+void	exec_multiple_cmds(t_data *data, char **char_env);
+int		exec_command(t_cmd *cmds, char **char_env, t_data *data);
+int		exec_last_cmd(t_cmd *cmds, char **char_env, t_data *data);
+int		exec_first_cmd(t_cmd *cmds, char **char_env, t_data *data);
+
+void	executing_command(t_cmd *cmds, char *path, char **char_env, t_data *data);
+void	executing_first_cmd(t_cmd *cmds, char *path, char **char_env, t_data *data);
+void	executing_last_cmd(t_cmd *cmds, char *path, char **char_env, t_data *data);
+void	executing_simple_cmd(t_data *data, char *path, char **char_env);
+
+void	close_all_pipes(t_cmd *cmd);
 
 #endif

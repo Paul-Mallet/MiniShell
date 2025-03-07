@@ -6,13 +6,14 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/25 10:59:53 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 17:11:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 #include "../../includes/parsing.h"
+
 
 void	export_env_var(t_env **env, char *import)
 {
@@ -39,6 +40,23 @@ void	export_env_var(t_env **env, char *import)
 	free(key);
 }
 
+void	ft_export(t_env *env, char **cmd)
+{
+	int	i;
+
+	i = 0;
+	if (!cmd[i + 1])
+	{
+		print_env(env);
+		return ;
+	}
+	while (cmd[++i])
+	{
+		if (check_key_fmt(cmd[i]))
+			export_env_var(&env, cmd[i]);
+	}
+}
+
 bool	check_key_fmt(char *value)
 {
 	int	i;
@@ -47,7 +65,10 @@ bool	check_key_fmt(char *value)
 	i = 0;
 	has_equal = false;
 	if (!value || (!ft_isalpha(value[i]) && value[i] != '_'))
+	{
+		printf("export: `%s': not a valid identifier\n", value);
 		return (false);
+	}
 	while (value[i])
 	{
 		if (value[i] == '=')
@@ -56,7 +77,10 @@ bool	check_key_fmt(char *value)
 			break;
 		}
 		else if (!ft_isalnum(value[i]) && value[i] != '_')
+		{
+			printf("export: `%s': not a valid identifier\n", value);
 			return (false);
+		}
 		i++;
 	}
 	return (has_equal);
@@ -74,29 +98,4 @@ bool	check_if_value(char *value)
 		i++;
 	}
 	return (false);
-}
-
-void	ft_export(t_env *env, t_token *tokens)
-{
-	t_token	*current;
-
-	if (!tokens->next)
-	{
-		print_env(env);
-		return ;
-	}
-	current = tokens->next;
-	while (current)
-	{
-		if (current->next && current->subtype == IS_SEPARATOR)
-			current = current->next;
-		else if (current->type == WORD)
-		{
-			if (check_key_fmt(current->value))
-				export_env_var(&env, current->value);
-			current = current->next;
-		}
-		else
-			return ;
-	}
 }

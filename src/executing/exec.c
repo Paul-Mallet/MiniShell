@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/07 11:43:10 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 19:11:37 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,12 @@ void	exec(t_data *data)
 	printf("%d\n", nb_cmd);
 	check_heredoc(data);
 	if (!data->cmds->next)
-		exec_simple_cmd(data, char_env);
+	{
+		if (is_builtins(data->cmds->cmd[0]))
+			ft_builtins(data, data->cmds);
+		else
+			exec_simple_cmd(data, char_env);
+	}
 	else
 		exec_multiple_cmds(data, char_env);
 }
@@ -42,11 +47,11 @@ void	exec_multiple_cmds(t_data *data, char **char_env)
 	while (current)
 	{
 		if (!current->prev)
-			exec_first_cmd(current, char_env, data->env);
+			exec_first_cmd(current, char_env, data);
 		else if (!current->next)
-			exec_last_cmd(current, char_env, data->env);
+			exec_last_cmd(current, char_env, data);
 		else
-			exec_command(current, char_env, data->env);
+			exec_command(current, char_env, data);
 		current = current->next;
 	}
 	wait_all(data);
@@ -68,10 +73,7 @@ void	wait_all(t_data *data)
 			if (WIFEXITED(status))
 				data->exit_code = WEXITSTATUS(status);
 		}
-		if (current->fd[0] != -1)
-			close(current->fd[0]);
-		if (current->fd[1] != -1)
-			close(current->fd[1]);
+		close_all_pipes(current);
 		current = current->next;
 	}
 }

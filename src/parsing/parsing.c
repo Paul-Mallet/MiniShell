@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/04 17:22:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 19:30:32 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ void	remove_join_double_quotes(t_token *tokens)
 	}
 	str[len_without_dble_qtes(tokens->value)] = '\0';
 	free(tokens->value);
-	tokens->value = str;
+	tokens->value = ft_strdup(str);
+	free(str);
 }
 
 void	remove_double_quotes(t_token *tokens)

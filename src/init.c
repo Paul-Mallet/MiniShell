@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/07 11:55:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 19:31:08 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	ctrl_d_exit(t_data *data, char *prompt)
 	printf("exit\n");
 	if (prompt)
 		free(prompt);
+	if (data->cmds->cmd)
+		free_strs(data->cmds->cmd);
 	free_env(&data->env);
 	exit(EXIT_FAILURE);
 }
@@ -72,9 +74,8 @@ void	init_mini_shell(t_data *data, char **envp)
 		ft_lexer(input);
 		ft_parsing(input, data);
 		data->cmds = init_cmd_struct(data->tokens);
-		ft_builtins(data);
-		// check_tokens(data->tokens);
 		print_token(data->tokens);
+		print_cmd_struct(data->cmds);
 		exec(data);
 		free_tokens(&data->tokens);
 		free(prompt);

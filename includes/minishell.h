@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
@@ -62,7 +62,6 @@ typedef enum	e_token_scnd
 	REDIR_INPUT,
 	REDIR_OUTPUT,
 	IS_PIPE,
-	IS_BUILTIN,			//to be skipped by build_cmd() 10
 	IS_SEPARATOR,
 	UNKNOW_SUBTYPE,
 }		t_token_scnd;

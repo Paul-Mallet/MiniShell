@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/06 14:04:06 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:37:32 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,68 +29,50 @@ bool	check_large_n(char *n)
 	return (true);
 }
 
-int	ft_echo(t_token *tokens)
+int	ft_echo(char **cmds)
 {
 	bool	arg_n;
+	int		i;
 
+	i = 0;
 	arg_n = false;
-	tokens = tokens->next;
-	while (tokens)
+	i++;
+	while (cmds[i])
 	{
-		if (tokens && tokens->subtype == IS_SEPARATOR)
-			tokens = tokens->next;
-		if (tokens && !ft_strcmp(tokens->value, "-n"))
+		if (!ft_strcmp(cmds[i], "-n"))
 		{
 			arg_n = true;
-			tokens = tokens->next;
+			i++;
 		}
-		else if (check_large_n(tokens->value))
+		else if (check_large_n(cmds[i]))
 		{
 			arg_n = true;
-			tokens = tokens->next;
+			i++;
 		}
 		else
 			break;
 	}
-	if (!ft_echo_next(tokens, arg_n))
+	if (!ft_echo_next(cmds, i, arg_n))
 		return (0); 
 	return (1);  // error a implementer
 }
 
-void	print_separator(t_token *tokens)
+int ft_echo_next(char **cmd, int i, bool arg_n)
 {
-	if (tokens->prev->prev
-		&& tokens->prev->prev->subtype == IS_SEPARATOR)
-		ft_printf(" %s", tokens->value);
-	else
-		ft_printf("%s", tokens->value);
-}
-
-int	ft_echo_next(t_token *tokens, bool arg_n)
-{
-	bool	first_word;
-
-	first_word = true;
-	while (tokens)
+	while(cmd[i])
 	{
-		if (tokens->next && tokens->subtype == IS_SEPARATOR)
+		if (!ft_strcmp(cmd[i], "\0"))
 		{
-			if (!first_word)
-				ft_printf("%s", tokens->value);
+			printf(" ");
+			i++;
 		}
-		else
-		{
-			if (tokens->type != WORD)
-			{
-				// printf("error");
-				return (1); // error a implementer
-			}
-			print_separator(tokens);
-			first_word = false;
-		}
-		tokens = tokens->next;
+		printf("%s", cmd[i]);
+		if (cmd[i + 1])
+			printf(" ");
+		i++;
 	}
 	if (!arg_n)
-		ft_printf("\n");
+	printf("\n");
 	return (0);
+    return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/27 13:21:20 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:10:24 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static const char *get_token_subtype_string(int subtype)
 	static const char *token_subtypes[] = {
 		"CMD", "ARG", "FILES", "DIR", "DELIM", 
 		"APPEND", "HEREDOC", "REDIR_INPUT", "REDIR_OUTPUT",
-		"IS_PIPE", "IS_BUILTIN", "IS_SEPARATOR", "UNKNOW_SUBTYPE"
+		"IS_PIPE", "IS_SEPARATOR", "UNKNOW_SUBTYPE"
 	};
 	// if (subtype >= 0 && subtype <= 11)
 	return token_subtypes[subtype];

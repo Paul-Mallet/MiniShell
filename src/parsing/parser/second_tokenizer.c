@@ -6,12 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/03/03 13:43:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/07 19:20:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
+#include "../../../includes/executing.h"
 
 #define UNKNOWN_SUBTYPE -1
 
@@ -42,7 +43,7 @@ void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 		current->subtype = FILES;
 	else if (is_builtins(current->value) && !*is_cmd_found)
 	{
-		current->subtype = IS_BUILTIN;
+		current->subtype = CMD;
 		*is_cmd_found = true;
 	}
 	else if (is_cmd(paths, current->value) && !*is_cmd_found)
