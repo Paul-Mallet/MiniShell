@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/05 15:09:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:22:30 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	free_strs(char **paths)
 	while (paths[i])
 	{
 		free(paths[i]);
-		paths[i] = NULL;
+		// paths[i] = NULL;
 		i++;
 	}
-	free (paths);
+	free(paths);
 }
 
 char	*construct_path(char *dir, char *cmd)

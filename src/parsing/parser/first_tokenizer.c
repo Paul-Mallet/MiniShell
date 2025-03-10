@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   first_tokenizer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/01 12:21:18 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/03/10 12:09:27 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
 
-t_token *handle_redirection(char **input)
+t_token	*handle_redirection(char **input)
 {
-	t_token *token;
-	char *value;
-	size_t len;
+	t_token	*token;
+	char	*value;
+	size_t	len;
 
 	len = 1;
 	if ((*input)[0] == (*input)[1])
@@ -31,10 +31,10 @@ t_token *handle_redirection(char **input)
 	return (token);
 }
 
-t_token *handle_pipe(char **input)
+t_token	*handle_pipe(char **input)
 {
-	t_token *token;
-	char *value;
+	t_token	*token;
+	char	*value;
 
 	value = extract_word(*input, 1);
 	if (!value)
@@ -45,11 +45,11 @@ t_token *handle_pipe(char **input)
 	return (token);
 }
 
-t_token *handle_word(char **input)
+t_token	*handle_word(char **input)
 {
-	t_token *token;
-	char *value;
-	size_t len;
+	t_token	*token;
+	char	*value;
+	size_t	len;
 
 	len = get_word_length(*input);
 	if (len == 0)
@@ -63,11 +63,11 @@ t_token *handle_word(char **input)
 	return (token);
 }
 
-t_token *handle_double_quotes(char **input)
+t_token	*handle_double_quotes(char **input)
 {
-	t_token *token;
-	char *value;
-	size_t len;
+	t_token	*token;
+	char	*value;
+	size_t	len;
 
 	if (!input || !*input || **input != '"')
 		return (NULL);
@@ -85,9 +85,9 @@ t_token *handle_double_quotes(char **input)
 
 t_token *handle_single_quotes(char **input)
 {
-	t_token *token;
-	char *value;
-	size_t len;
+	t_token	*token;
+	char	*value;
+	size_t	len;
 
 	if (!input || !*input || **input != '\'')
 		return (NULL);
@@ -107,10 +107,10 @@ t_token *handle_single_quotes(char **input)
 	change to:
 	void(), data->tokens, 1 t_token *new, token_add_back(&data->tokens...)
 */
-t_token *first_tokenization(char *input, t_env *env)
+t_token	*first_tokenization(char *input, t_env *env)
 {
-	t_token *tokens;
-	t_token *new;
+	t_token	*tokens;
+	t_token	*new;
 
 	tokens = NULL;
 	while (*input)

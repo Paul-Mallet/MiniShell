@@ -6,11 +6,12 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 16:07:47 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 10:41:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:43:42 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
+
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	size_t	len;

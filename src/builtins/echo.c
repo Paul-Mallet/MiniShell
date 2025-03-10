@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/07 16:37:32 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:12:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_echo(char **cmds)
 	return (1);  // error a implementer
 }
 
-int ft_echo_next(char **cmd, int i, bool arg_n)
+int	ft_echo_next(char **cmd, int i, bool arg_n)
 {
 	while(cmd[i])
 	{

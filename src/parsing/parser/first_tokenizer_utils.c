@@ -3,30 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   first_tokenizer_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:38:47 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/01 12:21:54 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/03/10 12:03:33 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
 
-int is_redirection(char c)
+int	is_redirection(char c)
 {
 	return (c == '<' || c == '>');
 }
 
-int is_pipe(char c)
+int	is_pipe(char c)
 {
 	return (c == '|');
 }
 
-size_t get_word_length(char *str)
+size_t	get_word_length(char *str)
 {
-	size_t len;
+	size_t	len;
 
 	len = 0;
 	// while (str[len] && !is_redirection(str[len]) && !is_pipe(str[len]) && str[len] != ' ') //?
@@ -37,9 +36,9 @@ size_t get_word_length(char *str)
 	return (len);
 }
 
-size_t get_double_quotes_length(char *str)
+size_t	get_double_quotes_length(char *str)
 {
-	size_t len;
+	size_t	len;
 
 	len = 1;
 	while (str[len] && str[len] != '"')
@@ -49,7 +48,7 @@ size_t get_double_quotes_length(char *str)
 	return (len);
 }
 
-size_t get_single_quotes_length(char *str)
+size_t	get_single_quotes_length(char *str)
 {
 	size_t len;
 
@@ -62,10 +61,10 @@ size_t get_single_quotes_length(char *str)
 	return (len);
 }
 
-char *extract_word(char *str, size_t len)
+char	*extract_word(char *str, size_t len)
 {
-	char *word;
-	size_t i;
+	char	*word;
+	size_t	i;
 
 	word = (char *)malloc(sizeof(char) * (len + 1));
 	if (!word)

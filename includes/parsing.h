@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/07 17:26:03 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:24:33 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int		check_cmd_tokens(t_token *tokens);
 void	join_tokens(t_token **tokens);
 void	remove_token(t_token *token);
 void	remove_empty_token(t_token *tokens);
+bool	if_double_quotes(char *value);
 
 /*
 	1rst tokenizer separates words of input by types

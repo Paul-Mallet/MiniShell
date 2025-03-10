@@ -24,6 +24,7 @@
 		"memory": "c",
 		"vector": "c",
 		"builtins.h": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"sstream": "c"
 	}
 }

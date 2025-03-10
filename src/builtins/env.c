@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:49 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/24 16:42:33 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:12:29 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_env(t_env *env)
 	}	
 }
 
-void ft_env(t_env *env)
+void	ft_env(t_env *env)
 {
 	print_env(env);
 }

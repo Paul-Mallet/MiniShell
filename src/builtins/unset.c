@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:57 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/07 17:13:24 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:11:33 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	ft_unset(t_env **env, char **cmd)
 {
 	int	i;
-	
+
 	i = 0;
 	while (cmd[++i])
 		unset_env_var(env, cmd[i]);

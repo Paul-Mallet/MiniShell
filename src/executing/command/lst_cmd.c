@@ -47,22 +47,22 @@ void	cmd_struct_add_back(t_cmd **cmds, t_cmd *new)
 	new->prev = current;
 }
 
-void free_cmd_struct(t_cmd **cmds)
+void	free_cmd_struct(t_cmd **cmds)
 {
-    t_cmd *current;
-    t_cmd *next;
+	t_cmd	*current;
+	t_cmd	*next;
 
-    if (!cmds || !*cmds)
-        return;
-    current = *cmds;
-    while (current)
-    {
-        next = current->next;
-        free_strs(current->cmd);
+	if (!cmds || !*cmds)
+		return;
+	current = *cmds;
+	while (current)
+	{
+		next = current->next;
+		free_strs(current->cmd);
 		if (current->redir)
 			free_redir(&current->redir);
-        free(current);
-        current = next;
-    }
-    *cmds = NULL;
+		free(current);
+		current = next;
+	}
+	*cmds = NULL;
 }

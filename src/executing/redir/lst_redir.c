@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 11:15:15 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/10 11:20:18 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:08:20 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	redir_add_back(t_redir **lst, t_redir *new)
 
 void	init_redirs(t_token *tokens, t_cmd *new_cmd)
 {
-	t_redir *head;
-	t_redir *new;
+	t_redir	*head;
+	t_redir	*new;
 	t_token	*current;
 
 	head = NULL;
@@ -99,10 +99,10 @@ void	init_redirs(t_token *tokens, t_cmd *new_cmd)
 	new_cmd->redir = head;
 }
 
-void free_redir(t_redir **redirs)
+void	free_redir(t_redir **redirs)
 {
-	t_redir *current;
-	t_redir *next;
+	t_redir	*current;
+	t_redir	*next;
 
 	if (!redirs || !*redirs)
 		return;

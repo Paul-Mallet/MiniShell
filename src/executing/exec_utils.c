@@ -30,6 +30,7 @@ char	**make_env(t_env *env)
 {
 	t_env	*current;
 	char	**char_env;
+	char	*tmp;
 	int		i;
 
 	current = env;
@@ -44,10 +45,12 @@ char	**make_env(t_env *env)
 		return (NULL);
 	current = env;
 	i = 0;
+	tmp = NULL;
 	while (current)
 	{
-		char_env[i] = join_lines(current->key, "=");
-		char_env[i] = join_lines(char_env[i], current->value);
+		tmp = join_lines(current->key, "=");
+		char_env[i] = join_lines(tmp, current->value);
+		free(tmp);
 		i++;
 		current = current->next;
 	}
@@ -55,7 +58,7 @@ char	**make_env(t_env *env)
 	return (char_env);
 }
 
-void free_paths(char **paths, char *path)
+void	free_paths(char **paths, char *path)
 {
 	if (paths)
 		free_strs(paths);

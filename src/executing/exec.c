@@ -6,14 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/07 19:11:37 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:24:05 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/executing.h"
 #include "../../includes/signals.h"
-
 
 void	exec(t_data *data)
 {
@@ -37,6 +36,12 @@ void	exec(t_data *data)
 	}
 	else
 		exec_multiple_cmds(data, char_env);
+	while(data->cmds)
+	{
+		close_all_pipes(data->cmds);
+		data->cmds = data->cmds->next;
+	}
+	free_strs(char_env);
 }
 
 void	exec_multiple_cmds(t_data *data, char **char_env)
@@ -55,7 +60,6 @@ void	exec_multiple_cmds(t_data *data, char **char_env)
 		current = current->next;
 	}
 	wait_all(data);
-	free_strs(char_env);
 }
 
 void	wait_all(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/03/07 19:20:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:56:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 #define UNKNOWN_SUBTYPE -1
 
-void handle_token_redir(t_token *token)
+void	handle_token_redir(t_token *token)
 {
 	if (!ft_strcmp(token->value, ">>"))
 		token->subtype = APPEND;
@@ -30,7 +30,6 @@ void handle_token_redir(t_token *token)
 
 void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 {
-	(void)paths;
 	if ((current->prev && current->prev->subtype == HEREDOC))
 		current->subtype = DELIM;
 	else if ((current->prev && current->prev->subtype == IS_SEPARATOR)
@@ -55,7 +54,7 @@ void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 		current->subtype = ARG;
 }
 
-void second_tokenization(t_data *data)
+void	second_tokenization(t_data *data)
 {
 	char	**paths;
 	t_token	*current;

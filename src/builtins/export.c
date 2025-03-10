@@ -6,14 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/07 17:11:43 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:12:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 #include "../../includes/parsing.h"
-
 
 void	export_env_var(t_env **env, char *import)
 {
@@ -59,7 +58,7 @@ void	ft_export(t_env *env, char **cmd)
 
 bool	check_key_fmt(char *value)
 {
-	int	i;
+	int		i;
 	bool	has_equal;
 
 	i = 0;

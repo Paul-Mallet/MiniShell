@@ -6,14 +6,14 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/07 13:52:27 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:33:23 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
 
-void set_env_values(t_env *new, char *entry, char *sep)
+void	set_env_values(t_env *new, char *entry, char *sep)
 {
 	if (sep)
 	{
@@ -27,10 +27,10 @@ void set_env_values(t_env *new, char *entry, char *sep)
 	}
 }
 
-t_env *new_env_node(char *entry)
+t_env	*new_env_node(char *entry)
 {
-	t_env *new;
-	char *sep = NULL;
+	t_env	*new;
+	char	*sep = NULL;
 
 	if (!entry)
 		return (NULL);
@@ -69,12 +69,12 @@ void	env_add_back(t_env **env, t_env *new)
 	curr->next = new;
 }
 
-t_env   *import_env(char **env)
+t_env	*import_env(char **env)
 {
-	t_env   *head;
-	t_env   *new;
-	int     i; 
-	
+	t_env	*head;
+	t_env	*new;
+	int		i; 
+
 	if (!env)
 		return (NULL);
 	head = new_env_node(env[0]);
@@ -97,23 +97,23 @@ t_env   *import_env(char **env)
 	return (head);
 }
 
-void free_env(t_env **env)
+void	free_env(t_env **env)
 {
-	t_env	*tmp;
+	t_env	*current;
 	t_env	*next;
 
 	if (!env || !(*env))
 		return ;
-	tmp = *env;
-	while (tmp != NULL)
+	current = *env;
+	while (current != NULL)
 	{
-		next = tmp->next;
-		if (tmp->key)
-			free(tmp->key);
-		if (tmp->value)
-			free(tmp->value);
-		free(tmp);
-		tmp = next;
+		next = current->next;
+		// if (current->key)
+		free(current->key);
+		// if (current->value)
+		free(current->value);
+		free(current);
+		current = next;
 	}
 	*env = (NULL);
 }

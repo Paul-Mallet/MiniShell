@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:30:43 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/26 14:19:03 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:04:29 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 int	expand_length(char *value, t_env *env)
 {
-	int		i;
-	int		total_len;
-	int		var_len;
+	int	i;
+	int	total_len;
+	int	var_len;
 
 	i = 0;
 	total_len = 0;

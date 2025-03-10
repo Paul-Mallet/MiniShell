@@ -6,12 +6,11 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 09:27:45 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 10:56:39 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 11:43:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
-
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
