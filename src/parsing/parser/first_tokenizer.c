@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 17:35:24 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:35:19 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_token	*handle_redirection(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(REDIR, UNKNOW_SUBTYPE, value);
-	// free(value);
+	free(value);
 	*input += len;
 	return (token);
 }
@@ -40,7 +40,7 @@ t_token	*handle_pipe(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(PIPE, UNKNOW_SUBTYPE, value);
-	// free(value);
+	// free(value); invalid free 
 	(*input)++;
 	return (token);
 }
@@ -125,7 +125,7 @@ t_token	*first_tokenization(char *input, t_env *env)
 		{
 			while (*input == ' ' && *(input + 1) == ' ')
 				input++;
-			new = new_token(SEPARATOR, UNKNOW_SUBTYPE, " ");
+			new = new_token(SEPARATOR, UNKNOW_SUBTYPE, ft_strdup(" "));
 			input++;
 		}
 		else if (is_redirection(*input))

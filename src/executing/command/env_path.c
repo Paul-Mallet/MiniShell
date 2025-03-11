@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/10 15:22:30 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:09:35 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,10 @@ char	*construct_path(char *dir, char *cmd)
 	char	*path;
 
 	temp = ft_strjoin(dir, "/");
-	path = NULL;
-	if (temp)
-	{
-		path = ft_strjoin(temp, cmd);
-		free(temp);
-	}
-	// free(temp);
+	if (!temp)
+		return (NULL);
+	path = ft_strjoin(temp, cmd);
+	free(temp);
 	return (path);
 }
 

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/11 17:29:18 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:40:02 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	init_mini_shell(t_data *data, char **envp)
 		free_cmd_struct(&data->cmds);
 		printf("\napres free\n");
 		// print_cmd_struct(data->cmds);
-		free_tokens(&data->tokens);
+		free_tokens(data->tokens);
 		free(data->prompt);
 		free(data->input);
 		data->input = NULL;

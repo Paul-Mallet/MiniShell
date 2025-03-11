@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 17:38:25 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:39:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_token	*new_token(t_token_first type, t_token_scnd subtype, char *value)
 	if (!new)
 		return (NULL);
 	new->value = ft_strdup(value);
-	free(value);
+	free(value); // invalid free pas tout le temps allouer
 	if (!new->value)
 	{
 		free(new);
@@ -54,19 +54,21 @@ void	token_add_back(t_token **lst, t_token *new)
 
 void	free_tokens(t_token **tokens)
 {
-	t_token	*current;
+	// t_token	*current;
 	t_token	*next;
 
 	if (!tokens || !*tokens)
 		return;
-	current = *tokens;
-	while (current)
+	// current = *tokens;
+	while (*tokens)
 	{
 		// printf("value: %s\n", current->value);
-		next = current->next;
-		free(current->value);
-		free(current);
-		current = next;
+		next = (*tokens)->next;
+		// printf("tokens: %s && next : %p\n", (*tokens)->value, next);
+		
+		free((*tokens)->value);
+		free(*tokens);
+		(*tokens) = next;
 	}
 	*tokens = NULL;
 }

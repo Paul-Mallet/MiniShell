@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/10 12:01:34 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:36:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	is_cmd(char **paths, char *cmd)
 		if (access(road, F_OK) == 0)
 		{
 			is_executable(road);
+			free(road);
 			return (1);
 		}
 		free(road);
