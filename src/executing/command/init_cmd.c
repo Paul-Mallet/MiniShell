@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/10 17:35:35 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 10:54:53 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ char	**build_cmd(t_token	*tokens, char **cmd) //["value1", "value2"]
 		{
 			if (tokens->subtype == CMD && cmd_found == false)
 			{
-				cmd[i++] = tokens->value; //ft_strdup()
+				cmd[i++] = ft_strdup(tokens->value); //ft_strdup()
 				cmd_found = true;
 			}
 			else if (tokens->subtype == ARG && cmd_found == true)
-				cmd[i++] = tokens->value;
+				cmd[i++] = ft_strdup(tokens->value);
 		}
 		if (tokens->type == PIPE)
 			break ;
@@ -118,7 +118,7 @@ t_cmd	*init_cmd_struct(t_token *tokens)
 		init_redirs(tokens, new);
 		tokens = to_pipe_or_last_token(tokens);
 		// print_cmd(new->cmd);
-		free(cmd);
+		// free(cmd);
 		tokens = tokens->next;
 	}
 	// print_cmd_struct(head);

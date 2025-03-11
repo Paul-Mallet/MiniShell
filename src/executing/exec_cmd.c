@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/10 12:06:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:59:30 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/executing.h"
 #include "../../includes/signals.h"
 
-int	exec_command(t_cmd *cmds, char **char_env, t_data *data)
+int	exec_command(t_cmd *cmds, t_data *data)
 {
 	pid_t	pid;
 	char	**paths;
@@ -22,7 +22,9 @@ int	exec_command(t_cmd *cmds, char **char_env, t_data *data)
 
 	paths = get_path_vrbl(data->env);
 	path = find_path(paths, cmds->cmd[0]);
-	if (pipe(cmds->fd))
+	if (!path)
+		return (error_path(paths, data->prompt));
+	if (pipe(cmds->fd) == -1)
 	{
 		perror("pipe");
 		exit(EXIT_FAILURE);
@@ -34,12 +36,12 @@ int	exec_command(t_cmd *cmds, char **char_env, t_data *data)
 		return (EXIT_FAILURE);
 	}
 	else if (pid == 0)
-		executing_command(cmds, path, char_env, data);
+		executing_command(cmds, path, data);
 	free_paths(paths, path);
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
-int	exec_first_cmd(t_cmd *cmds, char **char_env, t_data *data)
+int	exec_first_cmd(t_cmd *cmds, t_data *data)
 {
 	pid_t	pid;
 	char	**paths;
@@ -47,7 +49,9 @@ int	exec_first_cmd(t_cmd *cmds, char **char_env, t_data *data)
 
 	paths = get_path_vrbl(data->env);
 	path = find_path(paths, cmds->cmd[0]);
-	if (pipe(cmds->fd))
+	if (!path)
+		return (error_path(paths, data->prompt));
+	if (pipe(cmds->fd) == -1)
 	{
 		perror("pipe");
 		exit(EXIT_FAILURE);
@@ -59,14 +63,14 @@ int	exec_first_cmd(t_cmd *cmds, char **char_env, t_data *data)
 		return (EXIT_FAILURE);
 	}
 	else if (pid == 0)
-		executing_first_cmd(cmds, path, char_env, data);
+		executing_first_cmd(cmds, path, data);
 	else
 		close(cmds->fd[1]);
 	free_paths(paths, path);
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
-int	exec_last_cmd(t_cmd *cmds, char **char_env, t_data *data)
+int	exec_last_cmd(t_cmd *cmds, t_data *data)
 {
 	pid_t	pid;
 	char	**paths;
@@ -74,6 +78,8 @@ int	exec_last_cmd(t_cmd *cmds, char **char_env, t_data *data)
 
 	paths = get_path_vrbl(data->env);
 	path = find_path(paths, cmds->cmd[0]);
+	if (!path)
+		return (error_path(paths, data->prompt));
 	pid = fork();
 	if (pid == -1)
 	{
@@ -81,17 +87,17 @@ int	exec_last_cmd(t_cmd *cmds, char **char_env, t_data *data)
 		return (EXIT_FAILURE);
 	}
 	else if (pid == 0)
-		executing_last_cmd(cmds, path, char_env, data);
+		executing_last_cmd(cmds, path, data);
 	else
 	{
 		close(cmds->prev->fd[0]);
 		close_all_pipes(cmds);
 	}
 	free_paths(paths, path);
-	return (1);
+	return (EXIT_SUCCESS);
 }
 
-int	exec_simple_cmd(t_data *data, char **char_env)
+int	exec_simple_cmd(t_data *data)
 {
 	pid_t	pid;
 	char	**paths;
@@ -99,6 +105,8 @@ int	exec_simple_cmd(t_data *data, char **char_env)
 
 	paths = get_path_vrbl(data->env);
 	path = find_path(paths, data->cmds->cmd[0]);
+	if (!path)
+		return (error_path(paths, data->prompt));
 	pid = fork();
 	if (pid == -1)
 	{
@@ -106,7 +114,7 @@ int	exec_simple_cmd(t_data *data, char **char_env)
 		return (EXIT_FAILURE);
 	}
 	else if (pid == 0)
-		executing_simple_cmd(data, path, char_env);
+		executing_simple_cmd(data, path);
 	else
 	{
 		waitpid(pid, &data->exit_code, 0);
@@ -114,5 +122,5 @@ int	exec_simple_cmd(t_data *data, char **char_env)
 			data->exit_code = WEXITSTATUS(data->exit_code);
 	}
 	free_paths(paths, path);
-	return (1);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/07 18:31:41 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:03:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define EXECUTING_H
 # include "./minishell.h"
 
-#include "../includes/minishell.h"
-#include "../includes/builtins.h"
-#include "../includes/parsing.h"
+# include "../includes/minishell.h"
+# include "../includes/builtins.h"
+# include "../includes/parsing.h"
 
 /*
 	get paths for
@@ -53,7 +53,6 @@ void	free_redir(t_redir **redirs);
 // void	free_redir(t_redir **redirs);
 
 int		count_cmds(t_cmd *cmds);
-void	exec(t_data *data);
 void	check_heredoc(t_data *data);
 void	*heredoc_name(t_redir *redir);
 
@@ -72,24 +71,26 @@ void	check_heredoc(t_data *data);
 /*
 	exec
 */
-void	exec(t_data *data);
+int		exec(t_data *data);
 char	**make_env(t_env *env);
 int		count_cmds(t_cmd *cmds);
 void	wait_all(t_data *data);
 void	free_paths(char **paths, char *path);
 bool	is_builtins(char *cmd);
 
-int		exec_simple_cmd(t_data *data, char **char_env);
-void	exec_multiple_cmds(t_data *data, char **char_env);
-int		exec_command(t_cmd *cmds, char **char_env, t_data *data);
-int		exec_last_cmd(t_cmd *cmds, char **char_env, t_data *data);
-int		exec_first_cmd(t_cmd *cmds, char **char_env, t_data *data);
+int		exec_simple_cmd(t_data *data);
+int		exec_multiple_cmds(t_data *data);
+int		exec_command(t_cmd *cmds, t_data *data);
+int		exec_last_cmd(t_cmd *cmds, t_data *data);
+int		exec_first_cmd(t_cmd *cmds, t_data *data);
 
-void	executing_command(t_cmd *cmds, char *path, char **char_env, t_data *data);
-void	executing_first_cmd(t_cmd *cmds, char *path, char **char_env, t_data *data);
-void	executing_last_cmd(t_cmd *cmds, char *path, char **char_env, t_data *data);
-void	executing_simple_cmd(t_data *data, char *path, char **char_env);
+void	executing_command(t_cmd *cmds, char *path, t_data *data);
+void	executing_first_cmd(t_cmd *cmds, char *path, t_data *data);
+void	executing_last_cmd(t_cmd *cmds, char *path, t_data *data);
+void	executing_simple_cmd(t_data *data, char *path);
 
+void	free_exec(t_data *data);
+int		error_path(char **paths, char *prompt);
 void	close_all_pipes(t_cmd *cmd);
 
 #endif

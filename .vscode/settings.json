@@ -25,6 +25,9 @@
 		"vector": "c",
 		"builtins.h": "c",
 		"minishell.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"history.h": "c",
+		"readline.h": "c",
+		"parsing.h": "c"
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/10 15:24:05 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:00:11 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,28 @@
 #include "../../includes/executing.h"
 #include "../../includes/signals.h"
 
-void	exec(t_data *data)
+int	exec(t_data *data)
 {
 	int		nb_cmd;
-	char	**char_env;
 
 	if (!data->cmds)
-		return ;
-	char_env = make_env(data->env);
-	if (!char_env)
-		return ;
+		return (EXIT_FAILURE);
+	data->char_env = make_env(data->env);
+	if (!data->char_env)
+		return (EXIT_FAILURE);
 	nb_cmd = count_cmds(data->cmds);
-	printf("%d\n", nb_cmd);
 	check_heredoc(data);
 	if (!data->cmds->next)
 	{
 		if (is_builtins(data->cmds->cmd[0]))
-			ft_builtins(data, data->cmds);
+			return (ft_builtins(data, data->cmds));
 		else
-			exec_simple_cmd(data, char_env);
+			return (exec_simple_cmd(data));
 	}
-	else
-		exec_multiple_cmds(data, char_env);
-	while(data->cmds)
-	{
-		close_all_pipes(data->cmds);
-		data->cmds = data->cmds->next;
-	}
-	free_strs(char_env);
+	return (exec_multiple_cmds(data));
 }
 
-void	exec_multiple_cmds(t_data *data, char **char_env)
+int	exec_multiple_cmds(t_data *data)
 {
 	t_cmd	*current;
 
@@ -52,14 +43,24 @@ void	exec_multiple_cmds(t_data *data, char **char_env)
 	while (current)
 	{
 		if (!current->prev)
-			exec_first_cmd(current, char_env, data);
+		{
+			if (exec_first_cmd(current, data))
+				return (EXIT_FAILURE);
+		}
 		else if (!current->next)
-			exec_last_cmd(current, char_env, data);
+		{
+			if (exec_last_cmd(current, data))
+				return (EXIT_FAILURE);
+		}
 		else
-			exec_command(current, char_env, data);
+		{
+			if (exec_command(current, data))
+				return (EXIT_FAILURE);
+		}
 		current = current->next;
 	}
 	wait_all(data);
+	return (EXIT_SUCCESS);
 }
 
 void	wait_all(t_data *data)

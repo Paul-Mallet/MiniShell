@@ -119,6 +119,8 @@ typedef struct	s_data
 	t_env			*env;
 	t_token			*tokens;
 	t_error_code	code;
+	char			*prompt;
+	char			**char_env;
 	int				exit_code;
 }		t_data;
 

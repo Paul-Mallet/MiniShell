@@ -18,6 +18,11 @@ SRC_COMMAND = executing/command/
 
 OBJ_DIR = obj/
 
+SRCS = $(addprefix $(SRC_DIR), \
+	main.c \
+	init.c \
+	error_management.c \
+	free_data.c)
 SRCS_REDIR = $(addprefix $(SRC_DIR)$(SRC_REDIR), \
 	lst_redir.c \
 	redir_managing.c \
@@ -33,10 +38,6 @@ SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
 	exec_cmd.c \
 	exec_cmd_utils.c \
 	here_doc.c)
-SRCS = $(addprefix $(SRC_DIR), \
-	main.c \
-	init.c \
-	error_management.c)
 SRCS_BUILTINS = $(addprefix $(SRC_DIR)$(SRC_BUILTINS), \
 	builtins.c \
 	cd.c \

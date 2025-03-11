@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 12:44:18 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/06 13:38:08 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:13:29 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,13 @@ void	remove_empty_token(t_token *tokens)
 	current = tokens;
 	while (current)
 	{
-		if (!ft_strcmp(current->value, "\"\"") || !ft_strcmp(current->value, "''"))
+		if (current->value)
 		{
-			free (current->value);
-			current->value = strdup("");
+			if (ft_strcmp(current->value, "\"\"") == 0|| ft_strcmp(current->value, "''") == 0)
+			{
+				free (current->value);
+				current->value = "";
+			}
 		}
 		current = current->next;
 	}

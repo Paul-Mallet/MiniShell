@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/10 17:45:01 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:53:08 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	init_data(t_data *data)
 	data->cmds = NULL;
 	data->env = NULL;
 	data->tokens = NULL;
+	data->prompt = NULL;
+	data->char_env = NULL;
 	data->exit_code = 0;
 }
 
@@ -59,25 +61,26 @@ void	ctrl_d_exit(t_data *data, char *prompt)
 void	init_mini_shell(t_data *data, char **envp)
 {
 	char	*input;
-	char	*prompt;
 
 	input = NULL;
 	data->env = import_env(envp);
-	while (1) //flag = 1
+	while (1)
 	{
-		prompt = get_prompt();
-		input = readline(prompt);
+		data->prompt = get_prompt();
+		input = readline(data->prompt);
 		if (!input)
-			ctrl_d_exit(data, prompt); //flag == 0
+			ctrl_d_exit(data, data->prompt);
 		add_history(input);
 		ft_lexer(input);
 		ft_parsing(input, data);
 		data->cmds = init_cmd_struct(data->tokens);
 		print_token(data->tokens);
-		exec(data);
-		free_cmd_struct(&data->cmds);
+		if (exec(data))
+			data->exit_code = EXIT_FAILURE;
+		free_exec(data);
 		free_tokens(&data->tokens);
-		free(prompt);
+		free_cmd_struct(&data->cmds);
+		free(data->prompt);
 		free(input);
 		input = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/10 18:50:02 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:06:33 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	get_expanded(t_token *tokens, t_env *env)
 // 	// 	free(str); //?
 // }
 
-static int	count_ins_quotes(char **value)
+int	count_ins_quotes(char **value)
 {
 	int	len;
 
@@ -131,7 +131,7 @@ int	len_without_dble_qtes(char *value)
 	return (len);
 }
 
-static void	fill_without_quotes(char *dest, char *src)
+void	fill_without_quotes(char *dest, char *src)
 {
 	int	i;
 	int	j;
@@ -167,6 +167,7 @@ void	remove_join_double_quotes(t_token *tokens)
 		return ;
 	fill_without_quotes(new_value, tokens->value);
 	free(tokens->value);
+	tokens->value = NULL;
 	tokens->value = new_value;
 }
 

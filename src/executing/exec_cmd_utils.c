@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/10 12:07:14 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:43:41 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/executing.h"
 #include "../../includes/signals.h"
 
-void	executing_command(t_cmd *cmds, char *path, char **char_env, t_data *data)
+void	executing_command(t_cmd *cmds, char *path, t_data *data)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -26,11 +26,11 @@ void	executing_command(t_cmd *cmds, char *path, char **char_env, t_data *data)
 	if (is_builtins(cmds->cmd[0]))
 		ft_builtins(data, cmds);
 	else
-		execve(path, cmds->cmd, char_env);
+		execve(path, cmds->cmd, data->char_env);
 	perror("execve");
 }
 
-void	executing_first_cmd(t_cmd *cmds, char *path, char **char_env, t_data *data)
+void	executing_first_cmd(t_cmd *cmds, char *path, t_data *data)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -41,11 +41,11 @@ void	executing_first_cmd(t_cmd *cmds, char *path, char **char_env, t_data *data)
 	if (is_builtins(cmds->cmd[0]))
 		ft_builtins(data, cmds);
 	else
-		execve(path, cmds->cmd, char_env);
+		execve(path, cmds->cmd, data->char_env);
 	perror("execve");
 }
 
-void	executing_last_cmd(t_cmd *cmds, char *path, char **char_env, t_data *data)
+void	executing_last_cmd(t_cmd *cmds, char *path, t_data *data)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -58,15 +58,22 @@ void	executing_last_cmd(t_cmd *cmds, char *path, char **char_env, t_data *data)
 	if (is_builtins(cmds->cmd[0]))
 		ft_builtins(data, cmds);
 	else
-		execve(path, cmds->cmd, char_env);
+		execve(path, cmds->cmd, data->char_env);
 	perror("execve");
 }
 
-void	executing_simple_cmd(t_data *data, char *path, char **char_env)
+void	executing_simple_cmd(t_data *data, char *path)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	redir_managing(data->cmds);
-	execve(path, data->cmds->cmd, char_env);
+	execve(path, data->cmds->cmd, data->char_env);
 	perror("execve");
+}
+
+int	error_path(char **paths, char *path)
+{
+	error_handling(ERR_CMD_NOT_FOUND, path);
+	free_paths(paths, NULL);
+	return (EXIT_FAILURE);
 }

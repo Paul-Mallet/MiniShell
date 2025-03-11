@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:46:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/10 12:13:16 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:34:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 	3. send input without builtins(strchr + 1, skip ' ')
 // */
 
-void	ft_builtins(t_data *data, t_cmd *cmds)
+int	ft_builtins(t_data *data, t_cmd *cmds)
 {                                                                           
 	if (!ft_strcmp(cmds->cmd[0], "echo"))
 		ft_echo(cmds->cmd);
@@ -36,4 +36,5 @@ void	ft_builtins(t_data *data, t_cmd *cmds)
 		ft_env(data->env);
 	// if (!ft_strcmp(cmds->cmd[0], "exit"))
 	// // 	ft_exit(data, input, prompt);
+	return (EXIT_SUCCESS);
 }
