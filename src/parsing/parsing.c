@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/11 17:48:49 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:02:45 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 
 void	get_expanded(t_token *tokens, t_env *env)
 {
-	// char	**paths;
 	t_token	*current;
 	char	*expansion;
 
-	// paths = get_path_vrbl(env);
 	current = tokens;
 	expansion = NULL;
 	while (current)
@@ -27,8 +25,12 @@ void	get_expanded(t_token *tokens, t_env *env)
 		if (current->type == WORD && current->subtype != DELIM)
 		{
 			expansion = expander(current->value, env);
-			if (ft_strcmp(expansion, current->value))
+			if (expansion && ft_strcmp(expansion, current->value))
+			{
 				free(current->value);
+				current->value = expansion;
+			}
+			free(current->value);
 			current->value = expansion;
 		}
 		current = current->next;
