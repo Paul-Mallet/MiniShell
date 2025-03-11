@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 10:54:53 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:44:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,31 @@
 
 char	**malloc_cmd(t_token *tokens)
 {
+	t_token	*current;
 	char	**cmd;
-	int		size;
+	int		i;
+	bool	cmd_found;
 
-	size = 0;
-	while (tokens)
-	{		
-		if (tokens->subtype == CMD || tokens->subtype == ARG)
-			size++;
-		if (tokens->type == PIPE || tokens->subtype == DELIM)
+	i = 0;
+	current = tokens;
+	cmd_found = false;
+	while (current)
+	{
+		if (current->type == WORD)
+		{
+			if (current->subtype == CMD && cmd_found == false)
+			{
+				i++;
+				cmd_found = true;
+			}
+			else if (current->subtype == ARG && cmd_found == true)
+				i++;
+		}
+		if (current->type == PIPE)
 			break ;
-		tokens = tokens->next;
+		current = current->next;
 	}
-	cmd = (char **)malloc(sizeof(char *) * (size + 1));
+	cmd = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!cmd)
 		return (NULL);
 	return (cmd);
@@ -36,26 +48,28 @@ char	**malloc_cmd(t_token *tokens)
 
 char	**build_cmd(t_token	*tokens, char **cmd) //["value1", "value2"]
 {
+	t_token	*current;
 	int		i;
 	bool	cmd_found;
 
 	i = 0;
+	current = tokens;
 	cmd_found = false;
-	while (tokens)
+	while (current)
 	{
-		if (tokens->type == WORD)
+		if (current->type == WORD)
 		{
-			if (tokens->subtype == CMD && cmd_found == false)
+			if (current->subtype == CMD && cmd_found == false)
 			{
-				cmd[i++] = ft_strdup(tokens->value); //ft_strdup()
+				cmd[i++] = ft_strdup(current->value); //ft_strdup()
 				cmd_found = true;
 			}
-			else if (tokens->subtype == ARG && cmd_found == true)
-				cmd[i++] = ft_strdup(tokens->value);
+			else if (current->subtype == ARG && cmd_found == true)
+				cmd[i++] = ft_strdup(current->value);
 		}
-		if (tokens->type == PIPE)
+		if (current->type == PIPE)
 			break ;
-		tokens = tokens->next;
+		current = current->next;
 	}
 	cmd[i] = NULL;
 	return (cmd);
@@ -63,13 +77,16 @@ char	**build_cmd(t_token	*tokens, char **cmd) //["value1", "value2"]
 
 t_token	*to_pipe_or_last_token(t_token *tokens)
 {
-	while (tokens->next)
+	t_token	*current;
+
+	current = tokens;
+	while (current->next)
 	{
-		if (tokens->type == PIPE)
+		if (current->type == PIPE)
 			break ;
-		tokens = tokens->next;
+		current = current->next;
 	}
-	return (tokens);
+	return (current);
 }
 
 void	free_prompt(char **prompt_cmd)
@@ -102,24 +119,26 @@ t_cmd	*init_cmd_struct(t_token *tokens)
 	char	**prompt_cmd;
 	t_cmd	*head;
 	t_cmd	*new;
+	t_token	*current;
 
 	cmd = NULL;
 	prompt_cmd = NULL;
 	head = NULL;
 	new = NULL;
-	while(tokens)
+	current = tokens;
+	while(current)
 	{
-		cmd = malloc_cmd(tokens);
+		cmd = malloc_cmd(current);
 		if (!cmd)
 			return (NULL);
-		prompt_cmd = build_cmd(tokens, cmd);
+		prompt_cmd = build_cmd(current, cmd);
 		new = new_cmd(prompt_cmd);
 		cmd_struct_add_back(&head, new);
-		init_redirs(tokens, new);
-		tokens = to_pipe_or_last_token(tokens);
-		// print_cmd(new->cmd);
+		init_redirs(current, new);
+		current = to_pipe_or_last_token(current);
+		print_cmd(new->cmd);
 		// free(cmd);
-		tokens = tokens->next;
+		current = current->next;
 	}
 	// print_cmd_struct(head);
 	return (head);

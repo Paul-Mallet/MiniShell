@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:16:25 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/10 11:27:13 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:26:41 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void print_cmds(char **cmds)
 {
 	while(*cmds != NULL)
-		printf("%s\n", *cmds++);
+		printf("cmd from print_cmd_struct: %s\n", *cmds++);
 }
 
 void print_redir(t_redir *redir)
@@ -26,17 +26,20 @@ void print_redir(t_redir *redir)
 			redir->file, redir->value, redir->append, redir->heredoc, redir->delimiter);
 }
 
-void print_cmd_struct(t_cmd *cmd)
+void print_cmd_struct(t_cmd *cmds)
 {
-	while (cmd->redir)
+	t_cmd	*current;
+
+	current = cmds;
+	while(current)
 	{
-		print_redir(cmd->redir);
-		cmd->redir = cmd->redir->next;
-	}
-	while(cmd)
-	{
-		print_cmds(cmd->cmd);
+		print_cmds(cmds->cmd);
 		printf("\n\n");
-		cmd = cmd->next;
+		while (cmds->redir)
+		{
+			print_redir(cmds->redir);
+			current->redir = current->redir->next;
+		}
+		current = current->next;
 	}
 }

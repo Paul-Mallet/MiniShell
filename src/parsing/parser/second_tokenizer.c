@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/03/10 17:56:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:49:11 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found)
 
 void	second_tokenization(t_data *data)
 {
-	char	**paths;
 	t_token	*current;
+	char	**paths;
 	bool	is_cmd_found;
 
 	paths = get_path_vrbl(data->env);

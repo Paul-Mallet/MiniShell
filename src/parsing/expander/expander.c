@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/28 16:40:31 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:34:03 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*get_key_value(char *value, int i, t_env *env)
 			}
 			env = env->next;
 		}
-		free (key);
+		free(key);
 	}
 	return (NULL);
 }

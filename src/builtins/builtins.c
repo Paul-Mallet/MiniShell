@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:46:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/11 11:34:51 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 16:21:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_builtins(t_data *data, t_cmd *cmds)
 		ft_unset(&data->env, cmds->cmd);
 	if (!ft_strcmp(cmds->cmd[0], "env"))
 		ft_env(data->env);
-	// if (!ft_strcmp(cmds->cmd[0], "exit"))
-	// // 	ft_exit(data, input, prompt);
+	if (!ft_strcmp(cmds->cmd[0], "exit"))
+		ft_exit(data);
 	return (EXIT_SUCCESS);
 }

@@ -20,7 +20,7 @@ t_cmd	*new_cmd(char **cmds)
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
-	new->cmd = cmds;
+	new->cmd = cmds; //ft_strdup(cmds); free();
 	new->redir = NULL;
 	new->prev = NULL;
 	new->next = NULL;
@@ -53,7 +53,7 @@ void	free_cmd_struct(t_cmd **cmds)
 	t_cmd	*next;
 
 	if (!cmds || !*cmds)
-		return;
+		return ;
 	current = *cmds;
 	while (current)
 	{

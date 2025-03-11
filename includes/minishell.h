@@ -120,6 +120,7 @@ typedef struct	s_data
 	t_token			*tokens;
 	t_error_code	code;
 	char			*prompt;
+	char			*input;
 	char			**char_env;
 	int				exit_code;
 }		t_data;

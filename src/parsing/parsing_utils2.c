@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:10:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/10 18:23:52 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:48:27 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,40 +42,45 @@ int	len_without_sgle_qtes(char *value)
 
 void	remove_join_sgle_quotes(t_token *tokens)
 {
-	char			*str;
-	int				i;
-	int				j;
+	char	*str;
+	int		i;
+	int		j;
+	t_token	*current;		
 
 	str = malloc((len_without_sgle_qtes(tokens->value) + 1) * sizeof(char));
 	if (!str)
 		return ;
 	i = 0;
 	j = 0;
-	while (tokens->value[i])
+	current = tokens;
+	while (current->value[i])
 	{
-		if (tokens->value[i] == '\'')
+		if (current->value[i] == '\'')
 		{
 			i++;
-			while (tokens->value[i] != '\'' && tokens->value[i])
-				str[j++] = tokens->value[i++];
-			if (tokens->value[i] == '\'')
+			while (current->value[i] != '\'' && current->value[i])
+				str[j++] = current->value[i++];
+			if (current->value[i] == '\'')
 				i++;
 		}
 		else
-			str[j++] = tokens->value[i++];
+			str[j++] = current->value[i++];
 	}
-	str[len_without_sgle_qtes(tokens->value)] = '\0';
-	free(tokens->value);
-	tokens->value = str;
+	str[len_without_sgle_qtes(current->value)] = '\0';
+	free(current->value);
+	current->value = str;
 }
 
 void	remove_single_quotes(t_token *tokens)
 {
-	while (tokens)
+	t_token	*current;
+
+	current = tokens;
+	while (current)
 	{
-		if (tokens && tokens->type == WORD)
-			remove_join_sgle_quotes(tokens);
-		tokens = tokens->next;
+		if (current && current->type == WORD)
+			remove_join_sgle_quotes(current);
+		current = current->next;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/10 19:06:33 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:48:49 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,66 +34,6 @@ void	get_expanded(t_token *tokens, t_env *env)
 		current = current->next;
 	}
 }
-
-// int	len_without_dble_qtes(char *value)
-// {
-// 	int	len;
-
-// 	len = 0;
-// 	while (*value)
-// 	{
-// 		if (*value == '\"')
-// 		{
-// 			value++;
-// 			while (*value != '\"' && *value)
-// 			{
-// 				value++;
-// 				len++;
-// 			}
-// 			if (*value == '\"')
-// 				value++;
-// 		}
-// 		else
-// 		{
-// 			value++;
-// 			len++;
-// 		}
-// 	}
-// 	return (len);
-// }
-
-// void	remove_join_double_quotes(t_token *tokens)
-// {
-// 	char			*str;
-// 	int				i;
-// 	int				j;
-
-// 	if (!tokens || !tokens->value)
-//         return ;
-// 	str = malloc((len_without_dble_qtes(tokens->value) + 1) * sizeof(char));
-// 	if (!str)
-// 		return ;
-// 	i = 0;
-// 	j = 0;
-// 	while (tokens->value[i])
-// 	{
-// 		if (tokens->value[i] == '\"')
-// 		{
-// 			i++;
-// 			while (tokens->value[i] && tokens->value[i] != '\"')
-// 				str[j++] = tokens->value[i++];
-// 			if (tokens->value[i] == '\"')
-// 				i++;
-// 		}
-// 		else
-// 			str[j++] = tokens->value[i++];
-// 	}
-// 	str[j] = '\0';
-// 	free(tokens->value);
-// 	tokens->value = str;
-// 	// if (str)
-// 	// 	free(str); //?
-// }
 
 int	count_ins_quotes(char **value)
 {
@@ -173,14 +113,17 @@ void	remove_join_double_quotes(t_token *tokens)
 
 void	remove_double_quotes(t_token *tokens)
 {
-	while (tokens)
+	t_token	*current;
+
+	current = tokens;
+	while (current)
 	{
-		if (tokens && tokens->type == WORD)
+		if (current && current->type == WORD)
 		{
-			if (if_double_quotes(tokens->value))
-				remove_join_double_quotes(tokens);
+			if (if_double_quotes(current->value))
+				remove_join_double_quotes(current);
 		}
-		tokens = tokens->next;
+		current = current->next;
 	}
 }
 

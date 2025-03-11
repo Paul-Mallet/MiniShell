@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 10:26:06 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:38:25 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_token	*new_token(t_token_first type, t_token_scnd subtype, char *value)
 	if (!new)
 		return (NULL);
 	new->value = ft_strdup(value);
+	free(value);
 	if (!new->value)
 	{
 		free(new);
@@ -61,7 +62,7 @@ void	free_tokens(t_token **tokens)
 	current = *tokens;
 	while (current)
 	{
-		printf("value: %s\n", current->value);
+		// printf("value: %s\n", current->value);
 		next = current->next;
 		free(current->value);
 		free(current);
@@ -92,12 +93,15 @@ static const char *get_token_subtype_string(int subtype)
 
 void	print_token(t_token *token)
 {
+	t_token	*current;
+
+	current = token;
 	printf("\n");
-	while (token)
+	while (current)
 	{
 		printf("Type: %s\n", get_token_type_string(token->type));
 		printf("Subtype: %s\n", get_token_subtype_string(token->subtype));
 		printf("Value: %s\n\n", token->value);
-		token = token->next;
+		current = current->next;
 	}
 }

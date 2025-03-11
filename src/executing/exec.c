@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 12:00:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:29:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,20 @@
 
 int	exec(t_data *data)
 {
+	t_cmd	*current;
 	int		nb_cmd;
 
 	if (!data->cmds)
 		return (EXIT_FAILURE);
+	current = data->cmds;
 	data->char_env = make_env(data->env);
 	if (!data->char_env)
 		return (EXIT_FAILURE);
 	nb_cmd = count_cmds(data->cmds);
 	check_heredoc(data);
-	if (!data->cmds->next)
+	if (!current->next)
 	{
-		if (is_builtins(data->cmds->cmd[0]))
+		if (is_builtins(current->cmd[0]))
 			return (ft_builtins(data, data->cmds));
 		else
 			return (exec_simple_cmd(data));

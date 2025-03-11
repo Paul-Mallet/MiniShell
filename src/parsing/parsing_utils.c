@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 12:44:18 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/10 19:13:29 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:59:21 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,18 @@ bool	is_dollar(char *value)
 
 void	remove_token(t_token *token)
 {
-	if (token->prev && token->next)
+	t_token	*current;
+
+	current = token;
+	if (current->prev && current->next)
 	{
-		token->prev->next = token->next;
-		token->next->prev = token->prev;
+		current->prev->next = current->next;
+		current->next->prev = current->prev;
 	}
-	else if (token->prev && !token->next)
-		token->prev->next = NULL;
-	else if (!token->prev && token->next)
-		token->next->prev = NULL;
+	else if (token->prev && !current->next)
+		current->prev->next = NULL;
+	else if (!token->prev && current->next)
+		current->next->prev = NULL;
 	free(token);
 }
 
@@ -50,10 +53,10 @@ void	remove_empty_token(t_token *tokens)
 	{
 		if (current->value)
 		{
-			if (ft_strcmp(current->value, "\"\"") == 0|| ft_strcmp(current->value, "''") == 0)
+			if (ft_strcmp(current->value, "\"\"") == 0 || ft_strcmp(current->value, "''") == 0)
 			{
 				free (current->value);
-				current->value = "";
+				current->value = ft_strdup("");
 			}
 		}
 		current = current->next;
@@ -66,8 +69,8 @@ void	join_tokens(t_token **tokens)
 	t_token	*next;
 	char	*tmp_value;
 
-	tmp_value = NULL;
 	current = *tokens;
+	tmp_value = NULL;
 	while (current && current->next)
 	{
 		next = current->next;

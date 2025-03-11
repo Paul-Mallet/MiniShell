@@ -15,13 +15,15 @@
 
 int	count_cmds(t_cmd *cmds)
 {
+	t_cmd	*current;
 	int	i;
 
+	current = cmds;
 	i = 0;
-	while (cmds)
+	while (current)
 	{
 		i++;
-		cmds = cmds->next;
+		current = current->next;
 	}
 	return (i);
 }

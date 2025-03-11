@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 10:26:17 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:35:24 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_token	*handle_redirection(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(REDIR, UNKNOW_SUBTYPE, value);
-	free(value);
+	// free(value);
 	*input += len;
 	return (token);
 }
@@ -40,7 +40,7 @@ t_token	*handle_pipe(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(PIPE, UNKNOW_SUBTYPE, value);
-	free(value);
+	// free(value);
 	(*input)++;
 	return (token);
 }
@@ -58,7 +58,7 @@ t_token	*handle_word(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(WORD, UNKNOW_SUBTYPE, value);
-	free(value);
+	// free(value);
 	*input += len;
 	return (token);
 }
@@ -78,7 +78,7 @@ t_token	*handle_double_quotes(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(WORD, UNKNOW_SUBTYPE, value);
-	free(value);
+	// free(value);
 	*input += len;
 	return (token);
 }
@@ -98,7 +98,7 @@ t_token *handle_single_quotes(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(WORD, UNKNOW_SUBTYPE, value);
-	free(value);
+	// free(value);
 	*input += len;
 	return (token);
 }

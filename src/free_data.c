@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 11:59:19 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:31:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,16 @@
 
 void	free_exec(t_data *data)
 {
-	while(data->cmds)
+	t_cmd	*current;
+
+	current = data->cmds;
+	while(current)
 	{
-		if (data->cmds->fd[0] != -1)
+		if (current->fd[0] != -1)
 			close(data->cmds->fd[0]);
-		if (data->cmds->fd[1] != -1)
+		if (current->fd[1] != -1)
 			close(data->cmds->fd[1]);
-		data->cmds = data->cmds->next;
+		current = current->next;
 	}
 	free_strs(data->char_env);
 }

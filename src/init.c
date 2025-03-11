@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/11 11:53:08 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/11 17:29:18 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ctrl_d_exit(t_data *data, char *prompt)
 		free_env(&data->env);
 	if (data->cmds)
 		free_cmd_struct(&data->cmds);
-	if (data->tokens)
+	if (data->tokens)					//NULL
 		free_tokens(&data->tokens);
 	printf("exit\n");
 	exit(EXIT_SUCCESS);
@@ -60,28 +60,30 @@ void	ctrl_d_exit(t_data *data, char *prompt)
 
 void	init_mini_shell(t_data *data, char **envp)
 {
-	char	*input;
-
-	input = NULL;
+	data->input = NULL;
 	data->env = import_env(envp);
 	while (1)
 	{
 		data->prompt = get_prompt();
-		input = readline(data->prompt);
-		if (!input)
+		data->input = readline(data->prompt);
+		if (data->input == NULL)
 			ctrl_d_exit(data, data->prompt);
-		add_history(input);
-		ft_lexer(input);
-		ft_parsing(input, data);
+		add_history(data->input);
+		ft_lexer(data->input);
+		ft_parsing(data->input, data);
 		data->cmds = init_cmd_struct(data->tokens);
 		print_token(data->tokens);
-		if (exec(data))
-			data->exit_code = EXIT_FAILURE;
+		// if (exec(data))
+		// 	data->exit_code = EXIT_FAILURE;
 		free_exec(data);
-		free_tokens(&data->tokens);
+		// printf("\navant free\n");
+		// print_cmd_struct(data->cmds);
 		free_cmd_struct(&data->cmds);
+		printf("\napres free\n");
+		// print_cmd_struct(data->cmds);
+		free_tokens(&data->tokens);
 		free(data->prompt);
-		free(input);
-		input = NULL;
+		free(data->input);
+		data->input = NULL;
 	}
 }
