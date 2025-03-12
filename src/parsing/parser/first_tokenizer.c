@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/12 14:26:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:45:37 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,21 @@ t_token *handle_single_quotes(char **input)
 	return (token);
 }
 
+t_token	*handle_exit_code(char **input, t_data *data)
+{
+	t_token	*token;
+	char	*value;
+
+	// if (!input || !*input)
+	// 	return (NULL);
+	value = ft_itoa(data->exit_code);
+	if (!value)
+		return (NULL);
+	token = new_token(WORD, UNKNOW_SUBTYPE, value);
+	(*input) += 2;
+	return (token);
+}
+
 /*
 	change to:
 	void(), data->tokens, 1 t_token *new, token_add_back(&data->tokens...)
@@ -115,14 +130,15 @@ t_token	*first_tokenization(char *input, t_data *data)
 	tokens = NULL;
 	while (*input)
 	{
-		printf("\n%c\n", *input);
-		if (*input == '$' && *(input + 1) && *(input + 1) == '?')
-			input += 2;
-		else if (*input == '$' && *(input + 1))
+		if (*input == '$' && *(input + 1) && *(input + 1) != '?')
 			input = check_expanding(input, data);
-		// if (!*input)
-		// 	break ;
-		if (*input == '\"')
+		if (*input == '$' && *(input + 1) && *(input + 1) == '?')
+		{
+			new = handle_exit_code(&input, data);
+			if (!*input)
+				break ;
+		}
+		else if (*input == '\"')
 			new = handle_double_quotes(&input);
 		else if (*input == '\'')
 			new = handle_single_quotes(&input);

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:16:25 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/12 14:35:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:27:30 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void print_cmd_struct(t_cmd *cmds)
 	while(current)
 	{
 		print_cmds(cmds->cmd);
-		printf("\n\n");
 		while (cmds->redir)
 		{
 			print_redir(cmds->redir);

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/12 14:32:42 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:43:03 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,10 @@ void	init_mini_shell(t_data *data, char **envp)
 		ft_lexer(data->input);
 		ft_parsing(data->input, data);
 		data->cmds = init_cmd_struct(data->tokens);
-		print_token(data->tokens);
+		// print_token(data->tokens);
 		if (exec(data))
 			data->exit_code = EXIT_FAILURE;
+		print_token(data->tokens);
 		free_exec(data);
 		free_cmd_struct(&data->cmds);
 		free_tokens(&data->tokens);

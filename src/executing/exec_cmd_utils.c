@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 11:43:41 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:06:02 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	executing_command(t_cmd *cmds, char *path, t_data *data)
 	else
 		execve(path, cmds->cmd, data->char_env);
 	perror("execve");
+	free_data(data);
 }
 
 void	executing_first_cmd(t_cmd *cmds, char *path, t_data *data)
@@ -43,6 +44,7 @@ void	executing_first_cmd(t_cmd *cmds, char *path, t_data *data)
 	else
 		execve(path, cmds->cmd, data->char_env);
 	perror("execve");
+	free_data(data);
 }
 
 void	executing_last_cmd(t_cmd *cmds, char *path, t_data *data)
@@ -60,6 +62,7 @@ void	executing_last_cmd(t_cmd *cmds, char *path, t_data *data)
 	else
 		execve(path, cmds->cmd, data->char_env);
 	perror("execve");
+	free_data(data);
 }
 
 void	executing_simple_cmd(t_data *data, char *path)
@@ -69,6 +72,7 @@ void	executing_simple_cmd(t_data *data, char *path)
 	redir_managing(data->cmds);
 	execve(path, data->cmds->cmd, data->char_env);
 	perror("execve");
+	free_data(data);
 }
 
 int	error_path(char **paths, char *path)

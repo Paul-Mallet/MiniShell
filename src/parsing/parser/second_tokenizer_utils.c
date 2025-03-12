@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 18:36:07 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:43:03 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,25 @@ int	is_executable(char *cmd)
 	return (1);
 }
 
-int	is_cmd(char **paths, char *cmd)
+int	is_cmd(char **paths, char *cmd, t_data *data)
 {
 	int		i;
 	char	*road;
 
-	if (!paths)		// Si $PATH est NULL, Bash ne cherche pas plus loin
+	if (!paths)
 	{
-		// printf("no PATH\n");
 		if (is_executable(cmd))
 			return (1);
 		return (0);
 	}
 	if (ft_strchr(cmd, '/'))
 	{
-		// printf("there is '/'\n");
 		if (is_executable(cmd))
 			return (1);
 		return (0);
 	}
 	i = 0;
-	while (paths[i]) // Recherche dans chaque dossier du PATH
+	while (paths[i])
 	{
 		road = construct_path(paths[i], cmd);
 		if (access(road, F_OK) == 0)
@@ -74,7 +72,7 @@ int	is_cmd(char **paths, char *cmd)
 		free(road);
 		i++;
 	}
-	// printf("command not found\n");
+	data->code = 127;
 	return (0); // Commande non trouvée
 }
 

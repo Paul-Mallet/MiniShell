@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 12:03:04 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:06:02 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ void	executing_simple_cmd(t_data *data, char *path);
 void	free_exec(t_data *data);
 int		error_path(char **paths, char *prompt);
 void	close_all_pipes(t_cmd *cmd);
+void	free_data(t_data *data);
 
 #endif

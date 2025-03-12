@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/12 13:57:15 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:39:49 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_token	*first_tokenization(char *input, t_data *data);
 void	second_tokenization(t_data *data);
 void	print_token(t_token *token);
 void 	free_tokens(t_token **tokens);
-void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found);
+void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found, t_data *data);
 void 	handle_token_redir(t_token *token);
 char	*check_expanding(char *input, t_data *data);
 
@@ -81,6 +81,7 @@ t_token *handle_double_quotes(char **input);
 t_token	*handle_pipe(char **input);
 t_token	*handle_redirection(char **input);
 t_token *handle_single_quotes(char **input);
+t_token	*handle_exit_code(char **input, t_data *data);
 
 char	*extract_word(char *str, size_t len);
 
@@ -93,7 +94,7 @@ int		count_ins_quotes(char **value);
 size_t	get_double_quotes_length(char *str);
 size_t	get_single_quotes_length(char *str);
 
-int		is_cmd(char **paths, char *cmd);
+int		is_cmd(char **paths, char *cmd, t_data *data);
 int		is_executable(char *path);
 int		is_pipe(char c);
 int		is_redirection(char c);

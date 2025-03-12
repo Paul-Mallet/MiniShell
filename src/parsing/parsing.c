@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/12 14:24:50 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:39:31 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	get_expanded(t_token *tokens, t_data *data)
 	expansion = NULL;
 	while (current)
 	{
+		printf("%s", current->value);
 		if (current->type == WORD && current->subtype != DELIM)
 		{
 			if (current->value[0] == '$' && current->value[1])
@@ -142,7 +143,6 @@ void	ft_parsing(char *value, t_data *data)
 	remove_empty_token(data->tokens);
 	join_tokens(&data->tokens);
 	remove_double_quotes(data->tokens);
-	print_token(data->tokens);
 	second_tokenization(data);
 	get_expanded(data->tokens, data);
 	remove_single_quotes(data->tokens);

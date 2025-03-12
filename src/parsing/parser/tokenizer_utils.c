@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 18:39:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:06:02 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,17 @@ static const char *get_token_subtype_string(int subtype)
 void	print_token(t_token *token)
 {
 	t_token	*current;
+	int		i;
 
+	i = 0;
 	current = token;
 	printf("\n");
 	while (current)
 	{
-		printf("Type: %s\n", get_token_type_string(token->type));
-		printf("Subtype: %s\n", get_token_subtype_string(token->subtype));
-		printf("Value: %s\n\n", token->value);
+		printf("Token n*: %d\n", i++);
+		printf("Type: %s\n", get_token_type_string(current->type));
+		printf("Subtype: %s\n", get_token_subtype_string(current->subtype));
+		printf("Value: %s\n\n", current->value);
 		current = current->next;
 	}
 }

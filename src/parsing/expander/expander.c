@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/12 14:17:15 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:06:02 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	check_key(char c)
 
 char	*expanding(char *value, t_data *data, int len, t_expand exp)
 {
+	printf("expanding\n");
 	exp.res = (char *)malloc((len + 1) * sizeof(char));
 	if (!exp.res)
 		return (NULL);
@@ -42,6 +43,8 @@ char	*expanding(char *value, t_data *data, int len, t_expand exp)
 		{
 			exp.k = 0;
 			exp.tmp = ft_itoa(data->exit_code);
+			printf("exit code's value :%d\n", data->exit_code);
+			printf("itoa's value :%s\n", exp.tmp);
 			while (exp.tmp[exp.k])
 				exp.res[exp.j++] = exp.tmp[exp.k++];
 			free(exp.tmp);
