@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 18:35:19 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:26:26 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_token *handle_single_quotes(char **input)
 	change to:
 	void(), data->tokens, 1 t_token *new, token_add_back(&data->tokens...)
 */
-t_token	*first_tokenization(char *input, t_env *env)
+t_token	*first_tokenization(char *input, t_data *data)
 {
 	t_token	*tokens;
 	t_token	*new;
@@ -115,8 +115,13 @@ t_token	*first_tokenization(char *input, t_env *env)
 	tokens = NULL;
 	while (*input)
 	{
-		if (*input == '$')
-			input = check_expanding(input, env);
+		printf("\n%c\n", *input);
+		if (*input == '$' && *(input + 1) && *(input + 1) == '?')
+			input += 2;
+		else if (*input == '$' && *(input + 1))
+			input = check_expanding(input, data);
+		// if (!*input)
+		// 	break ;
 		if (*input == '\"')
 			new = handle_double_quotes(&input);
 		else if (*input == '\'')
@@ -144,19 +149,19 @@ t_token	*first_tokenization(char *input, t_env *env)
 	return (tokens);
 }
 
-char	*check_expanding(char *input, t_env *env)
+char	*check_expanding(char *input, t_data *data)
 {
 	char	*key_value;
 	
-	key_value = get_key_value(input, 0, env);
+	key_value = get_key_value(input, 0, data);
 	if (key_value)
 		return (input);
 	input++;
-	if (ft_isalpha(*input) || *input == '_')
+	if (*input && (ft_isalpha(*input) || *input == '_'))
 		input++;
 	while (*input && check_key(*input))
 		input++;
-	if (*input == ' ')
+	if (*input && *input == ' ')
 		input++;
 	return (input);
 }

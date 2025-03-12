@@ -6,24 +6,24 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 17:34:03 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:17:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/parsing.h"
 
-char	*expander(char *value, t_env *env)
+char	*expander(char *value, t_data *data)
 {
 	int			expand_len;
-	t_expand	expand;
+	t_expand	exp;
 
-	expand.i = 0;
-	expand.j = 0;
+	exp.i = 0;
+	exp.j = 0;
 	if (value[0] == '\'')
 		return (value);
-	expand_len = expand_length(value, env);
-	return (expanding(value, env, expand_len, expand));
+	expand_len = expand_length(value, data);
+	return (expanding(value, data, expand_len, exp));
 }
 
 int	check_key(char c)
@@ -31,49 +31,59 @@ int	check_key(char c)
 	return (ft_isalnum(c) || c == '_');
 }
 
-char	*expanding(char *value, t_env *env, int len, t_expand expand)
+char	*expanding(char *value, t_data *data, int len, t_expand exp)
 {
-	expand.res = (char *)malloc(len + 1);
-	if (!expand.res)
+	exp.res = (char *)malloc((len + 1) * sizeof(char));
+	if (!exp.res)
 		return (NULL);
-	while (value[expand.i])
+	while (value[exp.i])
 	{
-		if (value[expand.i] == '$'
-		&& value[expand.i + 1] && check_key(value[expand.i + 1]))
+		if (value[exp.i] == '$' && value[exp.i + 1] && value[exp.i + 1] == '?')
 		{
-			expand.k = 0;
-			expand.tmp = get_key_value(value, expand.i, env);
-			expand.i++;
-			while (value[expand.i] && check_key(value[expand.i]))
-				expand.i++;
-			if (!expand.tmp)
+			exp.k = 0;
+			exp.tmp = ft_itoa(data->exit_code);
+			while (exp.tmp[exp.k])
+				exp.res[exp.j++] = exp.tmp[exp.k++];
+			free(exp.tmp);
+		}
+		else if (value[exp.i] == '$'
+		&& value[exp.i + 1] && check_key(value[exp.i + 1]))
+		{
+			exp.k = 0;
+			exp.tmp = get_key_value(value, exp.i, data);
+			exp.i++;
+			while (value[exp.i] && check_key(value[exp.i]))
+				exp.i++;
+			if (!exp.tmp)
 				continue ;
-			while (expand.tmp[expand.k])
-				expand.res[expand.j++] = expand.tmp[expand.k++];
+			while (exp.tmp[exp.k])
+				exp.res[exp.j++] = exp.tmp[exp.k++];
 		}
 		else
-			expand.res[expand.j++] = value[expand.i++];
+			exp.res[exp.j++] = value[exp.i++];
 	}
-	expand.res[expand.j] = '\0';
-	return (expand.res);
+	exp.res[exp.j] = '\0';
+	return (exp.res);
 }
 
-char	*get_key_value(char *value, int i, t_env *env) 
+char	*get_key_value(char *value, int i, t_data *data) 
 {
 	char	*key;
+	t_env	*current;
 
 	i++;
+	current = data->env;
 	if (ft_isalpha(value[i]) || value[i] == '_')
 	{
 		key = extract_key(value, i);
-		while (env)
+		while (current)
 		{
-			if (!ft_strcmp(env->key, key))
+			if (!ft_strcmp(current->key, key))
 			{
 				free(key);
-				return (env->value);
+				return (current->value);
 			}
-			env = env->next;
+			current = current->next;
 		}
 		free(key);
 	}

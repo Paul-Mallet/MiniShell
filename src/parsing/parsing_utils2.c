@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:10:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/11 17:48:27 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:12:24 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,26 @@
 int	len_without_sgle_qtes(char *value)
 {
 	int	len;
+	int	i;
 
 	len = 0;
-	while (*value)
+	i = 0;
+	while (value[i])
 	{
-		if (*value == '\'')
+		if (value[i] == '\'')
 		{
-			value++;
-			while (*value != '\'' && *value)
+			i++;
+			while (value[i] && value[i] != '\'' )
 			{
-				value++;
+				i++;
 				len++;
 			}
-			if (*value == '\'')
-				value++;
+			if (value[i] && value[i] == '\'')
+				i++;
 		}
 		else
 		{
-			value++;
+			i++;
 			len++;
 		}
 	}
@@ -79,7 +81,10 @@ void	remove_single_quotes(t_token *tokens)
 	while (current)
 	{
 		if (current && current->type == WORD)
-			remove_join_sgle_quotes(current);
+		{
+			if (if_single_quotes(current->value))
+				remove_join_sgle_quotes(current);
+		}
 		current = current->next;
 	}
 }
@@ -92,6 +97,20 @@ bool	if_double_quotes(char *value)
 	while(value[i])
 	{
 		if (value[i] == '"')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+bool	if_single_quotes(char *value)
+{
+	int	i;
+
+	i = 0;
+	while(value[i])
+	{
+		if (value[i] == '\'')
 			return (true);
 		i++;
 	}

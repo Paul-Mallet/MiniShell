@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 17:31:51 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:34:26 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	free_exec(t_data *data)
 {
 	t_cmd	*current;
 
+	print_cmd_struct(data->cmds);
 	current = data->cmds;
 	while(current)
 	{

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 18:09:35 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:49:53 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	free_strs(char **paths)
 	while (paths[i])
 	{
 		free(paths[i]);
-		// paths[i] = NULL;
 		i++;
 	}
 	free(paths);
@@ -66,11 +65,14 @@ char	*find_path(char **paths, char *cmd)
 
 char	**get_path_vrbl(t_env *env)
 {
-	while (env)
+	t_env	*current;
+
+	current = env;
+	while (current)
 	{
-		if (ft_strncmp(env->key, "PATH", 4) == 0)
-			return (ft_split(env->value, ':'));
-		env = env->next;
+		if (ft_strncmp(current->key, "PATH", 4) == 0)
+			return (ft_split(current->value, ':'));
+		current = current->next;
 	}
 	return (NULL);
 }

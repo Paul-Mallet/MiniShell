@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:16:25 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/11 17:26:41 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:35:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void print_cmds(char **cmds)
 {
 	while(*cmds != NULL)
-		printf("cmd from print_cmd_struct: %s\n", *cmds++);
+		printf("cmd_struct: %s\n", *cmds++);
 }
 
 void print_redir(t_redir *redir)

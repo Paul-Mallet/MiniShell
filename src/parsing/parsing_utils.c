@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 12:44:18 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 17:59:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:01:42 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	remove_empty_token(t_token *tokens)
 			if (ft_strcmp(current->value, "\"\"") == 0 || ft_strcmp(current->value, "''") == 0)
 			{
 				free (current->value);
-				current->value = ft_strdup("");
+				current->value = ft_strdup("\0");
 			}
 		}
 		current = current->next;

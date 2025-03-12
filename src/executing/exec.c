@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 17:29:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:35:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	exec(t_data *data)
 	t_cmd	*current;
 	int		nb_cmd;
 
+	print_cmd_struct(data->cmds);
 	if (!data->cmds)
 		return (EXIT_FAILURE);
 	current = data->cmds;
