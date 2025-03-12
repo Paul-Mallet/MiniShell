@@ -35,6 +35,7 @@
 		"span": "c",
 		"cstdlib": "c",
 		"locale": "c",
-		"signals.h": "c"
+		"signals.h": "c",
+		"executing.h": "c"
 	}
 }

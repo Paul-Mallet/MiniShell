@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/12 15:39:49 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:56:36 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,12 @@ char	*extract_word(char *str, size_t len);
 size_t	get_word_length(char *str);
 void	remove_single_quotes(t_token *tokens);
 void	remove_double_quotes(t_token *tokens);
-void	fill_without_quotes(char *dest, char *src);
-int		len_without_dble_qtes(char *value);
-int		count_ins_quotes(char **value);
+void	fill_without_quotes(char *dest, char *src, char c);
+int		len_without_qtes(char *value, char c);
+int		count_ins_quotes(char *value, int *i, char c);
 size_t	get_double_quotes_length(char *str);
 size_t	get_single_quotes_length(char *str);
+void	remove_join_quotes(t_token *tokens, char c);
 
 int		is_cmd(char **paths, char *cmd, t_data *data);
 int		is_executable(char *path);

@@ -60,8 +60,10 @@ SRCS_EXPANDER = $(addprefix $(SRC_DIR)$(SRC_EXPANDER), \
 	expander.c)
 SRCS_PARSING = $(addprefix $(SRC_DIR)$(SRC_PARSING), \
 	parsing.c \
-	parsing_utils.c \
-	parsing_utils2.c)
+	quotes_utils.c \
+	token_handling.c \
+	quotes_handling.c \
+	quotes_changing.c)
 SRCS_SIGNALS = $(addprefix $(SRC_DIR)$(SRC_SIGNALS), \
 	signals.c)
 SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \
