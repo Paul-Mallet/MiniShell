@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/12 15:43:03 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 09:41:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	ctrl_d_exit(t_data *data, char *prompt)
 		free_cmd_struct(&data->cmds);
 	if (data->tokens)					//NULL
 		free_tokens(&data->tokens);
+	// if (data->input)
+	// 	free(data->input);
 	printf("exit\n");
 	exit(EXIT_SUCCESS);
 }
