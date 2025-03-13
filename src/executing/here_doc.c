@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 14:54:59 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:26:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,27 @@
 #include "../../includes/signals.h"
 
 void	check_heredoc(t_data *data)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		data->exit_code = 1;
+		return ;
+	}
+	else if (pid == 0)
+	{
+		heredoc_managing(data);
+		free_data_children(data);
+		exit(EXIT_SUCCESS);
+	}
+	waitpid(pid, &status, 0);
+}
+
+void	heredoc_managing(t_data *data)
 {
 	t_cmd	*current;
 	t_redir	*current_redir;
@@ -26,27 +47,10 @@ void	check_heredoc(t_data *data)
 		while (current_redir)
 		{
 			if (current_redir->heredoc)
-				heredoc_managing(data, current_redir);
+				write_heredoc(current->redir);
 			current_redir = current_redir->next;
 		}
 		current = current->next;
-	}
-}
-
-void	heredoc_managing(t_data *data, t_redir *redir)
-{
-	pid_t	pid;
-	int		status;
-
-	pid = fork();
-	if (pid == -1)
-		perror("fork");
-	else if (pid == 0)
-		write_heredoc(redir);
-	if (waitpid(pid, &status, 0) == -1)
-	{
-		perror("waitpid");
-		data->exit_code = 1;
 	}
 }
 
