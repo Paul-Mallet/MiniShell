@@ -36,6 +36,8 @@
 		"cstdlib": "c",
 		"locale": "c",
 		"signals.h": "c",
-		"executing.h": "c"
+		"executing.h": "c",
+		"__config": "c",
+		"libft.h": "c"
 	}
 }

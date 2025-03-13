@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 11:15:15 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/10 12:08:20 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:24:36 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ t_redir	*new_redir(void)
 void	fill_redir(t_token *tokens, t_redir *new)
 {
 	if (tokens->next && tokens->next->subtype == FILES)
-		new->file = tokens->next->value;
+		new->file = ft_strdup(tokens->next->value);
 	else if (tokens->next->next && tokens->next->next->subtype == FILES)
-		new->file = tokens->next->next->value;
-	new->value = tokens->value;
+		new->file = ft_strdup(tokens->next->next->value);
+	new->value = ft_strdup(tokens->value);
 	if (tokens->subtype == APPEND)
 		new->append = true;
 	else if (tokens->subtype == REDIR_INPUT)
@@ -50,9 +50,9 @@ void	fill_redir(t_token *tokens, t_redir *new)
 	{
 		new->heredoc = true;
 		if (tokens->next && tokens->next->subtype == DELIM)
-			new->delimiter = tokens->next->value;
+			new->delimiter = ft_strdup(tokens->next->value);
 		else if (tokens->next->next && tokens->next->next->subtype == DELIM)
-			new->delimiter = tokens->next->next->value;
+			new->delimiter = ft_strdup(tokens->next->next->value);
 	}
 	// print_redir(new);
 }
@@ -95,7 +95,6 @@ void	init_redirs(t_token *tokens, t_cmd *new_cmd)
 		}
 		current = current->next;
 	}
-	// print_redirtamere(head);
 	new_cmd->redir = head;
 }
 
@@ -112,6 +111,8 @@ void	free_redir(t_redir **redirs)
 		next = current->next;
 		if (current->file)
 			free(current->file);
+		if (current->value)
+			free(current->value);
 		if (current->delimiter)
 			free(current->delimiter);
 		free(current);

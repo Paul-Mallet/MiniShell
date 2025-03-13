@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/12 16:59:54 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:07:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ void	free_exec(t_data *data)
 			close(data->cmds->fd[1]);
 		current = current->next;
 	}
-	free_strs(data->char_env);
+	if (data->char_env)
+		free_strs(data->char_env);
 }
 		
-void	free_data(t_data *data)
+void	free_data_children(t_data *data)
 {
 	if (data)
 		free_exec(data);

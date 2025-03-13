@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 13:16:02 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/12 15:43:03 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:21:17 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-int	is_executable(char *cmd)
+int	is_executable(char *cmd, t_data *data)
 {
 	if (access(cmd, F_OK) != 0)
 	{
-		// printf("acces F_OK\n");
 		perror("access");
+		data->exit_code = 127;
 		return (0);
 	}
 	if (is_dir(cmd))
 	{
-		// printf("is_dir\n");
 		printf("%s is a directory\n", cmd);
+		data->exit_code = 126;
 		return (0);
 	}
 	if (access(cmd, X_OK) != 0)
 	{
-		// printf("acces X_OK\n");
 		printf("No premissions\n");
+		data->exit_code = 126;
 		return (0);
 	}
 	return (1);
@@ -49,13 +49,13 @@ int	is_cmd(char **paths, char *cmd, t_data *data)
 
 	if (!paths)
 	{
-		if (is_executable(cmd))
+		if (is_executable(cmd, data))
 			return (1);
 		return (0);
 	}
 	if (ft_strchr(cmd, '/'))
 	{
-		if (is_executable(cmd))
+		if (is_executable(cmd, data))
 			return (1);
 		return (0);
 	}
@@ -65,7 +65,7 @@ int	is_cmd(char **paths, char *cmd, t_data *data)
 		road = construct_path(paths[i], cmd);
 		if (access(road, F_OK) == 0)
 		{
-			is_executable(road);
+			is_executable(road, data);
 			free(road);
 			return (1);
 		}
@@ -73,18 +73,6 @@ int	is_cmd(char **paths, char *cmd, t_data *data)
 		i++;
 	}
 	data->code = 127;
-	return (0); // Commande non trouvée
-}
-
-
-int	is_file(char *value)
-{
-	struct stat	file_infos;
-
-	if (stat(value, &file_infos))
-		return (-1);
-	if (S_ISREG(file_infos.st_mode))
-		return (1);
 	return (0);
 }
 

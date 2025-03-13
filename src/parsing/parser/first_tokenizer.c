@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/12 17:48:01 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:22:17 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_token	*handle_redirection(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(REDIR, UNKNOW_SUBTYPE, value);
-	free(value);
+	// free(value);
 	*input += len;
 	return (token);
 }
@@ -78,7 +78,6 @@ t_token	*handle_double_quotes(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(WORD, UNKNOW_SUBTYPE, value);
-	// free(value);
 	*input += len;
 	return (token);
 }
@@ -98,7 +97,6 @@ t_token *handle_single_quotes(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(WORD, UNKNOW_SUBTYPE, value);
-	// free(value);
 	*input += len;
 	return (token);
 }
@@ -108,8 +106,9 @@ t_token	*handle_exit_code(char **input, t_data *data)
 	t_token	*token;
 	char	*value;
 
-	// if (!input || !*input)
-	// 	return (NULL);
+	if (!input || !*input)
+		return (NULL);
+	printf("exit_code: %d\n", data->exit_code);
 	value = ft_itoa(data->exit_code);
 	if (!value)
 		return (NULL);
@@ -133,11 +132,7 @@ t_token	*first_tokenization(char *input, t_data *data)
 		if (*input == '$' && *(input + 1) && *(input + 1) != '?')
 			input = check_expanding(input, data);
 		if (*input == '$' && *(input + 1) && *(input + 1) == '?')
-		{
 			new = handle_exit_code(&input, data);
-			if (!*input)
-				break ;
-		}
 		else if (*input == '\"')
 			new = handle_double_quotes(&input);
 		else if (*input == '\'')

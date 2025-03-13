@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/12 17:08:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:13:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,7 @@ void	free_tokens(t_token **tokens)
 	// current = *tokens;
 	while (*tokens)
 	{
-		// printf("value: %s\n", current->value);
 		next = (*tokens)->next;
-		// printf("tokens: %s && next : %p\n", (*tokens)->value, next);
-		
 		free((*tokens)->value);
 		free(*tokens);
 		(*tokens) = next;

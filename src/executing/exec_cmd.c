@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 17:19:32 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:24:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	exec_command(t_cmd *cmds, t_data *data)
 	paths = get_path_vrbl(data->env);
 	path = find_path(paths, cmds->cmd[0]);
 	if (!path)
-		return (error_path(paths, data->prompt));
+		return (error_path(paths, data->prompt, data));
 	if (pipe(cmds->fd) == -1)
 	{
 		perror("pipe");
@@ -50,7 +50,7 @@ int	exec_first_cmd(t_cmd *cmds, t_data *data)
 	paths = get_path_vrbl(data->env);
 	path = find_path(paths, cmds->cmd[0]);
 	if (!path)
-		return (error_path(paths, data->prompt));
+		return (error_path(paths, data->prompt, data));
 	if (pipe(cmds->fd) == -1)
 	{
 		perror("pipe");
@@ -79,7 +79,7 @@ int	exec_last_cmd(t_cmd *cmds, t_data *data)
 	paths = get_path_vrbl(data->env);
 	path = find_path(paths, cmds->cmd[0]);
 	if (!path)
-		return (error_path(paths, data->prompt));
+		return (error_path(paths, data->prompt, data));
 	pid = fork();
 	if (pid == -1)
 	{
@@ -106,7 +106,7 @@ int	exec_simple_cmd(t_data *data)
 	paths = get_path_vrbl(data->env);
 	path = find_path(paths, data->cmds->cmd[0]);
 	if (!path)
-		return (error_path(paths, data->prompt));
+		return (error_path(paths, data->prompt, data));
 	pid = fork();
 	if (pid == -1)
 	{
@@ -123,4 +123,12 @@ int	exec_simple_cmd(t_data *data)
 	}
 	free_paths(paths, path);
 	return (EXIT_SUCCESS);
+}
+
+int	error_path(char **paths, char *path, t_data *data)
+{
+	error_handling(ERR_CMD_NOT_FOUND, path);
+	free_paths(paths, NULL);
+	data->exit_code = 127;
+	return (EXIT_FAILURE);
 }

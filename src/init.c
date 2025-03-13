@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/13 09:41:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:25:24 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_data(t_data *data)
 	data->tokens = NULL;
 	data->prompt = NULL;
 	data->char_env = NULL;
-	data->exit_code = 0;
+	data->exit_code = 0; //g_exit_code
 }
 
 static char	*get_prompt(void)
@@ -52,10 +52,8 @@ void	ctrl_d_exit(t_data *data, char *prompt)
 		free_env(&data->env);
 	if (data->cmds)
 		free_cmd_struct(&data->cmds);
-	if (data->tokens)					//NULL
+	if (data->tokens)
 		free_tokens(&data->tokens);
-	// if (data->input)
-	// 	free(data->input);
 	printf("exit\n");
 	exit(EXIT_SUCCESS);
 }
@@ -64,6 +62,8 @@ void	init_mini_shell(t_data *data, char **envp)
 {
 	data->input = NULL;
 	data->env = import_env(envp);
+	if (!data->env)
+		return ;
 	while (1)
 	{
 		data->prompt = get_prompt();
@@ -74,15 +74,24 @@ void	init_mini_shell(t_data *data, char **envp)
 		ft_lexer(data->input);
 		ft_parsing(data->input, data);
 		data->cmds = init_cmd_struct(data->tokens);
-		// print_token(data->tokens);
-		if (exec(data))
-			data->exit_code = EXIT_FAILURE;
+		print_cmd_struct(data->cmds);
 		print_token(data->tokens);
-		free_exec(data);
-		free_cmd_struct(&data->cmds);
-		free_tokens(&data->tokens);
-		free(data->prompt);
-		free(data->input);
+		exec(data);
+		if (g_exit_code)
+			g_exit_code = 0;
+		free_data(data);
 		data->input = NULL;
 	}
+}
+
+// print_token(data->tokens);
+
+void	free_data(t_data *data)
+{
+	if(data->cmds)
+		free_exec(data);
+	free_cmd_struct(&data->cmds);
+	free_tokens(&data->tokens);
+	free(data->prompt);
+	free(data->input);
 }

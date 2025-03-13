@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/12 17:08:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:07:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	*heredoc_name(t_redir *redir);
 /*
 	redir managing
 */
-void	redir_managing(t_cmd *cmds);
-int		check_redir(t_cmd *cmd);
+bool	redir_managing(t_cmd *cmds);
+bool	check_redir(t_cmd *cmds);
 bool	redir_input(t_redir *redir, bool last_cmd);
 bool	redir_output(t_redir *redir, bool last_cmd);
 bool	redir_append(t_redir *redir, bool last_cmd);
@@ -90,8 +90,8 @@ void	executing_last_cmd(t_cmd *cmds, char *path, t_data *data);
 void	executing_simple_cmd(t_data *data, char *path);
 
 void	free_exec(t_data *data);
-int		error_path(char **paths, char *prompt);
+int		error_path(char **paths, char *prompt, t_data *data);
 void	close_all_pipes(t_cmd *cmd);
-void	free_data(t_data *data);
+void	free_data_children(t_data *data);
 
 #endif

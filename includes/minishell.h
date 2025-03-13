@@ -128,5 +128,6 @@ typedef struct	s_data
 void	init_data(t_data *data);
 void	init_mini_shell(t_data *data, char **envp);
 int		error_handling(t_error_code code, char *cmd);
+void	free_data(t_data *data);
 
 #endif

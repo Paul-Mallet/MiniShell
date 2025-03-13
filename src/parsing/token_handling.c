@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 12:44:18 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 10:00:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 10:01:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	join_tokens(t_token **tokens)
 			new_value = ft_strjoin(current->value, next->value);
 			if (!new_value)
 				return ;
-			
 			free(current->value);
 			free(next->value);
 			next->value = new_value;

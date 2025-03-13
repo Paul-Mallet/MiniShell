@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/12 17:56:36 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 10:37:32 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,9 @@ size_t	get_single_quotes_length(char *str);
 void	remove_join_quotes(t_token *tokens, char c);
 
 int		is_cmd(char **paths, char *cmd, t_data *data);
-int		is_executable(char *path);
+int		is_executable(char *path, t_data *data);
 int		is_pipe(char c);
 int		is_redirection(char c);
 int		is_dir(char *value);
-int		is_file(char *value);
-bool	is_dollar(char *value);
 
 #endif

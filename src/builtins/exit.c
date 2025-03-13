@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:10 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/11 16:27:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 10:14:02 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ void	ft_exit(t_data *data)
 		free_cmd_struct(&data->cmds);
 		free_tokens(&data->tokens);
 	}
-	exit(data->exit_code);
+	exit((unsigned char)data->exit_code % 256);
 }

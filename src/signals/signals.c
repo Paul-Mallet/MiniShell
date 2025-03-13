@@ -6,13 +6,15 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:15:06 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/10 12:15:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 11:07:25 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/minishell.h"
 #include "../../includes/signals.h"
+
+volatile sig_atomic_t g_exit_code = 0;
 
 /*
 	/bin/kill
@@ -67,6 +69,7 @@ void	sigint_handler(int sig)
 	rl_replace_line("", 0);	//outputting a new line
 	rl_on_new_line();		//tell moved onto new(empty) line, after outputting a newline
 	rl_redisplay();			//display with the current contents of rl_line_buffer
+	g_exit_code = 130;
 }
 
 void	signals_handler(void)
