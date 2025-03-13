@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 14:27:59 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:29:26 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	exec(t_data *data)
 	data->char_env = make_env(data->env);
 	if (!data->char_env)
 		return (EXIT_FAILURE);
-	if (current && !current->next)
+	if (!current->next)
 	{
 		if (is_builtins(current->cmd[0]))
 			return (ft_builtins(data, data->cmds));
@@ -42,17 +42,17 @@ int	exec_multiple_cmds(t_data *data)
 	current = data->cmds;
 	while (current)
 	{
-		if (current && !current->prev)
+		if (!current->prev)
 		{
 			if (exec_first_cmd(current, data))
 				return (EXIT_FAILURE);
 		}
-		else if (current && !current->next)
+		else if (!current->next)
 		{
 			if (exec_last_cmd(current, data))
 				return (EXIT_FAILURE);
 		}
-		else if (current)
+		else
 		{
 			if (exec_command(current, data))
 				return (EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 15:26:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:55:31 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ void	heredoc_managing(t_data *data)
 		while (current_redir)
 		{
 			if (current_redir->heredoc)
-				write_heredoc(current->redir);
+				write_heredoc(current_redir);
 			current_redir = current_redir->next;
 		}
 		current = current->next;
 	}
 }
-
 
 bool	write_heredoc(t_redir *redir)
 {
