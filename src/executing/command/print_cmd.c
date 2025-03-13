@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:16:25 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/13 14:10:39 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:30:05 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void print_redir(t_redir *redir)
 	else
 		printf("Value: (null)\n");
 	printf("Append: %d\n", redir->append);
-	// printf("Heredoc: %d\n", redir->heredoc);
-	// if (redir->delimiter)
-	// 	printf("Delim: %s\n", redir->delimiter);
-	// else
-	// 	printf("Delim: (null)\n");
+	printf("Heredoc: %d\n", redir->heredoc);
+	if (redir->delimiter)
+		printf("Delim: %s\n", redir->delimiter);
+	else
+		printf("Delim: (null)\n");
 	printf("\n");
 }
 

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 12:07:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:54:10 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ bool	redir_input(t_redir *redir, bool last_cmd);
 bool	redir_output(t_redir *redir, bool last_cmd);
 bool	redir_append(t_redir *redir, bool last_cmd);
 bool	redir_heredoc(t_redir *redir, bool last_cmd);
-bool	write_heredoc(t_data *data, t_redir *redir);
+
+
+bool	write_heredoc(t_redir *redir);
 void	check_heredoc(t_data *data);
+void	heredoc_managing(t_data *data, t_redir *redir);
 
 /*
 	exec

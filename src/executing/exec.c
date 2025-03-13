@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 14:20:40 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:27:59 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	exec(t_data *data)
 {
 	t_cmd	*current;
 
-	// check_heredoc(data);
+	check_heredoc(data);
 	if (!data->cmds)
 		return (EXIT_FAILURE);
 	current = data->cmds;
