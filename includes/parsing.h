@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 10:37:32 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:50:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		check_key(char c);
 /*
 	lexer checks if input is valid
 */
-void  	ft_lexer(char *input);
+bool	ft_lexer(t_data *data);
 
 /*
 	parsing correctly formats input before tokenize it

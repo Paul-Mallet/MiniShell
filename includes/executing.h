@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 15:27:33 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:19:11 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	*heredoc_name(t_redir *redir);
 	redir managing
 */
 bool	redir_managing(t_cmd *cmds);
+bool	check_if_is_last_in(t_redir *redir);
+bool	check_if_is_last_out(t_redir *redir);
 bool	check_redir(t_cmd *cmds);
 bool	redir_input(t_redir *redir, bool last_cmd);
 bool	redir_output(t_redir *redir, bool last_cmd);
@@ -68,7 +70,7 @@ bool	redir_heredoc(t_redir *redir, bool last_cmd);
 
 
 bool	write_heredoc(t_redir *redir);
-void	check_heredoc(t_data *data);
+void	fork_heredoc(t_data *data);
 void	heredoc_managing(t_data *data);
 
 /*
@@ -83,9 +85,9 @@ bool	is_builtins(char *cmd);
 
 int		exec_simple_cmd(t_data *data);
 int		exec_multiple_cmds(t_data *data);
-int		exec_command(t_cmd *cmds, t_data *data);
-int		exec_last_cmd(t_cmd *cmds, t_data *data);
-int		exec_first_cmd(t_cmd *cmds, t_data *data);
+int		exec_command(t_cmd *cmds, t_data *data, int *i);
+int		exec_last_cmd(t_cmd *cmds, t_data *data, int *i);
+int		exec_first_cmd(t_cmd *cmds, t_data *data, int *i);
 
 void	executing_command(t_cmd *cmds, char *path, t_data *data);
 void	executing_first_cmd(t_cmd *cmds, char *path, t_data *data);

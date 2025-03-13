@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 15:22:18 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:05:24 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,16 @@ void	free_data_children(t_data *data)
 		free(data->prompt);
 	if (data->input)
 		free(data->input);
+}
+
+bool	check_tokens(t_data *data)
+{
+	if (!data->tokens->next && data->tokens->subtype != CMD)
+	{
+		error_handling(SYNTAX_ERROR_NEAR_TOKEN, data->tokens->value);
+		data->exit_code = 2;
+		free_data(data);
+		return (false);
+	}
+	return (true);
 }

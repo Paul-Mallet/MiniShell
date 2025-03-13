@@ -39,7 +39,9 @@ typedef enum e_error_code
 	ERR_PIPE_FAILURE,
 	ERR_FORK_FAILURE,
 	ERR_UNCLOSED_QUOTES,
-	ERR_UNKNOWN
+	ERR_UNKNOWN,
+	SYNTAX_ERROR_NEAR_TOKEN
+
 }				t_error_code;
 
 typedef enum	e_token_first
@@ -119,6 +121,7 @@ typedef struct	s_data
 	t_env			*env;
 	t_token			*tokens;
 	t_error_code	code;
+	int				*pids;
 	char			*prompt;
 	char			*input;
 	char			**char_env;
@@ -129,5 +132,6 @@ void	init_data(t_data *data);
 void	init_mini_shell(t_data *data, char **envp);
 int		error_handling(t_error_code code, char *cmd);
 void	free_data(t_data *data);
+bool	check_tokens(t_data *data);
 
 #endif

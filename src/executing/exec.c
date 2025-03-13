@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 15:29:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:31:03 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 int	exec(t_data *data)
 {
 	t_cmd	*current;
+	int		nb_cmd;
+
 
 	check_heredoc(data);
+	current = data->cmds;
 	if (!data->cmds)
 		return (EXIT_FAILURE);
-	current = data->cmds;
 	data->char_env = make_env(data->env);
 	if (!data->char_env)
 		return (EXIT_FAILURE);
@@ -32,29 +34,37 @@ int	exec(t_data *data)
 		else
 			return (exec_simple_cmd(data));
 	}
-	return (exec_multiple_cmds(data));
+	else
+	{
+		nb_cmd = count_cmds(data->cmds);
+		data->pids = malloc(sizeof(int) * nb_cmd);
+		exec_multiple_cmds(data);
+	}
+	return (1);
 }
 
 int	exec_multiple_cmds(t_data *data)
 {
 	t_cmd	*current;
+	int		i;
 
+	i = 0;
 	current = data->cmds;
 	while (current)
 	{
 		if (!current->prev)
 		{
-			if (exec_first_cmd(current, data))
+			if (exec_first_cmd(current, data, &i))
 				return (EXIT_FAILURE);
 		}
 		else if (!current->next)
 		{
-			if (exec_last_cmd(current, data))
+			if (exec_last_cmd(current, data, &i))
 				return (EXIT_FAILURE);
 		}
 		else
 		{
-			if (exec_command(current, data))
+			if (exec_command(current, data, &i))
 				return (EXIT_FAILURE);
 		}
 		current = current->next;
@@ -68,11 +78,13 @@ void	wait_all(t_data *data)
 	int		status;
 	int		pid;
 	t_cmd	*current;
+	int		i;
 
+	i = 0;
 	current = data->cmds;
 	while (current)
 	{
-		pid = waitpid(0, &status, 0);
+		pid = waitpid(data->pids[i], &status, 0);
 		if (pid > 0)
 		{
 			if (WIFEXITED(status))
@@ -80,6 +92,7 @@ void	wait_all(t_data *data)
 		}
 		close_all_pipes(current);
 		current = current->next;
+		i++;
 	}
 }
 

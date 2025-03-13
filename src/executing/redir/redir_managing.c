@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 11:20:04 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:24:30 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ bool	redir_managing(t_cmd *cmds)
 {
 	t_cmd	*current;
 
-	if (!cmds->redir)
-		return (true);
 	current = cmds;
 	while (current)
 	{
@@ -29,38 +27,68 @@ bool	redir_managing(t_cmd *cmds)
 	return (true);
 }
 
+bool	check_if_is_last_in(t_redir *redir)
+{
+	t_redir	*current;
+	int		nb_redir;
+
+	nb_redir = 0;
+	current = redir;
+	while (current)
+	{
+		if ((current->heredoc || current->in_redir))
+			nb_redir++;
+		current = current->next;
+	}
+	if (nb_redir == 1)
+		return (true);
+	return (false);
+}
+
+bool	check_if_is_last_out(t_redir *redir)
+{
+	t_redir	*current;
+	int		nb_redir;
+
+	nb_redir = 0;
+	current = redir;
+	while (current)
+	{
+		if ((current->append || current->out_redir))
+			nb_redir++;
+		current = current->next;
+	}
+	if (nb_redir == 1)
+		return (true);
+	return (false);
+}
+
 bool	check_redir(t_cmd *cmds)
 {
 	t_redir	*current;
-	bool	last_cmd;
+	bool	is_last_in;
+	bool	is_last_out;
+	bool	is_redirected;
 
-	last_cmd = false;
+	if (!cmds->redir)
+		return(false);
+	is_last_in = false;
+	is_last_out = false;
 	current = cmds->redir;
 	while (current)
 	{
-		if (!current->next)
-			last_cmd = true;
+		is_last_in = check_if_is_last_in(current);
+		is_last_out = check_if_is_last_out(current);
 		if (current->in_redir)
-		{
-			if (redir_input(current, last_cmd) && last_cmd)
-				return (true);
-		}
+			is_redirected = redir_input(current, is_last_in);
 		else if (current->out_redir)
-		{
-			if (redir_output(current, last_cmd) && last_cmd)
-				return (true);
-		}
+			is_redirected = redir_output(current, is_last_out);
 		else if (current->append)
-		{
-			if (redir_append(current, last_cmd) && last_cmd)
-				return (true);
-		}
+			is_redirected = redir_append(current, is_last_in);
 		else if (current->heredoc)
-		{
-			if (redir_heredoc(current, last_cmd) && last_cmd)
-				return (true);
-		}
+			is_redirected = redir_heredoc(current, is_last_out);
 		current = current->next;
 	}
-	return (false);
+	return (is_redirected);
 }
+

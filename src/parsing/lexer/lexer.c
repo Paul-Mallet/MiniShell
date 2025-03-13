@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:00:32 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/03/10 12:04:34 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:02:57 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,16 @@ int	ft_valid_quotes(char *input)
 	return (0);
 }
 
-void	ft_lexer(char *input)
+bool	ft_lexer(t_data *data)
 {
-	if (!input || ft_isspaces(input))
-		return ;
-	if (!ft_valid_quotes(input))
+	if (!data->input || ft_isspaces(data->input))
+		return (false);
+	if (!ft_valid_quotes(data->input))
+	{
 		error_handling(ERR_UNCLOSED_QUOTES, "\" or \'");
+		data->exit_code = 2;
+		free_data(data);
+		return (false);
+	}
+	return (true);
 }

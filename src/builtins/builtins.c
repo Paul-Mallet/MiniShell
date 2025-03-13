@@ -6,12 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:46:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/11 16:21:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:52:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/builtins.h"
+#include "../../includes/executing.h"
 
 /*
 	builtins conditions
@@ -21,7 +22,8 @@
 // */
 
 int	ft_builtins(t_data *data, t_cmd *cmds)
-{                                                                           
+{                         
+	redir_managing(cmds);                                                  
 	if (!ft_strcmp(cmds->cmd[0], "echo"))
 		ft_echo(cmds->cmd);
 	if (!ft_strcmp(cmds->cmd[0], "cd"))

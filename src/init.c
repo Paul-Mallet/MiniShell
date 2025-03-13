@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/13 14:27:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:00:22 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 
 void	init_data(t_data *data)
 {
-	data->cmds = NULL;
 	data->env = NULL;
+	data->cmds = NULL;
+	data->pids = NULL; //g_exit_code
 	data->tokens = NULL;
 	data->prompt = NULL;
 	data->char_env = NULL;
-	data->exit_code = 0; //g_exit_code
+	data->exit_code = 0;
 }
 
 static char	*get_prompt(void)
@@ -71,11 +72,13 @@ void	init_mini_shell(t_data *data, char **envp)
 		if (data->input == NULL)
 			ctrl_d_exit(data, data->prompt);
 		add_history(data->input);
-		ft_lexer(data->input);
+		if (!ft_lexer(data))
+			continue ;
 		ft_parsing(data->input, data);
+		if (!check_tokens(data))
+			continue ;
 		data->cmds = init_cmd_struct(data->tokens);
 		print_cmd_struct(data->cmds);
-		print_token(data->tokens);
 		exec(data);
 		if (g_exit_code)
 			g_exit_code = 0;
@@ -86,10 +89,15 @@ void	init_mini_shell(t_data *data, char **envp)
 
 void	free_data(t_data *data)
 {
-	if(data->cmds)
+	if (data->cmds)
+	{
 		free_exec(data);
-	free_cmd_struct(&data->cmds);
-	free_tokens(&data->tokens);
-	free(data->prompt);
-	free(data->input);
+		free_cmd_struct(&data->cmds);
+	}
+	if (data->tokens)
+		free_tokens(&data->tokens);
+	if (data->prompt)
+		free(data->prompt);
+	if (data->input)
+		free(data->input);
 }

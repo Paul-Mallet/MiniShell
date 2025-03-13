@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/12 17:59:20 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:53:58 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	get_expanded(t_token *tokens, t_data *data)
 	expansion = NULL;
 	while (current)
 	{
-		printf("%s", current->value);
 		if (current->type == WORD && current->subtype != DELIM)
 		{
 			if (current->value[0] == '$' && current->value[1])

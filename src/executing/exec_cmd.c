@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 13:24:52 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:25:36 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/executing.h"
 #include "../../includes/signals.h"
 
-int	exec_command(t_cmd *cmds, t_data *data)
+int	exec_command(t_cmd *cmds, t_data *data, int *i)
 {
 	pid_t	pid;
 	char	**paths;
@@ -38,10 +38,12 @@ int	exec_command(t_cmd *cmds, t_data *data)
 	else if (pid == 0)
 		executing_command(cmds, path, data);
 	free_paths(paths, path);
+	data->pids[*i] = pid;
+	*i += 1;
 	return (EXIT_SUCCESS);
 }
 
-int	exec_first_cmd(t_cmd *cmds, t_data *data)
+int	exec_first_cmd(t_cmd *cmds, t_data *data, int *i)
 {
 	pid_t	pid;
 	char	**paths;
@@ -67,10 +69,12 @@ int	exec_first_cmd(t_cmd *cmds, t_data *data)
 	else
 		close(cmds->fd[1]);
 	free_paths(paths, path);
+	data->pids[*i] = pid;
+	*i += 1;
 	return (EXIT_SUCCESS);
 }
 
-int	exec_last_cmd(t_cmd *cmds, t_data *data)
+int	exec_last_cmd(t_cmd *cmds, t_data *data, int *i)
 {
 	pid_t	pid;
 	char	**paths;
@@ -94,6 +98,8 @@ int	exec_last_cmd(t_cmd *cmds, t_data *data)
 		close_all_pipes(cmds);
 	}
 	free_paths(paths, path);
+	data->pids[*i] = pid;
+	*i += 1;
 	return (EXIT_SUCCESS);
 }
 

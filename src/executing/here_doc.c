@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 15:55:31 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:27:35 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,23 @@
 #include "../../includes/signals.h"
 
 void	check_heredoc(t_data *data)
+{
+	t_token	*current;
+	bool	is_heredoc;
+
+	is_heredoc = false;
+	current = data->tokens;
+	while (current)
+	{
+		if (current->subtype == HEREDOC)
+			is_heredoc = true;
+		current = current->next;
+	}
+	if (is_heredoc)
+		fork_heredoc(data);
+}
+
+void	fork_heredoc(t_data *data)
 {
 	pid_t	pid;
 	int		status;
