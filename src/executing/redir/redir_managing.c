@@ -6,26 +6,26 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 18:24:30 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:48:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/executing.h"
 
-bool	redir_managing(t_cmd *cmds)
-{
-	t_cmd	*current;
+// bool	redir_managing(t_cmd *cmds)
+// {
+// 	t_cmd	*current;
 
-	current = cmds;
-	while (current)
-	{
-		if (!check_redir(current))
-			return (false);
-		current = current->next;
-	}
-	return (true);
-}
+// 	current = cmds;
+// 	while (current)
+// 	{
+// 		if (!check_redir(current))
+// 			return (false);
+// 		current = current->next;
+// 	}
+// 	return (true);
+// }
 
 bool	check_if_is_last_in(t_redir *redir)
 {
@@ -63,12 +63,12 @@ bool	check_if_is_last_out(t_redir *redir)
 	return (false);
 }
 
-bool	check_redir(t_cmd *cmds)
+int	redir_managing(t_cmd *cmds)
 {
 	t_redir	*current;
 	bool	is_last_in;
 	bool	is_last_out;
-	bool	is_redirected;
+	int		is_redirected;
 
 	if (!cmds->redir)
 		return(false);
@@ -89,6 +89,10 @@ bool	check_redir(t_cmd *cmds)
 			is_redirected = redir_heredoc(current, is_last_out);
 		current = current->next;
 	}
+	if (!is_last_in)
+		is_redirected = 1;
+	else if (!is_last_out)
+		is_redirected = 2;
 	return (is_redirected);
 }
 

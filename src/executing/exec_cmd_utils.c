@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 16:25:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:10:35 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 
 void	executing_command(t_cmd *cmds, char *path, t_data *data)
 {
+	int	redir;
+	
+	redir = redir_managing(cmds);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	redir_managing(cmds);
-	dup2(cmds->prev->fd[0], STDIN_FILENO);
-	dup2(cmds->fd[1], STDOUT_FILENO);
+	if (redir == 1)
+		dup2(cmds->prev->fd[0], STDIN_FILENO);
+	if (redir == 2)
+		dup2(cmds->fd[1], STDOUT_FILENO);
 	close(cmds->prev->fd[0]);
+	close(cmds->fd[0]);
 	close(cmds->fd[1]);
 	if (!cmds->cmd)
 		return ;
@@ -35,11 +40,14 @@ void	executing_command(t_cmd *cmds, char *path, t_data *data)
 
 void	executing_first_cmd(t_cmd *cmds, char *path, t_data *data)
 {
+	int	redir;
+	
+	redir = redir_managing(cmds);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	redir_managing(cmds);
-	dup2(cmds->fd[1], STDOUT_FILENO);
-	close(cmds->fd[0]);
+	if (redir == 2)
+		dup2(cmds->fd[1], STDOUT_FILENO);
 	close(cmds->fd[1]);
 	if (!cmds->cmd)
 		return ;
@@ -53,13 +61,16 @@ void	executing_first_cmd(t_cmd *cmds, char *path, t_data *data)
 
 void	executing_last_cmd(t_cmd *cmds, char *path, t_data *data)
 {
+	int	redir;
+	
+	redir = redir_managing(cmds);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	if (cmds->prev)
-	{
+	if (redir == 1)
 		dup2(cmds->prev->fd[0], STDIN_FILENO);
-		close(cmds->prev->fd[0]);
-	}
+	close(cmds->prev->fd[0]);
+	close(cmds->fd[0]);
+	close(cmds->fd[1]);
 	redir_managing(cmds);
 	if (!cmds->cmd)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 18:19:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/14 15:36:28 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	*heredoc_name(t_redir *redir);
 /*
 	redir managing
 */
-bool	redir_managing(t_cmd *cmds);
+int		redir_managing(t_cmd *cmds);
 bool	check_if_is_last_in(t_redir *redir);
 bool	check_if_is_last_out(t_redir *redir);
 bool	check_redir(t_cmd *cmds);

@@ -91,8 +91,15 @@ bool	is_builtins(char *cmd)
 
 void	close_all_pipes(t_cmd *cmd)
 {
-	if (cmd->fd[0] != -1)
-		close(cmd->fd[0]);
-	if (cmd->fd[1] != -1)
-		close(cmd->fd[1]);
+	t_cmd	*current;
+
+	current = cmd;
+	while (current)
+	{
+		if (cmd->fd[0] != -1)
+			close(cmd->fd[0]);
+		if (cmd->fd[1] != -1)
+			close(cmd->fd[1]);
+		current = current->next;
+	}
 }

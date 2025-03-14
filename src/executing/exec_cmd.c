@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 17:25:36 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:01:45 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ int	exec_first_cmd(t_cmd *cmds, t_data *data, int *i)
 	path = find_path(paths, cmds->cmd[0]);
 	if (!path)
 		return (error_path(paths, data->prompt, data));
-	if (pipe(cmds->fd) == -1)
-	{
-		perror("pipe");
-		exit(EXIT_FAILURE);
-	}
+	// if (pipe(cmds->fd) == -1)
+	// {
+	// 	perror("pipe");
+	// 	exit(EXIT_FAILURE);
+	// }
 	pid = fork();
 	if (pid == -1)
 	{
