@@ -93,7 +93,8 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 	int				fd[2];   // Pipe entre commandes 
 	char			**cmd;  //OK build_cmd
-	struct s_redir	*redir;  // Gestion de "<", "<<", ">" et ">>"
+	struct s_redir	*redir;
+	int				id;  // Gestion de "<", "<<", ">" et ">>"
 }		t_cmd;
 
 /*

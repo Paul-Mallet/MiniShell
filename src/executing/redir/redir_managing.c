@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/14 15:48:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/14 14:39:19 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,48 +30,58 @@
 bool	check_if_is_last_in(t_redir *redir)
 {
 	t_redir	*current;
-	int		nb_redir;
 
-	nb_redir = 0;
 	current = redir;
-	while (current)
+	while (current->next)
 	{
-		if ((current->heredoc || current->in_redir))
-			nb_redir++;
+		if ((current->next->heredoc || current->next->in_redir))
+			return(false);
 		current = current->next;
 	}
-	if (nb_redir == 1)
-		return (true);
-	return (false);
+	return (true);
 }
 
 bool	check_if_is_last_out(t_redir *redir)
 {
 	t_redir	*current;
-	int		nb_redir;
 
-	nb_redir = 0;
 	current = redir;
-	while (current)
+	while (current->next)
 	{
-		if ((current->append || current->out_redir))
-			nb_redir++;
+		if ((current->next->append || current->next->out_redir))
+			return(false);
 		current = current->next;
 	}
-	if (nb_redir == 1)
-		return (true);
-	return (false);
+	return (true);
 }
 
-int	redir_managing(t_cmd *cmds)
+// bool	check_if_is_last_out(t_redir *redir)
+// {
+// 	t_redir	*current;
+// 	int		nb_redir;
+
+// 	nb_redir = 0;
+// 	current = redir;
+// 	while (current)
+// 	{
+// 		if ((current->append || current->out_redir))
+// 			nb_redir++;
+// 		current = current->next;
+// 	}
+// 	if (nb_redir == 1)
+// 		return (true);
+// 	return (false);
+// }
+
+bool	check_redir(t_cmd *cmds)
 {
 	t_redir	*current;
 	bool	is_last_in;
 	bool	is_last_out;
-	int		is_redirected;
+	bool	is_redirected;
 
 	if (!cmds->redir)
-		return(false);
+		return (false);
 	is_last_in = false;
 	is_last_out = false;
 	current = cmds->redir;
@@ -89,10 +99,6 @@ int	redir_managing(t_cmd *cmds)
 			is_redirected = redir_heredoc(current, is_last_out);
 		current = current->next;
 	}
-	if (!is_last_in)
-		is_redirected = 1;
-	else if (!is_last_out)
-		is_redirected = 2;
 	return (is_redirected);
 }
 
