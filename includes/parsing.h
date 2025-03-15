@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/15 15:56:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/15 18:08:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool	if_single_quotes(char *value);
 */
 t_token	*new_token(t_token_first type, t_token_scnd subtype, char *value);
 void	token_add_back(t_token **lst, t_token *new);
-t_token	*first_tokenization(char *input, t_data *data);
+t_token	*first_tokenization(char *input);
 void	second_tokenization(t_data *data);
 void	print_token(t_token *token);
 void 	free_tokens(t_token **tokens);

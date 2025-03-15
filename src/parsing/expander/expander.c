@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/15 17:13:05 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/15 18:38:36 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ char	*expander(char *value, t_data *data)
 
 	exp.i = 0;
 	exp.j = 0;
-	if (value[0] == '\'')
-		return (value);
 	expand_len = expand_length(value, data);
 	return (expanding(value, data, expand_len, exp));
 }
