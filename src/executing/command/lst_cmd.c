@@ -26,6 +26,7 @@ t_cmd	*new_cmd(char **cmds)
 	new->next = NULL;
 	new->fd[0] = -1;
 	new->fd[1] = -1;
+	new->id = 0;
 	return (new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 18:01:48 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 10:02:19 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:11:06 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ void	remove_single_quotes(t_token *tokens)
 	current = tokens;
 	while (current)
 	{
+		printf("%s\n", current->value);
 		if (current && current->type == WORD)
 		{
-			if (if_single_quotes(current->value))
-				remove_join_quotes(current, '\'');
+			// if (if_single_quotes(current->value))
+				// remove_join_quotes(current, '\'');
 		}
 		current = current->next;
 	}

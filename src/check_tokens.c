@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/12 12:55:18 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/15 15:24:03 by abarahho         ###   ########.fr       */
+/*   Created: 2025/03/15 15:18:28 by abarahho          #+#    #+#             */
+/*   Updated: 2025/03/15 15:18:53 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 #include "../includes/builtins.h"
 #include "../includes/parsing.h"
+#include "../includes/executing.h"
 #include "../includes/signals.h"
 
-int	main(int ac, char **av, char **envp)
+bool	check_tokens(t_data *data)
 {
-	t_data	data;
-
-	(void)ac;
-	(void)av;
-	
-	//handle_interactive_mode(); 
-	signals_handler();
-	init_data(&data);
-	loop_minishell(&data, envp);
-	return (0);
+	if (!data->tokens)
+		return (false);
+	if (!data->tokens->next && data->tokens->subtype != ARG)
+	{
+		error_handling(SYNTAX_ERROR_NEAR_TOKEN, data->tokens->value);
+		data->exit_code = 2;
+		return (false);
+	}
+	return (true);
 }

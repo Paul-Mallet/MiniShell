@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/13 18:53:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:50:34 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,11 @@ void	get_expanded(t_token *tokens, t_data *data)
 	expansion = NULL;
 	while (current)
 	{
-		if (current->type == WORD && current->subtype != DELIM)
+		if (current->subtype == ARG && current->subtype != DELIM)
 		{
-			if (current->value[0] == '$' && current->value[1])
-			{
-				expansion = expander(current->value, data);
-				if (expansion && ft_strcmp(expansion, current->value))
-				{
-					free(current->value);
-					current->value = expansion;
-				}
-			}
-			// free(current->value);
-			// current->value = expansion;
+			expansion = expander(current->value, data);
+			free(current->value);
+			current->value = expansion;
 		}
 		current = current->next;
 	}
@@ -46,11 +38,9 @@ void	ft_parsing(char *value, t_data *data)
 
 	trimmed = ft_strtrim(value, " \t\n");
 	data->tokens = first_tokenization(trimmed, data);
-	free(trimmed);
-	remove_empty_token(data->tokens);
-	join_tokens(&data->tokens);
-	remove_double_quotes(data->tokens);
 	second_tokenization(data);
-	get_expanded(data->tokens, data);
-	remove_single_quotes(data->tokens);
+	free(trimmed);
+	// get_expanded(data->tokens, data);
+	// remove_double_quotes(data->tokens);
+	// remove_single_quotes(data->tokens);
 }

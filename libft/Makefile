@@ -42,7 +42,6 @@ SRCS_LIBFT = ft_isspace.c \
              ft_strmapi.c \
              ft_isalnum.c \
              ft_memcmp.c \
-             ft_split_quotes.c \
              ft_split.c \
              ft_strncmp.c \
              ft_isalpha.c \

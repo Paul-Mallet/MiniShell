@@ -29,6 +29,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+typedef enum e_cmd_order
+{
+	SIMPLE_CMD,
+	FIRST_CMD,
+	MID_CMD,
+	LAST_CMD
+}			t_cmd_order;
+
 typedef enum e_error_code
 {
 	ERR_FILE_NOT_FOUND,
@@ -130,9 +138,10 @@ typedef struct	s_data
 }		t_data;
 
 void	init_data(t_data *data);
-void	init_mini_shell(t_data *data, char **envp);
+void	loop_minishell(t_data *data, char **envp);
 int		error_handling(t_error_code code, char *cmd);
 void	free_data(t_data *data);
+void	free_processing(t_data *data);
 bool	check_tokens(t_data *data);
 
 #endif

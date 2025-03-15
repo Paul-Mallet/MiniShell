@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 19:27:35 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/14 20:19:36 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	fork_heredoc(t_data *data)
 	else if (pid == 0)
 	{
 		heredoc_managing(data);
-		free_data_children(data);
+		free_data(data);
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(pid, &status, 0);

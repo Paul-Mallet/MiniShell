@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 10:23:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/14 10:24:05 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:35:25 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,10 @@ t_token	*handle_word(char **input)
 	size_t	len;
 
 	len = get_word_length(*input);
-	if (len == 0)
-		return (NULL);
 	value = extract_word(*input, len);
 	if (!value)
-		return (NULL);
+		return (perror("malloc"), NULL);
 	token = new_token(WORD, UNKNOW_SUBTYPE, value);
-	// free(value);
 	*input += len;
 	return (token);
 }

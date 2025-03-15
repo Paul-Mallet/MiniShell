@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/13 19:00:22 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:19:46 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ void	init_data(t_data *data)
 	data->exit_code = 0;
 }
 
-static char	*get_prompt(void)
-{
-	char	*prompt;
-	char	name[BUFFER_SIZE];
+// static char	*get_prompt(void)
+// {
+// 	char	*prompt;
+// 	char	name[BUFFER_SIZE];
 
-	if (!getcwd(name, BUFFER_SIZE))
-	{
-		perror("getcwd error");
-		return (NULL);
-	}
-	prompt = ft_strjoin(name, "$ ");
-	return (prompt);
-}
+// 	if (!getcwd(name, BUFFER_SIZE))
+// 	{
+// 		perror("getcwd error");
+// 		return (NULL);
+// 	}
+// 	prompt = ft_strjoin(name, "$ ");
+// 	return (prompt);
+// }
 
 /*
 	check Ctrl + D EOF
@@ -59,7 +59,7 @@ void	ctrl_d_exit(t_data *data, char *prompt)
 	exit(EXIT_SUCCESS);
 }
 
-void	init_mini_shell(t_data *data, char **envp)
+void	loop_minishell(t_data *data, char **envp)
 {
 	data->input = NULL;
 	data->env = import_env(envp);
@@ -67,37 +67,26 @@ void	init_mini_shell(t_data *data, char **envp)
 		return ;
 	while (1)
 	{
-		data->prompt = get_prompt();
-		data->input = readline(data->prompt);
+		// data->prompt = get_prompt();
+		data->input = readline("$");
 		if (data->input == NULL)
 			ctrl_d_exit(data, data->prompt);
-		add_history(data->input);
 		if (!ft_lexer(data))
 			continue ;
 		ft_parsing(data->input, data);
-		if (!check_tokens(data))
-			continue ;
-		data->cmds = init_cmd_struct(data->tokens);
-		print_cmd_struct(data->cmds);
-		exec(data);
-		if (g_exit_code)
-			g_exit_code = 0;
-		free_data(data);
-		data->input = NULL;
+		add_history(data->input);
+		// if (!check_tokens(data))
+		// {
+		// 	free_processing(data);
+		// 	continue ;
+		// }
+		print_token(data->tokens);
+		free_processing(data);
+		// data->cmds = init_cmd_struct(data->tokens);
+		// print_cmd_struct(data->cmds);
+		// exec(data);
+		// if (g_exit_code)
+		// 	g_exit_code = 0;
 	}
-}
-
-void	free_data(t_data *data)
-{
-	if (data->cmds)
-	{
-		free_exec(data);
-		free_cmd_struct(&data->cmds);
-	}
-	if (data->tokens)
-		free_tokens(&data->tokens);
-	if (data->prompt)
-		free(data->prompt);
-	if (data->input)
-		free(data->input);
+	free_data(data);
 }

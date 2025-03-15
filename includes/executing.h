@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/14 15:36:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/15 11:03:08 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@
 	get paths for
 */
 char	*construct_path(char *dir, char *cmd);
-char	*find_path(char **paths, char *cmd);
-char	**get_path_vrbl(t_env *env);
+char	*check_path(t_data *data, char *cmd);
+char	*find_path(t_data *data, char **path_var, char *cmd);
+char	**get_path_var(t_env *env);
 void	free_strs(char **paths);
 
 t_token	*to_pipe_or_last_token(t_token *tokens);
@@ -76,27 +77,22 @@ void	heredoc_managing(t_data *data);
 /*
 	exec
 */
-int		exec(t_data *data);
+void		exec(t_data *data);
 char	**make_env(t_env *env);
 int		count_cmds(t_cmd *cmds);
 void	wait_all(t_data *data);
 void	free_paths(char **paths, char *path);
 bool	is_builtins(char *cmd);
 
+int		exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i);
 int		exec_simple_cmd(t_data *data);
-int		exec_multiple_cmds(t_data *data);
-int		exec_command(t_cmd *cmds, t_data *data, int *i);
-int		exec_last_cmd(t_cmd *cmds, t_data *data, int *i);
-int		exec_first_cmd(t_cmd *cmds, t_data *data, int *i);
-
-void	executing_command(t_cmd *cmds, char *path, t_data *data);
-void	executing_first_cmd(t_cmd *cmds, char *path, t_data *data);
-void	executing_last_cmd(t_cmd *cmds, char *path, t_data *data);
+void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr);
 void	executing_simple_cmd(t_data *data, char *path);
 
 void	free_exec(t_data *data);
 int		error_path(char **paths, char *prompt, t_data *data);
 void	close_all_pipes(t_cmd *cmd);
+void	close_pipes(t_cmd *cmd);
 void	free_data_children(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/14 10:30:39 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/15 17:57:25 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_token	*process_token(char **input, t_data *data)
 		*input = check_expanding(*input, data);
 	if (**input == '$' && *(*input + 1) && *(*input + 1) == '?')
 		new = handle_exit_code(input, data);
-	else if (**input == '\"')
+	if (**input == '\"')
 		new = handle_double_quotes(input);
 	else if (**input == '\'')
 		new = handle_single_quotes(input);

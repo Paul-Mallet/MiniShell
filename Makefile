@@ -22,7 +22,8 @@ SRCS = $(addprefix $(SRC_DIR), \
 	main.c \
 	init.c \
 	error_management.c \
-	free_data.c)
+	free_data.c	\
+	check_tokens.c)
 SRCS_REDIR = $(addprefix $(SRC_DIR)$(SRC_REDIR), \
 	lst_redir.c \
 	redir_managing.c \

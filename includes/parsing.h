@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 18:50:51 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/15 15:56:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		check_key(char c);
 
 /*
 	lexer checks if input is valid
+	also frees input if invalid
 */
 bool	ft_lexer(t_data *data);
 
@@ -72,7 +73,7 @@ t_token	*first_tokenization(char *input, t_data *data);
 void	second_tokenization(t_data *data);
 void	print_token(t_token *token);
 void 	free_tokens(t_token **tokens);
-void	handle_token_word(t_token *current, char **paths, bool *is_cmd_found, t_data *data);
+void	handle_token_word(t_token *current);
 void 	handle_token_redir(t_token *token);
 char	*check_expanding(char *input, t_data *data);
 
@@ -95,10 +96,10 @@ size_t	get_double_quotes_length(char *str);
 size_t	get_single_quotes_length(char *str);
 void	remove_join_quotes(t_token *tokens, char c);
 
-int		is_cmd(char **paths, char *cmd, t_data *data);
-int		is_executable(char *path, t_data *data);
-int		is_pipe(char c);
-int		is_redirection(char c);
-int		is_dir(char *value);
+bool		is_cmd(char **paths, char *cmd, t_data *data);
+bool		is_executable(char *path, t_data *data);
+bool		is_pipe(char c);
+bool		is_redirection(char c);
+bool		is_dir(char *value);
 
 #endif

@@ -6,13 +6,27 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/14 17:36:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/15 10:32:33 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 #include "../../includes/executing.h"
 #include "../../includes/signals.h"
+
+// static void checkid(t_cmd *cmds)
+// {
+// 	t_cmd	*current;
+// 	int	i;
+
+// 	current = cmds;
+// 	i = 0;
+// 	while (current)
+// 	{
+// 		printf("checkid ;%d\n", current->id);
+// 		current = current->next;
+// 	}
+// }
 
 void	init_id_cmds(t_cmd *cmds)
 {
@@ -29,104 +43,73 @@ void	init_id_cmds(t_cmd *cmds)
 	}
 }
 
-
-int	exec(t_data *data)
+void	exec(t_data *data)
 {
 	t_cmd	*current;
 	int		nb_cmd;
-
-
-	check_heredoc(data);
-	current = data->cmds;
-	if (!data->cmds)
-		return (EXIT_FAILURE);
-	data->char_env = make_env(data->env);
-	if (!data->char_env)
-		return (EXIT_FAILURE);
-	if ((count_cmds(data->cmds) == 1))
-	{
-		if (is_builtins(current->cmd[0]))
-			return (ft_builtins(data, data->cmds));
-		else
-			return (exec_simple_cmd(data));
-	}
-	else
-	{
-		nb_cmd = count_cmds(data->cmds);
-		init_id_cmds(data->cmds);
-		data->pids = malloc(sizeof(int) * nb_cmd);
-		return (exec_multiple_cmds(data));
-	}
-	return (1);
-}
-
-int	exec_multiple_cmds(t_data *data)
-{
-	t_cmd	*current;
 	int		i;
 
 	i = 0;
+	check_heredoc(data);
+	nb_cmd = count_cmds(data->cmds);
 	current = data->cmds;
-	// printf("count: %d \n", count_cmds(data->cmds));
+	if (!data->cmds)
+		return ;
+	data->char_env = make_env(data->env);
+	printf("\nnb cmd ;%d\n", nb_cmd);
+	if (nb_cmd == 1)
+	{
+		exec_simple_cmd(data);
+		return ;
+	}
+	init_id_cmds(data->cmds);
+	// checkid(data->cmds);
+	data->pids = malloc(sizeof(int) * nb_cmd);
+	// printf("nbr cmd ;%d\n", nb_cmd);
 	while (current)
 	{
-		if (!current->prev)
+		if (current->next && pipe(current->fd) == -1)
 		{
-			// printf("test_frst\n");
-			exec_first_cmd(current, data, &i);
-				// return (EXIT_FAILURE);
+			perror("pipe");
+			return ;
 		}
-		else if (current->prev && current->next)
+		if (current->id == 0)
+			exec_command(current, data, FIRST_CMD, &i);
+		else if (current->id == (nb_cmd - 1))
+			exec_command(current, data, LAST_CMD, &i);
+		else
+			exec_command(current, data, MID_CMD, &i);
+		if (current->prev)
 		{
-			// printf("test_between\n");
-			exec_command(current, data, &i);
-				// return (EXIT_FAILURE);
+			if (current->prev->fd[0] >= 0)
+				close(current->prev->fd[0]);
+			if (current->prev->fd[1] >= 0)
+				close(current->prev->fd[1]);
 		}
-		else if (!current->next)
-		{
-			// printf("test_las\n");
-			exec_last_cmd(current, data, &i);
-				// return (EXIT_FAILURE);
-		}
-		// if (current->prev)
-		// 	close(current->prev->fd[0]);
-		// if (current->next)
-		// 	close(current->fd[1]);
 		current = current->next;
 	}
-	// printf("test_wait\n");
+	close_all_pipes(data->cmds);
 	wait_all(data);
-	return (EXIT_SUCCESS);
 }
 
 void	wait_all(t_data *data)
 {
 	int		status;
 	int		pid;
-	t_cmd	*current;
 	int		i;
+	t_cmd	*current;
 
 	i = 0;
 	current = data->cmds;
-	printf("before waiting\n");
 	while (current)
 	{
-		printf("while waiting\n");
-		printf("pid[%d]\n", data->pids[i]);
 		pid = waitpid(data->pids[i], &status, 0);
-		printf("pid: %d\n", pid);
 		if (pid > 0)
 		{
-			printf("pid waiting\n");
 			if (WIFEXITED(status))
 				data->exit_code = WEXITSTATUS(status);
-			printf("waiting\n");
 		}
-		// printf("before closing pipes waiting\n");
-		// close_all_pipes(current);
-		// printf("after closing pipes waiting\n");
 		i++;
 		current = current->next;
 	}
-	printf("after while\n");
 }

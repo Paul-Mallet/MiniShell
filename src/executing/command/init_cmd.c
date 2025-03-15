@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 13:40:01 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/14 21:40:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,13 @@ char	**malloc_cmd(t_token *tokens)
 	t_token	*current;
 	char	**cmd;
 	int		i;
-	bool	cmd_found;
 
 	i = 0;
 	current = tokens;
-	cmd_found = false;
 	while (current)
 	{
-		if (current->type == WORD)
-		{
-			if (current->subtype == CMD && cmd_found == false)
-			{
-				i++;
-				cmd_found = true;
-			}
-			else if (current->subtype == ARG && cmd_found == true)
-				i++;
-		}
+		if (current->subtype == ARG)
+			i++;
 		if (current->type == PIPE)
 			break ;
 		current = current->next;
@@ -46,27 +36,17 @@ char	**malloc_cmd(t_token *tokens)
 	return (cmd);
 }
 
-char	**build_cmd(t_token	*tokens, char **cmd) //["value1", "value2"]
+char	**build_cmd(t_token	*tokens, char **cmd)
 {
 	t_token	*current;
 	int		i;
-	bool	cmd_found;
 
 	i = 0;
 	current = tokens;
-	cmd_found = false;
 	while (current)
 	{
-		if (current->type == WORD)
-		{
-			if (current->subtype == CMD && cmd_found == false)
-			{
-				cmd[i++] = ft_strdup(current->value); //ft_strdup()
-				cmd_found = true;
-			}
-			else if (current->subtype == ARG && cmd_found == true)
-				cmd[i++] = ft_strdup(current->value);
-		}
+		if (current->subtype == ARG)
+			cmd[i++] = ft_strdup(current->value);
 		if (current->type == PIPE)
 			break ;
 		current = current->next;

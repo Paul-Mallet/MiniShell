@@ -38,6 +38,7 @@
 		"signals.h": "c",
 		"executing.h": "c",
 		"__config": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"numbers": "c"
 	}
 }
