@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/16 19:05:07 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:10:10 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int	exec_simple_cmd(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-int	error_path(char **paths, char *path, t_data *data)
-{
-	error_handling(ERR_CMD_NOT_FOUND, path);
-	free_paths(paths, NULL);
-	data->exit_code = 127;
-	return (EXIT_FAILURE);
-}
+// int	error_path(char **paths, char *path, t_data *data)
+// {
+// 	error_handling(ERR_CMD_NOT_FOUND, path);
+// 	free_paths(paths, NULL);
+// 	data->exit_code = 127;
+// 	return (EXIT_FAILURE);
+// }

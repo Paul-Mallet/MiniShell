@@ -49,7 +49,6 @@ typedef enum e_error_code
 	ERR_UNCLOSED_QUOTES,
 	ERR_UNKNOWN,
 	SYNTAX_ERROR_NEAR_TOKEN
-
 }				t_error_code;
 
 typedef enum	e_token_first

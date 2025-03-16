@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/16 18:56:01 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:09:36 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	exec(t_data *data)
 	if (!data->cmds)
 		return ;
 	data->char_env = make_env(data->env);
-	// printf("\nnb cmd ;%d\n", nb_cmd);
 	if (nb_cmd == 1)
 	{
 		exec_simple_cmd(data);

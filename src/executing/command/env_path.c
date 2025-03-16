@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/16 19:03:31 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:22:20 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ bool	is_executable(char *cmd, t_data *data)
 {
 	if (access(cmd, F_OK) != 0)
 	{
-		perror("access");
+		error_handling(ERR_CMD_NOT_FOUND, cmd);
 		data->exit_code = 127;
 		return (false);
 	}
 	if (is_dir(cmd))
 	{
-		printf("%s is a directory\n", cmd);
+		error_handling(ERR_CMD_NOT_FOUND, cmd);
 		data->exit_code = 126;
 		return (false);
 	}
 	if (access(cmd, X_OK) != 0)
 	{
-		printf("No premissions\n");
+		error_handling(ERR_PERMISSION_DENIED, cmd);
 		data->exit_code = 126;
 		return (false);
 	}
