@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/15 10:59:59 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:05:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		{
 			close_pipes(cmds);
 			free_data(data);
-			// error_path(paths, data->prompt, data);
 			exit (2);
 		}
 		executing_command(cmds, path, data, nbr);
@@ -54,7 +53,6 @@ int	exec_simple_cmd(t_data *data)
 		if (!path)
 		{
 			free_data(data);
-			// error_path(paths, data->prompt, data);
 			exit (2);
 		}
 		executing_simple_cmd(data, path);

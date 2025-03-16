@@ -143,5 +143,16 @@ int		error_handling(t_error_code code, char *cmd);
 void	free_data(t_data *data);
 void	free_processing(t_data *data);
 bool	check_tokens(t_data *data);
+char 	*expander(char *value, t_data *data);
+
+/*
+	expander
+*/
+char	*get_key_value(t_env *env, char *key);
+char	*expand_variable(char *input, size_t *i, t_data *data);
+void	add_expanding(char **expanded, char *value, size_t *i, t_data *data);
+char	*expander(char *value, t_data *data);
+void	add_index(char **expanded, char i);
+char	*extract_key(char *value, int i);
 
 #endif

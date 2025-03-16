@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/15 11:20:25 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:03:31 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*find_path(t_data *data, char **path_var, char *cmd)
 	}
 	free_strs(path_var);
 	data->code = 127;
+	error_handling(ERR_CMD_NOT_FOUND, cmd);
 	return (NULL);
 }
 

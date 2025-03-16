@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/15 18:08:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 18:31:27 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,6 @@ typedef struct s_expand
 }		t_expand;
 
 /*
-	expander
-*/
-int		expand_length(char *value, t_data *data);
-char	*expander(char *value, t_data *data);
-char	*expanding(char *value, t_data *data, int len, t_expand);
-int		get_value_len(char *value, int i, t_data *data);
-char	*get_key_value(char *value, int i, t_data *data);
-char	*extract_key(char *value, int i);
-int		check_key(char c);
-
-
-/*
 	lexer checks if input is valid
 	also frees input if invalid
 */
@@ -55,14 +43,11 @@ bool	ft_lexer(t_data *data);
 	* trim 1rst & last spaces
 	* reduce spaces between each word to 1
 */
-void	ft_parsing(char *value, t_data *data);
+int		ft_parsing(char *value, t_data *data);
+int		ft_isspaces(char *input);
 void	get_expanded(t_token *tokens, t_data *data);
-int		check_cmd_tokens(t_token *tokens);
 void	join_tokens(t_token **tokens);
 void	remove_token(t_token *token);
-void	remove_empty_token(t_token *tokens);
-bool	if_double_quotes(char *value);
-bool	if_single_quotes(char *value);
 
 /*
 	1rst tokenizer separates words of input by types

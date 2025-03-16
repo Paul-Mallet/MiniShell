@@ -51,21 +51,17 @@ SRCS_BUILTINS = $(addprefix $(SRC_DIR)$(SRC_BUILTINS), \
 SRCS_LEXER = $(addprefix $(SRC_DIR)$(SRC_LEXER), \
 	lexer.c)
 SRCS_PARSER = $(addprefix $(SRC_DIR)$(SRC_PARSER), \
-	first_tokenizer.c \
-	first_tokenizer_utils.c \
-	handler_first_tokenizer.c \
-	second_tokenizer.c \
-	second_tokenizer_utils.c \
-	tokenizer_utils.c)
+	handler_tokens.c \
+	lst_tokenizer.c \
+	subtype_tokens.c \
+	tokenizer_utils.c \
+	tokenizer.c)
 SRCS_EXPANDER = $(addprefix $(SRC_DIR)$(SRC_EXPANDER), \
-	expander_len.c \
+	expander_utils.c \
 	expander.c)
 SRCS_PARSING = $(addprefix $(SRC_DIR)$(SRC_PARSING), \
 	parsing.c \
-	quotes_utils.c \
-	token_handling.c \
-	quotes_handling.c \
-	quotes_changing.c)
+	token_handling.c)
 SRCS_SIGNALS = $(addprefix $(SRC_DIR)$(SRC_SIGNALS), \
 	signals.c)
 SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 15:18:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/15 15:18:53 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 18:05:28 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,22 @@
 
 bool	check_tokens(t_data *data)
 {
+	t_token	*current;
+
 	if (!data->tokens)
 		return (false);
-	if (!data->tokens->next && data->tokens->subtype != ARG)
+	current = data->tokens;
+	while (current)
 	{
-		error_handling(SYNTAX_ERROR_NEAR_TOKEN, data->tokens->value);
-		data->exit_code = 2;
-		return (false);
+		if ((!current->next && current->type != WORD)
+			|| (current->type == REDIR && current->next
+			&& current->next->next && current->next->next->type != WORD))
+		{
+			error_handling(SYNTAX_ERROR_NEAR_TOKEN, data->tokens->value);
+			data->exit_code = 2;
+			return (false);
+		}
+		current = current->next;
 	}
 	return (true);
 }

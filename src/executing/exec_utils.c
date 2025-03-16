@@ -100,7 +100,7 @@ void	close_all_pipes(t_cmd *cmd)
 			close(current->fd[0]);
 		if (current->fd[1] >= 0)
 			close(current->fd[1]);
-		printf("\nvalue :%s\npipe[0]%d\npipe[1]%d\n\n", current->cmd[0], current->fd[0], current->fd[1]);
+		// printf("\nvalue :%s\npipe[0]%d\npipe[1]%d\n\n", current->cmd[0], current->fd[0], current->fd[1]);
 		current = current->next;
 	}
 }
@@ -111,5 +111,5 @@ void	close_pipes(t_cmd *cmd)
 			close(cmd->fd[0]);
 	if (cmd->fd[1] >= 0)
 		close(cmd->fd[1]);
-	printf("\nclose pipes\nvalue :%s\npipe[0]%d\npipe[1]%d\n\n", cmd->cmd[0], cmd->fd[0], cmd->fd[1]);
+	// printf("\nclose pipes\nvalue :%s\npipe[0]%d\npipe[1]%d\n\n", cmd->cmd[0], cmd->fd[0], cmd->fd[1]);
 }

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/10 17:33:23 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:14:02 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_env_values(t_env *new, char *entry, char *sep)
 	else
 	{
 		new->key = ft_strndup(entry, ft_strlen(entry) - 1);
-		new->value = ft_strdup("\0");
+		new->value = ft_strdup("");
 	}
 }
 

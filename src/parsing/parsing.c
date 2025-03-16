@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/15 18:43:51 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 18:54:25 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,12 @@
 void	get_expanded(t_token *tokens, t_data *data)
 {
 	t_token	*current;
-	char	*expansion;
 
 	current = tokens;
-	expansion = NULL;
 	while (current)
 	{
-		if (current->subtype == ARG && current->subtype != DELIM)
-		{
-			expansion = expander(current->value, data);
-			free(current->value);
-			current->value = expansion;
-		}
+		if (current->subtype == ARG || current->subtype == FILES)
+			current->value = expander(current->value, data);
 		current = current->next;
 	}
 }
@@ -74,18 +68,37 @@ void	remove_quotes(t_token *tokens)
 	}
 }
 
-void	ft_parsing(char *value, t_data *data)
+static bool	check_whitespace(t_token *tokens)
+{
+	t_token *current;
+
+	current = tokens;
+	while(current)
+	{
+		if (current->type == REDIR)
+			return (true);
+		if (current->subtype == ARG && !ft_isspaces(current->value))
+			return (true);
+		current = current->next;
+	}
+	return (false);
+}
+
+int	ft_parsing(char *value, t_data *data)
 {
 	char	*trimmed;
 
 	trimmed = ft_strtrim(value, " \t\n");
 	data->tokens = first_tokenization(trimmed);
+	if (!check_tokens(data))
+		return (free_processing(data), 0);
 	free(trimmed);
 	join_tokens(&data->tokens);
 	second_tokenization(data);
-	// get_expanded(data->tokens, data); A REFAIRE single quote
-	/*
-		check whitespace tokens
-	*/
+	get_expanded(data->tokens, data);
 	remove_quotes(data->tokens);
+	if (!check_whitespace(data->tokens))
+		return (free_processing(data), 0);
+	return (1);
 }
+

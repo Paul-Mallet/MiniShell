@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/15 17:19:46 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 18:56:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,16 @@ void	loop_minishell(t_data *data, char **envp)
 			ctrl_d_exit(data, data->prompt);
 		if (!ft_lexer(data))
 			continue ;
-		ft_parsing(data->input, data);
 		add_history(data->input);
-		// if (!check_tokens(data))
-		// {
-		// 	free_processing(data);
-		// 	continue ;
-		// }
+		if (!ft_parsing(data->input, data))
+			continue;
 		print_token(data->tokens);
+		data->cmds = init_cmd_struct(data->tokens);
+		print_cmd_struct(data->cmds);
+		exec(data);
+		if (g_exit_code)
+			g_exit_code = 0;
 		free_processing(data);
-		// data->cmds = init_cmd_struct(data->tokens);
-		// print_cmd_struct(data->cmds);
-		// exec(data);
-		// if (g_exit_code)
-		// 	g_exit_code = 0;
 	}
 	free_data(data);
 }

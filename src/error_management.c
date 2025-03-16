@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:49:07 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 19:06:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/16 19:06:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	error_handling(t_error_code code, char *cmd)
 	else if (code == ERR_PERMISSION_DENIED)
 		return (ft_dprintf(2, "%s: Permission denied\n", cmd));
 	else if (code == ERR_CMD_NOT_FOUND)
-		return (ft_dprintf(2, "%s: command not found\n", cmd));
+		return (ft_dprintf(2, "Command '%s' not found\n", cmd));
 	else if (code == ERR_DOUBLE_PIPES)
 		return (ft_dprintf(2, "%s: invalid double pipes\n", cmd));
 	else if (code == ERR_PIPE_FAILURE)
