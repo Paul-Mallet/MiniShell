@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 11:49:00 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:06:58 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	init_cmd_struct(t_data *data);
 void	cmd_struct_add_back(t_cmd **cmds, t_cmd *new);
 t_cmd	*new_cmd(char **cmds);
 char	**malloc_cmd(t_token *tokens);
-char	**build_cmd(t_token	*tokens, char **cmd);
+// char	**build_cmd(t_token	*tokens);
 void	init_id_cmds(t_cmd *cmds);
 void	print_cmds(char **cmds);
 void 	print_cmd_struct(t_cmd *cmd);

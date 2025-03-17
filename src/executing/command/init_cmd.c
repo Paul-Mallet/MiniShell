@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 11:52:24 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 12:07:56 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,45 @@
 #include "../../../includes/parsing.h"
 #include "../../../includes/executing.h"
 
-char	**malloc_cmd(t_token *tokens)
+static unsigned int	cmds_len(t_token *tokens)
 {
-	t_token	*current;
-	char	**cmd;
+	t_token	*curr;
 	int		i;
 
 	i = 0;
-	current = tokens;
-	while (current)
+	curr = tokens;
+	while (curr)									//while in sub-function
 	{
-		if (current->subtype == ARG)
+		if (curr->subtype == ARG)
 			i++;
-		if (current->type == PIPE)
+		if (curr->type == PIPE)
 			break ;
-		current = current->next;
+		curr = curr->next;
 	}
-	cmd = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!cmd)
-		return (NULL);
-	return (cmd);
+	return (i);
 }
 
-char	**build_cmd(t_token	*tokens, char **cmd)
+static char	**build_cmds(t_token *tokens)	//cmds, malloc inside
 {
-	t_token	*current;
+	t_token	*curr;
+	char	**cmds;
 	int		i;
 
+	cmds = (char **)malloc(sizeof(char *) * (cmds_len(tokens) + 1));
+	if (!cmds)
+		return (NULL);
 	i = 0;
-	current = tokens;
-	while (current)
+	curr = tokens;
+	while (curr)
 	{
-		if (current->subtype == ARG)
-			cmd[i++] = ft_strdup(current->value);
-		if (current->type == PIPE)
+		if (curr->subtype == ARG)
+			cmds[i++] = ft_strdup(curr->value);
+		if (curr->type == PIPE)
 			break ;
-		current = current->next;
+		curr = curr->next;
 	}
-	cmd[i] = NULL;
-	return (cmd);
+	cmds[i] = NULL;
+	return (cmds);
 }
 
 t_token	*to_pipe_or_last_token(t_token *tokens)
@@ -90,27 +90,20 @@ void	print_cmd(char **cmds)
 
 bool	init_cmd_struct(t_data *data)
 {
-	char	**cmd;
 	t_cmd	*head;
 	t_cmd	*new;
-	t_token	*current;
-	char	**prompt_cmd;
+	t_token	*curr;
 
-	cmd = NULL;
 	head = NULL;
 	new = NULL;
-	current = data->tokens;
-	while(current)
+	curr = data->tokens;
+	while(curr)
 	{
-		cmd = malloc_cmd(current);
-		if (!cmd)
-			return (NULL);
-		prompt_cmd = build_cmd(current, cmd);
-		new = new_cmd(prompt_cmd);
+		new = new_cmd(build_cmds(curr));
 		cmd_struct_add_back(&head, new);
-		init_redirs(current, new);
-		current = to_pipe_or_last_token(current);
-		current = current->next;
+		init_redirs(curr, new);
+		curr = to_pipe_or_last_token(curr);	//?
+		curr = curr->next;
 	}
 	if (!head)
 		return (free_processing(data), false);
