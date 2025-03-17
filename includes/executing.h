@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 12:06:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:11:23 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void	exec(t_data *data);
 char	**make_env(t_env *env);
 int		count_cmds(t_cmd *cmds);
 void	wait_all(t_data *data);
-void	free_paths(char **paths, char *path);
 bool	is_builtins(char *cmd);
 
 int		exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i);

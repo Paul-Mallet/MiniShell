@@ -6,26 +6,12 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/14 14:39:19 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:08:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 #include "../../../includes/executing.h"
-
-// bool	redir_managing(t_cmd *cmds)
-// {
-// 	t_cmd	*current;
-
-// 	current = cmds;
-// 	while (current)
-// 	{
-// 		if (!check_redir(current))
-// 			return (false);
-// 		current = current->next;
-// 	}
-// 	return (true);
-// }
 
 bool	check_if_is_last_in(t_redir *redir)
 {

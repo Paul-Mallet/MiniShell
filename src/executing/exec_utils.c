@@ -32,7 +32,6 @@ char	**make_env(t_env *env)
 {
 	t_env	*current;
 	char	**char_env;
-	char	*tmp;
 	int		i;
 
 	current = env;
@@ -47,25 +46,15 @@ char	**make_env(t_env *env)
 		return (NULL);
 	current = env;
 	i = 0;
-	tmp = NULL;
 	while (current)
 	{
-		tmp = join_lines(current->key, "=");
-		char_env[i] = join_lines(tmp, current->value);
-		free(tmp);
+		char_env[i] = ft_strjoin(current->key, "=");
+		char_env[i] = ft_strjoin(char_env[i], current->value);
 		i++;
 		current = current->next;
 	}
 	char_env[i] = NULL;
 	return (char_env);
-}
-
-void	free_paths(char **paths, char *path)
-{
-	if (paths)
-		free_strs(paths);
-	if (path)
-		free(path);
 }
 
 bool	is_builtins(char *cmd)
@@ -96,11 +85,7 @@ void	close_all_pipes(t_cmd *cmd)
 	current = cmd;
 	while (current)
 	{
-		if (current->fd[0] >= 0)
-			close(current->fd[0]);
-		if (current->fd[1] >= 0)
-			close(current->fd[1]);
-		// printf("\nvalue :%s\npipe[0]%d\npipe[1]%d\n\n", current->cmd[0], current->fd[0], current->fd[1]);
+		close_pipes(current);
 		current = current->next;
 	}
 }
@@ -111,5 +96,4 @@ void	close_pipes(t_cmd *cmd)
 			close(cmd->fd[0]);
 	if (cmd->fd[1] >= 0)
 		close(cmd->fd[1]);
-	// printf("\nclose pipes\nvalue :%s\npipe[0]%d\npipe[1]%d\n\n", cmd->cmd[0], cmd->fd[0], cmd->fd[1]);
 }

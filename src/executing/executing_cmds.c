@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 11:53:37 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:08:40 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr)
 	setup_pipes(cmds, nbr);
 	if (cmds->prev)
 		close_pipes(cmds->prev);
-	// if (cmds->prev && cmds->prev->fd[0] >= 0)
-	// 	close(cmds->prev->fd[0]);
-	// if (cmds->prev && cmds->prev->fd[1] >= 0)
-	// 	close(cmds->prev->fd[1]);
-	if (!cmds->cmd)
-		exit(EXIT_FAILURE);
 	if (is_builtins(cmds->cmd[0]))
 	{
 		ft_builtins(data, cmds);

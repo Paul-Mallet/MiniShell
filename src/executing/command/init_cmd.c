@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 12:07:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:15:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ bool	init_cmd_struct(t_data *data)
 		new = new_cmd(build_cmds(curr));
 		cmd_struct_add_back(&head, new);
 		init_redirs(curr, new);
-		curr = to_pipe_or_last_token(curr);	//?
+		curr = to_pipe_or_last_token(curr);
 		curr = curr->next;
 	}
 	if (!head)

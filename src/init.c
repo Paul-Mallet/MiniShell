@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/17 11:34:06 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 13:11:53 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	init_data(t_data *data)
 {
 	data->env = NULL;
 	data->cmds = NULL;
-	data->pids = NULL; //g_exit_code
+	data->pids = NULL;
 	data->tokens = NULL;
 	data->prompt = NULL;
 	data->char_env = NULL;
-	data->exit_code = 0;
+	data->exit_code = 0; //g_exit_code
 }
 
 // static char	*get_prompt(void)
@@ -41,10 +41,6 @@ void	init_data(t_data *data)
 // 	return (prompt);
 // }
 
-/*
-	check Ctrl + D EOF
-	* 
-*/
 void	ctrl_d_exit(t_data *data, char *prompt)
 {
 	if (prompt)
@@ -59,6 +55,7 @@ void	ctrl_d_exit(t_data *data, char *prompt)
 	exit(EXIT_SUCCESS);
 }
 
+// fix cd
 void	loop_minishell(t_data *data, char **envp)
 {
 	data->input = NULL;
@@ -68,7 +65,6 @@ void	loop_minishell(t_data *data, char **envp)
 	while (1)
 	{
 		// data->prompt = get_prompt();
-		// fix cd
 		data->input = readline("$");
 		if (data->input == NULL)
 			ctrl_d_exit(data, data->prompt);
