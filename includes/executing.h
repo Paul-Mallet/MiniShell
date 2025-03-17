@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 13:11:23 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:26:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,13 @@ void	*heredoc_name(t_redir *redir);
 /*
 	redir managing
 */
-int		redir_managing(t_cmd *cmds);
 bool	check_if_is_last_in(t_redir *redir);
 bool	check_if_is_last_out(t_redir *redir);
-bool	check_redir(t_cmd *cmds);
-bool	redir_input(t_redir *redir, bool last_cmd);
-bool	redir_output(t_redir *redir, bool last_cmd);
-bool	redir_append(t_redir *redir, bool last_cmd);
-bool	redir_heredoc(t_redir *redir, bool last_cmd);
+void	check_redir(t_cmd *cmds);
+void	redir_input(t_redir *redir, bool last_cmd);
+void	redir_output(t_redir *redir, bool last_cmd);
+void	redir_append(t_redir *redir, bool last_cmd);
+void	redir_heredoc(t_redir *redir, bool last_cmd);
 
 
 bool	write_heredoc(t_redir *redir);
@@ -79,15 +78,16 @@ void	heredoc_managing(t_data *data);
 	exec
 */
 void	exec(t_data *data);
+void	exec_multiple_cmds(t_data *data, int nb_cmd);
 char	**make_env(t_env *env);
 int		count_cmds(t_cmd *cmds);
 void	wait_all(t_data *data);
 bool	is_builtins(char *cmd);
 
-int		exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i);
-int		exec_simple_cmd(t_data *data);
+void		exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i);
+void		exec_simple_cmd(t_data *data);
 void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr);
-void	executing_simple_cmd(t_data *data, char *path);
+void	executing_simple_cmd(t_data *data);
 
 void	free_exec(t_data *data);
 int		error_path(char **paths, char *prompt, t_data *data);

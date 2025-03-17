@@ -28,7 +28,7 @@ int	count_cmds(t_cmd *cmds)
 	return (i);
 }
 
-char	**make_env(t_env *env)
+static char	**malloc_char_env(t_env *env)
 {
 	t_env	*current;
 	char	**char_env;
@@ -42,14 +42,27 @@ char	**make_env(t_env *env)
 		current = current->next;
 	}
 	char_env = (char **)malloc(sizeof(char *) * (i + 1));
+	return (char_env);
+}
+
+char	**make_env(t_env *env)
+{
+	t_env	*current;
+	char	**char_env;
+	char	*tmp;
+	int		i;
+
+	char_env = malloc_char_env(env);
 	if (!char_env)
 		return (NULL);
-	current = env;
+	tmp = NULL;
 	i = 0;
+	current = env;
 	while (current)
 	{
-		char_env[i] = ft_strjoin(current->key, "=");
-		char_env[i] = ft_strjoin(char_env[i], current->value);
+		tmp = ft_strjoin(current->key, "=");
+		char_env[i] = ft_strjoin(tmp, current->value);
+		free(tmp);
 		i++;
 		current = current->next;
 	}

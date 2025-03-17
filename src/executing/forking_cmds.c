@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   forking_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/16 19:10:10 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:40:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,26 @@
 #include "../../includes/executing.h"
 #include "../../includes/signals.h"
 
-int	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
+void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 {
 	pid_t	pid;
 	char	*path;
 
+	path = NULL;
 	pid = fork();
 	if (pid == -1)
-	{
 		perror("fork");
-		return (EXIT_FAILURE);
-	}
 	else if (pid == 0)
 	{
+		check_redir(cmds);
+		if (!cmds->cmd)
+		{
+			close_pipes(cmds);
+			free_data(data);
+			exit (1);			
+		}
+		if (is_builtins(cmds->cmd[0]))
+			ft_builtins(data, cmds);
 		path = check_path(data, cmds->cmd[0]);
 		if (!path)
 		{
@@ -38,32 +45,31 @@ int	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 	}
 	data->pids[*i] = pid;
 	*i += 1;
-	return (EXIT_SUCCESS);
 }
 
-int	exec_simple_cmd(t_data *data)
+void	exec_simple_cmd(t_data *data)
 {
 	pid_t	pid;
-	char	*path;
 
-	pid = fork();
-	if (pid == 0)
+	check_redir(data->cmds);
+	if (!data->cmds->cmd)
+		return ;			
+	if (is_builtins(data->cmds->cmd[0]))
+		ft_builtins(data, data->cmds);
+	else 
 	{
-		path = check_path(data, data->cmds->cmd[0]);
-		if (!path)
+		pid = fork();
+		if (pid == -1)
+			perror("fork");
+		if (pid == 0)
+			executing_simple_cmd(data);
+		else
 		{
-			free_data(data);
-			exit (2);
+			waitpid(pid, &data->exit_code, 0);
+			if (WIFEXITED(data->exit_code))
+				data->exit_code = WEXITSTATUS(data->exit_code);
 		}
-		executing_simple_cmd(data, path);
 	}
-	else
-	{
-		waitpid(pid, &data->exit_code, 0);
-		if (WIFEXITED(data->exit_code))
-			data->exit_code = WEXITSTATUS(data->exit_code);
-	}
-	return (EXIT_SUCCESS);
 }
 
 // int	error_path(char **paths, char *path, t_data *data)

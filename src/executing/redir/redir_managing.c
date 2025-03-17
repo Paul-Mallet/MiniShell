@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 13:08:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 14:27:32 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,14 @@ bool	check_if_is_last_out(t_redir *redir)
 	return (true);
 }
 
-// bool	check_if_is_last_out(t_redir *redir)
-// {
-// 	t_redir	*current;
-// 	int		nb_redir;
-
-// 	nb_redir = 0;
-// 	current = redir;
-// 	while (current)
-// 	{
-// 		if ((current->append || current->out_redir))
-// 			nb_redir++;
-// 		current = current->next;
-// 	}
-// 	if (nb_redir == 1)
-// 		return (true);
-// 	return (false);
-// }
-
-bool	check_redir(t_cmd *cmds)
+void	check_redir(t_cmd *cmds)
 {
 	t_redir	*current;
 	bool	is_last_in;
 	bool	is_last_out;
-	bool	is_redirected;
 
 	if (!cmds->redir)
-		return (false);
+		return ;
 	is_last_in = false;
 	is_last_out = false;
 	current = cmds->redir;
@@ -76,15 +57,14 @@ bool	check_redir(t_cmd *cmds)
 		is_last_in = check_if_is_last_in(current);
 		is_last_out = check_if_is_last_out(current);
 		if (current->in_redir)
-			is_redirected = redir_input(current, is_last_in);
+			redir_input(current, is_last_in);
 		else if (current->out_redir)
-			is_redirected = redir_output(current, is_last_out);
+			redir_output(current, is_last_out);
 		else if (current->append)
-			is_redirected = redir_append(current, is_last_in);
+			redir_append(current, is_last_in);
 		else if (current->heredoc)
-			is_redirected = redir_heredoc(current, is_last_out);
+			redir_heredoc(current, is_last_out);
 		current = current->next;
 	}
-	return (is_redirected);
 }
 

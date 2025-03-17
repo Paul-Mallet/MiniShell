@@ -35,6 +35,7 @@ SRCS_COMMAND = $(addprefix $(SRC_DIR)$(SRC_COMMAND), \
 	env_path.c)
 SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
 	exec.c \
+	exec_multi_cmds.c \
 	exec_utils.c \
 	forking_cmds.c \
 	executing_cmds.c \
