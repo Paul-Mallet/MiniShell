@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 16:42:51 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:56:56 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ char	*extract_key(char *value, int i)
 
 	j = i;
 	while (ft_isalnum(value[i]) || value[i] == '_')
-		j++;
-	key = ft_substr(value, i, j - i);
+		i++;
+	key = ft_substr(value, 0, i);
 	return (key);
 }
 

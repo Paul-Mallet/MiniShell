@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:33:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,26 @@
 
 static void	setup_pipes(t_cmd *cmds, t_cmd_order nbr)
 {
-	// check_redir(cmds);
 	if (nbr == FIRST_CMD)
 	{
-		dup2(cmds->fd[1], STDOUT_FILENO);
+		if (!cmds->has_output)
+			dup2(cmds->fd[1], STDOUT_FILENO);
 		close(cmds->fd[0]);
 		close(cmds->fd[1]);
 	}
 	else if (nbr == MID_CMD)
 	{
-		dup2(cmds->prev->fd[0], STDIN_FILENO);
-		dup2(cmds->fd[1], STDOUT_FILENO);
+		if (!cmds->has_input)
+			dup2(cmds->prev->fd[0], STDIN_FILENO);
+		if (!cmds->has_output)
+			dup2(cmds->fd[1], STDOUT_FILENO);
 		close(cmds->fd[0]);
 		close(cmds->fd[1]);  
 	}
 	else if (nbr == LAST_CMD)
 	{
-		dup2(cmds->prev->fd[0], STDIN_FILENO);
+		if (!cmds->has_input)
+			dup2(cmds->prev->fd[0], STDIN_FILENO);
 		close(cmds->prev->fd[1]); 
 	}
 }

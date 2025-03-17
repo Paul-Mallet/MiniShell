@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 11:15:15 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:28:23 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	fill_redir(t_token *tokens, t_redir *new)
 		else if (tokens->next->next && tokens->next->next->subtype == DELIM)
 			new->delimiter = ft_strdup(tokens->next->next->value);
 	}
-	// print_redir(new);
 }
 
 void	redir_add_back(t_redir **lst, t_redir *new)

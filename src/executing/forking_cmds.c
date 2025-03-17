@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:12:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ void	exec_simple_cmd(t_data *data)
 	pid_t	pid;
 	int		status;
 
-	check_redir(data->cmds, data);
-	if (!data->cmds->cmd[0])
-		return ;			
-	if (is_builtins(data->cmds->cmd[0]))
+	// if (!data->cmds->cmd[0])
+	// 	return ;		
+	if (is_builtins(data->cmds->cmd[0]) && !data->cmds->redir)
 		ft_builtins(data, data->cmds);
 	else 
 	{
@@ -63,7 +62,10 @@ void	exec_simple_cmd(t_data *data)
 		if (pid == -1)
 			perror("fork");
 		if (pid == 0)
+		{
+			check_redir(data->cmds, data);
 			executing_simple_cmd(data);
+		}
 		else
 		{
 			waitpid(pid, &status, 0);

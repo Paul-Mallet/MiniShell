@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/17 18:36:24 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:29:40 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ctrl_d_exit(t_data *data, char *prompt)
 	if (data->tokens)
 		free_tokens(&data->tokens);
 	printf("exit\n");
-	exit(EXIT_SUCCESS);
+	exit((unsigned char)data->exit_code % 256);
 }
 
 // fix '\'
@@ -55,18 +55,18 @@ void	loop_minishell(t_data *data, char **envp)
 		{
 			data->exit_code = g_exit_code;
 			g_exit_code = 0;
-		}
+		}	
 		if (data->input == NULL)
 			ctrl_d_exit(data, data->prompt);
 		if (!ft_lexer(data))
 			continue ;
-		// add_history(data->input);
+		add_history(data->input);
 		if (!ft_parsing(data->input, data))
 			continue ;
 		// print_token(data->tokens);
 		if (!init_cmd_struct(data))
 			continue ;
-		print_cmd_struct(data->cmds);
+		// print_cmd_struct(data->cmds);
 		exec(data);
 		free_processing(data);
 	}

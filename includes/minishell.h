@@ -102,6 +102,8 @@ typedef struct s_cmd
 	char			**cmd;  //OK build_cmd
 	struct s_redir	*redir;
 	int				id;  // Gestion de "<", "<<", ">" et ">>"
+	bool			has_input;
+	bool			has_output;
 }		t_cmd;
 
 /*
