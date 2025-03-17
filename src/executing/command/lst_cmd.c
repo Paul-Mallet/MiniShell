@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
-#include "../../../includes/executing.h"
+#include "minishell.h"
+#include "executing.h"
 
 t_cmd	*new_cmd(char **cmds)
 {

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 11:35:19 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 16:57:49 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ size_t	get_single_quotes_length(char *str);
 
 bool		is_executable(char *path, t_data *data);
 bool		is_pipe(char c);
-bool		is_dir(char *value);
 bool		is_redirection(char c);
+int			is_dir(char *value);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 14:26:51 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:35:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define EXECUTING_H
 # include "./minishell.h"
 
-# include "../includes/minishell.h"
-# include "../includes/builtins.h"
-# include "../includes/parsing.h"
+# include "minishell.h"
+# include "builtins.h"
+# include "parsing.h"
 
 /*
 	get paths for
@@ -63,11 +63,11 @@ void	*heredoc_name(t_redir *redir);
 */
 bool	check_if_is_last_in(t_redir *redir);
 bool	check_if_is_last_out(t_redir *redir);
-void	check_redir(t_cmd *cmds);
-void	redir_input(t_redir *redir, bool last_cmd);
-void	redir_output(t_redir *redir, bool last_cmd);
-void	redir_append(t_redir *redir, bool last_cmd);
-void	redir_heredoc(t_redir *redir, bool last_cmd);
+void	check_redir(t_cmd *cmds, t_data *data);
+void	redir_input(t_redir *redir, bool last_cmd, t_data *data);
+void	redir_output(t_redir *redir, bool last_cmd, t_data *data);
+void	redir_append(t_redir *redir, bool last_cmd, t_data *data);
+void	redir_heredoc(t_redir *redir, bool last_cmd, t_data *data);
 
 
 bool	write_heredoc(t_redir *redir);

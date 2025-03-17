@@ -6,11 +6,11 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 18:14:51 by pamallet          #+#    #+#             */
-/*   Updated: 2025/02/18 10:41:31 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:35:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 int	ft_isspace(const char c)
 {

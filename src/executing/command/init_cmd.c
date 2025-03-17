@@ -6,13 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 14:31:51 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
-#include "../../../includes/parsing.h"
-#include "../../../includes/executing.h"
+#include "minishell.h"
+#include "parsing.h"
+#include "executing.h"
 
 static unsigned int	cmds_len(t_token *tokens)
 {

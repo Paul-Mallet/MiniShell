@@ -6,12 +6,12 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/17 11:32:41 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/parsing.h"
+#include "minishell.h"
+#include "parsing.h"
 
 void	get_expanded(t_token *tokens, t_data *data)
 {
@@ -90,9 +90,9 @@ bool	ft_parsing(char *value, t_data *data)
 
 	trimmed = ft_strtrim(value, " \t\n");
 	data->tokens = first_tokenization(trimmed);
-	if (!check_tokens(data))
-		return (free_processing(data), false);
 	free(trimmed);
+	if (!check_tokens(data))
+		return (free_parsing(data), false);
 	join_tokens(&data->tokens);
 	subtyping_tokens(data);
 	get_expanded(data->tokens, data);

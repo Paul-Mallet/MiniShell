@@ -6,12 +6,12 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:36 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 14:51:50 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
+#include "minishell.h"
+#include "builtins.h"
 
 char	*go_to_home(t_env *env)
 {

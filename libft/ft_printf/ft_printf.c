@@ -6,11 +6,11 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 15:03:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 10:57:15 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:35:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_prcssformat(char format, va_list args, int fd)
 {

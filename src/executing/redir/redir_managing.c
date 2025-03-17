@@ -6,12 +6,12 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 14:27:32 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
-#include "../../../includes/executing.h"
+#include "minishell.h"
+#include "executing.h"
 
 bool	check_if_is_last_in(t_redir *redir)
 {
@@ -41,7 +41,7 @@ bool	check_if_is_last_out(t_redir *redir)
 	return (true);
 }
 
-void	check_redir(t_cmd *cmds)
+void	check_redir(t_cmd *cmds, t_data *data)
 {
 	t_redir	*current;
 	bool	is_last_in;
@@ -49,21 +49,19 @@ void	check_redir(t_cmd *cmds)
 
 	if (!cmds->redir)
 		return ;
-	is_last_in = false;
-	is_last_out = false;
 	current = cmds->redir;
 	while (current)
 	{
 		is_last_in = check_if_is_last_in(current);
 		is_last_out = check_if_is_last_out(current);
 		if (current->in_redir)
-			redir_input(current, is_last_in);
+			redir_input(current, is_last_in, data);
 		else if (current->out_redir)
-			redir_output(current, is_last_out);
+			redir_output(current, is_last_out, data);
 		else if (current->append)
-			redir_append(current, is_last_in);
+			redir_append(current, is_last_in, data);
 		else if (current->heredoc)
-			redir_heredoc(current, is_last_out);
+			redir_heredoc(current, is_last_out, data);
 		current = current->next;
 	}
 }

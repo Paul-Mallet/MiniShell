@@ -6,12 +6,12 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:00:32 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/03/15 17:02:05 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
-#include "../../../includes/parsing.h"
+#include "minishell.h"
+#include "parsing.h"
 
 /*
 	check if input is a full spaces string

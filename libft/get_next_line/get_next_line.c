@@ -6,11 +6,11 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 14:39:13 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/04 15:38:43 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:35:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_next_line.h"
+#include "get_next_line.h"
 
 char	*fill_buffer(int fd, char *buffer)
 {

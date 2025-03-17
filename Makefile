@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -I includes
 R_FLAG = -lreadline -lhistory
 
 SRC_DIR = src/

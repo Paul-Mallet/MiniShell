@@ -6,12 +6,12 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/16 16:46:03 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
-#include "../../../includes/parsing.h"
+#include "minishell.h"
+#include "parsing.h"
 
 char	*expand_variable(char *input, size_t *i, t_data *data)
 {
@@ -24,7 +24,7 @@ char	*expand_variable(char *input, size_t *i, t_data *data)
 	if (input[*i] == '?')
 	{
 		(*i)++;
-		return (ft_itoa(data->code));
+		return (ft_itoa(data->exit_code));
 	}
 	while (ft_isalnum(input[*i]) || input[*i] == '_')
 		(*i)++;

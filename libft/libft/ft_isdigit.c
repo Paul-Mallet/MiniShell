@@ -6,11 +6,11 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/14 15:34:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 10:41:23 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:35:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 int	ft_isdigit(int c)
 {

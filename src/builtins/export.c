@@ -6,13 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/16 16:44:50 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/builtins.h"
-#include "../../includes/parsing.h"
+#include "minishell.h"
+#include "builtins.h"
+#include "parsing.h"
 
 void	export_env_var(t_env **env, char *import)
 {

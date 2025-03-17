@@ -10,8 +10,8 @@
 // /*                                                                            */
 // /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/executing.h"
+#include "minishell.h"
+#include "executing.h"
 
 int	count_cmds(t_cmd *cmds)
 {
@@ -106,7 +106,7 @@ void	close_all_pipes(t_cmd *cmd)
 void	close_pipes(t_cmd *cmd)
 {
 	if (cmd->fd[0] >= 0)
-			close(cmd->fd[0]);
+		close(cmd->fd[0]);
 	if (cmd->fd[1] >= 0)
 		close(cmd->fd[1]);
 }

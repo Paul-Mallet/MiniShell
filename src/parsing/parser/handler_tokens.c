@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_first_tokenizer.c                          :+:      :+:    :+:   */
+/*   handler_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 10:23:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/16 16:55:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../../../includes/minishell.h"
-#include "../../../includes/parsing.h"
+#include "minishell.h"
+#include "parsing.h"
 
 t_token	*handle_redirection(char **input)
 {

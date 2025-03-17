@@ -6,15 +6,15 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 14:06:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:35:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/builtins.h"
-#include "../includes/parsing.h"
-#include "../includes/executing.h"
-#include "../includes/signals.h"
+#include "minishell.h"
+#include "builtins.h"
+#include "parsing.h"
+#include "executing.h"
+#include "signals.h"
 		
 void	free_data(t_data *data)
 {
@@ -23,16 +23,21 @@ void	free_data(t_data *data)
 	free_processing(data);
 }
 
-void	free_processing(t_data *data)
+void	free_parsing(t_data *data)
 {
 	if (data->tokens)
 		free_tokens(&data->tokens);
-	if (data->cmds)
-		free_cmd_struct(&data->cmds);
 	if (data->prompt)
 		free(data->prompt);
 	if (data->input)
 		free(data->input);
+}
+
+void	free_processing(t_data *data)
+{
+	free_parsing(data);
+	if (data->cmds)
+		free_cmd_struct(&data->cmds);
 	if (data->pids)
 		free(data->pids);
 	if (data->char_env)

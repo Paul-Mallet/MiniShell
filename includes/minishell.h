@@ -141,6 +141,7 @@ void	loop_minishell(t_data *data, char **envp);
 int		error_handling(t_error_code code, char *cmd);
 void	free_data(t_data *data);
 void	free_processing(t_data *data);
+void	free_parsing(t_data *data);
 bool	check_tokens(t_data *data);
 char 	*expander(char *value, t_data *data);
 

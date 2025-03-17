@@ -2,7 +2,7 @@
 ## ARGUMENTS
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -I includes
 AR = ar rcs
 RM = rm -rf
 RMD = rmdir

@@ -6,13 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:15:06 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 10:40:14 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../../includes/minishell.h"
-#include "../../includes/signals.h"
+#include "minishell.h"
+#include "signals.h"
 
 volatile sig_atomic_t g_exit_code = 0;
 
@@ -89,7 +89,7 @@ void	signals_handler(void)
 
 	sa.sa_handler = &sigint_handler;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;					//no flag to activate = sa_handler by dft
+	sa.sa_flags = SA_RESTART;	//0, no flag to activate = sa_handler by dft
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }

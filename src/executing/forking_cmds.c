@@ -6,13 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 14:40:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-#include "../../includes/executing.h"
-#include "../../includes/signals.h"
+#include "minishell.h"
+#include "executing.h"
+#include "signals.h"
 
 void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 {
@@ -25,12 +25,12 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		perror("fork");
 	else if (pid == 0)
 	{
-		check_redir(cmds);
+		check_redir(cmds, data);
 		if (!cmds->cmd)
 		{
 			close_pipes(cmds);
 			free_data(data);
-			exit (1);			
+			exit(1);
 		}
 		if (is_builtins(cmds->cmd[0]))
 			ft_builtins(data, cmds);
@@ -39,7 +39,7 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		{
 			close_pipes(cmds);
 			free_data(data);
-			exit (2);
+			exit(2);
 		}
 		executing_command(cmds, path, data, nbr);
 	}
@@ -50,9 +50,10 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 void	exec_simple_cmd(t_data *data)
 {
 	pid_t	pid;
+	int		status;
 
-	check_redir(data->cmds);
-	if (!data->cmds->cmd)
+	check_redir(data->cmds, data);
+	if (!data->cmds->cmd[0])
 		return ;			
 	if (is_builtins(data->cmds->cmd[0]))
 		ft_builtins(data, data->cmds);
@@ -65,11 +66,16 @@ void	exec_simple_cmd(t_data *data)
 			executing_simple_cmd(data);
 		else
 		{
-			waitpid(pid, &data->exit_code, 0);
-			if (WIFEXITED(data->exit_code))
-				data->exit_code = WEXITSTATUS(data->exit_code);
+			waitpid(pid, &status, 0);
+			if (WIFEXITED(status))
+				data->exit_code = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				data->exit_code = 128 + WTERMSIG(status);
 		}
 	}
+	// if (data->exit_code != 0)
+	// 	return (false);
+	// return (true);
 }
 
 // int	error_path(char **paths, char *path, t_data *data)

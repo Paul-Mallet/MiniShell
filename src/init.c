@@ -6,15 +6,15 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/17 14:02:39 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:36:24 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include "../includes/builtins.h"
-#include "../includes/parsing.h"
-#include "../includes/executing.h"
-#include "../includes/signals.h"
+#include "minishell.h"
+#include "builtins.h"
+#include "parsing.h"
+#include "executing.h"
+#include "signals.h"
 
 void	init_data(t_data *data)
 {
@@ -24,22 +24,8 @@ void	init_data(t_data *data)
 	data->tokens = NULL;
 	data->prompt = NULL;
 	data->char_env = NULL;
-	data->exit_code = 0; //g_exit_code
+	data->exit_code = 0;
 }
-
-// static char	*get_prompt(void)
-// {
-// 	char	*prompt;
-// 	char	name[BUFFER_SIZE];
-
-// 	if (!getcwd(name, BUFFER_SIZE))
-// 	{
-// 		perror("getcwd error");
-// 		return (NULL);
-// 	}
-// 	prompt = ft_strjoin(name, "$ ");
-// 	return (prompt);
-// }
 
 void	ctrl_d_exit(t_data *data, char *prompt)
 {
@@ -55,7 +41,7 @@ void	ctrl_d_exit(t_data *data, char *prompt)
 	exit(EXIT_SUCCESS);
 }
 
-// fix cd
+// fix '\'
 void	loop_minishell(t_data *data, char **envp)
 {
 	data->input = NULL;
@@ -64,22 +50,24 @@ void	loop_minishell(t_data *data, char **envp)
 		return ;
 	while (1)
 	{
-		// data->prompt = get_prompt();
 		data->input = readline("$");
+		if (g_exit_code == 130) //Ctrl C = 130
+		{
+			data->exit_code = g_exit_code;
+			g_exit_code = 0;
+		}
 		if (data->input == NULL)
 			ctrl_d_exit(data, data->prompt);
 		if (!ft_lexer(data))
 			continue ;
-		add_history(data->input);
+		// add_history(data->input);
 		if (!ft_parsing(data->input, data))
 			continue ;
-		print_token(data->tokens);
+		// print_token(data->tokens);
 		if (!init_cmd_struct(data))
 			continue ;
 		print_cmd_struct(data->cmds);
 		exec(data);
-		if (g_exit_code)
-			g_exit_code = 0;
 		free_processing(data);
 	}
 	free_data(data);

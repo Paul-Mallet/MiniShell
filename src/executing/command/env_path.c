@@ -6,13 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 14:46:16 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
-#include "../../../includes/builtins.h"
-#include "../../../includes/parsing.h"
+#include "minishell.h"
+#include "builtins.h"
+#include "parsing.h"
 
 bool	is_executable(char *cmd, t_data *data)
 {
@@ -22,13 +22,13 @@ bool	is_executable(char *cmd, t_data *data)
 		data->exit_code = 127;
 		return (false);
 	}
-	if (is_dir(cmd))
+	if (is_dir(cmd) == 1)
 	{
 		error_handling(ERR_CMD_NOT_FOUND, cmd);
 		data->exit_code = 126;
 		return (false);
 	}
-	if (access(cmd, X_OK) != 0)
+	if (!access(cmd, X_OK))
 	{
 		error_handling(ERR_PERMISSION_DENIED, cmd);
 		data->exit_code = 126;
@@ -69,7 +69,6 @@ char	*find_path(t_data *data, char **path_var, char *cmd)
 		path = construct_path(path_var[i], cmd);
 		if (path && access(path, X_OK) == 0)
 		{
-			is_executable(path, data);
 			free_strs(path_var);
 			return (path);
 		}
@@ -77,8 +76,8 @@ char	*find_path(t_data *data, char **path_var, char *cmd)
 		i++;
 	}
 	free_strs(path_var);
-	data->code = 127;
 	error_handling(ERR_CMD_NOT_FOUND, cmd);
+	data->exit_code = 127;
 	return (NULL);
 }
 
@@ -109,6 +108,7 @@ void	free_strs(char **paths)
 		i++;
 	}
 	free(paths);
+	paths = NULL;
 }
 
 char	*construct_path(char *dir, char *cmd)
@@ -124,7 +124,7 @@ char	*construct_path(char *dir, char *cmd)
 	return (path);
 }
 
-bool	is_dir(char *value)
+int	is_dir(char *value)
 {
 	struct stat	file_infos;
 
