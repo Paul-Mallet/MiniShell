@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:15:06 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/13 19:15:30 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:40:14 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,24 @@ volatile sig_atomic_t g_exit_code = 0;
 	sa.sa_flags = SA_RESTART; -> reload syst calls interupt by signal (read(), write())
 */
 
-static int real_sigint_handler() {
-	if (g_exit_code == 130) {
-			printf("\n");
-	rl_replace_line("", 0);	//outputting a new line
-	rl_on_new_line();		//tell moved onto new(empty) line, after outputting a newline
-	rl_redisplay();			
-	}
-	return (0);
-}
+// static int real_sigint_handler() {
+// 	if (g_exit_code == 130) {
+// 			printf("\n");
+// 	rl_replace_line("", 0);	//outputting a new line
+// 	rl_on_new_line();		//tell moved onto new(empty) line, after outputting a newline
+// 	rl_redisplay();			
+// 	}
+// 	return (0);
+// }
 
 
 void	sigint_handler(int sig)
 {
 	(void)sig;
-	// printf("\n");
-	// rl_replace_line("", 0);	//outputting a new line
-	// rl_on_new_line();		//tell moved onto new(empty) line, after outputting a newline
-	// rl_redisplay();			//display with the current contents of rl_line_buffer
+	printf("\n");
+	rl_replace_line("", 0);	//outputting a new line
+	rl_on_new_line();		//tell moved onto new(empty) line, after outputting a newline
+	rl_redisplay();			//display with the current contents of rl_line_buffer
 	g_exit_code = 130;
 }
 
@@ -89,9 +89,7 @@ void	signals_handler(void)
 
 	sa.sa_handler = &sigint_handler;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;					//no flag to activate = sa_handler by dft
+	sa.sa_flags = SA_RESTART;					//no flag to activate = sa_handler by dft
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
-	rl_event_hook = real_sigint_handler;
-
 }

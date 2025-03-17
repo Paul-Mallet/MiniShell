@@ -36,8 +36,8 @@ SRCS_COMMAND = $(addprefix $(SRC_DIR)$(SRC_COMMAND), \
 SRCS_EXECUTING = $(addprefix $(SRC_DIR)$(SRC_EXECUTING), \
 	exec.c \
 	exec_utils.c \
-	exec_cmd.c \
-	exec_cmd_utils.c \
+	forking_cmds.c \
+	executing_cmds.c \
 	here_doc.c)
 SRCS_BUILTINS = $(addprefix $(SRC_DIR)$(SRC_BUILTINS), \
 	builtins.c \

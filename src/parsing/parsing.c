@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/16 18:54:25 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:32:41 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,21 @@ static bool	check_whitespace(t_token *tokens)
 	return (false);
 }
 
-int	ft_parsing(char *value, t_data *data)
+bool	ft_parsing(char *value, t_data *data)
 {
 	char	*trimmed;
 
 	trimmed = ft_strtrim(value, " \t\n");
 	data->tokens = first_tokenization(trimmed);
 	if (!check_tokens(data))
-		return (free_processing(data), 0);
+		return (free_processing(data), false);
 	free(trimmed);
 	join_tokens(&data->tokens);
-	second_tokenization(data);
+	subtyping_tokens(data);
 	get_expanded(data->tokens, data);
 	remove_quotes(data->tokens);
 	if (!check_whitespace(data->tokens))
-		return (free_processing(data), 0);
-	return (1);
+		return (free_processing(data), false);
+	return (true);
 }
 

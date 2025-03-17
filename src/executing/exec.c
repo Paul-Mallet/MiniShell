@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/16 19:09:36 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:50:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,17 @@ void	exec(t_data *data)
 
 	i = 0;
 	check_heredoc(data);
-	nb_cmd = count_cmds(data->cmds);
 	current = data->cmds;
 	if (!data->cmds)
 		return ;
 	data->char_env = make_env(data->env);
+	nb_cmd = count_cmds(data->cmds);
 	if (nb_cmd == 1)
 	{
 		exec_simple_cmd(data);
 		return ;
 	}
-	init_id_cmds(data->cmds);
-	data->pids = malloc(sizeof(int) * nb_cmd);
+	data->pids = (int *)malloc(sizeof(int) * nb_cmd);
 	while (current)
 	{
 		if (current->next && pipe(current->fd) == -1)

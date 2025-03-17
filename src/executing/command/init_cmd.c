@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/14 21:40:15 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:52:24 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,18 @@ void	print_cmd(char **cmds)
 		printf("cmd[%d]: %s\n", i, cmds[i]);
 }
 
-/*
-	init_cmds_struct
-	1. build_cmd -> construit la char **cmd valide(stop a delim / pipe)
-	2. get_pipe_token -> avance le token
-*/
-t_cmd	*init_cmd_struct(t_token *tokens)
+bool	init_cmd_struct(t_data *data)
 {
 	char	**cmd;
-	char	**prompt_cmd;
 	t_cmd	*head;
 	t_cmd	*new;
 	t_token	*current;
+	char	**prompt_cmd;
 
 	cmd = NULL;
-	prompt_cmd = NULL;
 	head = NULL;
 	new = NULL;
-	current = tokens;
+	current = data->tokens;
 	while(current)
 	{
 		cmd = malloc_cmd(current);
@@ -116,8 +110,11 @@ t_cmd	*init_cmd_struct(t_token *tokens)
 		cmd_struct_add_back(&head, new);
 		init_redirs(current, new);
 		current = to_pipe_or_last_token(current);
-		// free(cmd);
 		current = current->next;
 	}
-	return (head);
+	if (!head)
+		return (free_processing(data), false);
+	data->cmds = head;
+	init_id_cmds(data->cmds);
+	return (true);
 }

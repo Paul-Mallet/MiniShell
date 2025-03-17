@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 16:55:46 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/18 10:41:37 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 09:06:13 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	ft_nbrlen(int nb)
 	int	len;
 
 	len = 0;
+	if (nb == 0)
+		return (1);
 	if (nb <= 0)
 		len++;
 	while (nb != 0)

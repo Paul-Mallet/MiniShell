@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   second_tokenizer.c                                 :+:      :+:    :+:   */
+/*   subtype_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:09:37 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/03/14 20:50:23 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 09:59:17 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_token_word(t_token *current)
 		current->subtype = ARG;
 }
 
-void	second_tokenization(t_data *data)
+void	subtyping_tokens(t_data *data)
 {
 	t_token	*current;
 

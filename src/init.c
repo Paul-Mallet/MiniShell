@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/16 18:56:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/17 11:34:06 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	loop_minishell(t_data *data, char **envp)
 	while (1)
 	{
 		// data->prompt = get_prompt();
+		// fix cd
 		data->input = readline("$");
 		if (data->input == NULL)
 			ctrl_d_exit(data, data->prompt);
@@ -75,9 +76,10 @@ void	loop_minishell(t_data *data, char **envp)
 			continue ;
 		add_history(data->input);
 		if (!ft_parsing(data->input, data))
-			continue;
+			continue ;
 		print_token(data->tokens);
-		data->cmds = init_cmd_struct(data->tokens);
+		if (!init_cmd_struct(data))
+			continue ;
 		print_cmd_struct(data->cmds);
 		exec(data);
 		if (g_exit_code)
