@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 19:33:07 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 07:15:25 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,31 @@ static void	setup_pipes(t_cmd *cmds, t_cmd_order nbr)
 
 void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr)
 {
+	// char	*path;
+
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	setup_pipes(cmds, nbr);
+	if (is_builtins(cmds->cmd[0]))
+	{
+		printf("\nexec_smpl cmd %s %d\n", data->cmds->redir->file, data->cmds->redir->fd);
+		ft_builtins(data, cmds);
+		free_data(data);
+		exit (1);
+	}
+	// path = check_path(data, data->cmds->cmd[0]);
+	// if (!path)
+	// {
+	// 	free_strs(data->char_env);
+	// 	free_data(data);
+	// 	printf("exit_code: %d\n", data->exit_code);
+	// 	exit(data->exit_code);
+	// }
 	if (cmds->prev)
 		close_pipes(cmds->prev);	
 	execve(path, cmds->cmd, data->char_env);
 	perror("execve");
+	// free_strs(data->char_env);
 	if (path)
 		free(path);
 	free_data(data);
@@ -60,12 +78,19 @@ void	executing_simple_cmd(t_data *data)
 {
 	char	*path;
 
-	check_redir(data->cmds, data);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+	if (is_builtins(data->cmds->cmd[0]))
+	{
+		printf("\nexec_smpl cmd %s %d\n", data->cmds->redir->file, data->cmds->redir->fd);
+		ft_builtins(data, data->cmds);
+		free_data(data);
+		exit (1);
+	}
 	path = check_path(data, data->cmds->cmd[0]);
 	if (!path)
 	{
+		// free_strs(data->char_env);
 		free_data(data);
 		printf("exit_code: %d\n", data->exit_code);
 		exit(data->exit_code);
@@ -74,6 +99,7 @@ void	executing_simple_cmd(t_data *data)
 		return ;
 	execve(path, data->cmds->cmd, data->char_env);
 	perror("execve");
+	// free_strs(data->char_env);
 	if (path)
 		free(path);
 	free_data(data);

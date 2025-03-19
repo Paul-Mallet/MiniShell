@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:54:11 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 19:35:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:01:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,20 @@ void	redir_input(t_redir *redir, bool is_last_in, t_data *data)
 	{
 		perror("open");
 		data->exit_code = 1;
+		close(redir->fd);
 		return ;
 	}
 	if (is_last_in)
 	{
+		close(STDIN_FILENO);
 		if (dup2(redir->fd, STDIN_FILENO) == -1)
 		{
 			perror("dup2");
 			close(redir->fd);
-			// return (false);
+			return ;
 		}
 	}
 	close(redir->fd);
-	// return (is_last_in);
 }
 
 void	redir_output(t_redir *redir, bool is_last_out, t_data *data)
@@ -43,19 +44,20 @@ void	redir_output(t_redir *redir, bool is_last_out, t_data *data)
 	{
 		perror("open");
 		data->exit_code = 1;
+		close(redir->fd);
 		return ;
 	}
 	if (is_last_out)
 	{
+		close(STDOUT_FILENO);
 		if (dup2(redir->fd, STDOUT_FILENO) == -1)
 		{
 			perror("dup2");
 			close(redir->fd);
-			// return (false);
+			return ;
 		}
 	}
 	close(redir->fd);
-	// return (is_last_out);
 }
 
 void	redir_append(t_redir *redir, bool is_last_out, t_data *data)
@@ -65,19 +67,20 @@ void	redir_append(t_redir *redir, bool is_last_out, t_data *data)
 	{
 		perror("open");
 		data->exit_code = 1;
+		close(redir->fd);
 		return ;
 	}
 	if (is_last_out)
 	{
+		close(STDOUT_FILENO);
 		if (dup2(redir->fd, STDOUT_FILENO) == -1)
 		{
 			perror("dup2");
 			close(redir->fd);
-			// return (false);
+			return ;
 		}
 	}
 	close(redir->fd);
-	// return (is_last_out);
 }
 
 void	redir_heredoc(t_redir *redir, bool is_last_in, t_data *data)
@@ -87,18 +90,19 @@ void	redir_heredoc(t_redir *redir, bool is_last_in, t_data *data)
 	{
 		perror("open");
 		data->exit_code = 1;
+		close(redir->fd);
 		return ;
 	}
 	if (is_last_in)
 	{
+		close(STDIN_FILENO);
 		if (dup2(redir->fd, STDIN_FILENO) == -1)
 		{
 			perror("dup2");
 			close(redir->fd);
-			// return (false);
+			return ;
 		}
 	}
 	close(redir->fd);
 	unlink(redir->file);
-	// return (is_last_in);
 }

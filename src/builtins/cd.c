@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:36 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 03:49:54 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,17 @@ void	handle_pwd(t_env *env)
 	}
 }
 
-void	ft_cd(t_env *env, char *path)
+void	ft_cd(t_data *data, t_env *env, char *path)
 {
 	if (!path)
 		path = go_to_home(env);
 	handle_oldpwd(env);
 	if (chdir(path) == -1)
+	{
 		perror("cd");
+		data->exit_code = 2;
+		return ;
+	}
 	handle_pwd(env);
+	data->exit_code = 0;
 }

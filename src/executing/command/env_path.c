@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 07:12:31 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,13 @@ char	**get_path_var(t_env *env)
 
 void	free_strs(char **paths)
 {
-	int	i;
+	int		i;
 
+	
 	i = 0;
 	if (!paths)
+		return ;
+	if (paths[0] == NULL)
 		return ;
 	while (paths[i])
 	{

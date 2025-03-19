@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 19:12:15 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 07:14:29 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		path = check_path(data, cmds->cmd[0]);
 		if (!path)
 		{
+			// free_strs(data->char_env);
 			close_pipes(cmds);
 			free_data(data);
 			exit(2);
@@ -51,9 +52,7 @@ void	exec_simple_cmd(t_data *data)
 {
 	pid_t	pid;
 	int		status;
-
-	// if (!data->cmds->cmd[0])
-	// 	return ;		
+	
 	if (is_builtins(data->cmds->cmd[0]) && !data->cmds->redir)
 		ft_builtins(data, data->cmds);
 	else 

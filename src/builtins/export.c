@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 19:17:33 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 04:12:11 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	export_env_var(t_env **env, char *import)
 	key = extract_key(import, 0);
 	while (current)
 	{
-		if (ft_strcmp(current->key, key) == 0) //!
+		if (ft_strcmp(current->key, key) == 0)
 		{
 			free (current->value);
 			current->value = ft_strdup(ft_strchr(import, '=') + 1);
@@ -39,20 +39,25 @@ void	export_env_var(t_env **env, char *import)
 	free(key);
 }
 
-void	ft_export(t_env *env, char **cmd)
+void	ft_export(t_data *data, char **cmd)
 {
 	int	i;
 
 	i = 0;
 	if (!cmd[i + 1])
 	{
-		print_env(env);
+		print_env(data->env);
 		return ;
 	}
 	while (cmd[++i])
 	{
 		if (check_key_fmt(cmd[i]))
-			export_env_var(&env, cmd[i]);
+		{
+			data->exit_code = 0;
+			export_env_var(&data->env, cmd[i]);
+		}
+		else
+			data->exit_code = 2;
 	}
 }
 

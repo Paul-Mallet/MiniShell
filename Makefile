@@ -20,7 +20,7 @@ OBJ_DIR = obj/
 
 SRCS = $(addprefix $(SRC_DIR), \
 	main.c \
-	init.c \
+	loop.c \
 	error_management.c \
 	free_data.c	\
 	check_tokens.c)

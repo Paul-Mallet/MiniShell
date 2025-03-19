@@ -6,49 +6,50 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 19:31:43 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/18 11:48:50 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "executing.h"
 
-bool	check_if_is_last_in(t_redir *redir, t_cmd *cmds)
+bool	check_if_is_last_in(t_redir *redir, t_cmd *cmd)
 {
 	t_redir	*current;
+	t_redir	*last_input = NULL;
 
-	current = redir;
-	while (current->next)
+	current = cmd->redir;
+	while (current)
 	{
-		if ((current->next->heredoc || current->next->in_redir))
-			return(false);
+		if (current->heredoc || current->in_redir)
+			last_input = current;
 		current = current->next;
 	}
-	cmds->has_input = true;
-	return (true);
+	return (redir == last_input);
 }
 
-bool	check_if_is_last_out(t_redir *redir, t_cmd *cmds)
+bool	check_if_is_last_out(t_redir *redir, t_cmd *cmd)
 {
 	t_redir	*current;
+	t_redir	*last_output = NULL;
 
-	current = redir;
-	while (current->next)
+	current = cmd->redir;
+	while (current)
 	{
-		if ((current->next->append || current->next->out_redir))
-			return(false);
+		if (current->append || current->out_redir)
+			last_output = current;
 		current = current->next;
 	}
-	cmds->has_output = true;
-	return (true);
+	return (redir == last_output);
 }
+
 
 void	check_redir(t_cmd *cmds, t_data *data)
 {
 	t_redir	*current;
 	bool	is_last_in;
 	bool	is_last_out;
-
+	
 	if (!cmds->redir)
 		return ;
 	current = cmds->redir;
@@ -61,10 +62,11 @@ void	check_redir(t_cmd *cmds, t_data *data)
 		else if (current->out_redir)
 			redir_output(current, is_last_out, data);
 		else if (current->append)
-			redir_append(current, is_last_in, data);
+			redir_append(current, is_last_out, data);
 		else if (current->heredoc)
-			redir_heredoc(current, is_last_out, data);
+			redir_heredoc(current, is_last_in, data);
+		if (data->exit_code == 1)
+			break ;
 		current = current->next;
 	}
 }
-

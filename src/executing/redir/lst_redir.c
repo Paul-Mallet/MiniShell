@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 11:15:15 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 19:28:23 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:24:05 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ t_redir	*new_redir(void)
 
 void	fill_redir(t_token *tokens, t_redir *new)
 {
-	if (tokens->next && tokens->next->subtype == FILES)
+	if (tokens->next && tokens->next->type == WORD)
 		new->file = ft_strdup(tokens->next->value);
-	else if (tokens->next->next && tokens->next->next->subtype == FILES)
+	else if (tokens->next->next && tokens->next->next->type == WORD)
 		new->file = ft_strdup(tokens->next->next->value);
 	new->value = ft_strdup(tokens->value);
 	if (tokens->subtype == APPEND)
@@ -82,7 +82,7 @@ void	init_redirs(t_token *tokens, t_cmd *new_cmd)
 
 	head = NULL;
 	current = tokens;
-	while(current && current->subtype != IS_PIPE) //stop PIPE
+	while(current && current->subtype != IS_PIPE)
 	{
         if (current->type == REDIR)
 		{

@@ -6,30 +6,35 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 05:16:18 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-bool	check_large_n(char *n)
+#include <stdbool.h>
+
+bool check_large_n(char *n)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	if (n[i] != '-')
-		return (false);
+	if (!n || n[i] != '-')
+		return false;
 	i++;
-	while(n[i])
+	if (n[i] == '\0')
+		return false;
+	while (n[i])
 	{
 		if (n[i] != 'n')
-			return (false);
+			return false;
 		i++;
 	}
-	return (true);
+	return true;
 }
 
-int	ft_echo(char **cmds)
+
+int	ft_echo(t_data *data, char **cmds)
 {
 	bool	arg_n;
 	int		i;
@@ -39,7 +44,7 @@ int	ft_echo(char **cmds)
 	i++;
 	while (cmds[i])
 	{
-		if (!ft_strcmp(cmds[i], "-n"))
+		if (!ft_strcmp(cmds[i], "-n") && cmds[i][1] == 'n')
 		{
 			arg_n = true;
 			i++;
@@ -52,12 +57,13 @@ int	ft_echo(char **cmds)
 		else
 			break;
 	}
-	if (!ft_echo_next(cmds, i, arg_n))
-		return (0); 
+	if (!ft_echo_next(data, cmds, i, arg_n))
+		return (0);
+	data->exit_code = 2;
 	return (1);  // error a implementer
 }
 
-int	ft_echo_next(char **cmd, int i, bool arg_n)
+int	ft_echo_next(t_data *data, char **cmd, int i, bool arg_n)
 {
 	while(cmd[i])
 	{
@@ -72,7 +78,7 @@ int	ft_echo_next(char **cmd, int i, bool arg_n)
 		i++;
 	}
 	if (!arg_n)
-	printf("\n");
+		printf("\n");
+	data->exit_code = 0;	//always true
 	return (0);
-    return (0);
 }

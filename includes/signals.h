@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 19:05:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 06:24:08 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 extern volatile sig_atomic_t g_exit_code;
 
 void	signals_handler(void);
-void	ctrl_d_exit(t_data *data, char *prompt);
+void	ctrl_d_exit(t_data *data);
 
 #endif
