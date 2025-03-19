@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 12:46:32 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:15:21 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	free_data(t_data *data)
 void	free_parsing(t_data *data)
 {
 	if (data->tokens)
+	
 		free_tokens(&data->tokens);
 	if (data->prompt)
 		free(data->prompt);

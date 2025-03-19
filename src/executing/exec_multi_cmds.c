@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:33:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 14:42:41 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:08:31 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,22 +85,22 @@ void	exec_multiple_cmds(t_data *data, int nb_cmd)
 				perror("pipe");
 				return ;
 			}
-			else 
-				printf("%s piped\n", current->cmd[0]);
+			// else
+				// printf("%s piped\n", current->cmd[0]);
 		}
 		// else
-		printf("fds after piping fd[0] : %d fd[1] : %d\n", current->fd[0], current->fd[1]);
-		printf("curr id: %d\n", current->id);
+		// printf("fds after piping fd[0] : %d fd[1] : %d\n", current->fd[0], current->fd[1]);
+		// printf("curr id: %d\n", current->id);
 		if (current->id == 0)
 			exec_command(current, data, FIRST_CMD, &i);
 		else if (current->id == (nb_cmd - 1))
 		{
-			printf("\ncmd last: %s\nprevious fd[0] %d\nprevious fd[1] %d\n", current->cmd[0], current->prev->fd[0], current->prev->fd[1]);
+			// printf("\ncmd last: %s\nprevious fd[0] %d\nprevious fd[1] %d\n", current->cmd[0], current->prev->fd[0], current->prev->fd[1]);
 			exec_command(current, data, LAST_CMD, &i);
 		}
 		else
 			exec_command(current, data, MID_CMD, &i);
-		printf("\ncmd: %s\nfd[0] %d\nfd[1] %d\n", current->cmd[0], current->fd[0], current->fd[1]);
+		// printf("\ncmd: %s\nfd[0] %d\nfd[1] %d\n", current->cmd[0], current->fd[0], current->fd[1]);
 		current = current->next;
 	}
 	close_all_pipes(data->cmds);

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 14:31:43 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:33:20 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		perror("fork");
 	else if (pid == 0)
 	{
-		// check_redir(cmds, data);
+		check_redir(cmds, data);
 		if (data->cmds->cmd[0] == NULL)
 		{
 			printf("error cmd\n");
@@ -33,8 +33,8 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 			free_data(data);
 			exit(1);
 		}
-		if (is_builtins(cmds->cmd[0]))
-			ft_builtins(data, cmds);
+		// if (is_builtins(cmds->cmd[0]))
+		// 	ft_builtins(data, cmds);
 		path = check_path(data, cmds->cmd[0]); //! "echo"
 		if (!path)
 		{
@@ -66,13 +66,11 @@ void	exec_simple_cmd(t_data *data)
 		if (pid == 0)
 		{
 			check_redir(data->cmds, data);
-			// print_cmd_struct(data->cmds);
 			if (data->cmds->cmd[0] == NULL)
 			{
 				free_data(data);
 				exit(1);
 			}
-			printf("passed!\n");
 			executing_simple_cmd(data);
 		}
 		else

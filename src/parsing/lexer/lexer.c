@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:00:32 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:03:19 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ bool	ft_lexer(t_data *data)
 		return (free(data->input), false);
 	if (!ft_valid_quotes(data->input))
 	{
-		error_handling(ERR_UNCLOSED_QUOTES, "\" or \'");
+		error_handling("\" or \'");
 		data->exit_code = 2;
 		add_history(data->input);
 		free(data->input);

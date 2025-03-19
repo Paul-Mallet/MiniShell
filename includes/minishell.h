@@ -17,6 +17,7 @@
 # include "../libft/includes/ft_printf.h"
 # include <fcntl.h>
 # include <stdio.h>
+# include <errno.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
@@ -140,7 +141,7 @@ typedef struct	s_data
 
 void	init_data(t_data *data);
 void	loop_minishell(t_data *data, char **envp);
-int		error_handling(t_error_code code, char *cmd);
+int		error_handling(char *msg);
 void	free_data(t_data *data);
 void	free_processing(t_data *data);
 void	free_parsing(t_data *data);

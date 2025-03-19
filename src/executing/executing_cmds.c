@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 14:44:14 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:50:14 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,40 +16,20 @@
 
 static void	setup_pipes(t_cmd *cmds, t_cmd_order nbr)
 {
-	// printf("has_input: %d\n", cmds->has_input);
-	// printf("has_output: %d\n", cmds->has_output);
-	// if (nbr == FIRST_CMD)
-	// {
-	// 	printf("cmd : %s\n", cmds->cmd[0]);
-	// 	printf("nbr == first_cmd\ninput %d\noutput %d\n", cmds->has_input, cmds->has_output);
-	// 	printf("fd[0] = %d\nfd[1] = %d\n", cmds->fd[0], cmds->fd[1]);
-	// }
-	// else if (nbr == MID_CMD)
-	// {
-	// 	printf("cmd : %s\n", cmds->cmd[0]);
-	// 	printf("nbr == mid_cmd\ninput %d\noutput %d\n", cmds->has_input, cmds->has_output);
-	// 	printf("prev fd[0] = %d\nfd[1] = %d\n", cmds->prev->fd[0], cmds->fd[1]);
-	// }
-	// else if (nbr == LAST_CMD)
-	// {
-	// 	printf("cmd : %s\n", cmds->cmd[0]);
-	// 	printf("nbr == last_cmd\ninput %d\noutput %d\n", cmds->has_input, cmds->has_output);
-	// 	printf("prev fd[0] = %d\n", cmds->prev->fd[0]);
-	// }
 	if (nbr == FIRST_CMD)
 	{
-		// if (cmds->has_output == false)
+		if (cmds->has_output == false)
 			dup2(cmds->fd[1], STDOUT_FILENO);
 		close(cmds->fd[0]);
 		close(cmds->fd[1]);
 	}
 	else if (nbr == MID_CMD)
 	{
-		// if (!cmds->has_input == false)
+		if (!cmds->has_input == false)
 			dup2(cmds->prev->fd[0], STDIN_FILENO);
-		// if (!cmds->has_output == false)
+		if (!cmds->has_output == false)
 			dup2(cmds->fd[1], STDOUT_FILENO);
-		// close(cmds->prev->fd[1]);
+		close(cmds->prev->fd[1]);
 		close(cmds->prev->fd[0]);
 		close(cmds->prev->fd[1]);
 		close(cmds->fd[1]);
@@ -57,7 +37,7 @@ static void	setup_pipes(t_cmd *cmds, t_cmd_order nbr)
 	}
 	else if (nbr == LAST_CMD)
 	{
-		// if (!cmds->has_input == false)
+		if (!cmds->has_input == false)
 			dup2(cmds->prev->fd[0], STDIN_FILENO);
 		close(cmds->prev->fd[0]);
 		close(cmds->prev->fd[1]);
@@ -73,15 +53,13 @@ void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr)
 	if (is_builtins(cmds->cmd[0]))
 	{
 		ft_builtins(data, cmds);
+		free(path);
 		free_data(data);
 		exit (1);
 	}
-	// if (cmds->prev)
-		// close_pipes(cmds->prev);
 	execve(path, cmds->cmd, data->char_env);
 	perror("execve");
-	if (path)
-		free(path);
+	free(path);
 	free_data(data);
 	exit(EXIT_FAILURE);
 }

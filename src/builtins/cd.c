@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:36 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 03:49:54 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:18:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ char	*go_to_home(t_env *env)
 		if (ft_strcmp(curr->key, "HOME") == 0)
 		{
 			home = ft_strdup(curr->value);
-			break ;
+			return (home);
 		}
-
 		curr = curr->next;
 	}
 	return (home);
@@ -72,7 +71,15 @@ void	handle_pwd(t_env *env)
 void	ft_cd(t_data *data, t_env *env, char *path)
 {
 	if (!path)
+	{
 		path = go_to_home(env);
+		if (!path)
+		{
+			printf("bash: cd: \n");
+			data->exit_code = 1;
+			return ;
+		}
+	}
 	handle_oldpwd(env);
 	if (chdir(path) == -1)
 	{

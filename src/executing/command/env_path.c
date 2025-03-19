@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 12:53:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:02:59 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@ bool	is_executable(char *cmd, t_data *data)
 {
 	if (access(cmd, F_OK) != 0)
 	{
-		error_handling(ERR_CMD_NOT_FOUND, cmd);
+		error_handling(cmd);
 		data->exit_code = 127;
 		return (false);
 	}
 	if (is_dir(cmd) == 1)
 	{
-		error_handling(ERR_CMD_NOT_FOUND, cmd);
+		error_handling(cmd);
 		data->exit_code = 126;
 		return (false);
 	}
 	if (!access(cmd, X_OK))
 	{
-		error_handling(ERR_PERMISSION_DENIED, cmd);
+		error_handling(cmd);
 		data->exit_code = 126;
 		return (false);
 	}
@@ -76,7 +76,7 @@ char	*find_path(t_data *data, char **path_var, char *cmd)
 		i++;
 	}
 	free_strs(path_var); //
-	error_handling(ERR_CMD_NOT_FOUND, cmd);
+	error_handling(cmd);
 	data->exit_code = 127;
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/19 03:28:40 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:03:11 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,17 @@ bool	check_tokens (t_data *data)
 	{
 		if (!current->next && current->type != WORD)
 		{
-			error_handling(SYNTAX_ERROR_NEAR_TOKEN, current->value);
+			error_handling(current->value);
 			return (false);
 		}
 		if (current->type == REDIR && current->next && (current->next->type != WORD && current->next->type != SEPARATOR))
 		{
-			error_handling(SYNTAX_ERROR_NEAR_TOKEN, current->value);
+			error_handling(current->value);
 			return (false);
 		}
 		if (ft_strcmp(current->value, "\\") == 0 || ft_strcmp(current->value, ";") == 0)
 		{
-			error_handling(SYNTAX_ERROR_NEAR_TOKEN, current->value);
+			error_handling(current->value);
 			return (false);
 		}
 		current = current->next;
@@ -126,7 +126,7 @@ bool	ft_parsing(char *value, t_data *data)
 	get_expanded(data->tokens, data);
 	remove_quotes(data->tokens);
 	if (!check_whitespace(data->tokens))
-		return (free_processing(data), false);
+		return (free_parsing(data), false);
 	return (true);
 }
 
