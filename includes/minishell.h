@@ -146,6 +146,7 @@ void	free_data(t_data *data);
 void	free_processing(t_data *data);
 void	free_parsing(t_data *data);
 void	free_exit(t_data *data);
+void	free_simple_cmd(t_data *data);
 bool	check_tokens(t_data *data);
 char 	*expander(char *value, t_data *data);
 

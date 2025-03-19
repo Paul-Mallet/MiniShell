@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 15:50:14 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 21:00:57 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,33 @@
 #include "executing.h"
 #include "signals.h"
 
-static void	setup_pipes(t_cmd *cmds, t_cmd_order nbr)
+static void    setup_pipes(t_cmd *cmds, t_cmd_order nbr)
 {
-	if (nbr == FIRST_CMD)
-	{
-		if (cmds->has_output == false)
-			dup2(cmds->fd[1], STDOUT_FILENO);
-		close(cmds->fd[0]);
-		close(cmds->fd[1]);
-	}
-	else if (nbr == MID_CMD)
-	{
-		if (!cmds->has_input == false)
-			dup2(cmds->prev->fd[0], STDIN_FILENO);
-		if (!cmds->has_output == false)
-			dup2(cmds->fd[1], STDOUT_FILENO);
-		close(cmds->prev->fd[1]);
-		close(cmds->prev->fd[0]);
-		close(cmds->prev->fd[1]);
-		close(cmds->fd[1]);
-		close(cmds->fd[0]);
-	}
-	else if (nbr == LAST_CMD)
-	{
-		if (!cmds->has_input == false)
-			dup2(cmds->prev->fd[0], STDIN_FILENO);
-		close(cmds->prev->fd[0]);
-		close(cmds->prev->fd[1]);
-	}
+    if (nbr == FIRST_CMD)
+    {
+        if (!cmds->has_output)
+            dup2(cmds->fd[1], STDOUT_FILENO);
+        close(cmds->fd[0]);
+        close(cmds->fd[1]);
+    }
+    else if (nbr == MID_CMD)
+    {
+        if (!cmds->has_input)
+            dup2(cmds->prev->fd[0], STDIN_FILENO);
+        if (!cmds->has_output)
+            dup2(cmds->fd[1], STDOUT_FILENO);
+        close(cmds->prev->fd[1]);
+        close(cmds->prev->fd[0]);
+        close(cmds->fd[1]);
+        close(cmds->fd[0]);
+    }
+    else if (nbr == LAST_CMD)
+    {
+        if (!cmds->has_input)
+            dup2(cmds->prev->fd[0], STDIN_FILENO);
+        close(cmds->prev->fd[0]);
+        close(cmds->prev->fd[1]);
+    }
 }
 
 void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr)
@@ -52,6 +51,7 @@ void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr)
 	close_all_pipes(data->cmds);
 	if (is_builtins(cmds->cmd[0]))
 	{
+		free(data->pids);
 		ft_builtins(data, cmds);
 		free(path);
 		free_data(data);
@@ -61,17 +61,10 @@ void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr)
 	perror("execve");
 	free(path);
 	free_data(data);
+	free_strs(data->char_env);
 	exit(EXIT_FAILURE);
 }
 
-static void	free_simple_cmd(t_data *data)
-{
-	if (data->cmds)
-		close_pipes(data->cmds);
-	if (data->env)
-		free_env(&data->env);
-	free_processing(data);
-}
 
 void	executing_simple_cmd(t_data *data)
 {
@@ -82,7 +75,7 @@ void	executing_simple_cmd(t_data *data)
 	if (is_builtins(data->cmds->cmd[0]))
 	{
 		ft_builtins(data, data->cmds);
-		free_data(data);
+		free_simple_cmd(data);
 		exit (1);
 	}
 	path = check_path(data, data->cmds->cmd[0]);

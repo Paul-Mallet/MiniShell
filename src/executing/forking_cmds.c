@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 15:33:20 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:56:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		perror("fork");
 	else if (pid == 0)
 	{
+		data->char_env = make_env(data->env);
 		check_redir(cmds, data);
 		if (data->cmds->cmd[0] == NULL)
 		{
+			free(data->pids);
 			printf("error cmd\n");
 			close_pipes(cmds);
 			free_data(data);
@@ -38,13 +40,12 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		path = check_path(data, cmds->cmd[0]); //! "echo"
 		if (!path)
 		{
+			free(data->pids);
 			printf("error path\n");
 			close_pipes(cmds);
 			free_data(data);
 			exit(2);
 		}
-		// if (nbr != LAST_CMD)
-		// 	close_pipes(cmds);
 		executing_command(cmds, path, data, nbr);
 	}
 	data->pids[*i] = pid;
@@ -65,10 +66,11 @@ void	exec_simple_cmd(t_data *data)
 			perror("fork");
 		if (pid == 0)
 		{
+			data->char_env = make_env(data->env);
 			check_redir(data->cmds, data);
 			if (data->cmds->cmd[0] == NULL)
 			{
-				free_data(data);
+				free_simple_cmd(data);
 				exit(1);
 			}
 			executing_simple_cmd(data);
