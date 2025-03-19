@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:16:25 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:12:58 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void print_cmds(char **cmds)
 {
+	printf("\ntry to print cmds\ncmd[0]: %s\n", cmds[0]);
 	while(*cmds != NULL)
 		printf("cmd_struct: %s\n", *cmds++);
 }
@@ -44,10 +45,12 @@ void print_cmd_struct(t_cmd *cmds)
 {
 	t_cmd	*current;
 	t_redir	*cur_redir;
+	int		i = 0;
 
 	current = cmds;
 	while(current)
 	{
+		printf("\ncmd number: %d\n", i++);
 		cur_redir = current->redir;
 		print_cmds(current->cmd);
 		while (cur_redir)

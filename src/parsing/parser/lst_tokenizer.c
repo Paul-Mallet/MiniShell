@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 09:37:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@ void	print_token(t_token *token)
 	printf("\n");
 	while (current)
 	{
-		printf("Token n*: %d\n", i++);
-		printf("Type: %s\n", get_token_type_string(current->type));
-		printf("Subtype: %s\n", get_token_subtype_string(current->subtype));
-		printf("Value: %s\n\n", current->value);
+		ft_dprintf(2, "Token n*: %d\n", i++);
+		ft_dprintf(2, "Type: %s\n", get_token_type_string(current->type));
+		ft_dprintf(2, "Subtype: %s\n", get_token_subtype_string(current->subtype));
+		ft_dprintf(2, "Value: %s\n\n", current->value);
 		current = current->next;
 	}
 }

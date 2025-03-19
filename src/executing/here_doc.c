@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 19:05:14 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 09:24:59 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,13 @@ bool	write_heredoc(t_redir *redir)
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	if (!heredoc_name(redir))
-		return (false);
+	heredoc_filename(redir);
 	while (1)
 	{
 		line = readline("heredoc>");
 		if (!line)
 			break;
-		if (ft_strcmp(line, redir->delimiter) == 0)
+		if (ft_strcmp(line, redir->delimiter) == 0)	//1.
 		{
 			free(line);
 			break ;
@@ -97,7 +96,7 @@ bool	write_heredoc(t_redir *redir)
 	return (true);
 }
 
-void	*heredoc_name(t_redir *redir)
+void	heredoc_filename(t_redir *redir)
 {
 	char		*hd_file;
 	char		*num;
@@ -109,17 +108,17 @@ void	*heredoc_name(t_redir *redir)
 	if (!hd_file)
 	{
 		free(num);
-		return (NULL);
+		return ;
 	}
 	redir->fd = open(hd_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (redir->fd == -1)
 	{
 		free(hd_file);
 		free(num);
-		heredoc_name(redir);
+		heredoc_filename(redir);
 	}
+	free(redir->file);
 	redir->file = ft_strdup(hd_file);
 	free(hd_file);
 	free(num);
-	return (hd_file);
 }

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 13:49:07 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:35:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:12:40 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "builtins.h"
 #include "parsing.h"
 
+// perror in handling_errors()
 int	error_handling(t_error_code code, char *cmd)
 {
 	if (code == ERR_FILE_NOT_FOUND)

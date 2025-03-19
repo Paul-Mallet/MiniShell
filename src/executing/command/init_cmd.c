@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/18 09:09:41 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 09:35:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	print_cmd(char **cmds)
 
 	i = -1;
 	while (cmds[++i])
-		printf("cmd[%d]: %s\n", i, cmds[i]);
+		ft_dprintf(2, "cmd[%d]: %s\n", i, cmds[i]);
 }
 
 bool	init_cmd_struct(t_data *data)

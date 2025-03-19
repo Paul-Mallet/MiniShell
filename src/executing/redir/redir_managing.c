@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/18 11:48:50 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:08:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@
 bool	check_if_is_last_in(t_redir *redir, t_cmd *cmd)
 {
 	t_redir	*current;
-	t_redir	*last_input = NULL;
+	t_redir	*last_input;
 
+	last_input = NULL;
 	current = cmd->redir;
 	while (current)
 	{
 		if (current->heredoc || current->in_redir)
+		{
+			cmd->has_input = true;
 			last_input = current;
+		}
 		current = current->next;
 	}
 	return (redir == last_input);
@@ -31,13 +35,17 @@ bool	check_if_is_last_in(t_redir *redir, t_cmd *cmd)
 bool	check_if_is_last_out(t_redir *redir, t_cmd *cmd)
 {
 	t_redir	*current;
-	t_redir	*last_output = NULL;
+	t_redir	*last_output;
 
+	last_output = NULL;
 	current = cmd->redir;
 	while (current)
 	{
 		if (current->append || current->out_redir)
+		{
+			cmd->has_output = true;
 			last_output = current;
+		}
 		current = current->next;
 	}
 	return (redir == last_output);

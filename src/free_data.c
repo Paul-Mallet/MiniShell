@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 07:44:20 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:46:32 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void free_pids(t_data *data)
 
 void	free_exit(t_data *data)
 {
+	free_parsing(data);
 	if (data->cmds)
 		close_pipes(data->cmds);
 	if (data->env)
 		free_env(&data->env);
-	free_parsing(data);
 	if (data->cmds)
 		free_cmd_struct(&data->cmds);
 }

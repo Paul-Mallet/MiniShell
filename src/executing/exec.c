@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 06:37:36 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:34:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ void	exec(t_data *data)
 {
 	int		nb_cmd;
 
-	// data->exit_code = 0;	
-	//gerer dans builtins + exit(1) or (2), gerer les pipes, exit arg1 arg2 doit etre gerer
-	check_heredoc(data);
 	data->char_env = make_env(data->env);
+	check_heredoc(data);
 	nb_cmd = count_cmds(data->cmds);
+	printf("nb_cmd: %d\n", nb_cmd);
 	if (nb_cmd == 1)
 		exec_simple_cmd(data);
 	else
 		exec_multiple_cmds(data, nb_cmd);
-	// free_strs(data->char_env);
 }

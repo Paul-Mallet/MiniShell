@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 08:40:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:31:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,26 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		perror("fork");
 	else if (pid == 0)
 	{
-		check_redir(cmds, data);
-		if (!cmds->cmd)
+		// check_redir(cmds, data);
+		if (data->cmds->cmd[0] == NULL)
 		{
+			printf("error cmd\n");
 			close_pipes(cmds);
 			free_data(data);
 			exit(1);
 		}
 		if (is_builtins(cmds->cmd[0]))
 			ft_builtins(data, cmds);
-		path = check_path(data, cmds->cmd[0]);
+		path = check_path(data, cmds->cmd[0]); //! "echo"
 		if (!path)
 		{
-			// free_strs(data->char_env);
+			printf("error path\n");
 			close_pipes(cmds);
 			free_data(data);
 			exit(2);
 		}
+		// if (nbr != LAST_CMD)
+		// 	close_pipes(cmds);
 		executing_command(cmds, path, data, nbr);
 	}
 	data->pids[*i] = pid;
@@ -63,6 +66,13 @@ void	exec_simple_cmd(t_data *data)
 		if (pid == 0)
 		{
 			check_redir(data->cmds, data);
+			// print_cmd_struct(data->cmds);
+			if (data->cmds->cmd[0] == NULL)
+			{
+				free_data(data);
+				exit(1);
+			}
+			printf("passed!\n");
 			executing_simple_cmd(data);
 		}
 		else
@@ -74,15 +84,4 @@ void	exec_simple_cmd(t_data *data)
 				data->exit_code = 128 + WTERMSIG(status);
 		}
 	}
-	// if (data->exit_code != 0)
-	// 	return (false);
-	// return (true);
 }
-
-// int	error_path(char **paths, char *path, t_data *data)
-// {
-// 	error_handling(ERR_CMD_NOT_FOUND, path);
-// 	free_paths(paths, NULL);
-// 	data->exit_code = 127;
-// 	return (EXIT_FAILURE);
-// }

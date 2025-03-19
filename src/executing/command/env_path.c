@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 07:12:31 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:53:28 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char	*find_path(t_data *data, char **path_var, char *cmd)
 		free(path);
 		i++;
 	}
-	free_strs(path_var);
+	free_strs(path_var); //
 	error_handling(ERR_CMD_NOT_FOUND, cmd);
 	data->exit_code = 127;
 	return (NULL);
@@ -102,8 +102,6 @@ void	free_strs(char **paths)
 	
 	i = 0;
 	if (!paths)
-		return ;
-	if (paths[0] == NULL)
 		return ;
 	while (paths[i])
 	{

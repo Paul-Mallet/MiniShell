@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 07:05:42 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 09:16:01 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	free_redir(t_redir **redirs);
 
 int		count_cmds(t_cmd *cmds);
 void	check_heredoc(t_data *data);
-void	*heredoc_name(t_redir *redir);
+void	heredoc_filename(t_redir *redir);
 
 /*
 	redir managing
