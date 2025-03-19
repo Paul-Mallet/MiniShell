@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:33:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 04:56:32 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 07:43:36 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	exec_multiple_cmds(t_data *data, int nb_cmd)
 		{
 			perror("pipe");
 			return ;
-			// return (false);
 		}
 		if (current->id == 0)
 			exec_command(current, data, FIRST_CMD, &i);
@@ -75,8 +74,7 @@ void	exec_multiple_cmds(t_data *data, int nb_cmd)
 			exec_command(current, data, LAST_CMD, &i);
 		else
 			exec_command(current, data, MID_CMD, &i);
-		if (current->prev)
-			close_pipes(current->prev);
+		close_pipes(current);
 		current = current->next;
 	}
 	printf("pids%p\n", data->pids);
