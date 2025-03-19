@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:36 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 16:18:04 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:21:32 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_cd(t_data *data, t_env *env, char *path)
 		path = go_to_home(env);
 		if (!path)
 		{
-			printf("bash: cd: \n");
+			printf("minishell: cd: HOME not set\n");
 			data->exit_code = 1;
 			return ;
 		}
@@ -83,7 +83,7 @@ void	ft_cd(t_data *data, t_env *env, char *path)
 	handle_oldpwd(env);
 	if (chdir(path) == -1)
 	{
-		perror("cd");
+		perror("minishell: cd");
 		data->exit_code = 2;
 		return ;
 	}

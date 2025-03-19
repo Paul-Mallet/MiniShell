@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:10 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 07:22:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:25:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_numeric_arg(char *cmd)
 	{
 		if (!ft_isdigit(cmd[i]))
 		{
-			printf("bash: exit: %s: numeric argument required\n", cmd);
+			printf("minishell: exit: %s: numeric argument required\n", cmd);
 			return (0);
 		} 
 	}
@@ -51,15 +51,18 @@ void	ft_exit(t_data *data, t_cmd *cmd)
 			if (check_numeric_arg(data->cmds->cmd[1]))
 				data->exit_code = ft_atoi(data->cmds->cmd[1]);
 			else
+			{
 				data->exit_code = 2;
+				return ;
+			}
 		}
 		if (count_args(cmd->cmd) > 2 && check_numeric_arg(data->cmds->cmd[1]))
 		{
+			printf("minishell: exit: too many arguments\n");
 			data->exit_code = 1;
-			printf("bash: exit: too many arguments\n");
 			return ;
 		}
 	}
-	free_exit(data);
+	free_data(data);
 	exit((unsigned char)data->exit_code % 256);
 }
