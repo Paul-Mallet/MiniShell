@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/19 16:53:00 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:29:39 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_builtins(t_data *data, t_cmd *cmds);
 /*
 	echo
 */
-int		ft_echo(t_data *data, char **cmds);
+void	ft_echo(t_data *data, char **cmds);
 int		ft_echo_next(t_data *data, char **cmd, int i, bool arg_n);
 
 /*

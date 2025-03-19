@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/19 16:03:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 21:02:15 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,17 @@ bool	check_tokens (t_data *data)
 	{
 		if (!current->next && current->type != WORD)
 		{
-			error_handling(current->value);
+			printf("minishell: syntax error near unexpected token `%s'\n", current->value);
 			return (false);
 		}
 		if (current->type == REDIR && current->next && (current->next->type != WORD && current->next->type != SEPARATOR))
 		{
-			error_handling(current->value);
+			printf("minishell: syntax error near unexpected token `newline'\n");
 			return (false);
 		}
 		if (ft_strcmp(current->value, "\\") == 0 || ft_strcmp(current->value, ";") == 0)
 		{
-			error_handling(current->value);
+			printf("minishell: '%s': not interpreted special chars\n", current->value);
 			return (false);
 		}
 		current = current->next;
