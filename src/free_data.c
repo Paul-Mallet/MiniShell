@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 20:44:15 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:22:45 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 #include "parsing.h"
 #include "executing.h"
 #include "signals.h"
+
+void	free_strs(char **paths)
+{
+	int		i;
+
+	i = 0;
+	if (!paths)
+		return ;
+	while (paths[i])
+	{
+		free(paths[i]);
+		i++;
+	}
+	free(paths);
+	paths = NULL;
+}
 
 void free_pids(t_data *data)
 {
@@ -38,7 +54,6 @@ void	free_exit(t_data *data)
 
 void	free_data(t_data *data)
 {
-	// free_pids(data);
 	if (data->cmds)
 		close_pipes(data->cmds);
 	if (data->env)

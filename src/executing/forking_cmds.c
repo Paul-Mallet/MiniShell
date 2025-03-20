@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forking_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 20:56:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:25:31 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		path = check_path(data, cmds->cmd[0]); //! "echo"
 		if (!path)
 		{
-			free(data->pids);
-			printf("error path\n");
 			close_pipes(cmds);
+			free(data->pids);
 			free_data(data);
-			exit(2);
+			exit(data->exit_code);
 		}
 		executing_command(cmds, path, data, nbr);
 	}
