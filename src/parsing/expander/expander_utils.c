@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 16:42:51 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:56:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 11:51:47 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 
 char	*extract_key(char *value, int i)
 {
-	int		j;
 	char	*key;
 
-	j = i;
 	while (ft_isalnum(value[i]) || value[i] == '_')
 		i++;
 	key = ft_substr(value, 0, i);
