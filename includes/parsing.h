@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 20:37:27 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:52:52 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ size_t	get_word_length(char *str);
 size_t	get_double_quotes_length(char *str);
 size_t	get_single_quotes_length(char *str);
 
-bool	is_executable(t_data *data, char *path);
+bool	is_executable(t_data *data, char *path, char **path_var);
 bool	is_pipe(char c);
 bool	is_redirection(char c);
 int		is_dir(char *value);
