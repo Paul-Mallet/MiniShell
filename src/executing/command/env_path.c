@@ -6,7 +6,7 @@
 /*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 12:54:34 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/03/20 13:50:43 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,30 +132,29 @@ char	*find_path(t_data *data, char **path_var, char *cmd)
 			if (access(path, F_OK) == 0)
 			{
 				found_path = 1;
-				if (is_executable(data, path, path_var))
+				if (access(path, X_OK) == 0)
+				{
+					free_strs(path_var);
 					return (path);
-				free(path);
-				return (NULL);
-				// if (access(path, X_OK) == 0)
-				// {
-				// 	free_strs(path_var);
-				// 	return (path);
-				// }
-				// else
-				// {
-					// is_executable(data, path, path_var);
-					// free(path);
-					// printf("minishell: %s: Permission denied\n", path);
-					// data->exit_code = 126;
-					// free_strs(path_var);
-					// return (NULL);
-				// }
+				}
+				else
+				{
+					printf("minishell: %s: Permission denied\n", path);
+					data->exit_code = 126;
+					free(path);
+					free_strs(path_var);
+					return (NULL);
+				}
 			}
 			free(path);
 		}
 		i++;
 	}
 	if (!found_path)
-		is_executable(data, path, path_var);
+	{
+		printf("minishell: %s: command not found\n", cmd);
+		data->exit_code = 127;
+		free_strs(path_var);
+	}
 	return (NULL);
 }
