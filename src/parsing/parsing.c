@@ -6,7 +6,7 @@
 /*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/20 12:09:34 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/03/20 12:17:13 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ bool	check_tokens (t_data *data)
 		if ((current->type == PIPE && current->next && current->next->type == SEPARATOR)
 			|| (current->type == PIPE && current->next->next && current->next->next->type == PIPE))
 		{
-			printf("minishell: '%s': syntax error near unexpected token `||'\n");
+			printf("minishell: syntax error near unexpected token `||'\n");
 			return (false);
 		}
 		if (ft_strcmp(current->value, "\\") == 0 || ft_strcmp(current->value, ";") == 0)
