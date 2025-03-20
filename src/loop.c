@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/19 14:23:04 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:54:11 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,7 @@ void	ctrl_d_exit(t_data *data)
 {
 	ft_exit(data, NULL);
 }
-
-// static void	check_last(t_cmd *cmd)
-// {
-// 	t_cmd	*current;
-	
-// 	current = cmd;
-// 	while (current)
-// 	{
-// 		check_if_is_last_in(current->redir);
-// 		check_if_is_last_out(current->redir);
-// 		current = current->next;
-// 	}
-// }
-
-// fix '\' & invalid free "$clear" &
+//	"|", "||", some | | thing -> error
 void	loop_minishell(t_data *data, char **envp)
 {
 	data->input = NULL;
@@ -55,7 +41,7 @@ void	loop_minishell(t_data *data, char **envp)
 	while (1)
 	{
 		data->input = readline("$");
-		if (g_exit_code == 130) //Ctrl C = 130
+		if (g_exit_code == 130)
 		{
 			data->exit_code = g_exit_code;
 			g_exit_code = 0;

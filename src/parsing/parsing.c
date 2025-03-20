@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/19 20:51:25 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:09:34 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,34 +93,35 @@ bool	check_tokens (t_data *data)
 	{
 		if (!current->next && current->type != WORD)
 		{
-			error_handling(current->value);
+			printf("minishell: syntax error near unexpected token `%s'\n", current->value);
 			return (false);
 		}
-		if (current->type == REDIR && current->next && (current->next->type != WORD && current->next->type != SEPARATOR))
+		if (current->type == REDIR && current->next
+			&& current->next->type != WORD && current->next->type != SEPARATOR)
 		{
-			error_handling(current->value);
+			printf("minishell: syntax error near unexpected token `newline'\n");
+			return (false);
+		}
+		if ((current->type == PIPE && current->next && current->next->type == SEPARATOR)
+			|| (current->type == PIPE && current->next->next && current->next->next->type == PIPE))
+		{
+			printf("minishell: '%s': syntax error near unexpected token `||'\n");
 			return (false);
 		}
 		if (ft_strcmp(current->value, "\\") == 0 || ft_strcmp(current->value, ";") == 0)
 		{
-			error_handling(current->value);
+			printf("minishell: '%s': not interpreted special chars\n", current->value);
 			return (false);
 		}
 		if (current->type == PIPE && current->next && current->next->type == PIPE)
 		{
-			error_handling(current->value);
-			return (false);
-		}
-		if ((current->type == PIPE && current->next && current->next->type == SEPARATOR) && (current->type == PIPE && current->next->next && current->next->next->type == PIPE))
-		{
-			error_handling(current->value);
+			printf("minishell: '%s': not interpreted special chars\n", current->value);
 			return (false);
 		}
 		current = current->next;
 	}
 	return (true);
 }
-
 
 bool	ft_parsing(char *value, t_data *data)
 {

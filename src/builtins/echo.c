@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 05:16:18 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:15:25 by paul_mallet      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "builtins.h"
-
-#include <stdbool.h>
 
 bool check_large_n(char *n)
 {
@@ -34,7 +33,7 @@ bool check_large_n(char *n)
 }
 
 
-int	ft_echo(t_data *data, char **cmds)
+void	ft_echo(t_data *data, char **cmds)
 {
 	bool	arg_n;
 	int		i;
@@ -57,16 +56,37 @@ int	ft_echo(t_data *data, char **cmds)
 		else
 			break;
 	}
-	if (!ft_echo_next(data, cmds, i, arg_n))
-		return (0);
-	data->exit_code = 2;
-	return (1);  // error a implementer
+	if (ft_echo_next(data, cmds, i, arg_n))
+		return;
+}
+
+int	contains_exclam(char *cmd)
+{
+	int		i;
+	char	*from_exclam;
+
+	i = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i] == '!')
+		{
+			from_exclam = &cmd[i];
+			ft_printf("minishell: %s: event not found\n", from_exclam);
+			return (1);
+		}
+	}
+	return (0);
 }
 
 int	ft_echo_next(t_data *data, char **cmd, int i, bool arg_n)
 {
 	while(cmd[i])
 	{
+		if (contains_exclam(cmd[i]))
+		{
+			data->exit_code = 127;
+			return (0);
+		}
 		if (!ft_strcmp(cmd[i], "\0"))
 		{
 			printf(" ");
@@ -80,5 +100,5 @@ int	ft_echo_next(t_data *data, char **cmd, int i, bool arg_n)
 	if (!arg_n)
 		printf("\n");
 	data->exit_code = 0;	//always true
-	return (0);
+	return (1);
 }
