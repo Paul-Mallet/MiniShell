@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 20:44:15 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:49:46 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	free_processing(t_data *data)
 	if (data->cmds)
 		free_cmd_struct(&data->cmds);
 	// if (data->char_env)
-		// free_strs(data->char_env);
+	// 	free_strs(data->char_env);
 }
 
 void	free_simple_cmd(t_data *data)

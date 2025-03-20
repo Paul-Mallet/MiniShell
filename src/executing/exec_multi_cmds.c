@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:33:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 20:55:45 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:52:53 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,6 @@ void	wait_all(t_data *data)
 		current = current->next;
 	}
 }
-
-
-// void	wait_all(t_data *data)
-// {
-// 	(void)data;
-// 	int		status;
-// 	pid_t	pid;
-
-// 	while (1)
-// 	{
-// 		pid = waitpid(-1, &status, 0);
-// 		if (pid == -1)
-// 			break ;
-// 	}
-// }
 
 void	exec_multiple_cmds(t_data *data, int nb_cmd)
 {

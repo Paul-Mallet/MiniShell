@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:54:11 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/18 15:01:51 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:43:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,16 +83,9 @@ void	redir_append(t_redir *redir, bool is_last_out, t_data *data)
 	close(redir->fd);
 }
 
-void	redir_heredoc(t_redir *redir, bool is_last_in, t_data *data)
+void	redir_heredoc(t_redir *redir, bool is_last_in)
 {
-	redir->fd = open(redir->file, O_RDONLY);
-	if (redir->fd == -1)
-	{
-		perror("open");
-		data->exit_code = 1;
-		close(redir->fd);
-		return ;
-	}
+	
 	if (is_last_in)
 	{
 		close(STDIN_FILENO);
@@ -103,6 +96,7 @@ void	redir_heredoc(t_redir *redir, bool is_last_in, t_data *data)
 			return ;
 		}
 	}
+	printf("closing %s & fd : %d\n\n", redir->file, redir->fd);
 	close(redir->fd);
 	unlink(redir->file);
 }

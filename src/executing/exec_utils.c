@@ -105,8 +105,8 @@ void	close_all_pipes(t_cmd *cmd)
 
 void	close_pipes(t_cmd *cmd)
 {
-	if (cmd->fd[0] >= 0)
+	// if (cmd->fd[0] >= 0)
 		close(cmd->fd[0]);
-	if (cmd->fd[1] >= 0)
+	// if (cmd->fd[1] >= 0)
 		close(cmd->fd[1]);
 }

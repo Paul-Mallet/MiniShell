@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 21:00:57 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:08:32 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr)
 	close_all_pipes(data->cmds);
 	if (is_builtins(cmds->cmd[0]))
 	{
+		free_strs(data->char_env);
 		free(data->pids);
 		ft_builtins(data, cmds);
 		free(path);

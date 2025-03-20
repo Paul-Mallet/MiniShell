@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 11:08:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:44:07 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	check_redir(t_cmd *cmds, t_data *data)
 		else if (current->append)
 			redir_append(current, is_last_out, data);
 		else if (current->heredoc)
-			redir_heredoc(current, is_last_in, data);
+			redir_heredoc(current, is_last_in);
 		if (data->exit_code == 1)
 			break ;
 		current = current->next;

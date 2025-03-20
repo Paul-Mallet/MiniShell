@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 20:56:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 17:07:50 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,22 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		perror("fork");
 	else if (pid == 0)
 	{
-		data->char_env = make_env(data->env);
 		check_redir(cmds, data);
-		if (data->cmds->cmd[0] == NULL)
+		if (cmds->cmd[0] == NULL)
 		{
 			free(data->pids);
-			printf("error cmd\n");
-			close_pipes(cmds);
+			close_all_pipes(cmds);
+			free_strs(data->char_env);
 			free_data(data);
 			exit(1);
 		}
-		// if (is_builtins(cmds->cmd[0]))
-		// 	ft_builtins(data, cmds);
-		path = check_path(data, cmds->cmd[0]); //! "echo"
+		path = check_path(data, cmds->cmd[0]);
 		if (!path)
 		{
 			free(data->pids);
 			printf("error path\n");
 			close_pipes(cmds);
+			free_strs(data->char_env);
 			free_data(data);
 			exit(2);
 		}

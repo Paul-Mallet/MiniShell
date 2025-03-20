@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 15:42:36 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/20 16:47:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,27 @@
 
 void	check_heredoc(t_data *data)
 {
-	t_token	*current;
-	bool	is_heredoc;
+	t_cmd	*current_cmd;
+	t_redir	*current_redir;
 
-	is_heredoc = false;
-	current = data->tokens;
-	while (current)
+	current_cmd = data->cmds;
+	while (current_cmd)
 	{
-		if (current->subtype == HEREDOC)
-			is_heredoc = true;
-		current = current->next;
+		current_redir = current_cmd->redir;
+		while (current_redir)
+		{
+			if (current_redir->heredoc)
+			{
+				heredoc_filename(current_redir);
+				fork_heredoc(current_redir, data);
+			}
+			current_redir = current_redir->next;
+		}
+		current_cmd = current_cmd->next;
 	}
-	if (is_heredoc)
-		fork_heredoc(data);
 }
 
-void	fork_heredoc(t_data *data)
+void	fork_heredoc(t_redir *redir, t_data *data)
 {
 	pid_t	pid;
 	int		status;
@@ -40,35 +45,18 @@ void	fork_heredoc(t_data *data)
 	if (pid == -1)
 	{
 		perror("fork");
-		data->exit_code = 1;
 		return ;
 	}
 	else if (pid == 0)
 	{
-		heredoc_managing(data);
+		write_heredoc(redir);
 		free_data(data);
 		exit(EXIT_SUCCESS);
 	}
 	waitpid(pid, &status, 0);
-}
-
-void	heredoc_managing(t_data *data)
-{
-	t_cmd	*current;
-	t_redir	*current_redir;
-
-	current = data->cmds;
-	while (current)
-	{
-		current_redir = current->redir;
-		while (current_redir)
-		{
-			if (current_redir->heredoc)
-				write_heredoc(current_redir);
-			current_redir = current_redir->next;
-		}
-		current = current->next;
-	}
+	close(redir->fd);
+	if (WIFSIGNALED(status))
+		unlink(redir->file);
 }
 
 bool	write_heredoc(t_redir *redir)
@@ -77,13 +65,13 @@ bool	write_heredoc(t_redir *redir)
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	heredoc_filename(redir);
+	
 	while (1)
 	{
-		line = readline("heredoc>");
+		line = readline(">");
 		if (!line)
 			break;
-		if (ft_strcmp(line, redir->delimiter) == 0)	//1.
+		if (ft_strcmp(line, redir->delimiter) == 0)
 		{
 			free(line);
 			break ;
@@ -92,7 +80,9 @@ bool	write_heredoc(t_redir *redir)
 		write(redir->fd, "\n", 1);
 		free(line);
 	}
+	printf("%s closing fd in hd managing : %d\n\n", redir->file, redir->fd);
 	close(redir->fd);
+	printf("%s is closed fd in hd managing : %d\n\n", redir->file, redir->fd);
 	return (true);
 }
 
@@ -104,7 +94,7 @@ void	heredoc_filename(t_redir *redir)
 
 	i++;
 	num = ft_itoa(i);
-	hd_file = join_lines("heredoc_", num);
+	hd_file = join_lines("/tmp/heredoc_", num);
 	if (!hd_file)
 	{
 		free(num);
@@ -119,6 +109,7 @@ void	heredoc_filename(t_redir *redir)
 	}
 	free(redir->file);
 	redir->file = ft_strdup(hd_file);
+	printf("%s is opened fd : %d\n\n", redir->file, redir->fd);
 	free(hd_file);
 	free(num);
 }

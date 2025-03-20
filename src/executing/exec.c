@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 12:24:19 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/03/20 16:37:14 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	exec(t_data *data)
 {
 	int		nb_cmd;
 
+	data->char_env = make_env(data->env);
 	check_heredoc(data);
 	nb_cmd = count_cmds(data->cmds);
 	if (nb_cmd == 1)
