@@ -3,19 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:15:06 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 19:05:18 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:51:11 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 #include "signals.h"
 
-volatile sig_atomic_t g_exit_code = 0;
-
+volatile sig_atomic_t	g_exit_code = 0;
 /*
 	/bin/kill
 	int kill(pid_t pid, int sig); return (0); on success
@@ -26,7 +24,7 @@ volatile sig_atomic_t g_exit_code = 0;
 
 	can't modif SIGKILL & SIGSTOP actions
 	int sigaction(int signum, const struct sigaction *restrict act,
-    		struct sigaction *restrict oldact); return (0); on success (-1 + errno)
+    	struct sigaction *restrict oldact); return (0); on success (-1 + errno)
 	
 
 	i++;
@@ -46,7 +44,8 @@ volatile sig_atomic_t g_exit_code = 0;
 }
 	man sigaction
 	struct sigaction {
-		void     (*sa_handler)(int); //SIG_DFL, SIG_IGN, *void function_name(int signal);
+		void     (*sa_handler)(int);
+		//SIG_DFL, SIG_IGN, *void function_name(int signal);
 		void     (*sa_sigaction)(int, siginfo_t *, void *);
 		sigset_t   sa_mask; //block signals during exec of routine
 		int        sa_flags;
@@ -59,30 +58,19 @@ volatile sig_atomic_t g_exit_code = 0;
 	g_pid = 131 = 128 + 3(SIGQUIT);
 	-> used for exit_status
 
-	sa.sa_flags = SA_RESTART; -> reload syst calls interupt by signal (read(), write())
+	sa.sa_flags = SA_RESTART;
+		-> reload syst calls interupt by signal (read(), write())
 */
-
-// static int real_sigint_handler() {
-// 	if (g_exit_code == 130) {
-// 			printf("\n");
-// 	rl_replace_line("", 0);	//outputting a new line
-// 	rl_on_new_line();		//tell moved onto new(empty) line, after outputting a newline
-// 	rl_redisplay();			
-// 	}
-// 	return (0);
-// }
-
 
 void	sigint_handler(int sig)
 {
 	(void)sig;
 	printf("\n");
-	rl_replace_line("", 0);	//outputting a new line
-	rl_on_new_line();		//tell moved onto new(empty) line, after outputting a newline
-	rl_redisplay();			//display with the current contents of rl_line_buffer
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 	g_exit_code = 130;
 }
-
 
 void	signals_handler(void)
 {
@@ -90,7 +78,7 @@ void	signals_handler(void)
 
 	sa.sa_handler = &sigint_handler;
 	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;	//0, no flag to activate = sa_handler by dft
+	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);
 	signal(SIGQUIT, SIG_IGN);
 }

@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   handler_tokens.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 10:23:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:58:03 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 #include "parsing.h"
@@ -40,7 +39,6 @@ t_token	*handle_pipe(char **input)
 	if (!value)
 		return (NULL);
 	token = new_token(PIPE, UNKNOW_SUBTYPE, value);
-	// free(value); invalid free 
 	(*input)++;
 	return (token);
 }

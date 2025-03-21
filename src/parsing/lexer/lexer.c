@@ -6,7 +6,7 @@
 /*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 12:00:32 by paul_mallet       #+#    #+#             */
-/*   Updated: 2025/03/19 20:59:57 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:58:21 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ bool	ft_valid_quotes(char *input)
 		if (*input == '\"' && !is_in_sgle)
 			is_in_dble = !is_in_dble;
 		if (*input == '\'' && !is_in_dble)
-			is_in_sgle = !is_in_sgle;;
+			is_in_sgle = !is_in_sgle;
 		input++;
 	}
 	return (!is_in_dble && !is_in_sgle);

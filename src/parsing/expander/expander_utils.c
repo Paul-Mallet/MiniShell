@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 16:42:51 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 12:00:56 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/03/21 13:59:41 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ char	*extract_key(char *value, int i)
 void	add_index(char **expanded, char i)
 {
 	char	*tmp;
-	char 	*index;
+	char	*index;
 
 	index = malloc(sizeof(char) * 2);
 	index[0] = i;
 	index[1] = '\0';
-
 	tmp = *expanded;
 	*expanded = ft_strjoin(*expanded, index);
 	free(tmp);

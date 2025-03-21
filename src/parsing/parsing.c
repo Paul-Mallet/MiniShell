@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/20 13:13:58 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/03/21 14:02:52 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	remove_quotes(t_token *tokens)
 
 static bool	check_whitespace(t_token *tokens)
 {
-	t_token *current;
+	t_token	*current;
 
 	current = tokens;
-	while(current)
+	while (current)
 	{
 		if (current->type == REDIR)
 			return (true);
@@ -84,7 +84,7 @@ static bool	check_whitespace(t_token *tokens)
 	return (false);
 }
 
-bool	check_tokens (t_data *data)
+bool	check_tokens(t_data *data)
 {
 	t_token	*current;
 

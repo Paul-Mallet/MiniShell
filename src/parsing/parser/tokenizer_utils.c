@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:38:47 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:03:56 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ bool	is_redirection(char c)
 {
 	return (c == '<' || c == '>');
 }
+
 bool	is_pipe(char c)
 {
 	return (c == '|');

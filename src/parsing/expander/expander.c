@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:01:13 by pamallet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ char	*expander(char *value, t_data *data)
 			in_single = !in_single;
 		if (value[i] == '\"' && !in_single)
 			in_double = !in_double;
-		if (value[i] == '$' && value[i + 1] && !in_single && value[i + 1] != ' ')
+		if (value[i] == '$' && value[i + 1]
+			&& !in_single && value[i + 1] != ' ')
 		{
 			add_expanding(&expanded, value, &i, data);
 			continue ;
