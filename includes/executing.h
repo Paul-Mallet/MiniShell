@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executing.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/03/20 16:43:49 by abarahho         ###   ########.fr       */
+=======
+/*   Updated: 2025/03/20 16:03:58 by pamallet         ###   ########.fr       */
+>>>>>>> origin/fixing_tmp
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +88,8 @@ int		count_cmds(t_cmd *cmds);
 void	wait_all(t_data *data);
 bool	is_builtins(char *cmd);
 
-void		exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i);
-void		exec_simple_cmd(t_data *data);
+void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i);
+void	exec_simple_cmd(t_data *data);
 void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr);
 void	executing_simple_cmd(t_data *data);
 
