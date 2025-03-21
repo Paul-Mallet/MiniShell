@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/21 17:09:19 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:25:21 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_env	*new_env_node(char *entry)
 	t_env	*new;
 	char	*sep;
 
-	*sep = NULL;
+	sep = NULL;
 	if (!entry)
 		return (NULL);
 	if (check_if_value(entry))

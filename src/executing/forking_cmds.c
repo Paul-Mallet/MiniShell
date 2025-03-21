@@ -6,19 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 17:04:30 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:22:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "executing.h"
 #include "signals.h"
-
-void	free_pids(t_data *data)
-{
-	free(data->pids);
-	free_data(data);
-}
 
 void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 {
@@ -76,7 +70,7 @@ void	exec_simple_cmd(t_data *data)
 			check_redir(data->cmds, data);
 			if (!data->cmds->cmd[0] || data->exit_code == 1)
 			{
-				free_simple_cmd(data);
+				free_data(data);
 				exit(1);
 			}
 			executing_simple_cmd(data);

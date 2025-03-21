@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 17:16:08 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:29:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ void	free_strs(char **paths)
 	free(paths);
 }
 
+void	free_pids(t_data *data)
+{
+	free(data->pids);
+	free_data(data);
+}
+
 void	free_data(t_data *data)
 {
 	if (data->cmds)
@@ -45,7 +51,8 @@ void	free_data(t_data *data)
 		free(data->input);
 	if (data->cmds)
 		free_cmd_struct(&data->cmds);
-	free_strs(data->char_env);
+	if (data->char_env)
+		free_strs(data->char_env);
 }
 
 void	free_parsing(t_data *data)
@@ -64,26 +71,8 @@ void	free_processing(t_data *data)
 		free_tokens(&data->tokens);
 	if (data->prompt)
 		free(data->prompt);
-	if (data->input)
-		free(data->input);
+	// if (data->input)
+	// 	free(data->input);
 	if (data->cmds)
 		free_cmd_struct(&data->cmds);
-}
-
-void	free_simple_cmd(t_data *data)
-{
-	if (data->char_env)
-		free_strs(data->char_env);
-	if (data->cmds)
-		free_cmd_struct(&data->cmds);
-	if (data->tokens)
-		free_tokens(&data->tokens);
-	if (data->prompt)
-		free(data->prompt);
-	if (data->input)
-		free(data->input);
-	if (data->cmds)
-		close_pipes(data->cmds);
-	if (data->env)
-		free_env(&data->env);
 }

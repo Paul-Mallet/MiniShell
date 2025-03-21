@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/21 16:31:51 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:17:57 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,22 +68,6 @@ void	remove_quotes(t_token *tokens)
 	}
 }
 
-static bool	check_whitespace(t_token *tokens)
-{
-	t_token	*current;
-
-	current = tokens;
-	while (current)
-	{
-		if (current->type == REDIR)
-			return (true);
-		if (current->subtype == ARG && !ft_isspaces(current->value))
-			return (true);
-		current = current->next;
-	}
-	return (false);
-}
-
 bool	ft_parsing(char *value, t_data *data)
 {
 	char	*trimmed;
@@ -97,7 +81,5 @@ bool	ft_parsing(char *value, t_data *data)
 	subtyping_tokens(data);
 	get_expanded(data->tokens, data);
 	remove_quotes(data->tokens);
-	if (!check_whitespace(data->tokens))
-		return (free_parsing(data), false);
 	return (true);
 }

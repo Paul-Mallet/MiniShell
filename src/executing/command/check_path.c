@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:24:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/21 16:39:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:23:42 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char	**get_path_var(t_env *env)
 	return (NULL);
 }
 
+//./ls -> until execve() + probably free t_env -> ls after not working
 char	*check_path(t_data *data, char *cmd)
 {
 	char	**path_var;
@@ -83,6 +84,13 @@ char	*check_path(t_data *data, char *cmd)
 		free_strs(path_var);
 		if (is_executable(data, cmd))
 			return (cmd);
+		return (NULL);
+	}
+	if (ft_strlen(cmd) == 0)
+	{
+		free_strs(path_var);
+		printf("minishell: %s: command not found\n", cmd);
+		data->exit_code = 127;
 		return (NULL);
 	}
 	return (find_path(data, path_var, cmd));

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/21 17:15:33 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:30:57 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ctrl_d_exit(t_data *data)
 	ft_exit(data, NULL);
 }
 
+// "" -> must be cmd not found
 void	loop_minishell(t_data *data, char **envp)
 {
 	data->input = NULL;

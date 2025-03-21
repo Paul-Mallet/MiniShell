@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 17:10:31 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:54:38 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "builtins.h"
 #include "parsing.h"
 
+// export T= -> invalid read avec echo T
 void	export_env_var(t_env **env, char *import)
 {
 	t_env	*current;

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 17:16:59 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:38:12 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void	free_exec(t_data *data);
 int		error_path(char **paths, char *prompt, t_data *data);
 void	close_all_pipes(t_cmd *cmd);
 void	close_pipes(t_cmd *cmd);
-void	free_data_children(t_data *data);
+void	free_pids(t_data *data);
 
 #endif

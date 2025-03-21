@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:54:30 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 16:55:22 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:39:24 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ void	close_all_pipes(t_cmd *cmd)
 		current = current->next;
 	}
 }
-
+// modif by adding 2 if on exit qwe qwe error
+// if (cmd->fd[0] == -1)
 void	close_pipes(t_cmd *cmd)
 {
 	close(cmd->fd[0]);

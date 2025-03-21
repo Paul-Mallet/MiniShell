@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 16:54:02 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:17:45 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,16 @@ void	executing_command(t_cmd *cmds, char *path,
 	close_all_pipes(data->cmds);
 	if (is_builtins(cmds->cmd[0]))
 	{
-		free_strs(data->char_env);
-		free(data->pids);
 		ft_builtins(data, cmds);
+		free_pids(data);
 		free(path);
-		free_data(data);
-		exit (1);
+		exit(EXIT_SUCCESS);
 	}
 	data->char_env = make_env(data->env);
 	execve(path, cmds->cmd, data->char_env);
 	perror("execve");
 	free(path);
-	free(data->pids);
-	free_data(data);
+	free_pids(data);
 	exit(EXIT_FAILURE);
 }
 
@@ -77,13 +74,13 @@ void	executing_simple_cmd(t_data *data)
 	if (is_builtins(data->cmds->cmd[0]))
 	{
 		ft_builtins(data, data->cmds);
-		free_simple_cmd(data);
+		free_data(data);
 		exit (1);
 	}
 	path = check_path(data, data->cmds->cmd[0]);
 	if (!path)
 	{
-		free_simple_cmd(data);
+		free_data(data);
 		exit(data->exit_code);
 	}
 	if (!data->cmds->cmd)
@@ -93,5 +90,5 @@ void	executing_simple_cmd(t_data *data)
 	perror("execve");
 	if (path)
 		free(path);
-	free_simple_cmd(data);
+	free_data(data);
 }

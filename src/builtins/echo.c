@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 17:12:52 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:03:46 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	contains_exclam(char *cmd)
 	return (0);
 }
 
+// echo "$"
 int	ft_echo_next(t_data *data, char **cmd, int i, bool arg_n)
 {
 	while (cmd[i])

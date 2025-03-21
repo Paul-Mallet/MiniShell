@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:46:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/19 20:32:27 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:56:05 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "builtins.h"
 #include "executing.h"
 
+//	builtins | ... -> invalid close
+//	cd | echo | env | exit | export | pwd | unset -> close pipes + free()
 void	ft_builtins(t_data *data, t_cmd *cmds)
 {
 	if (!ft_strcmp(cmds->cmd[0], "echo"))
