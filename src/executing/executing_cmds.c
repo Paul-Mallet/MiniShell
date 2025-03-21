@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 17:08:32 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:47:56 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr)
 		free_data(data);
 		exit (1);
 	}
+	data->char_env = make_env(data->env);
 	execve(path, cmds->cmd, data->char_env);
 	perror("execve");
 	free(path);
+	free(data->pids);
 	free_data(data);
-	free_strs(data->char_env);
 	exit(EXIT_FAILURE);
 }
 
@@ -87,6 +88,7 @@ void	executing_simple_cmd(t_data *data)
 	}
 	if (!data->cmds->cmd)
 		return ;
+	data->char_env = make_env(data->env);
 	execve(path, data->cmds->cmd, data->char_env);
 	perror("execve");
 	if (path)

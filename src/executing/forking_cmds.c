@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   forking_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 13:32:59 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:47:43 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 	else if (pid == 0)
 	{
 		check_redir(cmds, data);
-		if (cmds->cmd[0] == NULL)
+		if (!cmds->cmd[0] || data->exit_code == 1)
 		{
 			free(data->pids);
 			close_all_pipes(cmds);
+			free(data->pids);
 			free_strs(data->char_env);
 			free_data(data);
 			exit(1);
@@ -39,7 +40,7 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		{
 			close_pipes(cmds);
 			free_strs(data->char_env);
-			// free(data->pids);
+			free(data->pids);
 			free_data(data);
 			exit(data->exit_code);
 		}
@@ -63,9 +64,8 @@ void	exec_simple_cmd(t_data *data)
 			perror("fork");
 		if (pid == 0)
 		{
-			data->char_env = make_env(data->env);
 			check_redir(data->cmds, data);
-			if (data->cmds->cmd[0] == NULL)
+			if (!data->cmds->cmd[0]|| data->exit_code == 1)
 			{
 				free_simple_cmd(data);
 				exit(1);

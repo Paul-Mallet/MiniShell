@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:24:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/20 17:25:33 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:52:42 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ int	is_executable(t_data *data, char *cmd)
 	}
 	else if (access(cmd, F_OK) != 0)
 	{
-		printf("minishell: %s: command not found\n", cmd);
+		perror("access");
 		data->exit_code = 127;
 		return (0);
 	}
 	else if (access(cmd, X_OK) != 0)
 	{
-		printf("minishell: %s: Permission denied\n", cmd);
+		perror("access");
 		data->exit_code = 126;
 		return (0);
 	}
