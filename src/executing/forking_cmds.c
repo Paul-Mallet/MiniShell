@@ -6,13 +6,19 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 15:47:43 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:04:30 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "executing.h"
 #include "signals.h"
+
+void	free_pids(t_data *data)
+{
+	free(data->pids);
+	free_data(data);
+}
 
 void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 {
@@ -28,20 +34,13 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		check_redir(cmds, data);
 		if (!cmds->cmd[0] || data->exit_code == 1)
 		{
-			free(data->pids);
-			close_all_pipes(cmds);
-			free(data->pids);
-			free_strs(data->char_env);
-			free_data(data);
+			free_pids(data);
 			exit(1);
 		}
 		path = check_path(data, cmds->cmd[0]);
 		if (!path)
 		{
-			close_pipes(cmds);
-			free_strs(data->char_env);
-			free(data->pids);
-			free_data(data);
+			free_pids(data);
 			exit(data->exit_code);
 		}
 		executing_command(cmds, path, data, nbr);
@@ -50,14 +49,24 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 	*i += 1;
 }
 
+void	wait_simple_cmd(t_data *data, pid_t pid)
+{
+	int	status;
+
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		data->exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		data->exit_code = 128 + WTERMSIG(status);
+}
+
 void	exec_simple_cmd(t_data *data)
 {
 	pid_t	pid;
-	int		status;
-	
+
 	if (is_builtins(data->cmds->cmd[0]) && !data->cmds->redir)
 		ft_builtins(data, data->cmds);
-	else 
+	else
 	{
 		pid = fork();
 		if (pid == -1)
@@ -65,7 +74,7 @@ void	exec_simple_cmd(t_data *data)
 		if (pid == 0)
 		{
 			check_redir(data->cmds, data);
-			if (!data->cmds->cmd[0]|| data->exit_code == 1)
+			if (!data->cmds->cmd[0] || data->exit_code == 1)
 			{
 				free_simple_cmd(data);
 				exit(1);
@@ -73,12 +82,6 @@ void	exec_simple_cmd(t_data *data)
 			executing_simple_cmd(data);
 		}
 		else
-		{
-			waitpid(pid, &status, 0);
-			if (WIFEXITED(status))
-				data->exit_code = WEXITSTATUS(status);
-			else if (WIFSIGNALED(status))
-				data->exit_code = 128 + WTERMSIG(status);
-		}
+			wait_simple_cmd(data, pid);
 	}
 }

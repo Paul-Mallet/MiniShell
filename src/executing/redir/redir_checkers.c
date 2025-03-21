@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:54:11 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 12:00:37 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:32:47 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	redir_heredoc(t_redir *redir, bool is_last_in)
 	if (redir->fd < 0)
 	{
 		perror("Invalid file descriptor before dup2");
-		return;
+		return ;
 	}
 	printf("duplicating %s & fd : %d\n\n", redir->file, redir->fd);
 	if (is_last_in)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lst_tokenizer.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 13:57:46 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:28:37 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,44 +68,44 @@ void	free_tokens(t_token **tokens)
 	*tokens = NULL;
 }
 
-static const char	*get_token_type_string(int type)
-{
-	static const char	*token_types[] = {
-		"WORD", "SEPARATOR", "PIPE", "REDIR"
-	};
+// static const char	*get_token_type_string(int type)
+// {
+// 	static const char	*token_types[] = {
+// 		"WORD", "SEPARATOR", "PIPE", "REDIR"
+// 	};
 
-	if (type >= 0 && type <= 3)
-		return (token_types[type]);
-	return ("UNKNOWN_TYPE");
-}
+// 	if (type >= 0 && type <= 3)
+// 		return (token_types[type]);
+// 	return ("UNKNOWN_TYPE");
+// }
 
-static const char	*get_token_subtype_string(int subtype)
-{
-	static const char	*token_subtypes[] = {
-		"CMD", "ARG", "FILES", "DIR", "DELIM",
-		"APPEND", "HEREDOC", "REDIR_INPUT", "REDIR_OUTPUT",
-		"IS_PIPE", "IS_SEPARATOR", "UNKNOW_SUBTYPE"
-	};
+// static const char	*get_token_subtype_string(int subtype)
+// {
+// 	static const char	*token_subtypes[] = {
+// 		"CMD", "ARG", "FILES", "DIR", "DELIM",
+// 		"APPEND", "HEREDOC", "REDIR_INPUT", "REDIR_OUTPUT",
+// 		"IS_PIPE", "IS_SEPARATOR", "UNKNOW_SUBTYPE"
+// 	};
 
-	return (token_subtypes[subtype]);
-}
+// 	return (token_subtypes[subtype]);
+// }
 
-void	print_token(t_token *token)
-{
-	t_token	*current;
-	int		i;
+// void	print_token(t_token *token)
+// {
+// 	t_token	*current;
+// 	int		i;
 
-	i = 0;
-	current = token;
-	printf("\n");
-	while (current)
-	{
-		ft_dprintf(2, "Token n*: %d\n", i++);
-		ft_dprintf(2, "Type: %s\n",
-			get_token_type_string(current->type));
-		ft_dprintf(2, "Subtype: %s\n",
-			get_token_subtype_string(current->subtype));
-		ft_dprintf(2, "Value: %s\n\n", current->value);
-		current = current->next;
-	}
-}
+// 	i = 0;
+// 	current = token;
+// 	printf("\n");
+// 	while (current)
+// 	{
+// 		ft_dprintf(2, "Token n*: %d\n", i++);
+// 		ft_dprintf(2, "Type: %s\n",
+// 			get_token_type_string(current->type));
+// 		ft_dprintf(2, "Subtype: %s\n",
+// 			get_token_subtype_string(current->subtype));
+// 		ft_dprintf(2, "Value: %s\n\n", current->value);
+// 		current = current->next;
+// 	}
+// }

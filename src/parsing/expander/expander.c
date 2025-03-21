@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 14:01:13 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:30:41 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,20 @@ char	*expander(char *value, t_data *data)
 {
 	size_t	i;
 	char	*expanded;
-	bool	in_single;
+	bool	in_sngl;
 	bool	in_double;
 
 	i = 0;
 	expanded = ft_strdup("");
-	in_single = false;
+	in_sngl = false;
 	in_double = false;
 	while (expanded && value[i])
 	{
 		if (value[i] == '\'' && !in_double)
-			in_single = !in_single;
-		if (value[i] == '\"' && !in_single)
+			in_sngl = !in_sngl;
+		if (value[i] == '\"' && !in_sngl)
 			in_double = !in_double;
-		if (value[i] == '$' && value[i + 1]
-			&& !in_single && value[i + 1] != ' ')
+		if (value[i] == '$' && value[i + 1] && !in_sngl && value[i + 1] != ' ')
 		{
 			add_expanding(&expanded, value, &i, data);
 			continue ;

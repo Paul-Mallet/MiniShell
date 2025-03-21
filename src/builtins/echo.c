@@ -3,35 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paul_mallet <paul_mallet@student.42.fr>    +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 12:15:25 by paul_mallet      ###   ########.fr       */
+/*   Updated: 2025/03/21 17:12:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "builtins.h"
 
-bool check_large_n(char *n)
+bool	check_large_n(char *n)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!n || n[i] != '-')
-		return false;
+		return (false);
 	i++;
 	if (n[i] == '\0')
-		return false;
+		return (false);
 	while (n[i])
 	{
 		if (n[i] != 'n')
-			return false;
+			return (false);
 		i++;
 	}
-	return true;
+	return (true);
 }
-
 
 void	ft_echo(t_data *data, char **cmds)
 {
@@ -54,10 +53,10 @@ void	ft_echo(t_data *data, char **cmds)
 			i++;
 		}
 		else
-			break;
+			break ;
 	}
 	if (ft_echo_next(data, cmds, i, arg_n))
-		return;
+		return ;
 }
 
 int	contains_exclam(char *cmd)
@@ -80,7 +79,7 @@ int	contains_exclam(char *cmd)
 
 int	ft_echo_next(t_data *data, char **cmd, int i, bool arg_n)
 {
-	while(cmd[i])
+	while (cmd[i])
 	{
 		if (contains_exclam(cmd[i]))
 		{
@@ -99,6 +98,6 @@ int	ft_echo_next(t_data *data, char **cmd, int i, bool arg_n)
 	}
 	if (!arg_n)
 		printf("\n");
-	data->exit_code = 0;	//always true
+	data->exit_code = 0;
 	return (1);
 }

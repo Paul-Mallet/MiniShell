@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 11:15:15 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/18 14:24:05 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:33:31 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ void	init_redirs(t_token *tokens, t_cmd *new_cmd)
 
 	head = NULL;
 	current = tokens;
-	while(current && current->subtype != IS_PIPE)
+	while (current && current->subtype != IS_PIPE)
 	{
-        if (current->type == REDIR)
+		if (current->type == REDIR)
 		{
-		    new = new_redir();
+			new = new_redir();
 			if (!new)
 				return ;
 			fill_redir(current, new);
@@ -103,7 +103,7 @@ void	free_redir(t_redir **redirs)
 	t_redir	*next;
 
 	if (!redirs || !*redirs)
-		return;
+		return ;
 	current = *redirs;
 	while (current)
 	{

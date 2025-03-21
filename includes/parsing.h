@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 08:43:05 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 17:10:43 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:23:32 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 # include "./minishell.h"
 # include "./executing.h"
 
-typedef struct	s_valid_quotes
+typedef struct s_valid_quotes
 {
 	int	sgle_cnt;
-	int dble_cnt;
+	int	dble_cnt;
 	int	is_in_sgle;
 	int	is_in_dble;
 }		t_valid_quotes;
@@ -45,15 +45,15 @@ void	token_add_back(t_token **lst, t_token *new);
 t_token	*first_tokenization(char *input);
 void	subtyping_tokens(t_data *data);
 void	print_token(t_token *token);
-void 	free_tokens(t_token **tokens);
+void	free_tokens(t_token **tokens);
 void	handle_token_word(t_token *current);
-void 	handle_token_redir(t_token *token);
+void	handle_token_redir(t_token *token);
 
 t_token	*handle_word(char **input);
-t_token *handle_double_quotes(char **input);
+t_token	*handle_double_quotes(char **input);
 t_token	*handle_pipe(char **input);
 t_token	*handle_redirection(char **input);
-t_token *handle_single_quotes(char **input);
+t_token	*handle_single_quotes(char **input);
 
 char	*extract_word(char *str, size_t len);
 
@@ -62,8 +62,6 @@ size_t	get_double_quotes_length(char *str);
 size_t	get_single_quotes_length(char *str);
 
 int		is_executable(t_data *data, char *cmd);
-bool	is_pipe(char c);
-bool	is_redirection(char c);
 int		is_dir(char *value);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 10:43:45 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:09:19 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ void	set_env_values(t_env *new, char *entry, char *sep)
 t_env	*new_env_node(char *entry)
 {
 	t_env	*new;
-	char	*sep = NULL;
+	char	*sep;
 
+	*sep = NULL;
 	if (!entry)
 		return (NULL);
 	if (check_if_value(entry))
@@ -50,7 +51,6 @@ t_env	*new_env_node(char *entry)
 	}
 	return (new);
 }
-
 
 void	env_add_back(t_env **env, t_env *new)
 {
@@ -73,13 +73,13 @@ t_env	*import_env(char **env)
 {
 	t_env	*head;
 	t_env	*new;
-	int		i; 
+	int		i;
 
 	if (!env)
 		return (NULL);
 	head = new_env_node(env[0]);
 	if (!head)
-		return (NULL) ;
+		return (NULL);
 	i = 1;
 	while (env[i])
 	{
@@ -108,9 +108,7 @@ void	free_env(t_env **env)
 	while (current != NULL)
 	{
 		next = current->next;
-		// if (current->key)
 		free(current->key);
-		// if (current->value)
 		free(current->value);
 		free(current);
 		current = next;

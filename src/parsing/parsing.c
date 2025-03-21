@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:17:36 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/21 15:08:25 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:31:51 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,57 +82,6 @@ static bool	check_whitespace(t_token *tokens)
 		current = current->next;
 	}
 	return (false);
-}
-
-bool	check_token_syntax_1(t_token *current)
-{
-	if (!current->next && current->type != WORD)
-	{
-		printf("minishell: syntax error near unexpected token `%s'\n",
-		current->value);
-		return (false);
-	}
-	if (current->type == REDIR && current->next
-		&& current->next->type != WORD && current->next->type != SEPARATOR)
-	{
-		printf("minishell: syntax error near unexpected token `newline'\n");
-		return (false);
-	}
-	return (true);
-}
-
-bool	check_token_syntax_2(t_token *current)
-{
-	if (ft_strcmp(current->value, "\\") == 0
-		|| ft_strcmp(current->value, ";") == 0)
-	{
-		printf("minishell: '%s': not interpreted special chars\n",current->value);
-		return (false);
-	}
-	if ((current->type == PIPE && current->next && current->next->type == PIPE)
-		|| (current->type == PIPE && current->next->next
-		&& current->next->next->type == PIPE))
-	{
-		printf("minishell: syntax error near unexpected token `||'\n");
-		return (false);
-	}
-	return (true);
-}
-
-bool	check_tokens(t_data *data)
-{
-	t_token	*current;
-
-	current = data->tokens;
-	while (current)
-	{
-		if (!check_token_syntax_1(current))
-			return (false);
-		if (!check_token_syntax_2(current))
-			return (false);
-		current = current->next;
-	}
-	return (true);
 }
 
 bool	ft_parsing(char *value, t_data *data)

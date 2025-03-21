@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:28:40 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/17 18:37:09 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:25:32 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ t_token	*process_token(char **input)
 		new = new_token(SEPARATOR, UNKNOW_SUBTYPE, ft_strdup(" "));
 		(*input)++;
 	}
-	else if (is_redirection(**input))
+	else if (**input == '<' || **input == '>')
 		new = handle_redirection(input);
-	else if (is_pipe(**input))
+	else if (**input == '|')
 		new = handle_pipe(input);
 	else
 		new = handle_word(input);

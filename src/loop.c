@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:59:59 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/21 14:50:10 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:15:33 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ctrl_d_exit(t_data *data)
 {
 	ft_exit(data, NULL);
 }
-//	"|", "||", some | | thing -> error
+
 void	loop_minishell(t_data *data, char **envp)
 {
 	data->input = NULL;
@@ -45,7 +45,7 @@ void	loop_minishell(t_data *data, char **envp)
 		{
 			data->exit_code = g_exit_code;
 			g_exit_code = 0;
-		}	
+		}
 		if (data->input == NULL)
 			ctrl_d_exit(data);
 		if (!ft_lexer(data))
@@ -53,10 +53,8 @@ void	loop_minishell(t_data *data, char **envp)
 		add_history(data->input);
 		if (!ft_parsing(data->input, data))
 			continue ;
-		// print_token(data->tokens);
 		if (!init_cmd_struct(data))
 			continue ;
-		// print_cmd_struct(data->cmds);
 		exec(data);
 		free_processing(data);
 	}

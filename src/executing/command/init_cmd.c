@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 09:35:43 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:38:37 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@
 
 static unsigned int	cmds_len(t_token *tokens)
 {
-	t_token	*curr;
+	t_token	*current;
 	int		i;
 
 	i = 0;
-	curr = tokens;
-	while (curr)									//while in sub-function
+	current = tokens;
+	while (current)
 	{
-		if (curr->subtype == ARG)
+		if (current->subtype == ARG)
 			i++;
-		if (curr->type == PIPE)
+		if (current->type == PIPE)
 			break ;
-		curr = curr->next;
+		current = current->next;
 	}
 	return (i);
 }
 
 static char	**build_cmds(t_token *tokens)	//cmds, malloc inside
 {
-	t_token	*curr;
+	t_token	*current;
 	char	**cmds;
 	int		i;
 
@@ -42,14 +42,14 @@ static char	**build_cmds(t_token *tokens)	//cmds, malloc inside
 	if (!cmds)
 		return (NULL);
 	i = 0;
-	curr = tokens;
-	while (curr)
+	current = tokens;
+	while (current)
 	{
-		if (curr->subtype == ARG)
-			cmds[i++] = ft_strdup(curr->value);
-		if (curr->type == PIPE)
+		if (current->subtype == ARG)
+			cmds[i++] = ft_strdup(current->value);
+		if (current->type == PIPE)
 			break ;
-		curr = curr->next;
+		current = current->next;
 	}
 	cmds[i] = NULL;
 	return (cmds);
@@ -69,41 +69,22 @@ t_token	*to_pipe_or_last_token(t_token *tokens)
 	return (current);
 }
 
-void	free_prompt(char **prompt_cmd)
-{
-	int	i;
-
-	i = -1;
-	while (prompt_cmd[++i])
-		free(prompt_cmd[i]);
-	free(prompt_cmd);
-}
-
-void	print_cmd(char **cmds)
-{
-	int	i;
-
-	i = -1;
-	while (cmds[++i])
-		ft_dprintf(2, "cmd[%d]: %s\n", i, cmds[i]);
-}
-
 bool	init_cmd_struct(t_data *data)
 {
 	t_cmd	*head;
 	t_cmd	*new;
-	t_token	*curr;
+	t_token	*current;
 
 	head = NULL;
 	new = NULL;
-	curr = data->tokens;
-	while(curr)
+	current = data->tokens;
+	while (current)
 	{
-		new = new_cmd(build_cmds(curr));
+		new = new_cmd(build_cmds(current));
 		cmd_struct_add_back(&head, new);
-		init_redirs(curr, new);
-		curr = to_pipe_or_last_token(curr);
-		curr = curr->next;
+		init_redirs(current, new);
+		current = to_pipe_or_last_token(current);
+		current = current->next;
 	}
 	if (!head)
 		return (free_processing(data), false);

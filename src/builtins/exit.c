@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:10 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 17:25:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:11:01 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_numeric_arg(char *cmd)
 		{
 			printf("minishell: exit: %s: numeric argument required\n", cmd);
 			return (0);
-		} 
+		}
 	}
 	return (1);
 }

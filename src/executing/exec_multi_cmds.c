@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:33:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 15:52:53 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:00:08 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	init_id_cmds(t_cmd *cmds)
 {
 	t_cmd	*current;
-	int	i;
+	int		i;
 
 	current = cmds;
 	i = 0;
@@ -63,13 +63,10 @@ void	exec_multiple_cmds(t_data *data, int nb_cmd)
 	data->pids = (int *)malloc(sizeof(int) * nb_cmd);
 	while (current)
 	{
-		if (current->next)
+		if (current->next && pipe(current->fd) == -1)
 		{
-			if (pipe(current->fd) == -1)
-			{
-				perror("pipe");
-				return ;
-			}
+			perror("pipe");
+			return ;
 		}
 		if (current->id == 0)
 			exec_command(current, data, FIRST_CMD, &i);

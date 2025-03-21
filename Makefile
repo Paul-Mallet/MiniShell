@@ -66,6 +66,7 @@ SRCS_PARSING = $(addprefix $(SRC_DIR)$(SRC_PARSING), \
 SRCS_SIGNALS = $(addprefix $(SRC_DIR)$(SRC_SIGNALS), \
 	signals.c)
 SRCS_ENV = $(addprefix $(SRC_DIR)$(SRC_ENV), \
+	char_env.c \
 	get_env.c)
 
 OBJS = $(SRCS:%.c=$(OBJ_DIR)%.o)

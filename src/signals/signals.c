@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:15:06 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 13:51:11 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:18:36 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "signals.h"
 
 volatile sig_atomic_t	g_exit_code = 0;
+
 /*
 	/bin/kill
 	int kill(pid_t pid, int sig); return (0); on success

@@ -3,25 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:38:47 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 14:03:56 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:27:32 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parsing.h"
-
-bool	is_redirection(char c)
-{
-	return (c == '<' || c == '>');
-}
-
-bool	is_pipe(char c)
-{
-	return (c == '|');
-}
 
 size_t	get_word_length(char *str)
 {
@@ -30,7 +20,7 @@ size_t	get_word_length(char *str)
 	len = 0;
 	while (str[len] && str[len] != ' '
 		&& str[len] != '\'' && str[len] != '\"'
-		&& !is_redirection(str[len]) && !is_pipe(str[len]))
+		&& (str[len] != '<' || str[len] != '>') && str[len] != '|')
 		len++;
 	return (len);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:57 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 20:39:03 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:10:10 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,28 @@ void	ft_unset(t_data *data, char **cmd)
 		unset_env_var(data, cmd[i]);
 	data->exit_code = 0;
 }
+
 void	unset_env_var(t_data *data, char *key)
 {
-	t_env	*curr;
+	t_env	*current;
 	t_env	*prev;
 
-	curr = data->env;
+	current = data->env;
 	prev = NULL;
-	while (curr)
-	{ 
-		if (ft_strcmp(curr->key, key) == 0)
+	while (current)
+	{
+		if (ft_strcmp(current->key, key) == 0)
 		{
 			if (prev)
-				prev->next = curr->next;
+				prev->next = current->next;
 			else
-				curr = curr->next;
-			free(curr->key);
-			free(curr->value);
-			free(curr);
+				current = current->next;
+			free(current->key);
+			free(current->value);
+			free(current);
 			return ;
 		}
-		prev = curr;
-		curr = curr->next;
+		prev = current;
+		current = current->next;
 	}
 }

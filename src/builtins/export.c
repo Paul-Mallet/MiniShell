@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 04:12:11 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:10:31 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ bool	check_key_fmt(char *value)
 		if (value[i] == '=')
 		{
 			has_equal = true;
-			break;
+			break ;
 		}
 		else if (!ft_isalnum(value[i]) && value[i] != '_')
 		{
@@ -95,7 +95,7 @@ bool	check_if_value(char *value)
 	int	i;
 
 	i = 0;
-	while(value[i])
+	while (value[i])
 	{
 		if (value[i] == '=' && value[i + 1])
 			return (true);

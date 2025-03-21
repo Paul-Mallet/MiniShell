@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:24:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/21 14:52:42 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:39:21 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_dir(char *path)
 		free(msg);
 		return (-1);
 	}
-	if (S_ISDIR(file_infos.st_mode))	
+	if (S_ISDIR(file_infos.st_mode))
 		return (1);
 	return (0);
 }
@@ -85,5 +85,5 @@ char	*check_path(t_data *data, char *cmd)
 			return (cmd);
 		return (NULL);
 	}
-	return (find_path(data, path_var, cmd)); //!
+	return (find_path(data, path_var, cmd));
 }

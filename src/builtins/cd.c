@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:36 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 16:21:32 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:13:20 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*go_to_home(t_env *env)
 	home = NULL;
 	curr = env;
 	while (curr)
-	{ 
+	{
 		if (ft_strcmp(curr->key, "HOME") == 0)
 		{
 			home = ft_strdup(curr->value);
@@ -39,7 +39,7 @@ void	handle_oldpwd(t_env *env)
 
 	curr = env;
 	while (curr)
-	{ 
+	{
 		if (ft_strcmp(curr->key, "OLDPWD") == 0)
 		{
 			free(curr->value);
@@ -57,7 +57,7 @@ void	handle_pwd(t_env *env)
 
 	curr = env;
 	while (curr)
-	{ 
+	{
 		if (ft_strcmp(curr->key, "PWD") == 0)
 		{
 			free(curr->value);

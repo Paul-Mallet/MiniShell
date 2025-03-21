@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lsts_cmd.c                                          :+:      :+:    :+:   */
+/*   lst_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/22 18:44:07 by abarahho          #+#    #+#             */
-/*   Updated: 2025/02/23 14:07:41 by abarahho         ###   ########.fr       */
+/*   Created: 2025/03/21 16:34:21 by abarahho          #+#    #+#             */
+/*   Updated: 2025/03/21 16:34:37 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_cmd	*new_cmd(char **cmds)
 	new = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!new)
 		return (NULL);
-	new->cmd = cmds; //ft_strdup(cmds); free();
+	new->cmd = cmds;
 	new->redir = NULL;
 	new->prev = NULL;
 	new->next = NULL;

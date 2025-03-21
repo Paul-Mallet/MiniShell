@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 11:58:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:40:10 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,11 @@ bool	write_heredoc(t_redir *redir)
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	
 	while (1)
 	{
 		line = readline(">");
 		if (!line)
-			break;
+			break ;
 		if (ft_strcmp(line, redir->delimiter) == 0)
 		{
 			free(line);
@@ -78,9 +77,7 @@ bool	write_heredoc(t_redir *redir)
 		write(redir->fd, "\n", 1);
 		free(line);
 	}
-	printf("%s closing fd in hd managing : %d\n\n", redir->file, redir->fd);
 	close(redir->fd);
-	printf("%s is closed fd in hd managing : %d\n\n", redir->file, redir->fd);
 	return (true);
 }
 
@@ -108,7 +105,6 @@ void	heredoc_filename(t_redir *redir)
 	}
 	free(redir->file);
 	redir->file = ft_strdup(hd_file);
-	printf("%s is opened fd : %d\n\n", redir->file, redir->fd);
 	free(hd_file);
 	free(num);
 }

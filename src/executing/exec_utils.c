@@ -1,14 +1,14 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   exec.utils.c                                       :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2025/02/23 15:25:23 by abarahho          #+#    #+#             */
-// /*   Updated: 2025/02/27 18:32:02 by abarahho         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/21 16:54:30 by abarahho          #+#    #+#             */
+/*   Updated: 2025/03/21 16:55:22 by abarahho         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 #include "executing.h"
@@ -16,7 +16,7 @@
 int	count_cmds(t_cmd *cmds)
 {
 	t_cmd	*current;
-	int	i;
+	int		i;
 
 	current = cmds;
 	i = 0;
@@ -26,48 +26,6 @@ int	count_cmds(t_cmd *cmds)
 		current = current->next;
 	}
 	return (i);
-}
-
-static char	**malloc_char_env(t_env *env)
-{
-	t_env	*current;
-	char	**char_env;
-	int		i;
-
-	current = env;
-	i = 0;
-	while(current)
-	{
-		i++;
-		current = current->next;
-	}
-	char_env = (char **)malloc(sizeof(char *) * (i + 1));
-	return (char_env);
-}
-
-char	**make_env(t_env *env)
-{
-	t_env	*current;
-	char	**char_env;
-	char	*tmp;
-	int		i;
-
-	char_env = malloc_char_env(env);
-	if (!char_env)
-		return (NULL);
-	tmp = NULL;
-	i = 0;
-	current = env;
-	while (current)
-	{
-		tmp = ft_strjoin(current->key, "=");
-		char_env[i] = ft_strjoin(tmp, current->value);
-		free(tmp);
-		i++;
-		current = current->next;
-	}
-	char_env[i] = NULL;
-	return (char_env);
 }
 
 bool	is_builtins(char *cmd)
@@ -105,8 +63,6 @@ void	close_all_pipes(t_cmd *cmd)
 
 void	close_pipes(t_cmd *cmd)
 {
-	// if (cmd->fd[0] >= 0)
-		close(cmd->fd[0]);
-	// if (cmd->fd[1] >= 0)
-		close(cmd->fd[1]);
+	close(cmd->fd[0]);
+	close(cmd->fd[1]);
 }

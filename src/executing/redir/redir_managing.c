@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 16:44:07 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:32:34 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,12 @@ bool	check_if_is_last_out(t_redir *redir, t_cmd *cmd)
 	return (redir == last_output);
 }
 
-
 void	check_redir(t_cmd *cmds, t_data *data)
 {
 	t_redir	*current;
 	bool	is_last_in;
 	bool	is_last_out;
-	
+
 	if (!cmds->redir)
 		return ;
 	current = cmds->redir;

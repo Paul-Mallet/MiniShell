@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 14:14:55 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:16:59 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ bool	init_cmd_struct(t_data *data);
 void	cmd_struct_add_back(t_cmd **cmds, t_cmd *new);
 t_cmd	*new_cmd(char **cmds);
 char	**malloc_cmd(t_token *tokens);
-// char	**build_cmd(t_token	*tokens);
 void	init_id_cmds(t_cmd *cmds);
 void	print_cmds(char **cmds);
-void 	print_cmd_struct(t_cmd *cmd);
-void 	free_cmd_struct(t_cmd **cmds);
+void	print_cmd_struct(t_cmd *cmd);
+void	free_cmd_struct(t_cmd **cmds);
 
 /*
 	t_redir
@@ -70,7 +69,6 @@ void	redir_output(t_redir *redir, bool last_cmd, t_data *data);
 void	redir_append(t_redir *redir, bool last_cmd, t_data *data);
 void	redir_heredoc(t_redir *redir, bool last_cmd);
 
-
 bool	write_heredoc(t_redir *redir);
 void	heredoc_managing(t_data *data);
 
@@ -86,7 +84,8 @@ bool	is_builtins(char *cmd);
 
 void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i);
 void	exec_simple_cmd(t_data *data);
-void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr);
+void	executing_command(t_cmd *cmds, char *path, t_data *data,
+			t_cmd_order nbr);
 void	executing_simple_cmd(t_data *data);
 
 void	free_exec(t_data *data);

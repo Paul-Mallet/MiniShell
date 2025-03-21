@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 15:47:56 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:54:02 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,37 @@
 #include "executing.h"
 #include "signals.h"
 
-static void    setup_pipes(t_cmd *cmds, t_cmd_order nbr)
+static void	setup_pipes(t_cmd *cmds, t_cmd_order nbr)
 {
-    if (nbr == FIRST_CMD)
-    {
-        if (!cmds->has_output)
-            dup2(cmds->fd[1], STDOUT_FILENO);
-        close(cmds->fd[0]);
-        close(cmds->fd[1]);
-    }
-    else if (nbr == MID_CMD)
-    {
-        if (!cmds->has_input)
-            dup2(cmds->prev->fd[0], STDIN_FILENO);
-        if (!cmds->has_output)
-            dup2(cmds->fd[1], STDOUT_FILENO);
-        close(cmds->prev->fd[1]);
-        close(cmds->prev->fd[0]);
-        close(cmds->fd[1]);
-        close(cmds->fd[0]);
-    }
-    else if (nbr == LAST_CMD)
-    {
-        if (!cmds->has_input)
-            dup2(cmds->prev->fd[0], STDIN_FILENO);
-        close(cmds->prev->fd[0]);
-        close(cmds->prev->fd[1]);
-    }
+	if (nbr == FIRST_CMD)
+	{
+		if (!cmds->has_output)
+			dup2(cmds->fd[1], STDOUT_FILENO);
+		close(cmds->fd[0]);
+		close(cmds->fd[1]);
+	}
+	else if (nbr == MID_CMD)
+	{
+		if (!cmds->has_input)
+			dup2(cmds->prev->fd[0], STDIN_FILENO);
+		if (!cmds->has_output)
+			dup2(cmds->fd[1], STDOUT_FILENO);
+		close(cmds->prev->fd[1]);
+		close(cmds->prev->fd[0]);
+		close(cmds->fd[1]);
+		close(cmds->fd[0]);
+	}
+	else if (nbr == LAST_CMD)
+	{
+		if (!cmds->has_input)
+			dup2(cmds->prev->fd[0], STDIN_FILENO);
+		close(cmds->prev->fd[0]);
+		close(cmds->prev->fd[1]);
+	}
 }
 
-void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr)
+void	executing_command(t_cmd *cmds, char *path,
+			t_data *data, t_cmd_order nbr)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -66,7 +67,6 @@ void	executing_command(t_cmd *cmds, char *path, t_data *data, t_cmd_order nbr)
 	free_data(data);
 	exit(EXIT_FAILURE);
 }
-
 
 void	executing_simple_cmd(t_data *data)
 {

@@ -1,12 +1,12 @@
- /* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/06 17:34:19 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:22:28 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef enum e_error_code
 	SYNTAX_ERROR_NEAR_TOKEN
 }				t_error_code;
 
-typedef enum	e_token_first
+typedef enum e_token_first
 {
 	WORD,
 	SEPARATOR,
@@ -60,7 +60,7 @@ typedef enum	e_token_first
 	REDIR
 }		t_token_first;
 
-typedef enum	e_token_scnd
+typedef enum e_token_scnd
 {
 	CMD,
 	ARG,
@@ -76,7 +76,7 @@ typedef enum	e_token_scnd
 	UNKNOW_SUBTYPE,
 }		t_token_scnd;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	t_token_first	type;
 	t_token_scnd	subtype;
@@ -85,7 +85,7 @@ typedef struct	s_token
 	struct s_token	*next;
 }		t_token;
 
-typedef struct	s_env
+typedef struct s_env
 {
 	char			*key;
 	char			*value;
@@ -99,10 +99,10 @@ typedef struct s_cmd
 {
 	struct s_cmd	*prev;
 	struct s_cmd	*next;
-	int				fd[2];   // Pipe entre commandes 
-	char			**cmd;  //OK build_cmd
+	int				fd[2];
+	char			**cmd;
 	struct s_redir	*redir;
-	int				id;  // Gestion de "<", "<<", ">" et ">>"
+	int				id;
 	bool			has_input;
 	bool			has_output;
 }		t_cmd;
@@ -112,21 +112,21 @@ typedef struct s_cmd
 	type, <<, >>, <, > (token)
 	file, files concerned by redir
 */
-typedef struct 	s_redir
+typedef struct s_redir
 {
 	struct s_redir	*prev;
 	struct s_redir	*next;
-	char    *file;      // Nom du fichier (NULL si pas de redirection)
-	int     fd;         // Descripteur du fichier (-1 si pas ouvert)
-	char	*value;
-	bool	in_redir;
-	bool	out_redir;
-	bool    append;
-	bool    heredoc;
-	char    *delimiter; // Delimiteur pour heredoc (NULL si pas de heredoc)
+	char			*file;
+	int				fd;
+	char			*value;
+	bool			in_redir;
+	bool			out_redir;
+	bool			append;
+	bool			heredoc;
+	char			*delimiter;
 }		t_redir;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	t_cmd			*cmds;
 	t_env			*env;
@@ -141,15 +141,13 @@ typedef struct	s_data
 
 void	init_data(t_data *data);
 void	loop_minishell(t_data *data, char **envp);
-int		error_handling(char *msg);
 void	free_data(t_data *data);
 void	free_processing(t_data *data);
 void	free_parsing(t_data *data);
-void	free_exit(t_data *data);
 void	free_simple_cmd(t_data *data);
 void	free_strs(char **paths);
 bool	check_tokens(t_data *data);
-char 	*expander(char *value, t_data *data);
+char	*expander(char *value, t_data *data);
 
 /*
 	expander
