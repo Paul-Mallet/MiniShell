@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 13:54:11 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 16:43:43 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 12:00:37 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,16 @@ void	redir_append(t_redir *redir, bool is_last_out, t_data *data)
 
 void	redir_heredoc(t_redir *redir, bool is_last_in)
 {
-	
+	redir->fd = open(redir->file, O_RDONLY);
+	if (redir->fd < 0)
+	{
+		perror("Invalid file descriptor before dup2");
+		return;
+	}
+	printf("duplicating %s & fd : %d\n\n", redir->file, redir->fd);
 	if (is_last_in)
 	{
+		printf("id_last in\n");
 		close(STDIN_FILENO);
 		if (dup2(redir->fd, STDIN_FILENO) == -1)
 		{
@@ -96,7 +103,7 @@ void	redir_heredoc(t_redir *redir, bool is_last_in)
 			return ;
 		}
 	}
-	printf("closing %s & fd : %d\n\n", redir->file, redir->fd);
+	printf("closed %s & fd : %d\n\n", redir->file, redir->fd);
 	close(redir->fd);
 	unlink(redir->file);
 }

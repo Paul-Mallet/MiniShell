@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 16:47:12 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:58:28 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ void	fork_heredoc(t_redir *redir, t_data *data)
 		free_data(data);
 		exit(EXIT_SUCCESS);
 	}
-	waitpid(pid, &status, 0);
 	close(redir->fd);
-	if (WIFSIGNALED(status))
-		unlink(redir->file);
+	waitpid(pid, &status, 0);
 }
 
 bool	write_heredoc(t_redir *redir)
@@ -94,7 +92,7 @@ void	heredoc_filename(t_redir *redir)
 
 	i++;
 	num = ft_itoa(i);
-	hd_file = join_lines("/tmp/heredoc_", num);
+	hd_file = ft_strjoin("/tmp/heredoc_", num);
 	if (!hd_file)
 	{
 		free(num);
@@ -103,6 +101,7 @@ void	heredoc_filename(t_redir *redir)
 	redir->fd = open(hd_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (redir->fd == -1)
 	{
+		printf("failed\n");
 		free(hd_file);
 		free(num);
 		heredoc_filename(redir);
