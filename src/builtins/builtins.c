@@ -49,5 +49,5 @@ void	ft_builtins(t_data *data, t_cmd *cmds, bool is_simple_cmd)
 	if (!ft_strcmp(cmds->cmd[0], "env"))
 		ft_env(data, cmds);
 	if (!ft_strcmp(cmds->cmd[0], "exit"))
-		ft_exit(data, cmds);
+		ft_exit(data, cmds, is_simple_cmd);
 }

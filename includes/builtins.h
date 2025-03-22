@@ -65,6 +65,6 @@ void	ft_export(t_data *data, char **cmd);
 /*
 	exit
 */
-void	ft_exit(t_data *data, t_cmd *cmd);
+void	ft_exit(t_data *data, t_cmd *cmd, bool is_simple_cmd);
 
 #endif

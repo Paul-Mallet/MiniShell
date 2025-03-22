@@ -45,20 +45,15 @@ char	*find_path(t_data *data, char **path_var, char *cmd)
 {
 	int		i;
 	char	*path;
-	int		found_path;
 
 	i = 0;
-	found_path = 0;
 	while (path_var[i])
 	{
 		path = construct_path(path_var[i], cmd);
 		if (path)
 		{
 			if (access(path, F_OK) == 0)
-			{
-				found_path = 1;
 				return (is_executable_path(data, path, path_var));
-			}
 			free(path);
 		}
 		i++;

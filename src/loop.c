@@ -31,7 +31,7 @@ void	init_data(t_data *data)
 
 void	ctrl_d_exit(t_data *data)
 {
-	ft_exit(data, NULL);
+	ft_exit(data, NULL, true);
 }
 
 void	loop_minishell(t_data *data, char **envp)
