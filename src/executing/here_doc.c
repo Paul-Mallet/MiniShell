@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/22 14:04:03 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:34:28 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "executing.h"
 #include "signals.h"
 
-void	check_heredoc(t_data *data)
+int	check_heredoc(t_data *data)
 {
 	t_cmd	*current_cmd;
 	t_redir	*current_redir;
@@ -28,15 +28,24 @@ void	check_heredoc(t_data *data)
 			if (current_redir->heredoc)
 			{
 				heredoc_filename(current_redir);
-				fork_heredoc(current_redir, data);
+				if (fork_heredoc(current_redir, data) != 0)
+					return (EXIT_FAILURE);
 			}
 			current_redir = current_redir->next;
 		}
 		current_cmd = current_cmd->next;
 	}
+	return (EXIT_SUCCESS);
 }
 
-void	fork_heredoc(t_redir *redir, t_data *data)
+void	child_sigint_handler(int sig)
+{
+	(void)sig;
+	g_exit_code = 130;
+	close(STDIN_FILENO);
+}
+
+int	fork_heredoc(t_redir *redir, t_data *data)
 {
 	pid_t	pid;
 	int		status;
@@ -45,7 +54,7 @@ void	fork_heredoc(t_redir *redir, t_data *data)
 	if (pid == -1)
 	{
 		perror("fork");
-		return ;
+		return (EXIT_FAILURE);
 	}
 	else if (pid == 0)
 	{
@@ -53,22 +62,28 @@ void	fork_heredoc(t_redir *redir, t_data *data)
 		free_data(data);
 		exit(EXIT_SUCCESS);
 	}
-	close(redir->fd);
-	waitpid(pid, &status, 0);
+	else
+	{
+		close(redir->fd);
+		waitpid(pid, &status, 0);
+		return (status);
+	}
 }
 
-//	heredoc ctrl+C -> quitte tout les heredocs meme pipe
-//	if (130) -> sortir readline + free_data + close fds << a
 bool	write_heredoc(t_redir *redir, t_data *data)
 {
 	char	*line;
-	
-	(void)data;
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+
+	signal(SIGINT, child_sigint_handler);
 	while (1)
 	{
 		line = readline(">");
+		if (g_exit_code == 130)
+		{
+			close(redir->fd);
+			free_data(data);
+			exit(EXIT_FAILURE);
+		}
 		if (!line)
 			break ;
 		if (ft_strcmp(line, redir->delimiter) == 0)

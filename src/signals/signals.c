@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:15:06 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/22 14:00:26 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:22:18 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,7 @@ void	signals_handler(void)
 {
 	struct sigaction	sa;
 
-	// if (ft_strcmp(where, "heredoc") == 0)
-		sa.sa_handler = &sigint_handler;
-	// else
-	// {
-		// sa.sa_handler = &sigint_handler;
-	// }
+	sa.sa_handler = &sigint_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);

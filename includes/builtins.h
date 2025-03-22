@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/22 13:44:16 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:09:25 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 /*
 	builtins conditions
 */
-void	ft_builtins(t_data *data, t_cmd *cmds);
+void	ft_builtins(t_data *data, t_cmd *cmds, bool is_simple_cmd);
 
 /*
 	echo

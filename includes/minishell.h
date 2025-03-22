@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:47:37 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/21 17:22:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:07:22 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ typedef struct s_data
 	char			*input;
 	char			**char_env;
 	int				exit_code;
+	int				stdin;
+	int				stdout;
 }		t_data;
 
 void	init_data(t_data *data);

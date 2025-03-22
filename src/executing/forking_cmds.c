@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 19:22:52 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:21:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@
 void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 {
 	pid_t	pid;
-	char	*path;
 
-	path = NULL;
 	pid = fork();
 	if (pid == -1)
 		perror("fork");
@@ -31,13 +29,7 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 			free_pids(data);
 			exit(1);
 		}
-		path = check_path(data, cmds->cmd[0]);
-		if (!path)
-		{
-			free_pids(data);
-			exit(data->exit_code);
-		}
-		executing_command(cmds, path, data, nbr);
+		executing_command(cmds, data, nbr);
 	}
 	data->pids[*i] = pid;
 	*i += 1;
@@ -58,8 +50,8 @@ void	exec_simple_cmd(t_data *data)
 {
 	pid_t	pid;
 
-	if (is_builtins(data->cmds->cmd[0]) && !data->cmds->redir)
-		ft_builtins(data, data->cmds);
+	if (is_builtins(data->cmds->cmd[0]))
+		ft_builtins(data, data->cmds, true);
 	else
 	{
 		pid = fork();

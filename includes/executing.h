@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:21:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/22 13:44:21 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 17:23:00 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	free_redir(t_redir **redirs);
 // void	free_redir(t_redir **redirs);
 
 int		count_cmds(t_cmd *cmds);
-void	check_heredoc(t_data *data);
+int		check_heredoc(t_data *data);
 void	heredoc_filename(t_redir *redir);
-void	fork_heredoc(t_redir *redir, t_data *data);
+int		fork_heredoc(t_redir *redir, t_data *data);
 
 /*
 	redir managing
@@ -79,13 +79,13 @@ void	exec(t_data *data);
 void	exec_multiple_cmds(t_data *data, int nb_cmd);
 char	**make_env(t_env *env);
 int		count_cmds(t_cmd *cmds);
-void	wait_all(t_data *data);
+void	setup_pipes(t_cmd *cmds, t_cmd_order nbr);
 bool	is_builtins(char *cmd);
+void	wait_all(t_data *data);
 
 void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i);
 void	exec_simple_cmd(t_data *data);
-void	executing_command(t_cmd *cmds, char *path, t_data *data,
-			t_cmd_order nbr);
+void	executing_command(t_cmd *cmds, t_data *data, t_cmd_order nbr);
 void	executing_simple_cmd(t_data *data);
 
 int		error_path(char **paths, char *prompt, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:10 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 19:30:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 16:12:55 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,15 @@ int	count_args(char **args)
 
 // opti ctr_exit_d with ft_exit
 // exit in child process + echo $? in parent must display return(%256)
-void	ft_exit(t_data *data, t_cmd *cmd)
+void	ft_exit(t_data *data, t_cmd *cmds)
 {
 	printf("\nexit\n");
-	if (data->cmds)
+	if (cmds)
 	{
-		if (data->cmds->cmd[1])
+		if (cmds->cmd[1])
 		{
-			if (check_numeric_arg(data->cmds->cmd[1]))
-				data->exit_code = ft_atoi(data->cmds->cmd[1]);
+			if (check_numeric_arg(cmds->cmd[1]))
+				data->exit_code = ft_atoi(cmds->cmd[1]);
 			else
 			{
 				data->exit_code = 2;
@@ -60,13 +60,14 @@ void	ft_exit(t_data *data, t_cmd *cmd)
 				exit((unsigned char)data->exit_code);
 			}
 		}
-		if (count_args(cmd->cmd) > 2 && check_numeric_arg(data->cmds->cmd[1]))
+		if (count_args(cmds->cmd) > 2 && check_numeric_arg(cmds->cmd[1]))
 		{
 			printf("minishell: exit: too many arguments\n");
 			data->exit_code = 1;
 			return ;
 		}
 	}
+	printf("exit: %d\n", data->exit_code);
 	free_data(data);
 	exit((unsigned char)data->exit_code % 256);
 }

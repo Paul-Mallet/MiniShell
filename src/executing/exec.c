@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 17:26:39 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 15:45:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 15:14:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	exec(t_data *data)
 {
 	int		nb_cmd;
 
-	check_heredoc(data);
+	if (check_heredoc(data) != 0)
+		return ;
 	nb_cmd = count_cmds(data->cmds);
 	if (nb_cmd == 1)
 		exec_simple_cmd(data);

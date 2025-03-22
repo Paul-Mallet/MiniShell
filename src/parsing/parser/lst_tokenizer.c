@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 11:38:28 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/22 11:53:36 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:28:52 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,28 +67,6 @@ void	free_tokens(t_token **tokens)
 	}
 	*tokens = NULL;
 }
-
-// static const char	*get_token_type_string(int type)
-// {
-// 	static const char	*token_types[] = {
-// 		"WORD", "SEPARATOR", "PIPE", "REDIR"
-// 	};
-
-// 	if (type >= 0 && type <= 3)
-// 		return (token_types[type]);
-// 	return ("UNKNOWN_TYPE");
-// }
-
-// static const char	*get_token_subtype_string(int subtype)
-// {
-// 	static const char	*token_subtypes[] = {
-// 		"CMD", "ARG", "FILES", "DIR", "DELIM",
-// 		"APPEND", "HEREDOC", "REDIR_INPUT", "REDIR_OUTPUT",
-// 		"IS_PIPE", "IS_SEPARATOR", "UNKNOW_SUBTYPE"
-// 	};
-
-// 	return (token_subtypes[subtype]);
-// }
 
 // void	print_token(t_token *token)
 // {
