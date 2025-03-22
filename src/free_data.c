@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 19:29:47 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 11:49:35 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	free_processing(t_data *data)
 		free_tokens(&data->tokens);
 	if (data->prompt)
 		free(data->prompt);
-	// if (data->input)
-	// 	free(data->input);
+	if (data->input)
+		free(data->input);
 	if (data->cmds)
 		free_cmd_struct(&data->cmds);
 }

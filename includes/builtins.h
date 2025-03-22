@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:43:19 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/21 17:16:18 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:44:16 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_cd(t_data *data, t_env *env, char *path);
 /*
 	pwd
 */
-void	ft_pwd(t_data *data);
+void	ft_pwd(t_data *data, t_cmd *cmds);
 
 /*
 	unset

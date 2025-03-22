@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 14:17:37 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 19:17:16 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 11:55:20 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ bool	init_cmd_struct(t_data *data)
 		current = to_pipe_or_last_token(current);
 		current = current->next;
 	}
-	// if (!head)
-	// 	return (free_processing(data), false);
 	data->cmds = head;
 	init_id_cmds(data->cmds);
 	return (true);

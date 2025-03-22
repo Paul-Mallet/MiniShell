@@ -6,12 +6,13 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 19:03:46 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 11:52:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "builtins.h"
+#include "parsing.h"
 
 bool	check_large_n(char *n)
 {
@@ -37,17 +38,11 @@ void	ft_echo(t_data *data, char **cmds)
 	bool	arg_n;
 	int		i;
 
-	i = 0;
+	i = 1;
 	arg_n = false;
-	i++;
-	while (cmds[i])
+	while (cmds[i] != NULL)
 	{
-		if (!ft_strcmp(cmds[i], "-n") && cmds[i][1] == 'n')
-		{
-			arg_n = true;
-			i++;
-		}
-		else if (check_large_n(cmds[i]))
+		if (!ft_strcmp(cmds[i], "-n") || check_large_n(cmds[i]))
 		{
 			arg_n = true;
 			i++;
@@ -77,24 +72,25 @@ int	contains_exclam(char *cmd)
 	return (0);
 }
 
-// echo "$"
 int	ft_echo_next(t_data *data, char **cmd, int i, bool arg_n)
 {
-	while (cmd[i])
+	while (cmd[i] != NULL)
 	{
 		if (contains_exclam(cmd[i]))
 		{
 			data->exit_code = 127;
 			return (0);
 		}
-		if (!ft_strcmp(cmd[i], "\0"))
+		if (cmd[i][0] == '\0')
 		{
 			printf(" ");
-			i++;
 		}
-		printf("%s", cmd[i]);
-		if (cmd[i + 1])
-			printf(" ");
+		else
+		{
+			printf("%s", cmd[i]);
+		}
+		if (cmd[i + 1] != NULL)
+			ft_printf(" ");
 		i++;
 	}
 	if (!arg_n)

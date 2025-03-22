@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 18:54:46 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:04:03 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	fork_heredoc(t_redir *redir, t_data *data)
 	}
 	else if (pid == 0)
 	{
-		write_heredoc(redir);
+		write_heredoc(redir, data);
 		free_data(data);
 		exit(EXIT_SUCCESS);
 	}
@@ -59,10 +59,11 @@ void	fork_heredoc(t_redir *redir, t_data *data)
 
 //	heredoc ctrl+C -> quitte tout les heredocs meme pipe
 //	if (130) -> sortir readline + free_data + close fds << a
-bool	write_heredoc(t_redir *redir)
+bool	write_heredoc(t_redir *redir, t_data *data)
 {
 	char	*line;
-
+	
+	(void)data;
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	while (1)

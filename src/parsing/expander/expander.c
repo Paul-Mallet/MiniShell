@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 16:30:41 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:10:21 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,23 @@ char	*expander(char *value, t_data *data)
 	bool	in_sngl;
 	bool	in_double;
 
-	i = 0;
+	i = -1;
 	expanded = ft_strdup("");
 	in_sngl = false;
 	in_double = false;
-	while (expanded && value[i])
+	while (expanded && value[++i])
 	{
 		if (value[i] == '\'' && !in_double)
 			in_sngl = !in_sngl;
 		if (value[i] == '\"' && !in_sngl)
 			in_double = !in_double;
-		if (value[i] == '$' && value[i + 1] && !in_sngl && value[i + 1] != ' ')
+		if (value[i] == '$' && !in_sngl
+			&& value[i + 1] && value[i + 1] != ' ' && value[i + 1] != '"')
 		{
 			add_expanding(&expanded, value, &i, data);
 			continue ;
 		}
 		add_index(&expanded, value[i]);
-		i++;
 	}
 	free(value);
 	return (expanded);

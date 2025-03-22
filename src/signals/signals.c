@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:15:06 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 17:18:36 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 14:00:26 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ volatile sig_atomic_t	g_exit_code = 0;
 		-> reload syst calls interupt by signal (read(), write())
 */
 
+// void	sigint_heredoc_handler(void)
+// {
+// 	printf("^C\n");
+// 	signal(SIGQUIT, SIG_DFT);
+// }
+
 void	sigint_handler(int sig)
 {
 	(void)sig;
@@ -77,7 +83,12 @@ void	signals_handler(void)
 {
 	struct sigaction	sa;
 
-	sa.sa_handler = &sigint_handler;
+	// if (ft_strcmp(where, "heredoc") == 0)
+		sa.sa_handler = &sigint_handler;
+	// else
+	// {
+		// sa.sa_handler = &sigint_handler;
+	// }
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa, NULL);

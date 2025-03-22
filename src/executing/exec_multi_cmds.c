@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 13:33:03 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 19:26:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/22 11:56:29 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,51 +29,28 @@ void	init_id_cmds(t_cmd *cmds)
 	}
 }
 
-// void	wait_all(t_data *data)
-// {
-// 	int		status;
-// 	int		pid;
-// 	int		i;
-// 	t_cmd	*current;
-
-// 	i = 0;
-// 	current = data->cmds;
-// 	while (current)
-// 	{
-// 		pid = waitpid(data->pids[i], &status, 0);
-// 		if (pid > 0)
-// 		{
-// 			if (WIFEXITED(status))
-// 				data->exit_code = WEXITSTATUS(status);
-// 			else if (WIFSIGNALED(status))
-// 				data->exit_code = 128 + WTERMSIG(status);
-// 		}
-// 		i++;
-// 		current = current->next;
-// 	}
-// }
-
-void wait_all(t_data *data)
+void	wait_all(t_data *data)
 {
-    int status;
-    int pid;
-    int i;
-    int nb_cmd;
+	int		status;
+	int		pid;
+	int		i;
+	t_cmd	*current;
 
-    nb_cmd = count_cmds(data->cmds);
-    i = 0;
-    while (i < nb_cmd)
-    {
-        pid = waitpid(data->pids[i], &status, 0);
-        if (pid > 0)
-        {
-            if (WIFEXITED(status))
-                data->exit_code = WEXITSTATUS(status);
-            else if (WIFSIGNALED(status))
-                data->exit_code = 128 + WTERMSIG(status);
-        }
-        i++;
-    }
+	i = 0;
+	current = data->cmds;
+	while (current)
+	{
+		pid = waitpid(data->pids[i], &status, 0);
+		if (pid > 0)
+		{
+			if (WIFEXITED(status))
+				data->exit_code = WEXITSTATUS(status);
+			else if (WIFSIGNALED(status))
+				data->exit_code = 128 + WTERMSIG(status);
+		}
+		i++;
+		current = current->next;
+	}
 }
 
 void	exec_multiple_cmds(t_data *data, int nb_cmd)
