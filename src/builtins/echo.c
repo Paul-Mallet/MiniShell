@@ -82,15 +82,11 @@ int	ft_echo_next(t_data *data, char **cmd, int i, bool arg_n)
 			return (0);
 		}
 		if (cmd[i][0] == '\0')
-		{
 			printf(" ");
-		}
 		else
-		{
 			printf("%s", cmd[i]);
-		}
 		if (cmd[i + 1] != NULL)
-			ft_printf(" ");
+			printf(" ");
 		i++;
 	}
 	if (!arg_n)
