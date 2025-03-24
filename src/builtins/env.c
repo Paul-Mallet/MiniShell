@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:49 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/19 17:15:58 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:52:18 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_env(t_data *data, t_cmd *cmds)
 {
 	if (cmds->cmd[1])
 	{
-		printf("minishell: env: arguments and options not allowed\n");
+		ft_dprintf(2, "minishell: env: arguments and options not allowed\n");
 		data->exit_code = 127;
 		return ;
 	}

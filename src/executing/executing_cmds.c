@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/22 17:22:22 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:50:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	executing_simple_cmd(t_data *data)
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	path = check_path(data, data->cmds->cmd[0]);
+	printf("check path");
 	if (!path)
 	{
 		free_data(data);

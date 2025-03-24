@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:24:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/21 18:23:42 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:53:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,31 @@
 int	is_dir(char *path)
 {
 	struct stat	file_infos;
-	char		*msg;
 
-	if (stat(path, &file_infos))
-	{
-		msg = ft_strjoin("minishell: ", path);
-		perror(msg);
-		free(msg);
-		return (-1);
-	}
+	if (stat(path, &file_infos) == -1)
+		return (0);
 	if (S_ISDIR(file_infos.st_mode))
+	{
+		ft_dprintf(2, "%s : is a directory\n", path);
 		return (1);
+	}
 	return (0);
 }
 
 int	is_executable(t_data *data, char *cmd)
 {
-	if (is_dir(cmd) == -1)
+	if (is_dir(cmd) == 1)
 	{
 		data->exit_code = 127;
 		return (0);
 	}
-	else if (access(cmd, F_OK) != 0)
+	if (access(cmd, F_OK) != 0)
 	{
 		perror("access");
 		data->exit_code = 127;
 		return (0);
 	}
-	else if (access(cmd, X_OK) != 0)
+	if (access(cmd, X_OK) != 0)
 	{
 		perror("access");
 		data->exit_code = 126;
@@ -67,11 +64,13 @@ char	**get_path_var(t_env *env)
 	return (NULL);
 }
 
-//./ls -> until execve() + probably free t_env -> ls after not working
 char	*check_path(t_data *data, char *cmd)
 {
 	char	**path_var;
 
+	if ((cmd[0] == '.' && !cmd[1])
+		|| (cmd[0] == '.' && cmd[1] == '.' && !cmd[2]))
+		return (ft_dprintf(2, "%s : command not found", cmd), NULL);
 	path_var = get_path_var(data->env);
 	if (!path_var)
 	{
@@ -81,17 +80,15 @@ char	*check_path(t_data *data, char *cmd)
 	}
 	if (ft_strchr(cmd, '/'))
 	{
-		free_strs(path_var);
 		if (is_executable(data, cmd))
-			return (cmd);
-		return (NULL);
+			return (free_strs(path_var), cmd);
+		return (free_strs(path_var), NULL);
 	}
 	if (ft_strlen(cmd) == 0)
 	{
-		free_strs(path_var);
-		printf("minishell: %s: command not found\n", cmd);
+		ft_dprintf(2, "minishell: %s: command not found\n", cmd);
 		data->exit_code = 127;
-		return (NULL);
+		return (free_strs(path_var), NULL);
 	}
 	return (find_path(data, path_var, cmd));
 }

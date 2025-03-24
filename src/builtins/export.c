@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:54 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 17:54:38 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:47:17 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	export_env_var(t_env **env, char *import)
 		{
 			free (current->value);
 			current->value = ft_strdup(ft_strchr(import, '=') + 1);
+			free(key);
 			return ;
 		}
 		else
@@ -71,7 +72,7 @@ bool	check_key_fmt(char *value)
 	has_equal = false;
 	if (!value || (!ft_isalpha(value[i]) && value[i] != '_'))
 	{
-		printf("export: `%s': not a valid identifier\n", value);
+		ft_dprintf(2, "export: `%s': not a valid identifier\n", value);
 		return (false);
 	}
 	while (value[i])
@@ -83,7 +84,7 @@ bool	check_key_fmt(char *value)
 		}
 		else if (!ft_isalnum(value[i]) && value[i] != '_')
 		{
-			printf("export: `%s': not a valid identifier\n", value);
+			ft_dprintf(2, "export: `%s': not a valid identifier\n", value);
 			return (false);
 		}
 		i++;

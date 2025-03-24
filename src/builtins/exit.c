@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:10 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/22 16:12:55 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:19:15 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	check_numeric_arg(char *cmd)
 	{
 		if (!ft_isdigit(cmd[i]))
 		{
-			printf("minishell: exit: %s: numeric argument required\n", cmd);
+			ft_dprintf(2, "minishell: exit: %s: numeric argument required\n",
+				cmd);
 			return (0);
 		}
 	}
@@ -42,11 +43,19 @@ int	count_args(char **args)
 	return (i);
 }
 
-// opti ctr_exit_d with ft_exit
-// exit in child process + echo $? in parent must display return(%256)
+void	exit_simple_cmd(t_data *data, bool is_simple_cmd)
+{
+	if (!is_simple_cmd)
+		free(data->pids);
+	data->exit_code = 2;
+	free_data(data);
+	exit((unsigned char)data->exit_code);
+}
+
 void	ft_exit(t_data *data, t_cmd *cmds, bool is_simple_cmd)
 {
-	printf("\nexit\n");
+	if (is_simple_cmd)
+		printf("exit\n");
 	if (cmds)
 	{
 		if (cmds->cmd[1])
@@ -54,17 +63,11 @@ void	ft_exit(t_data *data, t_cmd *cmds, bool is_simple_cmd)
 			if (check_numeric_arg(cmds->cmd[1]))
 				data->exit_code = ft_atoi(cmds->cmd[1]);
 			else
-			{
-				if (!is_simple_cmd)
-					free(data->pids);
-				data->exit_code = 2;
-				free_data(data);
-				exit((unsigned char)data->exit_code);
-			}
+				exit_simple_cmd(data, is_simple_cmd);
 		}
 		if (count_args(cmds->cmd) > 2 && check_numeric_arg(cmds->cmd[1]))
 		{
-			printf("minishell: exit: too many arguments\n");
+			ft_dprintf(2, "minishell: exit: too many arguments\n");
 			data->exit_code = 1;
 			return ;
 		}

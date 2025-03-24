@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:39:36 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 17:13:20 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:49:18 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_cd(t_data *data, t_env *env, char *path)
 		path = go_to_home(env);
 		if (!path)
 		{
-			printf("minishell: cd: HOME not set\n");
+			ft_dprintf(2, "minishell: cd: HOME not set\n");
 			data->exit_code = 1;
 			return ;
 		}

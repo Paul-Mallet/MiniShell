@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/22 11:30:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/22 15:49:53 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 13:56:33 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ char	*expander(char *value, t_data *data)
 			in_sngl = !in_sngl;
 		if (value[i] == '\"' && !in_sngl)
 			in_double = !in_double;
-		if (value[i] == '$' && !in_sngl
-			&& value[i + 1] && value[i + 1] != ' ' && value[i + 1] != '"')
+		if (value[i] == '$' && !in_sngl && value[i + 1] && value[i + 1] != ' '
+			&& value[i + 1] != '"' && value[i + 1] != '\'')
 		{
 			add_expanding(&expanded, value, &i, data);
 			continue ;

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_path.c                                         :+:      :+:    :+:   */
+/*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pamallet <pamallet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 14:12:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/20 17:25:14 by pamallet         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:46:09 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*is_executable_path(t_data *data, char *path, char **path_var)
 		free_strs(path_var);
 		return (path);
 	}
-	printf("minishell: %s: Permission denied\n", path);
+	ft_dprintf(2, "minishell: %s: Permission denied\n", path);
 	data->exit_code = 126;
 	free(path);
 	free_strs(path_var);
@@ -58,7 +58,7 @@ char	*find_path(t_data *data, char **path_var, char *cmd)
 		}
 		i++;
 	}
-	printf("minishell: %s: command not found\n", cmd);
+	ft_dprintf(2, "minishell: %s: command not found\n", cmd);
 	data->exit_code = 127;
 	free_strs(path_var);
 	return (NULL);

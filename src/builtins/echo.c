@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:40:44 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/22 11:52:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:49:06 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	contains_exclam(char *cmd)
 		if (cmd[i] == '!')
 		{
 			from_exclam = &cmd[i];
-			ft_printf("minishell: %s: event not found\n", from_exclam);
+			ft_dprintf(2, "minishell: %s: event not found\n", from_exclam);
 			return (1);
 		}
 	}

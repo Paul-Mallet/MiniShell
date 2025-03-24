@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/22 15:34:28 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 11:46:23 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void	heredoc_filename(t_redir *redir)
 	redir->fd = open(hd_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (redir->fd == -1)
 	{
-		printf("failed\n");
 		free(hd_file);
 		free(num);
 		heredoc_filename(redir);
