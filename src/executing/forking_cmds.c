@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/22 17:21:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 17:17:49 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		check_redir(cmds, data);
 		if (!cmds->cmd[0] || data->exit_code == 1)
 		{
+			setup_pipes(cmds, nbr);
 			free_pids(data);
 			exit(1);
 		}

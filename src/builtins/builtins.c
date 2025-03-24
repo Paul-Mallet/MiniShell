@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:46:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/22 17:01:52 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/24 16:18:25 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_builtins(t_data *data, t_cmd *cmds, bool is_simple_cmd)
 	if (!ft_strcmp(cmds->cmd[0], "cd"))
 		ft_cd(data, data->env, cmds->cmd[1]);
 	if (!ft_strcmp(cmds->cmd[0], "pwd"))
-		ft_pwd(data, cmds);
+		ft_pwd(data);
 	if (!ft_strcmp(cmds->cmd[0], "export"))
 		ft_export(data, cmds->cmd);
 	if (!ft_strcmp(cmds->cmd[0], "unset"))
