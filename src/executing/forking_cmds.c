@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:36:08 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/24 17:17:49 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:18:49 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	exec_command(t_cmd *cmds, t_data *data, t_cmd_order nbr, int *i)
 		perror("fork");
 	else if (pid == 0)
 	{
-		check_redir(cmds, data);
-		if (!cmds->cmd[0] || data->exit_code == 1)
+		if (!data->cmds->cmd[0] || !check_redir(cmds, data))
 		{
 			setup_pipes(cmds, nbr);
 			free_pids(data);
@@ -60,8 +59,7 @@ void	exec_simple_cmd(t_data *data)
 			perror("fork");
 		if (pid == 0)
 		{
-			check_redir(data->cmds, data);
-			if (!data->cmds->cmd[0] || data->exit_code == 1)
+			if (!data->cmds->cmd[0] || !check_redir(data->cmds, data))
 			{
 				free_data(data);
 				exit(1);

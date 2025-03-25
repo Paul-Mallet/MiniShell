@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:34:21 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 19:36:31 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:51:28 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	free_cmd_struct(t_cmd **cmds)
 	{
 		next = current->next;
 		free_strs(current->cmd);
+		current->cmd = NULL;
 		if (current->redir)
 			free_redir(&current->redir);
 		free(current);

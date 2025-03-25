@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 09:40:55 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 16:32:34 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:28:24 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,29 +51,30 @@ bool	check_if_is_last_out(t_redir *redir, t_cmd *cmd)
 	return (redir == last_output);
 }
 
-void	check_redir(t_cmd *cmds, t_data *data)
+bool	check_redir(t_cmd *cmds, t_data *data)
 {
 	t_redir	*current;
 	bool	is_last_in;
 	bool	is_last_out;
+	bool	check_is_valid;
 
-	if (!cmds->redir)
-		return ;
+	check_is_valid = true;
 	current = cmds->redir;
 	while (current)
 	{
 		is_last_in = check_if_is_last_in(current, cmds);
 		is_last_out = check_if_is_last_out(current, cmds);
 		if (current->in_redir)
-			redir_input(current, is_last_in, data);
+			check_is_valid = redir_input(current, is_last_in, data);
 		else if (current->out_redir)
-			redir_output(current, is_last_out, data);
+			check_is_valid = redir_output(current, is_last_out, data);
 		else if (current->append)
-			redir_append(current, is_last_out, data);
+			check_is_valid = redir_append(current, is_last_out, data);
 		else if (current->heredoc)
 			redir_heredoc(current, is_last_in);
-		if (data->exit_code == 1)
-			break ;
+		if (!check_is_valid)
+			return (check_is_valid);
 		current = current->next;
 	}
+	return (true);
 }

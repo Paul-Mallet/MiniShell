@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 10:37:38 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/24 11:46:23 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:26:19 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	fork_heredoc(t_redir *redir, t_data *data)
 	}
 	else if (pid == 0)
 	{
+		signal(SIGINT, child_sigint_handler);
 		write_heredoc(redir, data);
 		free_data(data);
 		exit(EXIT_SUCCESS);
@@ -74,12 +75,12 @@ bool	write_heredoc(t_redir *redir, t_data *data)
 {
 	char	*line;
 
-	signal(SIGINT, child_sigint_handler);
 	while (1)
 	{
 		line = readline(">");
 		if (g_exit_code == 130)
 		{
+			free(line);
 			close(redir->fd);
 			free_data(data);
 			exit(EXIT_FAILURE);
@@ -113,7 +114,7 @@ void	heredoc_filename(t_redir *redir)
 		free(num);
 		return ;
 	}
-	redir->fd = open(hd_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	redir->fd = open(hd_file, O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (redir->fd == -1)
 	{
 		free(hd_file);
@@ -122,6 +123,7 @@ void	heredoc_filename(t_redir *redir)
 	}
 	free(redir->file);
 	redir->file = ft_strdup(hd_file);
+	printf("FUNC FILENAME HERE_DOC :%s\n", redir->file);
 	free(hd_file);
 	free(num);
 }

@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 11:41:57 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/21 17:10:10 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:15:33 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,15 @@ void	unset_env_var(t_data *data, char *key)
 	t_env	*current;
 	t_env	*prev;
 
-	current = data->env;
+	if (data->env)
+		current = data->env;
+	else
+		return ;
 	prev = NULL;
 	while (current)
 	{
-		if (ft_strcmp(current->key, key) == 0)
+
+
 		{
 			if (prev)
 				prev->next = current->next;

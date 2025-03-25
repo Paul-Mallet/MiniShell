@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:24:29 by pamallet          #+#    #+#             */
-/*   Updated: 2025/03/24 13:53:48 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:11:59 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int	is_executable(t_data *data, char *cmd)
 	}
 	if (access(cmd, F_OK) != 0)
 	{
-		perror("access");
+		ft_dprintf(2, "%s : command not found\n", cmd);
 		data->exit_code = 127;
 		return (0);
 	}
 	if (access(cmd, X_OK) != 0)
 	{
-		perror("access");
+		ft_dprintf(2, "%s : Permission denied\n", cmd);
 		data->exit_code = 126;
 		return (0);
 	}

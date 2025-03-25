@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 11:56:53 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/24 17:17:00 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:49:48 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ void	free_strs(char **paths)
 		return ;
 	while (paths[i])
 	{
-		free(paths[i]);
+		if (paths[i])
+			free(paths[i]);
+		paths[i] = NULL;
 		i++;
 	}
 	free(paths);
+	paths = NULL;
 }
 
 void	free_pids(t_data *data)
