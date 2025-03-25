@@ -6,7 +6,7 @@
 /*   By: abarahho <abarahho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:24 by abarahho          #+#    #+#             */
-/*   Updated: 2025/03/25 13:19:13 by abarahho         ###   ########.fr       */
+/*   Updated: 2025/03/25 13:37:04 by abarahho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	executing_command(t_cmd *cmds, t_data *data, t_cmd_order nbr)
 	exit(EXIT_FAILURE);
 }
 
-void	executing_w2_cmd(t_data *data)
+void	executing_simple_cmd(t_data *data)
 {
 	char	*path;
 
